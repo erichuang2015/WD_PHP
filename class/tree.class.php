@@ -1,0 +1,233 @@
+<?php
+
+
+/**
+ * 分類樹
+ * MTsung by 20180625
+ */
+namespace MTsung{
+
+	class tree extends center{
+
+		function __construct($console,$table,$lang=''){
+			$this->isTree = true;
+			parent::__construct($console,$table,$lang);
+		}
+
+
+		/**
+		 * 取得資料
+		 * @param  string $whereSql [description]
+		 * @param  array  $sqlArray [description]
+		 * @return [type]           [description]
+		 */
+		function getData($whereSql='',$sqlArray=array()){
+			$temp = parent::getData($whereSql,$sqlArray);
+			if(strstr($whereSql,"status")){
+				return $this->arrange($temp);
+			}else{
+				return $temp;
+			}
+		}
+
+		/**
+		 * 分類樹的修改
+		 * @param [type] $data [description]
+		 */
+		function setData($data,$isSetAll=false,$checkArray=array(),$requiredArray=array()){
+			parent::setData($data,$isSetAll,$checkArray=array(),$requiredArray=array());
+			$temp = $this->message;
+			//排序
+			$this->sortTable();
+			$this->sortTree();
+			$this->message = $temp;
+			return true;
+		}
+
+		/**
+		 * 分類樹的列表頁存檔用
+		 * @param [type] $data [description]
+		 */
+		function setDataAll($data,$checkArray=array()){
+			$newData = array();
+			foreach ($data as $key=>$value) {
+				//分解取出id
+				$temp = explode("_",$key);
+				$dataID = $temp[count($temp)-1];
+				unset($temp[count($temp)-1]);
+				//重組
+				$dataKey = implode("_",$temp);
+				
+				array_push($newData, array("id" => $dataID, $dataKey => $value));
+			}
+			$isSet = false;//是否有修改
+			foreach ($newData as $key => $value) {
+				$isSet |= parent::setData($value,true,$checkArray);
+			}
+			if($isSet){
+				$this->sortTable();
+				$this->sortTree();
+				$this->message = $this->console->getMessage('EDIT_OK');
+			}else{
+				$this->message = $this->console->getMessage("DATA_NO_CHANGE");
+			}
+			return true;
+		}
+
+
+		/**
+		 * 分類樹的刪除資料 (所有子結點)
+		 * @param  [type] $parent id
+		 * @return [type]         [description]
+		 */
+		function rmData($parent){
+			$temp = array();
+			if(is_array($parent)){
+				foreach ($parent as $key => $value) {
+					$temp = $this->findChildren($value,$temp);
+					parent::rmData($value);
+				}
+			}
+			parent::rmData($temp);
+			$this->sortTable();
+			$this->sortTree();
+			$this->message = $this->console->getMessage('DELETE_OK');
+			return true;
+		}
+
+		/**
+		 * 取得資料 列表用
+		 * @param  string  $whereSql    while sql
+	 	 * @param  array   $searckKey   keyword搜尋的欄位名稱
+		 * @param  integer $per         每頁幾筆
+		 * @param  integer $pageViewMax 頁碼顯示N個
+		 * @return [type]               [description]
+		 */
+		function getListData($whereSql='',$searckKey=array("name"),$per=15,$pageViewMax=5){
+
+			if(isset($_GET["per"]) && is_numeric($_GET["per"]) && ($_GET["per"] > 0)){
+				$per = $_GET["per"];
+			}
+
+			$sql = "";
+			if(isset($_GET["searchKeyWord"])){
+				$sql = "where ";
+				if($_GET["searchKeyWord"]!=''){
+					$temp =  explode(" ",$_GET["searchKeyWord"]);
+					$sql .= " (";
+					foreach ($temp as $key => $value) {
+						if($value!=''){
+							foreach ($searckKey as $key1 => $value1) {
+								$sql .= " ".$value1." LIKE '%".$value."%' or";
+							}
+						}
+					}
+					$sql = substr($sql,0,-2);
+					$sql .= ")";
+				}else{
+					$sql .= " 1=1 ";
+				}
+				
+				if($_GET["startDate"]){
+					$sql .= " and create_date>'".$_GET["startDate"]."' ";
+				}
+
+				if($_GET["endDate"]){
+					$sql .= " and create_date<'".$_GET["endDate"]."' ";
+				}
+
+				if($_GET["status"] != ''){
+					$sql .= " and status='".$_GET["status"]."' ";
+				}
+			}else{
+				$sql = "where 1=1 ";
+			}
+			$whereSql = $sql.$whereSql;
+			$this->pageNumber = new pageNumber($this->console,'select * from '.$this->table." ".$whereSql,$per,$pageViewMax);
+			return parent::getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$per);
+		}
+		
+		/**
+		 * 取得所有子節點
+		 * @param  [type] $parent   id
+		 * @param  array  $children 遞迴用
+		 * @return [type]           [description]
+		 */
+		function findChildren($parent,$children=array()){
+			$temp = $this->getData("where parent='".$parent."' order by sort asc");
+			if($temp){
+				foreach ($temp as $key => $value) {
+					$children = $this->findChildren($value["id"],$children);
+					array_push($children,$value["id"]);
+					$children = array_unique($children);
+				}
+			}
+			return $children;
+		}
+
+		/**
+		 * 重新排序分類樹
+		 * @param  integer $parent [description]
+		 * @param  integer $i      [description]
+		 * @param  integer $floor  [description]
+		 * @return [type]          [description]
+		 */
+		function sortTree($parent=0,$i=0,$floor=0){
+			$temp = $this->conn->GetArray("select * from ".$this->table." where parent='".$parent."' order by sort asc");
+			if($temp){
+			    foreach ($temp as $key => $value) {
+					$this->conn->Execute("update ".$this->table." set step=".$i.",floor='".$floor."' where id='".$value["id"]."'");
+					$i = $this->sortTree($value["id"],$i+1,$floor+1);
+			    }
+			}
+		    return $i;
+		}
+
+		/**
+		 * 母節點關閉子節點連動無法取得data
+		 * @param [type] $data [description]
+		 */
+		function arrange($data){
+			if($data !== false){
+				$tempAll = array('0');
+				foreach ($data as $key => $value) {
+					$tempAll[$value["id"]] = $value["id"];
+				}
+				foreach ($data as $key => $value) {
+					if(!in_array($value["parent"], $tempAll)){
+						unset($data[$key]);
+						unset($tempAll[$value["id"]]);
+					}
+				}
+				$data = array_values($data);
+			}
+			return $data;
+		}
+
+		/**
+		 * 取得最大層數
+		 * @return [type] [description]
+		 */
+		function getMaxFloor(){
+			return ($this->conn->GetRow("select max(floor) from ".$this->table."")[0]);
+		}
+
+		/**
+		 * 排序資料表
+		 */
+		function sortTable(){
+			//第0層
+			$this->conn->Execute("set @j:=0;");
+			$this->conn->Execute("update ".$this->table." set sort=@j:=@j+1 where parent='0' order by sort");
+
+			$maxFloor = $this->getMaxFloor();
+			for ($i = 0; $i < $maxFloor ; $i++) { 
+				$temp = $this->conn->getArray("select id from ".$this->table." where floor='".$i."' order by sort");
+				foreach ($temp as $key => $value) {
+					$this->conn->Execute("set @j:=0;");
+					$this->conn->Execute("update ".$this->table." set sort=@j:=@j+1 where parent='".$value["id"]."' and floor='".($i+1)."' order by sort");
+				}
+			}
+		}
+	}
+}

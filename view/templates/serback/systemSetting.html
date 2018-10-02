@@ -1,0 +1,428 @@
+({include file='top.html'})
+<form action="" method="post"> 
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="list" href="#list-setting">({$label_back['BASIC_SETTING']})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-smtp">({$label_back['SMTP_MAIL_SETTING']})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-backup">({$label_back['WEB_BACKUP']})</a>
+                    </li>
+                    ({if $member.groupID==1})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-data-size">({$label_back['WEB_DATA_SIZE']})</a>
+                        </li>
+                    ({/if})
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-embed-code">({$label_back['EMBED_CODE']})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-app-key">({$label_back['DEVELOPERS_KEY']})</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <!-- 基本設定 -->
+                <div class="card-body tab-pane fade show active" id="list-setting">
+                    <!-- <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['WEB_TITLE']})</label>
+                            <input type="text" class="form-control" name="webTitle" value="({$data.webTitle})">
+                        </div>
+                    </div> -->
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['ICON']})</label>
+                            <div>
+                                ({assign var=_I_ value=0})
+                                ({include file='module.uploadImg.html'})
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['WATERMARK']})</label>
+                            <div>
+                                ({assign var=_I_ value=1})
+                                ({include file='module.uploadImg.html'})
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['RECIPIENT_EMAIL']})</label>
+                            <input type="text" class="form-control" name="recipientEmail" value="({$data.recipientEmail})">
+                                <small class="text-muted">({$label_back['PLURAL_COMMA_SEPARATION']})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SENDER_EMAIL']})</label>
+                            <input type="text" class="form-control" name="senderEmail" value="({$data.senderEmail})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SENDER_NAME']})</label>
+                            <input type="text" class="form-control" name="senderName" value="({$data.senderName})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['REQUEST_DOMAINS']})</label>
+                            <textarea class="form-control" rows="8" name="csrfWhitelist">({$data.csrfWhitelist})</textarea>
+                            <small class="text-muted">({$label_back['ONE_PER_LINE_DOMAIN']})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['INDEX_PATH']})</label>
+                            <input type="text" class="form-control" name="indexPATH" value="({$data.indexPATH})">
+                            <small class="text-muted">({$label_back['INDEX_PATH_SMALL']})</small>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.update_date})(({$data.update_user}))
+                    </small>
+                </div>
+
+                <!-- SMTP郵件設定 -->
+                <div class="card-body tab-pane fade" id="list-smtp">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SMTP_SECURE']})</label>
+                            <select class="form-control" name="smtpSMTPSecure">
+                                <option value="ssl" ({if $data.smtpSMTPSecure=="ssl"})selected({/if})>ssl</option>
+                                <option value="tls" ({if $data.smtpSMTPSecure=="tls"})selected({/if})>tls</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SMTP_HOST']})</label>
+                            <input type="text" class="form-control" name="smtpHost" value="({$data.smtpHost})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SMTP_PORT']})</label>
+                            <input type="text" class="form-control" name="smtpPort" value="({$data.smtpPort})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SMTP_USERNAME']})</label>
+                            <input type="text" class="form-control" name="smtpUsername" value="({$data.smtpUsername})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SMTP_PASSWORD']})</label>
+                            <input type="password" class="form-control" name="smtpPassword" value="({$data.smtpPassword})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="testSMTP();"><span class="glyphicon glyphicon-send"></span> ({$label_back['TEST_SMTP']})</a>
+                        </div>
+                    </div>
+                    <script>
+                        function testSMTP(){
+                            if(confirm("({$label_back["TEST_SMTP_CONFIRM"]})")){
+                                loadingStart();
+                                $.ajax({
+                                    url: _jsPath+"/ajax.php",type: "GET",data: {testSMTP: 1},dataType:'text',
+                                    async: true,timeout: 0,success: function(msg){
+                                        if(msg == 1){
+                                            alert("({$label_back["TEST_SMTP_OK"]})");
+                                        }else{
+                                            alert("({$label_back["TEST_SMTP_ERROR"]})");
+                                        }
+                                        loadingStop();
+                                    }
+                                });
+                            }
+                        }
+                    </script>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.update_date})(({$data.update_user}))
+                    </small>
+                </div>
+
+                <!-- 網站備份 -->
+                <div class="card-body tab-pane fade" id="list-backup">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['BACKUP_SWITCH']})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="backupSwitch" value="0">
+                                <input type="checkbox" class="onoffswitch-checkbox" name="backupSwitch" id="backupSwitch" value="1" ({if $data.backupSwitch=="1"})checked({/if})>
+                                <label class="onoffswitch-label" for="backupSwitch"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['BACKUP_DAY']})</label>
+                            <input type="text" class="form-control" name="backupDay" value="({$data.backupDay})" data-check="Number" data-text="({$label_back['BACKUP_DAY']})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['BACKUP_DELETE_DAY']})</label>
+                            <input type="text" class="form-control" name="backupDeleteDay" value="({$data.backupDeleteDay})" data-check="Number" data-text="({$label_back['BACKUP_DELETE_DAY']})">
+                            <small class="text-muted">({$label_back['ZERO_IS_NO_DELETE']})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="sqlBackup();"><span class="glyphicon glyphicon-cloud"></span> ({$label_back['IMMEDIATELY_BACKUP']})</a>
+                        </div>
+                    </div>
+                    <script>
+                        function sqlBackup(){
+                            if(confirm("({$label_back["BAKCUP_CONFIRM"]})")){
+                                loadingStart();
+                                $.ajax({
+                                    url: _jsPath+"/ajax.php",type: "GET",data: {sqlBackup: '1'},dataType:'text',
+                                    async: true,timeout: 0,success: function(msg){
+                                        if(!msg){
+                                            alert("ERROR");
+                                        }else{
+                                            alert("({$label_back["BAKCUP_OK"]})");
+                                            window.location.reload();
+                                        }
+                                        loadingStop();
+                                    }
+                                });
+                            }
+                        }
+                    </script>
+
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['BACKUP_MAIL_SWITCH']})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="backupMailSwitch" value="0">
+                                <input type="checkbox" class="onoffswitch-checkbox" name="backupMailSwitch" id="backupMailSwitch" value="1" ({if $data.backupMailSwitch=="1"})checked({/if})>
+                                <label class="onoffswitch-label" for="backupMailSwitch"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['BACKUP_MAIL_USER']})</label>
+                            <input type="text" class="form-control" name="backupMailUser" value="({$data.backupMailUser})">
+                            <small class="text-muted">({$label_back['PLURAL_COMMA_SEPARATION']})</small>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['BACKUP_SQL_FILE']})</label>
+                            <select class="form-control" id="backupSelect">
+                                <option value="">({$label_back['PLEASE_CHOOSE']})</option>
+                                ({section name=i loop=$data.backupFile})
+                                    <option value="({$data.backupFile[i].fileName})">({$data.backupFile[i].fileName})</option>
+                                ({/section})
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="sqlImport();"><span class="glyphicon glyphicon-repeat"></span> ({$label_back['IMPORT_SQL']})</a>
+                        </div>
+                    </div>
+                    <script>
+                        function sqlImport(){
+                            if(!$('#backupSelect').val()){
+                                return false;
+                            }
+                            if(confirm("({$label_back["IMPORT_CONFIRM"]})")){
+                                loadingStart();
+                                $.ajax({
+                                    url: _jsPath+"/ajax.php",type: "GET",data: {sqlImport: $('#backupSelect').val()},dataType:'text',
+                                    async: true,timeout: 0,success: function(){alert("({$label_back["IMPORT_OK"]})");loadingStop();window.location.reload();}
+                                });
+                            }
+                        }
+                    </script>
+
+
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.update_date})(({$data.update_user}))
+                    </small>
+                </div>
+                ({if $member.groupID==1})
+
+                    <!-- 網站空間 -->
+                    <div class="card-body tab-pane fade" id="list-data-size">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['SIZE_SWITCH']})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="sizeSwitch" value="0">
+                                    <input type="checkbox" class="onoffswitch-checkbox" name="sizeSwitch" id="sizeSwitch" value="1" ({if $data.sizeSwitch=="1"})checked({/if})>
+                                    <label class="onoffswitch-label" for="sizeSwitch"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['WEB_MAX_SIZE']})</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="webMaxSize" value="({$data.webMaxSize})" data-type="size">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">bytes</span>
+                                    </div>
+                                </div>
+                                <small class="text-muted" id="webMaxSizeSmall"></small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['UPLOAD_MAX_SIZE']})</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="uploadMaxSize" value="({$data.uploadMaxSize})" data-type="size">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">bytes</span>
+                                    </div>
+                                </div>
+                                <small class="text-muted" id="uploadMaxSizeSmall"></small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['OUTPUT_MAX_SIZE']})</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="outputMaxSize" value="({$data.outputMaxSize})" data-type="size">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">bytes</span>
+                                    </div>
+                                </div>
+                                <small class="text-muted" id="outputMaxSizeSmall"></small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['SQL_MAX_SIZE']})</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="sqlMaxSize" value="({$data.sqlMaxSize})" data-type="size">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">bytes</span>
+                                    </div>
+                                </div>
+                                <small class="text-muted" id="sqlMaxSizeSmall"></small>
+                            </div>
+                        </div>
+                        <small class="text-muted">
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.update_date})(({$data.update_user}))
+                        </small>
+                    </div>
+                ({/if})
+
+                <!-- AppKey -->
+                <div class="card-body tab-pane fade" id="list-app-key">
+                    <small class="text-muted">
+                        ({$label_back['APPKEY_TEXT']})
+                    </small>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['RECAPTCHA_SITE_KEY']})<a href="https://www.google.com/recaptcha/admin" target="_blank">({$label_back['ONCLICK']})</a></label>
+                            <input type="text" class="form-control" name="reCAPTCHASiteKey" value="({$data.reCAPTCHASiteKey})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['RECAPTCHA_SECRET_KEY']})</label>
+                            <input type="text" class="form-control" name="reCAPTCHASecretKey" value="({$data.reCAPTCHASecretKey})">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['GOOGLE_APP_ID']})<a href="https://console.developers.google.com/" target="_blank">({$label_back['ONCLICK']})</a></label>
+                            <input type="text" class="form-control" name="googleAuthAppID" value="({$data.googleAuthAppID})">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['FB_APP_ID']})<a href="https://developers.facebook.com/" target="_blank">({$label_back['ONCLICK']})</a></label>
+                            <input type="text" class="form-control" name="fbAuthAppID" value="({$data.fbAuthAppID})">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['LINE_CLIENT_ID']})<a href="https://developers.line.me/console/" target="_blank">({$label_back['ONCLICK']})</a></label>
+                            <input type="text" class="form-control" name="lineAuthClientID" value="({$data.lineAuthClientID})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['LINE_CLIENT_SECRET']})</label>
+                            <input type="text" class="form-control" name="lineAuthClientSecret" value="({$data.lineAuthClientSecret})">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['ECPAY_MERCHANT_ID']})<a href="https://vendor.ecpay.com.tw/" target="_blank">({$label_back['ONCLICK']})</a></label>
+                            <input type="text" class="form-control" name="ecpayMerchantID" value="({$data.ecpayMerchantID})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['ECPAY_HASH_KEY']})</label>
+                            <input type="text" class="form-control" name="ecpayHashKey" value="({$data.ecpayHashKey})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['ECPAY_HASH_IV']})</label>
+                            <input type="text" class="form-control" name="ecpayHashIV" value="({$data.ecpayHashIV})">
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.update_date})(({$data.update_user}))
+                    </small>
+                </div>
+            
+                <!-- embed code -->
+                <div class="card-body tab-pane fade" id="list-embed-code">
+                    <small class="text-muted">
+                        ({$label_back['EMBED_CODE_TEXT']})
+                    </small>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$label_back['EMBED_CODE']})</label>
+                            <textarea class="form-control" name="otherCode" rows="13">({$data.otherCode})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.update_date})(({$data.update_user}))
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({include file='foor.html'})

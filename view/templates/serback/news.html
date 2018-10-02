@@ -1,0 +1,232 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.editList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["BASIC_INFORMATION"]})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$label_back["PAGE_SETTING"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.addList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["BASIC_INFORMATION"]})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$label_back["PAGE_SETTING"]})</a>
+                        </li>
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                ({if $switch.listList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-list">
+                        <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="2%">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                            <label class="custom-control-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                    <th scope="col">({$label_back["NAME"]})</th>
+                                    <th scope="col">({$label_back["SORT"]})</th>
+                                    <th scope="col">({$label_back["STATUS"]})</th>
+                                    <th scope="col">({$label_back["CREATE_DATE"]})</th>
+                                    <th scope="col">({$label_back["UPDATE_DATE"]})</th>
+                                    <th scope="col">({$label_back["TOW_SORT"]})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.list})
+                                    <tr>
+                                        <td scope="row">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
+                                                <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
+                                            
+                                        </td>
+                                        <td>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control col-md-3" name="sort_({$data.list[i].id})" value="({$data.list[i].sort})">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="onoffswitch">
+                                                <input type="hidden" name="status_({$data.list[i].id})" value="0">
+                                                <input type="checkbox" name="status_({$data.list[i].id})" class="onoffswitch-checkbox" id="myonoffswitch_({$data.list[i].id})" value="1" ({if $data.list[i].status})checked({/if})>
+                                                <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            ({$data.list[i].create_date})(({$data.list[i].create_user}))
+                                        </td>
+                                        <td >
+                                            ({$data.list[i].update_date})(({$data.list[i].update_user}))
+                                        </td>
+                                        <th >
+                                            <span class="glyphicon-move" style="font-size: 20px;"></span>
+                                        </th>
+                                    </tr>
+
+                                ({/section})
+                                
+                            </tbody>
+                        </table>          
+                    </div>
+                ({/if})
+
+                ({if $switch.editList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-edit">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['NAME']})</label>
+                                <input type="text" name="name" class="form-control" autocomplete="name" value="({$data.one.name})" data-text="({$label_back["NAME"]})" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['DATE']})</label>
+                                <input type="date" name="viewDate" class="form-control" data-text="({$label_back["DATE"]})" value="({$data.one.viewDate})" required>
+                            </div>
+                        </div>
+                              
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label>({$label_back['DETAIL']})</label>
+                                ({assign var=_I_ value=0})
+                                ({include file='module.tinymceEditor.html'})
+                            </div>
+                        </div>                  
+                        
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['STATUS']})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="status" value="0">
+                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" ({if $data.one.status})checked({/if})>
+                                    <label class="onoffswitch-label" for="myonoffswitch"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-muted">
+                            ({$label_back['CREATE_DATE']})
+                            ({$data.one.create_date})(({$data.one.create_user}));
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.one.update_date})(({$data.one.update_user}))
+                        </small>
+                        
+                    </div>
+
+                    <div class="card-body tab-pane fade" id="list-page-setting">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["CUSTOM_PAGE_TITLE"]})</label>
+                                <input type="text" class="form-control" name="pageTitle" value="({$data.one.pageTitle})">
+                                <small class="text-muted">({$label_back["CUSTOM_PAGE_TITLE_TEXT"]})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["CUSTOM_URL"]})</label>
+                                <input type="text" class="form-control" name="urlKey" value="({$data.one.urlKey})">
+                                <small class="text-muted">({$label_back["CUSTOM_URL_TEXT"]})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["CUSTOM_PAGE_META"]})</label>
+                                <textarea class="form-control" rows="8" name="pageMeta">({$data.one.pageMeta})</textarea>
+                                <small class="text-muted">({$label_back["CUSTOM_PAGE_META_TEXT"]})</small>
+                            </div>
+                        </div>
+                    </div>
+                ({/if})
+
+                ({if $switch.addList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-add">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['NAME']})</label>
+                                <input type="text" name="name" class="form-control" autocomplete="name" data-text="({$label_back["NAME"]})"  required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['DATE']})</label>
+                                <input type="date" name="viewDate" class="form-control" data-text="({$label_back["DATE"]})" value="({array_shift(explode(" ", $web.date))})" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label>({$label_back['DETAIL']})</label>
+                                ({assign var=_I_ value=0})
+                                ({include file='module.tinymceEditor.html'})
+                            </div>
+                        </div>     
+                                 
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['STATUS']})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="status" value="0" >
+                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body tab-pane fade" id="list-page-setting">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["CUSTOM_PAGE_TITLE"]})</label>
+                                <input type="text" class="form-control" name="pageTitle" value="">
+                                <small class="text-muted">({$label_back["CUSTOM_PAGE_TITLE_TEXT"]})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["CUSTOM_URL"]})</label>
+                                <input type="text" class="form-control" name="urlKey" value="">
+                                <small class="text-muted">({$label_back["CUSTOM_URL_TEXT"]})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["CUSTOM_PAGE_META"]})</label>
+                                <textarea class="form-control" rows="8" name="pageMeta"></textarea>
+                                <small class="text-muted">({$label_back["CUSTOM_PAGE_META_TEXT"]})</small>
+                            </div>
+                        </div>
+                    </div>
+                ({/if})
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

@@ -1,0 +1,638 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-advanced-serch">({$label_back["ADVANCED"]})({$label_back["SEARCH"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.editList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-basic">({$label_back["BASIC_INFORMATION"]})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-product">({$label_back["PRODUCT"]|cat:$label_back["LIST"]})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-ecpay-log">({$label_back["ECPAY_LOGS"]})</a>
+                        </li>
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                ({if $switch.listList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-list">
+                        <form action="" method="POST" >
+                            <table class="table table-striped">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" width="2%">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                                <label class="custom-control-label" for="checkAll"></label>
+                                            </div>
+                                        </th>
+                                        <th scope="col">({$label_back["ORDER_NUMBER"]})</th>
+                                        <th scope="col">({$label_back["PAYMENT_METHOD"]})</th>
+                                        <th scope="col">({$label_back["SHIPMENT_METHOD"]})</th>
+                                        <th scope="col">({$label_back["PAYMENT_STATUS"]})</th>
+                                        <th scope="col">({$label_back["SHIPMENT_STATUS"]})</th>
+                                        <th scope="col">({$label_back["TOTAL"]})</th>
+                                        <th scope="col">({$label_back["STATUS"]})</th>
+                                        <th scope="col">({$label_back["CREATE_DATE"]})</th>
+                                        <th scope="col">({$label_back["UPDATE_DATE"]})</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ({section name=i loop=$data.list})
+                                        <tr>
+                                            <td scope="row">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
+                                                    <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
+                                                </div>
+                                            </td>
+                                            <td >
+                                                <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].orderNumber})</a>
+                                            </td>
+                                            <td >
+                                                ({$data["paymentTitle"][$data.list[i].paymentMethod]})
+                                            </td>
+                                            <td >
+                                                ({$data["shipmentTitle"][$data.list[i].shipmentMethod]})
+                                            </td>
+                                            <td >
+                                                ({$data["paymentStatus"][$data.list[i].paymentStatus]})
+                                            </td>
+                                            <td >
+                                                ({$data["shipmentStatus"][$data.list[i].shipmentStatus]})
+                                            </td>
+                                            <td >
+                                                $ ({$data.list[i].total+$data.list[i].freight})
+                                            </td>   
+                                            <td>
+                                                <div class="onoffswitch">
+                                                    <input type="hidden" name="status_({$data.list[i].id})" value="0">
+                                                    <input type="checkbox" name="status_({$data.list[i].id})" class="onoffswitch-checkbox" id="myonoffswitch_({$data.list[i].id})" value="1" ({if $data.list[i].status})checked({/if})>
+                                                    <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
+                                                </div>
+                                            </td>
+                                            <td >
+                                                ({$data.list[i].create_date})
+                                            </td>
+                                            <td >
+                                                ({$data.list[i].update_date})(({$data.list[i].update_user}))
+                                            </td>
+                                        </tr>
+
+                                    ({/section})
+                                    
+                                </tbody>
+                            </table>
+                            ({$console->getToken()})
+                        </form>     
+                    </div>
+
+                    <!-- 進階搜尋 -->
+                    <div class="card-body tab-pane fade " id="list-advanced-serch">
+                        <form action="" method="GET" >
+                            ({foreach from=$smarty.get key=k item=v})
+                                ({if $k!="searchKeyWord" && $k!="startDate" && $k!="endDate" && $k!="status" && $k!="per" && $k!="class"})
+                                    <input type="hidden" value="({$v})" name="({$k})">
+                                ({/if})
+                            ({/foreach})
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['SEARCH_KEYWORD']})</label>
+                                    <input type="text" name="searchKeyWord" class="form-control" value="({$smarty.get.searchKeyWord})" data-text="({$label_back['NAME']})">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['FROM']})</label>
+                                    <input type="date" value="({if isset($smarty.get.startDate)})({$smarty.get.startDate})({/if})" class="form-control" name="startDate">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['TO']})</label>
+                                    <input type="date" value="({if isset($smarty.get.endDate)})({$smarty.get.endDate})({/if})" class="form-control" name="endDate">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['STATUS']})</label>
+                                    <select name="status" class="form-control">
+                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$label_back["STATUS_1"]})</option>
+                                        <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$label_back["STATUS_0"]})</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['PAGE_DATA_COUNT']})</label>
+                                    <select name="per" class="form-control">
+                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="10" ({if isset($smarty.get.per) && $smarty.get.per=='10'})selected({/if})>10</option>
+                                        <option value="20" ({if isset($smarty.get.per) && $smarty.get.per=='20'})selected({/if})>20</option>
+                                        <option value="30" ({if isset($smarty.get.per) && $smarty.get.per=='30'})selected({/if})>30</option>
+                                        <option value="40" ({if isset($smarty.get.per) && $smarty.get.per=='40'})selected({/if})>40</option>
+                                        <option value="50" ({if isset($smarty.get.per) && $smarty.get.per=='50'})selected({/if})>50</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['PAYMENT_METHOD']})</label>
+                                    <select name="paymentMethod" class="form-control">
+                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        ({foreach from=$data["paymentMethod"] key=k item=v})
+                                            <option value="({$v["key"]})"  ({if isset($smarty.get.paymentMethod) && $smarty.get.paymentMethod==({$v["key"]})})selected({/if})>({$v["name"]})</option>
+                                        ({/foreach})
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['SHIPMENT_METHOD']})</label>
+                                    <select name="shipmentMethod" class="form-control">
+                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        ({foreach from=$data["shipmentMethod"] key=k item=v})
+                                            <option value="({$v["key"]})"  ({if isset($smarty.get.shipmentMethod) && $smarty.get.shipmentMethod==({$v["key"]})})selected({/if})>({$v["name"]})</option>
+                                        ({/foreach})
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['PAYMENT_STATUS']})</label>
+                                    <select name="paymentStatus" class="form-control">
+                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        ({foreach from=$data["paymentStatus"] key=k item=v})
+                                            <option value="({$k})"  ({if isset($smarty.get.paymentStatus) && $smarty.get.paymentStatus==({$k})})selected({/if})>({$v})</option>
+                                        ({/foreach})
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back['SHIPMENT_STATUS']})</label>
+                                    <select name="shipmentStatus" class="form-control">
+                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        ({foreach from=$data["shipmentStatus"] key=k item=v})
+                                            <option value="({$k})"  ({if isset($smarty.get.shipmentStatus) && $smarty.get.shipmentStatus==({$k})})selected({/if})>({$v})</option>
+                                        ({/foreach})
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-secondary glyphicon-search" type="submit"> ({$label_back["SEARCH"]})</button>
+                            <button class="btn btn-link glyphicon" onclick="location.href='({$data.listUrl})';return false;"> ({$label_back["RESET"]})</button>
+                        </form>
+                    </div>
+                ({/if})
+
+                ({if $switch.editList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-basic">
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["ORDER_NUMBER"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.orderNumber})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["BUY_MEMBER"]})</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" value="({$data.order.member.name})(({$data.order.member.account}))">
+                                    <div class="input-group-append">
+                                        <a class="btn btn-outline-secondary" href="({$data.listUrl})/../member/edit/({$data.order.member.id})"><span class="glyphicon glyphicon-link"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ({if $data.order.deshprice<1})
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$label_back["DESHPRICE"]})</label>
+                                <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control" value="({$data.order.deshprice}) ({$label_back["DESHPRICE_UNIT"]})">
+                                </div>
+                            </div>
+                        ({/if})
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["TOTAL"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.total})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["FREIGHT"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.freight})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["GET_POINT"]})</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" value="({$data.order.getPoint})">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$data.getPointStatusText[$data.order.getPointStatus]})</span>
+                                        <a class="btn btn-outline-secondary" href="javascript:;" onclick="getPoint(({$data.order.getPointStatus}));">({$data.getPointStatus[$data.order.getPointStatus]})</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["USE_POINT"]})</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" value="({$data.order.usePoint})">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$data.usePointStatusText[$data.order.usePointStatus]})</span>
+                                        <a class="btn btn-outline-secondary" href="javascript:;" onclick="usePoint(({$data.order.usePointStatus}));">({$data.usePointStatus[$data.order.usePointStatus]})</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            function getPoint(type){
+                                switch(type) {
+                                    case 0:
+                                        if(confirm("({$label_back["PAY_POINT_CONFIRM"]})")){
+                                            loadingStart();
+                                            $.ajax({
+                                                type: "GET",data: {ajax: 'payPoint'},dataType:'text',
+                                                async: true,timeout: 0,success: function(){loadingStop();alert(_jsMsg["OK"]);window.location.reload();}
+                                            });
+                                        }
+                                        break;
+                                    case 1:
+                                        if(confirm("({$label_back["BACK_POINT_CONFIRM"]})")){
+                                            loadingStart();
+                                            $.ajax({
+                                                type: "GET",data: {ajax: 'backPoint'},dataType:'text',
+                                                async: true,timeout: 0,success: function(){loadingStop();alert(_jsMsg["OK"]);window.location.reload();}
+                                            });
+                                        }
+                                        break;
+                                }
+                            }
+
+                            function usePoint(type){
+                                switch(type) {
+                                    case 0:
+                                        if(confirm("({$label_back["DEDUCTION_POINT_CONFIRM"]})")){
+                                            loadingStart();
+                                            $.ajax({
+                                                type: "GET",data: {ajax: 'deductionPoint'},dataType:'text',
+                                                async: true,timeout: 0,success: function(){loadingStop();alert(_jsMsg["OK"]);window.location.reload();}
+                                            });
+                                        }
+                                        break;
+                                    case 1:
+                                        if(confirm("({$label_back["REPLACEMENT_POINT_CONFIRM"]})")){
+                                            loadingStart();
+                                            $.ajax({
+                                                type: "GET",data: {ajax: 'replacementPoint'},dataType:'text',
+                                                async: true,timeout: 0,success: function(){loadingStop();alert(_jsMsg["OK"]);window.location.reload();}
+                                            });
+                                        }
+                                        break;
+                                }
+                            }
+
+                            function setPayment(type){
+                                if(confirm("({$label_back["SET_PAYMENT_CONFIRM"]})")){
+                                    loadingStart();
+                                    $.ajax({
+                                        type: "GET",data: {ajax: 'setPayment',status: type},dataType:'text',
+                                        async: true,timeout: 0,success: function(){loadingStop();alert(_jsMsg["OK"]);window.location.reload();}
+                                    });
+                                }
+                            }
+
+                            function setShipment(type){
+                                if(confirm("({$label_back["SET_SHIPMENT_CONFIRM"]})")){
+                                    loadingStart();
+                                    $.ajax({
+                                        type: "GET",data: {ajax: 'setShipment',status: type},dataType:'text',
+                                        async: true,timeout: 0,success: function(){loadingStop();alert(_jsMsg["OK"]);window.location.reload();}
+                                    });
+                                }
+                            }
+
+                            function reCreateOrder(){
+                                if(confirm("({$label_back["RE_CREATE_ORDER_CONFIRM"]})")){
+                                    loadingStart();
+                                    $.ajax({
+                                        type: "GET",data: {ajax: 'reCreateOrder'},dataType:'text',
+                                        async: true,timeout: 0,success: function(msg){
+                                            loadingStop();
+                                            var msg = JSON.parse(msg);
+                                            if(msg['response']){
+                                                alert(_jsMsg["OK"]);
+                                                window.location.reload();
+                                            }else{
+                                                alert(_jsMsg["ERROR"]+"："+msg['message']);
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        </script>
+
+                        <hr>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["PAYMENT_METHOD"]})</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" value="({$data["paymentTitle"][$data.order.paymentMethod]})">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$data["paymentStatus"][$data.order.paymentStatus]})</span>
+                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-edit"></span></button>
+                                        <div class="dropdown-menu">
+                                            ({foreach from=$data.paymentStatus key=k item=v})
+                                                ({if $k != $data.order.paymentStatus})
+                                                    <a class="dropdown-item" href="javascript:;" onclick="setPayment(({$k}));">({$v})</a>
+                                                ({/if})
+                                            ({/foreach})
+                                        </div>
+                                    </div>
+                                </div>
+                                ({if $data.order.paymentStatus==MTsung\paymentStatusType::OK})
+                                    <small class="text-muted">({$label_back['PAYMENT_DATE']}) ({$data.order.payment_date})</small>
+                                ({/if})
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["SHIPMENT_METHOD"]})</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <input type="text" readonly class="form-control" value="({$data["shipmentTitle"][$data.order.shipmentMethod]})">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$data["shipmentStatus"][$data.order.shipmentStatus]})</span>
+                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-edit"></span></button>
+                                        <div class="dropdown-menu">
+                                            ({foreach from=$data.shipmentStatus key=k item=v})
+                                                ({if $k != $data.order.shipmentStatus})
+                                                    <a class="dropdown-item" href="javascript:;" onclick="setShipment(({$k}));">({$v})</a>
+                                                ({/if})
+                                            ({/foreach})
+                                        </div>
+                                    </div>
+                                </div>
+                                ({if $data.order.shipmentStatus==MTsung\shipmentStatusType::OK})
+                                    <small class="text-muted">({$label_back['SHIPMENT_DATE']}) ({$data.order.shipment_date})</small>
+                                ({/if})
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["PRINT_BILL"]})</label>
+                            <div class="col-sm-5">
+                                <a target="_blank" class="btn btn-outline-secondary" href="({$smarty.server.REQUEST_URI})?ajax=printBill"><span class="glyphicon glyphicon-print"></span> ({$label_back['PRINT']})</a>
+                                <small class="text-muted">({$label_back['ECPAY_USE']})</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["RE_CREATE_ORDER"]})</label>
+                            <div class="col-sm-5">
+                                <a target="_blank" class="btn btn-outline-secondary" href="javascript:;" onclick="reCreateOrder();"><span class="glyphicon glyphicon-refresh"></span> ({$label_back['CREATE']})</a>
+                                <small class="text-muted">({$label_back['RE_CREATE_ORDER_SMALL']})</small>
+                            </div>
+                        </div>
+
+                        <hr>
+                        ({if isset($data.order.formData.CVSStoreID)})
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$label_back["CVSSTOREID"]})</label>
+                                <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control" value="({$data.order.formData.CVSStoreID})">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$label_back["CVSSTORENAME"]})</label>
+                                <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control" value="({$data.order.formData.CVSStoreName})">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$label_back["CVSADDRESS"]})</label>
+                                <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control" value="({$data.order.formData.CVSAddress})">
+                                </div>
+                            </div>
+                            <hr>
+                        ({/if})
+
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_NAME"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverName})">
+                            </div>
+                        </div>
+
+<!--                         <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_PHONE"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverPhone})">
+                            </div>
+                        </div> -->
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_CELLPHONE"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverCellPhone})">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_EMAIL"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverEmail})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_ADDRESS"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverAddress[0]})({$data.order.formData.ReceiverAddress[1]})({$data.order.formData.ReceiverAddress[2]})({$data.order.formData.ReceiverAddress[3]})">
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["BUY_NAME"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.BuyName})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["BUY_CELLPHONE"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.BuyPhone})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["BUY_EMAIL"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.BuyEmail})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["BUY_ADDRESS"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.BuyAddress[0]})({$data.order.formData.BuyAddress[1]})({$data.order.formData.BuyAddress[2]})({$data.order.formData.BuyAddress[3]})">
+                            </div>
+                        </div>
+                        
+                        <hr>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["MEMO"]})</label>
+                            <div class="col-sm-5">
+                                <textarea class="form-control" readonly rows="5">({$data.order.memo})</textarea>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <small class="text-muted">
+                            ({$label_back['CREATE_DATE']})
+                            ({$data.order.create_date});
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.order.update_date})(({$data.order.update_user}))
+                        </small>
+                        
+                    </div>
+
+                    <div class="card-body tab-pane fade" id="list-product">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">({$label_back["PICTURE"]})</th>
+                                    <th scope="col">({$label_back["NAME"]})</th>
+                                    <th scope="col">({$label_back["SPECIFICATIONS"]})</th>
+                                    <th scope="col">({$label_back["ONE_PRICE"]})</th>
+                                    <th scope="col">({$label_back["COUNT"]})</th>
+                                    <th scope="col">({$label_back["MINOR_TOTAL"]})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.orderList})
+
+                                    <tr bgcolor="#eee">
+                                        <th scope="row">({$data.orderList[i].id})</th>
+                                        <td><img style="max-height: 45px; max-width: 45px;" src="({$data.orderList[i].picture})"></td>
+                                        <td>({$data.orderList[i].name})</td>
+                                        <td>({$data.orderList[i].specifications})</td>
+                                        <td>({$data.orderList[i].price})</td>
+                                        <td>({$data.orderList[i].count})</td>
+                                        <td>({$data.orderList[i].price*$data.orderList[i].count})</td>
+                                    </tr>
+                                    ({if isset($data.orderList.addList)})
+                                        ({section name=j loop=$data.orderList.addList})
+                                            <tr>
+                                                <th scope="row">({$data.orderList[i].addList[j].id})</th>
+                                                <td><img style="max-height: 45px; max-width: 45px;" src="({$data.orderList[i].addList[j].picture})"></td>
+                                                <td>({$data.orderList[i].addList[j].name})</td>
+                                                <td>({$data.orderList[i].addList[j].specifications})</td>
+                                                <td>({$data.orderList[i].addList[j].price})</td>
+                                                <td>({$data.orderList[i].addList[j].count})</td>
+                                                <td>({$data.orderList[i].addList[j].price*$data.orderList[i].addList[j].count})</td>
+                                            </tr>
+                                        ({/section})
+                                    ({/if})
+                                ({/section})
+                            </tbody>
+                        </table>
+                        <small class="text-muted">
+                            ({$label_back['CREATE_DATE']})
+                            ({$data.order.create_date});
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.order.update_date})(({$data.order.update_user}))
+                        </small>
+                    </div>
+
+                    <div class="card-body tab-pane fade" id="list-ecpay-log">
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">({$label_back["MERCHANT_TRADE_NO"]})</th>
+                                    <th scope="col">({$label_back["TYPE"]})</th>
+                                    <th scope="col">({$label_back["RTN_CODE"]})</th>
+                                    <th scope="col">({$label_back["RTN_MSG"]})</th>
+                                    <th scope="col">({$label_back["DATE"]})</th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                    ({section name=i loop=$data.orderECPayLog})
+                                        <tr>
+                                            <th scope="row">({$data.orderECPayLog[i].id})</th>
+                                            <td>({$data.orderECPayLog[i].MerchantTradeNo})</td>
+                                            <td>({if $data.orderECPayLog[i].type=="shipment"})({$label_back["SHIPMENT"]})({else if $data.orderECPayLog[i].type=="aio"})({$label_back["AIO"]})({else})({$label_back["OTHER"]})({/if})</td>
+                                            <td>({$data.orderECPayLog[i].RtnCode})</td>
+                                            <td>({$data.orderECPayLog[i].RtnMsg})</td>
+                                            <td>({$data.orderECPayLog[i].create_date})</td>  
+                                        </tr>
+                                    ({/section})
+                                </tbody>
+                            </table>
+                        <small class="text-muted">
+                            ({$label_back['CREATE_DATE']})
+                            ({$data.order.create_date});
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.order.update_date})(({$data.order.update_user}))
+                        </small>
+                    </div>
+                ({/if})
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

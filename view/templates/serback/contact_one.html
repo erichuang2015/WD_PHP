@@ -1,0 +1,177 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="list" href="#list-detail">({$label_back["BASIC_INFORMATION"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-form-data">({$label_back["FORM_DATA"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-page-setting">({$label_back["PAGE_SETTING"]})</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                <div class="card-body tab-pane fade show active" id="list-detail">
+                    <!-- google地圖 -->
+                    <div class="form-row">
+                        <label class="mb-3">({$label_back['GOOGLE_MAP']})</label>
+                        <div class="col-md-12 mb-3 form-inline specifications-div">
+                            <div class="col-md-12 mb-3" id="google_map_data_div">
+                                <span> ({$label_back['ADDRESS_OR_COORDINATE']})：</span><input type="text" class="form-control">
+                                <span> ({$label_back['WIDTH']})：</span><input type="text" class="form-control" value="100%">
+                                <span> ({$label_back['HEIGHT']})：</span><input type="text" class="form-control" value="500">
+                                <span> ({$label_back['MAP_PROPORTION']})：</span><input type="text" class="form-control" value="16">
+                                <span> ({$label_back['MAP_MODE']})：</span><select type="text" class="form-control"><option value="p">({$label_back['TOPOGRAPHIC_MAP']})</option><option value="h">({$label_back['SATELLITE_IMAGERY']})</option></select>
+                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['SEARCH']})" onclick="getGoogleMap();">
+                            </div>
+                            <div class="col-md-12 mb-3" id="google_map_div">
+                                ({$data.one.memo|htmlspecialchars_decode})
+                            </div>
+                            <input type="hidden" name="memo" value="({$data.one.memo})">
+                        </div>
+                        <script>
+                            function getGoogleMap(){
+                                var data = $("#google_map_data_div>input,#google_map_data_div>select");
+                                if(!data.eq(0).val()){
+                                    alert(_jsMsg["ADDRESS_IS_NULL"]);
+                                    return;
+                                }
+                                var address = encodeURI(data.eq(0).val());
+                                var w = data.eq(1).val()?data.eq(1).val():"100%";
+                                var h = data.eq(2).val()?data.eq(2).val():"500";
+                                var z = data.eq(3).val()?data.eq(3).val():"16";
+                                var t = data.eq(4).val()?data.eq(4).val():"p";
+
+                                var output = '<iframe width="'+w+'" height="'+h+'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="//maps.google.com.tw/maps?f=q&output=embed&hl='+_lang+'&geocode=&q='+address+'&z='+z+'&t='+t+'"></iframe>';
+                                $("#google_map_div").html(output);
+                                $("input[name='memo']").val(output);
+                            }
+                        </script>
+                    </div>        
+                   <!--  <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back['STATUS']})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="status" value="0">
+                                <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" ({if $data.one.status})checked({/if})>
+                                <label class="onoffswitch-label" for="myonoffswitch"></label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <small class="text-muted">
+                        ({$label_back['CREATE_DATE']})
+                        ({$data.one.create_date})(({$data.one.create_user}));
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                    
+                </div>
+
+                <!-- 表單資料 -->
+                <div class="card-body tab-pane fade" id="list-form-data">
+                    <input class="btn btn-outline-secondary mb-3" type="button" value="({$label_back['ADD_DATA']})" onclick="addFormData();">
+                    <div class="form-row form-inline" id="specifications_div" >
+                        <input type="hidden" name="dataName">
+                        <input type="hidden" name="dataType">
+                        <input type="hidden" name="dataOption">
+                        <input type="hidden" name="dataRequired">
+                        ({section name=i loop=$data.one.dataName})
+                            <div class="col-md-12 mb-3 specifications-div">
+                                <span> ({$label_back['NAME']})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$label_back['NAME']})" value="({$data.one.dataName[i]})" data-check="Only" required>
+                                <span> ({$label_back['TYPE']})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">
+                                    ({foreach from=$data.typeOption key=k item=v})
+                                        <option value="({$k})" ({if $k==$data.one.dataType[i]})selected({/if})>({$label_back[$v]})</option>
+                                    ({/foreach})
+                                </select>
+                                
+                                <span class="option_div" ({if !($data.one.dataType[i]=="select" || $data.one.dataType[i]=="radio" || $data.one.dataType[i]=="checkbox")})style="display:none"({/if})>
+                                    <span> ({$label_back['OPTION']})：</span><textarea class="form-control" name="dataOption[]" data-text="({$label_back['OPTION']})" placeholder="data1,data2">({$data.one.dataOption[i]})</textarea>
+                                </span> 
+                                
+                                <span> ({$label_back['REQUIRED']})：</span><select type="text" class="form-control" name="dataRequired[]">
+                                    <option value="0" ({if !$data.one.dataRequired[i]})selected({/if})>({$label_back["_NO"]})</option>
+                                    <option value="1" ({if $data.one.dataRequired[i]})selected({/if})>({$label_back["_YES"]})</option>
+                                </select>
+                                <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">
+                            </div>
+                        ({/section})
+                    </div>
+                </div>
+                <script>
+                    var checkboxI=0;
+                    function addFormData(){
+                        $('#specifications_div').append(''+
+                        '<div class="col-md-12 mb-3 specifications-div">'+
+                            '<span> ({$label_back['NAME']})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$label_back['NAME']})" value="" data-check="Only" required>'+
+                            '<span> ({$label_back['TYPE']})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">'+
+                                ({foreach from=$data.typeOption key=k item=v})
+                                    '<option value="({$k})">({$label_back[$v]})</option>'+
+                                ({/foreach})
+                            '</select>'+
+                            '<span class="option_div" style="display:none">'+
+                                '<span> ({$label_back['OPTION']})：</span><textarea class="form-control" name="dataOption[]" data-text="({$label_back['OPTION']})" placeholder="data1,data2"></textarea>'+
+                            '</span> '+
+                            '<span> ({$label_back['REQUIRED']})：</span><select type="text" class="form-control" name="dataRequired[]">'+
+                                '<option value="0">({$label_back["_NO"]})</option>'+
+                                '<option value="1">({$label_back["_YES"]})</option>'+
+                            '</select>'+
+                            '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">'+
+                        '</div>');
+                        checkboxI++;
+                    }
+                    $(function(){
+                        $('#specifications_div').sortable({
+                            items: '.specifications-div'
+                        });
+                    });
+                    function selectType(data){
+                        var temp = ["select","radio","checkbox"];
+                        if(temp.indexOf($(data).val())>-1){
+                            $(data).parent().find(".option_div").show();
+                        }else{
+                            $(data).parent().find(".option_div").hide();
+                        }
+                    }
+                </script>
+
+                <!-- 頁面設定 -->
+                <div class="card-body tab-pane fade" id="list-page-setting">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["CUSTOM_PAGE_TITLE"]})</label>
+                            <input type="text" class="form-control" name="pageTitle" value="({$data.one.pageTitle})">
+                            <small class="text-muted">({$label_back["CUSTOM_PAGE_TITLE_TEXT"]})</small>
+                        </div>
+                    </div>
+                    <!-- <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["CUSTOM_URL"]})</label>
+                            <input type="text" class="form-control" name="urlKey" value="({$data.one.urlKey})">
+                            <small class="text-muted">({$label_back["CUSTOM_URL_TEXT"]})</small>
+                        </div>
+                    </div> -->
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["CUSTOM_PAGE_META"]})</label>
+                            <textarea class="form-control" rows="8" name="pageMeta">({$data.one.pageMeta})</textarea>
+                            <small class="text-muted">({$label_back["CUSTOM_PAGE_META_TEXT"]})</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

@@ -1,0 +1,135 @@
+    <!-- tinyMCE HTML editor模組 -->
+
+    <!-- 需用到
+        <script src="js/serback/tinymce/tinymce.min.js"></script>
+    -->
+    <base href="({$web.main_path})/" target="">
+    <textarea id="tinemceEditor({$_I_})" name="({$module.tinemceEditor[$_I_].name})" style="height: 500px;">({if isset($data[$module.tinemceEditor[$_I_].name])})({$data[$module.tinemceEditor[$_I_].name]})({else if isset($data["one"][$module.tinemceEditor[$_I_].name])})({$data["one"][$module.tinemceEditor[$_I_].name]})({/if})</textarea>
+    <script>
+        tinymce.PluginManager.add('CKFinderOpen', function(e) {
+            function customfunction() {
+                openKCFinder({$_I_})();
+            }
+
+            e.addButton('CKFinderOpen', {
+                id: "CKFinderOpen",
+                icon: "glyphicon glyphicon-folder-open",
+                tooltip: "({$label_back["SERVER_FILE"]})",
+                onclick: function() {
+                        customfunction();
+                    }
+                });
+            }
+        );
+
+        tinymce.init({
+            selector: "#tinemceEditor({$_I_})",
+            // selector: "textarea",
+            // auto_focus: "tinemceEditor({$_I_})",
+            language: "({$lang})",
+            theme: "modern",
+            //套件
+            plugins :[
+                      'advlist autolink lists link image charmap print preview anchor',
+                      'searchreplace visualblocks code textcolor colorpicker',
+                      'insertdatetime media table contextmenu paste code hr pagebreak nonbreaking CKFinderOpen'
+            ],
+            //工具列
+            toolbar: 'undo redo | cut copy paste | styleselect | fontselect | forecolor backcolor | bold italic | underline strikethrough | subscript  superscript removeformat formats | link image media CKFinderOpen advlist autolink charmap | print preview | code',
+
+            //圖片上傳
+            convert_urls:false,
+            images_upload_handler: function (blobInfo, success, failure) {
+                var xhr, formData;
+
+                xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                xhr.open('POST', _jsPath+"/upload.php?isTinyMCE=1({if isset($module.tinemceEditor[$_I_].watermark)})&watermark=({$module.tinemceEditor[$_I_].watermark})({/if})");
+
+                xhr.onload = function() {
+                    var json;
+
+                    if (xhr.status != 200) {
+                        alert('({$message["UPLOAD_ERROR"]})');//failure('');
+                        return;
+                    }
+
+                    json = JSON.parse(xhr.responseText);
+
+                    if (!json || typeof json.location != 'string') {
+                        alert('({$message["UPLOAD_JSON_ERROR"]}) ' + xhr.responseText);
+                        return;
+                    }
+                    success(_jsPath+'/'+json.location);
+                };
+
+                formData = new FormData();
+                formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+                xhr.send(formData);
+            },
+
+            //檔案上傳
+            file_browser_callback_types: 'file',
+            file_picker_types: 'file',
+            file_picker_callback: function(cb, value, meta) {
+
+                xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                xhr.open('POST', _jsPath+"/upload.php?isTinyMCE=1({if isset($module.tinemceEditor[$_I_].watermark)})&watermark=({$module.tinemceEditor[$_I_].watermark})({/if})");
+
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', '*');
+
+                input.onchange = function() {
+                    var file = this.files[0];
+
+                    var reader = new FileReader();
+                    reader.onload = function () {
+
+                        formData = new FormData();
+                        formData.append('file', file, file.name);
+                        xhr.send(formData);
+                    };
+                    reader.readAsDataURL(file);
+                };
+
+
+                xhr.onload = function() {
+                    var json;
+
+                    if (xhr.status != 200) {
+                        alert('({$message["UPLOAD_ERROR"]})');
+                        return;
+                    }
+
+                    json = JSON.parse(xhr.responseText);
+
+                    if (!json || typeof json.location != 'string') {
+                        alert('({$message["UPLOAD_JSON_ERROR"]})' + xhr.responseText);
+                        return;
+                    }
+
+                    cb(_jsPath+'/'+json.location, { text: input.files[0].name , title: input.files[0].name });
+                };
+                input.click();
+            },
+            paste_data_images: true,
+            init_instance_callback: function (editor) {
+                editor.addShortcut("ctrl+s", "Custom Ctrl+S", "custom_ctrl_s");
+                editor.addCommand("custom_ctrl_s", function() {
+                    formSubmit();
+                });
+            }
+        });
+
+        function openKCFinder({$_I_})() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function(fileUrl, data){
+                tinyMCE.get("tinemceEditor({$_I_})").execCommand('mceInsertContent', false, "<img src='"+fileUrl+"'/>");
+            }
+            finder.popup();
+        }
+    </script>
+    <!-- tinyMCE HTML editor模組 -->

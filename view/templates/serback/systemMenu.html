@@ -1,0 +1,202 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.editList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["EDIT"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.addList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["ADD"]})</a>
+                        </li>
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                ({if $switch.listList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-list">
+                        <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="2%">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                            <label class="custom-control-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                    <th scope="col">({$label_back["NAME"]})</th>
+                                    <th scope="col">({$label_back["URL"]})</th>
+                                    <th scope="col">({$label_back["SORT"]})</th>
+                                    <th scope="col">({$label_back["STATUS"]})</th>
+                                    <th scope="col" width="8%">({$label_back["TOW_SORT"]})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.list})
+                                    <tr data-parent="({$data.list[i].parent})" data-id="({$data.list[i].id})">
+                                        <td scope="row">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
+                                                <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            ({for $j=1 to $data.list[i].floor})&nbsp;&nbsp;&nbsp;&nbsp;({/for})
+                                            ({if $data.list[i].floor < $data.maxFloor})
+                                                <span class="glyphicon glyphicon-minus" style="color:#6e7892" data-id="({$data.list[i].id})" onclick="treeFoldStar(({$data.list[i].id}))"></span>
+                                            ({else})
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                            ({/if})
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$label_back[$data.list[i].name]})</a>
+                                        </td>
+                                        <td>
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].url})</a>
+                                        </td>
+                                        <td>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control col-md-3" name="sort_({$data.list[i].id})" value="({$data.list[i].sort})">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="onoffswitch">
+                                                <input type="hidden" name="status_({$data.list[i].id})" value="0">
+                                                <input type="checkbox" name="status_({$data.list[i].id})" class="onoffswitch-checkbox" id="myonoffswitch_({$data.list[i].id})" value="1" ({if $data.list[i].status})checked({/if})>
+                                                <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        <th >
+                                            <span class="glyphicon-move" style="font-size: 20px;"></span>
+                                        </th>
+                                    </tr>
+
+                                ({/section})
+                                
+                            </tbody>
+                        </table>          
+                    </div>
+                ({/if})
+
+                ({if $switch.editList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-edit">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["LANGUAGE_KEY"]})</label>
+                                <input type="text" class="form-control" name="name" value="({$data.one.name})" required>
+                                <small class="text-muted">({$label_back[$data.one.name]})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["URL"]})</label>
+                                <input type="text" class="form-control" name="url" value="({$data.one.url})">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["FLOOR"]})</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="parent" data-type="chosen" data-text="({$label_back["FLOOR"]})" required>
+                                        <option value="">({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="0,-1" ({if 0==$data.one.parent})selected({/if})>({$label_back["ROOT_DIRECTORY"]})</option>
+                                        ({section name=i loop=$data.list})
+                                            ({if $data.list[i].floor < $data.addMaxFloor})
+                                            <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;" ({if $data.list[i].id==$data.one.parent})selected({/if})>({$label_back[$data.list[i].name]})</option>
+                                            ({/if})
+                                        ({/section})
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["SORT"]})</label>
+                                <input type="text" class="form-control" name="sort" value="({$data.one.sort})" required>
+                            </div>
+                        </div> -->
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["STATUS"]})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="status" value="0">
+                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" value="1" ({if $data.one.status})checked({/if})>
+                                    <label class="onoffswitch-label" for="status"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-muted">
+                            ({$label_back['CREATE_DATE']})
+                            ({$data.one.create_date})(({$data.one.create_user}));
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.one.update_date})(({$data.one.update_user}))
+                        </small>
+                    </div>
+                ({/if})
+
+                ({if $switch.addList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-edit">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["LANGUAGE_KEY"]})</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["URL"]})</label>
+                                <input type="text" class="form-control" name="url">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["FLOOR"]})</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="parent" data-type="chosen" data-text="({$label_back["FLOOR"]})" required>
+                                        <option value="">({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="0,-1">({$label_back["ROOT_DIRECTORY"]})</option>
+                                        ({section name=i loop=$data.list})
+                                            ({if $data.list[i].floor < $data.addMaxFloor})
+                                            <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;"> ({$label_back[$data.list[i].name]})</option>
+                                            ({/if})
+                                        ({/section})
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["SORT"]})</label>
+                                <input type="text" class="form-control" name="sort" required>
+                            </div>
+                        </div> -->
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back["STATUS"]})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="status" value="0">
+                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" value="1" checked>
+                                    <label class="onoffswitch-label" for="status"></label>
+                                </div>
+                            </div>
+                        </div>
+                ({/if})
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

@@ -1,0 +1,103 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.editList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-basic">({$label_back["DETAIL"]})</a>
+                        </li>
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                ({if $switch.listList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-list">
+                        <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="2%">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                            <label class="custom-control-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                    ({section name=i loop=$data.list[0].keyName})
+                                        <th scope="col">({$data.list[0].keyName[i]})</th>
+                                    ({/section})
+                                    <th scope="col">({$label_back["CREATE_DATE"]})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.list})
+                                    <tr>
+                                        <td scope="row">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
+                                                <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        ({section name=j loop=$data.list[i].keyData})
+                                            <td >
+                                                <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].keyData[j]})</a>
+                                            </td>
+                                        ({/section})
+                                        <td >
+                                            ({$data.list[i].create_date})
+                                        </td>
+                                    </tr>
+
+                                ({/section})
+                                
+                            </tbody>
+                        </table>          
+                    </div>
+
+                ({/if})
+
+                ({if $switch.editList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-basic">
+                        
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="10%">({$label_back["TITLE"]})</th>
+                                    <th scope="col">({$label_back["DETAIL"]})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.one.keyName})
+                                    <tr>
+                                        <td scope="col">({$data.one.keyName[i]})</td>
+                                        <td>({$data.one.keyData[i]})</td>
+                                    </tr>
+                                ({/section})
+                            </tbody>
+                        </table>
+
+
+                        <small class="text-muted">
+                            ({$label_back['CREATE_DATE']})
+                            ({$data.one.create_date})
+                        </small>
+                        
+                    </div>
+                ({/if})
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

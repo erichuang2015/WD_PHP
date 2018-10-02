@@ -1,0 +1,36 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+
+	#ExpiresActive On
+	#ExpiresDefault "access plus 2 months"
+	#ExpiresByType image/gif A2592000
+	#ExpiresByType image/png A2592000
+	#ExpiresByType image/jpg A2592000
+	#ExpiresByType image/jpeg A2592000
+	#ExpiresByType image/ico A2592000
+	#ExpiresByType text/css A2592000
+	#ExpiresByType text/javascript A2592000
+
+    RewriteEngine on
+    #RewriteBase /MTsung
+
+	ErrorDocument 403 http://%{HTTP_HOST}/MTsung/404.html
+	ErrorDocument 404 http://%{HTTP_HOST}/MTsung/404.html
+
+	#縮圖轉址
+    RewriteRule (.+)\.(.+)\.min$ $1_min\.$2 [R,L]
+
+	#RewriteRule (.[^\.]).(php)$ - [L]
+	#RewriteRule (.[^\.]).(mp3|mov|php|mp4|avi|wmv)$ - [NC,F,L]
+
+	RewriteCond $1 !^(ajax\.php|upload\.php|socket\.php|output|upload|css|js|fonts|images|language|include|verifycode\.php|.*\.ico|404\.html|$)
+	#RewriteCond $1 ^(error|serback)
+
+	#.* 一到多個任意字元 
+    RewriteRule ^(.*)$ index.php [L,QSA]
+
+
+
+
+</IfModule>
+

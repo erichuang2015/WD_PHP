@@ -1,0 +1,76 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner" style=" background-image: url(images/banner006.jpg);">
+    <div class="banner-title">
+        <div class="banner-ch">會員專區</div>
+        <div class="banner-en">Member</div>
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<div class="warpper">
+    <div class="main clearfix">
+        <!-- 編輯區 -->
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body clearfix">
+            <div class="col-025 col-m">
+                <div class="in-left-menu classBox">
+                    <ul class="classLink">
+                        <li><a href="({$console->path[0]})/detail" class="current">修改會員資料</a></li>
+                        <li><a href="({$console->path[0]})/order">訂單查詢</a></li>
+                        <li><a href="({$console->path[0]})/password">修改密碼</a></li>
+                        <li><a href="({$console->path[0]})/logout">登出</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cor-075 col-m">
+                <h3 class="page-title">修改會員資料</h3>
+                <form action="" method="POST">
+                    <div class="form-box clearfix">
+                        <!-- 表單 -->
+                        <div class="opinion clearfix"> <span class="opinion-left01">帳號</span>
+                            <input type="text" disabled class="input-main-style02" placeholder="請輸入您的E-mail" value="({$member.account})" data-text="帳號">
+                            ({if $member.fbID})
+                                <a href="javascript:;" onclick="if(confirm('確定要解除綁定?')){location.href='({$console->addQuery(['unLink'=>'fb'])})'}"><img src="({$member.fbPicture})" height="48" width="48" title="解除綁定"></a>
+                            ({else})
+                                <a href="javascript:;" onclick="fbLogin();"><img src="images/FB_LOGO_min.png" height="48" width="48" title="綁定帳號"></a>
+                            ({/if}) 
+                        </div>
+                        <div class="opinion clearfix"> <span class="opinion-left01">姓名</span>
+                            <input type="text" name="name" required class="input-main-style02" placeholder="姓名" value="({$member.name})" data-text="姓名">
+                        </div>
+                        <div class="opinion clearfix"> <span class="opinion-left01">聯絡電話</span>
+                            <input type="text" name="phone" required class="input-main-style02" placeholder="0912345678 或 02-12345678" value="({$member.phone})" data-text="聯絡電話">
+                        </div>
+                        <div class="opinion clearfix"> <span class="opinion-left01">聯絡地址</span>
+                            <div class="input-main-select" id="twzipcode">
+                                <script>
+                                    $('#twzipcode').twzipcode({
+                                        'countyName': 'address[0]',
+                                        'districtName': 'address[1]',
+                                        'zipcodeName': 'address[2]',
+                                        'zipcodeIntoDistrict': true,
+                                        'countySel'   : '({$member.address[0]})',
+                                        'districtSel' : '({$member.address[1]})',
+                                        'zipcodeSel' : '({$member.address[2]})'
+                                    });
+                                    $('#twzipcode').find('select').attr('required', true);
+                                    $('#twzipcode').find('select[name="address[0]"]').attr('data-text', "聯絡地址-縣市");
+                                    $('#twzipcode').find('select[name="address[1]"]').attr('data-text', "聯絡地址-鄉鎮市區");
+                                </script>
+                                <input type="text" required name="address[3]" class="input-main-style03" placeholder="吉林路109號2樓"  data-text="聯絡地址" value="({$member.address[3]})">
+                            </div>
+                        </div>
+                        <div class="cart-btn">
+                            <button class="btn-send" onclick="formSubmit(0); return false;">確認修改</button>
+                        </div>
+                    </div>
+                    ({$console->getToken()})
+                </form>
+            </div>
+            <!-- 右欄 END -->
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 END -->
+</div>
+({include "foor.html"})

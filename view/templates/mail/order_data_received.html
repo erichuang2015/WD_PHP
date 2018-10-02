@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>({$data.mailTitle})</title>
+</head>
+
+<body>
+    <span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">親愛的 ({if $member.name})({$member.name})({else})({$order.formData.BuyName})({/if}) 先生/小姐 您好：</span>
+    <span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">感謝您在「<a href="({$data.webUrl})">({$data.webName})</a>」上購物！</span>
+    <span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">您的訂單編號：({$order.orderNumber}) 綠界已收到訂單資料，我們將盡快為您出貨</span>
+    <span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">超商店號：({$order.formData.CVSStoreID})</span>
+    <span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">超商名稱：({$order.formData.CVSStoreName})</span>
+    <span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">超商地址：({$order.formData.CVSAddress})</span>
+    ({if $data.orderECPayLog.CVSPaymentNo})
+        <span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">寄貨編號：({$data.orderECPayLog.CVSPaymentNo})({$data.orderECPayLog.CVSValidationNo})</span>
+    ({/if})
+    <span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">如果有任何問題請與管理員聯繫(<a href="mailto:({$data.webEmail})">({$data.webEmail})</a>)！</span>
+</body>
+
+</html>

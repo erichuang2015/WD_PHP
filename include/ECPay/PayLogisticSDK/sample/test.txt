@@ -1,0 +1,23 @@
+[AllPayLogisticsID] => 133852 , 
+[BookingNote] =>  , 
+[CheckMacValue] => A325F3166BCEB4E8FA462D3D5441B130 , 
+[CVSPaymentNo] =>  , 
+[CVSValidationNo] =>  , 
+[GoodsAmount] => 1500 , 
+[LogisticsSubType] => UNIMART , 
+[LogisticsType] => CVS , 
+[MerchantID] => 2000132 , 
+[MerchantTradeNo] => no20180904162823 , 
+[ReceiverAddress] =>  , 
+[ReceiverCellPhone] => 0933222111 , 
+[ReceiverEmail] => test_emjhdAJr@test.com.tw , 
+[ReceiverName] => 測試收件者 , 
+[ReceiverPhone] => 0226550115 , 
+[RtnCode] => 300 , 
+[RtnMsg] => 訂單處理中(已收到訂單資料) , 
+[UpdateStatusDate] => 2018/09/04 16:28:27 , 
+
+
+
+
+

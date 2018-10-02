@@ -1,0 +1,261 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.editList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["EDIT"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.addList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["ADD"]})</a>
+                        </li>
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                ({if $switch.listList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-list">
+                        <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="2%">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                            <label class="custom-control-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                    <th scope="col">({$label_back["ACCOUNT"]})</th>
+                                    <th scope="col">({$label_back["FIRST_NAME"]})</th>
+                                    <th scope="col">({$label_back["STATUS"]})</th>
+                                    <th scope="col">({$label_back["CREATE_DATE"]})</th>
+                                    <th scope="col">({$label_back["UPDATE_DATE"]})</th>
+                                    <!-- <th scope="col">({$label_back["TOW_SORT"]})</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.list})
+                                    ({if $data.list[i].id!=$member.id})
+
+                                        <tr>
+                                            <td scope="row">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
+                                                    <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
+                                                </div>
+                                            </td>
+                                            <td >
+                                                <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].account})</a>
+                                                
+                                            </td>
+                                            <td >
+                                                <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
+                                                
+                                            </td>
+                                            <td>
+                                                <div class="onoffswitch">
+                                                    <input type="hidden" name="status_({$data.list[i].id})" value="0" ({if $data.list[i].id==$member.id})disabled({/if})>
+                                                    <input type="checkbox" name="status_({$data.list[i].id})" class="onoffswitch-checkbox" id="myonoffswitch_({$data.list[i].id})" value="1" ({if $data.list[i].status})checked({/if}) ({if $data.list[i].id==$member.id})disabled({/if})>
+                                                    <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
+                                                </div>
+                                            </td>
+                                            <td >
+                                                ({$data.list[i].create_date})(({$data.list[i].create_user}))
+                                            </td>
+                                            <td >
+                                                ({$data.list[i].update_date})(({$data.list[i].update_user}))
+                                            </td>
+                                            <!-- <th >
+                                                <span class="glyphicon-move" style="font-size: 20px;"></span>
+                                            </th> -->
+                                        </tr>
+                                    ({/if})
+
+                                ({/section})
+                                
+                            </tbody>
+                        </table>          
+                    </div>
+                ({/if})
+
+                ({if $switch.editList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-edit">
+                        
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <label>({$label_back['ACCOUNT']})</label>
+                                <input type="text" readonly class="form-control" value="({$data.one.account})" disabled>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label>&nbsp;</label>
+                                <div class='form-inline'>
+                                    ({if $web.lineAuthAppID})
+                                        <img src="images/LINE_LOGO.png" width="38px" ({if !$data.one.lineID})style="-webkit-filter:grayscale(1);"({/if})>&nbsp;
+                                    ({/if})
+                                    ({if $web.fbAuthAppID})
+                                        <img src="images/FB_LOGO.png" width="38px" ({if !$data.one.fbID})style="-webkit-filter:grayscale(1);"({/if})>&nbsp;
+                                    ({/if})
+                                    ({if $web.googleAuthAppID})
+                                        <img src="images/GOOGLE_LOGO.png" width="38px" ({if !$data.one.googleID})style="-webkit-filter:grayscale(1);"({/if})>
+                                    ({/if})
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['GROUP']})</label>
+                                <select class="form-control" name="groupID" data-type="chosen" data-text="({$label_back["GROUP"]})">
+                                    ({section name=i loop=$data.group})
+                                        <option value="({$data.group[i].id})" ({if $data.one.groupID==$data.group[i].id})selected({/if})>({$data.group[i].name})</option>
+                                    ({/section})
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['NEW_PASSWORD']})</label>
+                                <input type="password" name="newPassword" class="form-control" data-check="Password" data-text="({$label_back['NEW_PASSWORD']})" autocomplete="off">
+                                <small class="text-muted">({$label_back['NEW_PASSWORD_MESSAGE']})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['CHECK_NEW_PASSWORD']})</label>
+                                <input type="password" name="checkNewPassword" class="form-control" data-check="Password" data-text="({$label_back['CHECK_NEW_PASSWORD']})" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['FIRST_NAME']})</label>
+                                <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="name" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['EMAIL']})</label>
+                                <input type="email" name="email" class="form-control" value="({$data.one.email})" autocomplete="email" data-check="Email" data-text="({$label_back['EMAIL']})">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['DOING_TIME']})</label>
+                                <input type="text" name="doingTime" class="form-control" value="({$data.one.doingTime})" data-check="Number" data-text="({$label_back['DOING_TIME']})">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['PICTURE']})</label>
+                                <div>
+                                    ({assign var=_I_ value=0})
+                                    ({include file='module.uploadImg.html'})
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['STATUS']})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="status" value="0" ({if $data.one.id==$member.id})disabled({/if})>
+                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" ({if $data.one.status})checked({/if}) ({if $data.one.id==$member.id})disabled({/if})>
+                                    <label class="onoffswitch-label" for="myonoffswitch"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-muted">
+                            ({$label_back['CREATE_DATE']})
+                            ({$data.one.create_date})(({$data.one.create_user}));
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.one.update_date})(({$data.one.update_user}))
+                        </small>
+                    </div>
+                ({/if})
+
+                ({if $switch.addList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-edit">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['ACCOUNT']})</label>
+                                <input type="text" name="account" class="form-control" autocomplete="account" data-check="Account" data-text="({$label_back["ACCOUNT"]})" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['GROUP']})</label>
+                                <select class="form-control" name="groupID" data-text="({$label_back["GROUP"]})">
+                                    ({section name=i loop=$data.group})
+                                        <option value="({$data.group[i].id})">({$data.group[i].name})</option>
+                                    ({/section})
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['PASSWORD']})</label>
+                                <input type="password" name="password" class="form-control" autocomplete="off" data-check="Password" data-text="({$label_back['PASSWORD']})" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['CHECK_PASSWORD']})</label>
+                                <input type="password" name="checkPassword" class="form-control" autocomplete="off"  data-check="Password" data-text="({$label_back['CHECK_PASSWORD']})" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['FIRST_NAME']})</label>
+                                <input type="text" name="name" class="form-control" value="" autocomplete="name" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['EMAIL']})</label>
+                                <input type="email" name="email" class="form-control" value="" autocomplete="email" data-check="Email" data-text="({$label_back['EMAIL']})">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['DOING_TIME']})</label>
+                                <input type="text" name="doingTime" class="form-control" value="({$data.one.doingTime})" data-check="Number" data-text="({$label_back['DOING_TIME']})">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['PICTURE']})</label>
+                                <div>
+                                    ({assign var=_I_ value=0})
+                                    ({include file='module.uploadImg.html'})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$label_back['STATUS']})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="status" value="0" >
+                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch"></label>
+                                </div>
+                            </div>
+                        </div>
+                ({/if})
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

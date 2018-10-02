@@ -1,0 +1,62 @@
+({include file='top.html'})
+<div class="card-deck ">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                ({if $switch.listList!=0})
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                    </li>
+                ({/if})
+            </ul>
+        </div>
+        <div class="tab-content">
+
+            ({if $switch.listList!=0})
+                <div class="card-body tab-pane fade show active" id="list-list">
+                    <table class="table table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">({$label_back["ID"]})</th>
+                                <th scope="col">({$label_back["ACCOUNT"]})</th>
+                                <th scope="col">({$label_back["ACTION"]})</th>
+                                <th scope="col">({$label_back["DATE"]})</th>
+                                <th scope="col">({$label_back["IP"]})</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ({section name=i loop=$data.list})
+                                <tr>
+                                    <td>
+                                        ({$data.list[i].id})
+                                    </td>
+                                    <td>
+                                        ({$data.list[i].account})
+                                    </td>
+                                    <td>
+                                        ({$data.list[i].type})
+                                    </td>
+                                    <td>
+                                        ({$data.list[i].create_date})
+                                    </td>
+                                    <td>
+                                        ({$data.list[i].IP})
+                                    </td>
+                                </tr>
+
+                            ({/section})
+                            
+                        </tbody>
+                    </table>          
+                </div>
+            ({/if})
+
+        </div>
+    </div>
+</div>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

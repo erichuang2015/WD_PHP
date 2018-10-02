@@ -1,0 +1,108 @@
+    <!-- ace編輯器模組 -->
+
+    <!-- 需用到
+        <script src="include/ace-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="include/ace-noconflict/ext-language_tools.js"></script>
+    -->
+    <!-- POST用隱藏欄位 -->
+    <base href="({$web.main_path})/" target="">
+    <textarea name="({$module.aceEditor.name})" id="hiddenTextarea" style="display:none;"></textarea>
+    <!-- POST用隱藏欄位 -->
+    <div id="aceEditorDiv" class="input-group mb-3" style="width: 100%;height: 600px;">
+        <div class="aceEditor" id="aceEditor" >({$data[$module.aceEditor.name]})</div>
+    </div>
+
+    ({literal})
+        <script>
+            $(function() {
+                var editor = ace.edit("aceEditor");
+                ace.require("ace/ext/language_tools");
+                ace.require('ace/multi_select');
+                editor.setTheme("ace/theme/monokai");
+                editor.session.setMode("ace/mode/html");
+                editor.setFontSize(16);
+                editor.setPrintMarginColumn(-1);
+                editor.setHighlightActiveLine(true);
+                editor.setOptions({
+                    enableBasicAutocompletion: true,
+                    enableSnippets: true,
+                    enableLiveAutocompletion: true
+                });
+                editor.getSession().setUseWrapMode(true);
+                //及時更新隱藏欄位內容
+                editor.session.on('change', function () {
+                    $("#hiddenTextarea").val(editor.getValue());
+                });
+                //儲存
+                editor.commands.addCommand({
+                    name: "save",
+                    bindKey: {win: "Ctrl-S", mac: "Command-Option-S"},
+                    exec: function(editor) {
+                        ace.require("ace/config").loadModule("ace/ext/searchbox", function(e) {
+                            $("#hiddenTextarea").val(editor.getValue());
+                            $('form').submit();
+                        });
+                    }
+                });
+                //全螢幕
+                editor.commands.addCommand({
+                    name: "Toggle Fullscreen",
+                    bindKey: {win: "F11"},
+                    exec: function(editor) {
+                        ace.require("ace/config").loadModule("ace/ext/searchbox", function(e) {
+                            if($('#aceEditorDiv').css('position') != 'fixed'){
+                                $('#aceEditorDiv').css('position','fixed');
+                                $('#aceEditorDiv').css('height','calc(100% - 56px)');
+                                $('#aceEditorDiv').css('left','0');
+                                $('#aceEditorDiv').css('top','56px');
+                                $('#aceEditorDiv').css('z-index','99999999');
+                            }else{
+                                $('#aceEditorDiv').css('position','relative');
+                                $('#aceEditorDiv').css('height','500px');
+                                $('#aceEditorDiv').css('top','0');
+                            }
+                            editor.resize();
+                        });
+                    }
+                });
+                //esc取消全螢幕
+                editor.commands.addCommand({
+                    name: "un Fullscreen",
+                    bindKey: {win: "esc"},
+                    exec: function(editor) {
+                        ace.require("ace/config").loadModule("ace/ext/searchbox", function(e) {
+                            if($('#aceEditorDiv').css('position') == 'fixed'){
+                                $('#aceEditorDiv').css('position','relative');
+                                $('#aceEditorDiv').css('height','500px');
+                                $('#aceEditorDiv').css('top','0');
+                                editor.resize();
+                            }
+                        });
+                    }
+                });
+                //ctrl+h 開啟取代功能
+                editor.commands.addCommand({
+                    name: "replace",
+                    bindKey: {win: "Ctrl-H", mac: "Command-Option-H"},
+                    exec: function(editor) {
+                        ace.require("ace/config").loadModule("ace/ext/searchbox", function(e) {
+                             e.Search(editor, true)  
+                             // take care of keybinding inside searchbox           
+                             // this is too hacky :(             
+                             var kb = editor.searchBox.$searchBarKb;
+                             command = kb.commandKeyBinding["ctrl-h"];
+                             if (command && command.bindKey.indexOf("Ctrl-H") == -1) {
+                                 command.bindKey += "|Ctrl-H";
+                                 kb.addCommand(command);
+                             }
+                         });
+                    }
+                });
+                editor.setReadOnly(false);
+                //編輯器載入完成再顯示
+                $("#hiddenTextarea").val(editor.getValue());
+                $('#aceEditor').css("display","block");
+            });
+        </script>
+    ({/literal})
+    <!-- ace編輯器模組 end -->

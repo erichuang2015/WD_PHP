@@ -1,0 +1,269 @@
+({include file='top.html'})
+<form action="" method="post"> 
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="list" href="#list-setting">({$label_back["BASIC_SETTING"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-member-setting">({$label_back["MEMBER_SETTING"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-order-setting">({$label_back["ORDER_SETTING"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-ECPay-setting">({$label_back["ECPAY_SETTING"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-FB-msg-bot-setting">({$label_back["FB_MESSAGE_BOT"]})</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="tab-content">
+                <!-- 基本設定 -->
+                <div class="card-body tab-pane fade show active" id="list-setting">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["WEB_TITLE"]})</label>
+                            <input type="text" class="form-control" name="webTitle" value="({$data.one.webTitle})">
+                        </div>
+                    </div>
+                   <!--  <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["MEMBER_EMAIL_CHECK"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="emailCheck" value="0">
+                                <input type="checkbox" name="emailCheck" class="onoffswitch-checkbox" id="emailCheck" value="1" ({if $data.emailCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="emailCheck"></label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["WEB_META"]})</label>
+                            <textarea class="form-control" rows="8" name="webMeta">({$data.one.webMeta})</textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["COMPANY_PHONE"]})</label>
+                            <input type="text" class="form-control" name="companyPhone" value="({$data.one.companyPhone})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["COMPANY_EMAIL"]})</label>
+                            <input type="text" class="form-control" name="companyEmail" value="({$data.one.companyEmail})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["COMPANY_ADDRESS"]})</label>
+                            <input type="text" class="form-control" name="companyAddress" value="({$data.one.companyAddress})">
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- 會員設定 -->
+                <div class="card-body tab-pane fade" id="list-member-setting">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["MEMBER_EMAIL_CHECK"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="emailCheck" value="0">
+                                <input type="checkbox" name="emailCheck" class="onoffswitch-checkbox" id="emailCheck" value="1" ({if $data.one.emailCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="emailCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- 購物設定 -->
+                <div class="card-body tab-pane fade" id="list-order-setting">
+<!-- 
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["NO_LOGIN_ORDER"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="noLoginOrder" value="0">
+                                <input type="checkbox" name="noLoginOrder" class="onoffswitch-checkbox" id="noLoginOrder" value="1" ({if $data.one.noLoginOrder==1})checked({/if})>
+                                <label class="onoffswitch-label" for="noLoginOrder"></label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['BONUS_POINT']})</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">({$label_back['EACH']})</span>
+                                </div>
+                                <input type="text" class="form-control" name="bonusMoney" value="({$data.one.bonusMoney})" data-check="Number" data-text="({$label_back['BONUS_POINT']})-({$label_back['PRICE_DOLLAR']})">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">({$label_back['PRICE_DOLLAR']})</span>
+                                </div>
+                                <input type="text" class="form-control" name="bonusPoint" value="({$data.one.bonusPoint})" data-check="Number" data-text="({$label_back['BONUS_POINT']})-({$label_back['POINT']})">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">({$label_back['POINT']})</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['BONUS_DISCOUNT']})</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">({$label_back['EACH']})</span>
+                                </div>
+                                <input type="text" class="form-control" name="bonusDiscountMoney" value="({$data.one.bonusDiscountMoney})" data-check="Number" data-text="({$label_back['BONUS_DISCOUNT']})-({$label_back['POINT']})">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">({$label_back['POINT']})</span>
+                                </div>
+                                <input type="text" class="form-control" name="bonusDiscountPoint" value="({$data.one.bonusDiscountPoint})" data-check="Number" data-text="({$label_back['BONUS_DISCOUNT']})-({$label_back['PRICE_DOLLAR']})">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">({$label_back['PRICE_DOLLAR']})</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['FREIGHT']})</label>
+                            <input type="text" class="form-control" name="freight" value="({$data.one.freight})" data-check="Number" data-text="({$label_back['FREIGHT']})">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['FREE_FREIGHT_MONEY']})</label>
+                            <input type="text" class="form-control" name="freeFreightMoney" value="({$data.one.freeFreightMoney})" data-check="Number" data-text="({$label_back['FREE_FREIGHT_MONEY']})">
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- 綠界寄件資料設定 -->
+                <div class="card-body tab-pane fade" id="list-ECPay-setting">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SENDER_NAME']})</label>
+                            <input type="text" class="form-control" name="senderName" value="({$data.one.senderName})" data-check="SenderName" data-text="({$label_back['SENDER_NAME']})" required>
+                            <small class="text-muted">({$label_back['SENDER_NAME_SMALL']})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SENDER_PHONE']})</label>
+                            <input type="text" class="form-control" name="senderPhone" value="({$data.one.senderPhone})" data-check="SenderPhone" data-text="({$label_back['SENDER_PHONE']})" required>
+                            <small class="text-muted">({$label_back['SENDER_PHONE_SMALL']})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SENDER_CELL_PHONE']})</label>
+                            <input type="text" class="form-control" name="senderCellPhone" value="({$data.one.senderCellPhone})" data-check="SenderCellPhone" data-text="({$label_back['SENDER_CELL_PHONE']})" required>
+                            <small class="text-muted">({$label_back['SENDER_CELL_PHONE_SMALL']})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SENDER_ZIP_CODE']})</label>
+                            <input type="text" class="form-control" name="senderZipCode" value="({$data.one.senderZipCode})" data-check="SenderZipCode" data-text="({$label_back['SENDER_ZIP_CODE']})" required>
+                            <small class="text-muted">({$label_back['SENDER_ZIP_CODE_SMALL']})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['SENDER_ADDRESS']})</label>
+                            <input type="text" class="form-control" name="senderAddress" value="({$data.one.senderAddress})" data-check="SenderAddress" data-text="({$label_back['SENDER_ADDRESS']})" required>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- FB MSG BOT -->
+                <div class="card-body tab-pane fade" id="list-FB-msg-bot-setting">
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["OPEN"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="fbMsgBotCheck" value="0">
+                                <input type="checkbox" name="fbMsgBotCheck" class="onoffswitch-checkbox" id="fbMsgBotCheck" value="1" ({if $data.one.fbMsgBotCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="fbMsgBotCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['FAN_PAGE_ID']})</label>
+                            <input type="text" class="form-control" name="fanPageId" value="({$data.one.fanPageId})" data-text="({$label_back['FAN_PAGE_ID']})">
+                            <small class="text-muted">({$label_back['FB_MESSAGE_BOT_SMALL']})</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['THEME_COLOR']})</label>
+                            <input type="text" class="form-control" name="fbMsgBotColor" value="({$data.one.fbMsgBotColor})">
+                            <input class="form-control" id='colorpicker'/>
+                        </div>
+                        <script>
+                            $("#colorpicker").spectrum( {
+                                preferredFormat: "hex",
+                                showInput: true,
+                                color: "({if isset($data.one.fbMsgBotColor)})({$data.one.fbMsgBotColor})({/if})",
+                                chooseText: "({$label_back['CHOOSE']})",
+                                cancelText: "({$label_back["CANCEL"]})",
+                                change: function(color) {
+                                    $("[name='fbMsgBotColor']").val($("#colorpicker").spectrum("get").toHexString());
+                                }
+                            });
+                        </script>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['LOGGED_IN_GREETING']})</label>
+                            <input type="text" class="form-control" name="loggedInGreeting" value="({$data.one.loggedInGreeting})" data-text="({$label_back['LOGGED_IN_GREETING']})">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back['LOGGED_OUT_GREETING']})</label>
+                            <input type="text" class="form-control" name="loggedOutGreeting" value="({$data.one.loggedOutGreeting})" data-text="({$label_back['LOGGED_OUT_GREETING']})">
+                        </div>
+                    </div>
+
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({include file='foor.html'})

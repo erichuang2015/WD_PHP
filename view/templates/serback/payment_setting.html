@@ -1,0 +1,242 @@
+({include file='top.html'})
+<form action="" method="post"> 
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="list" href="#list-setting1">({$label_back["CASH_ON_DELIVERY"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-setting2">({$label_back["PHYSICAL_ATM_TRANSFER"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-setting3">({$label_back["PHYSICAL_ATM_TRANSFER_ECPAY"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-setting4">({$label_back["INTERNET_ATM_TRANSFER_ECPAY"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-setting5">({$label_back["ONLINE_CARD_ECPAY"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-setting6">({$label_back["CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-setting7">({$label_back["CVS_ECPAY"]})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="list" href="#list-setting8">({$label_back["BARCODE_ECPAY"]})</a>
+                    </li>
+
+
+
+
+
+                </ul>
+            </div>
+            <div class="tab-content">
+                <!-- 貨到付款 -->
+                <div class="card-body tab-pane fade show active" id="list-setting1">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["CASH_ON_DELIVERY"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="cashOnDeliveryCheck" value="0">
+                                <input type="checkbox" name="cashOnDeliveryCheck" class="onoffswitch-checkbox" id="cashOnDeliveryCheck" value="1" ({if $data.one.cashOnDeliveryCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="cashOnDeliveryCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="cashOnDeliveryDetail">({$data.one.cashOnDeliveryDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- 實體ATM轉帳 -->
+                <div class="card-body tab-pane fade" id="list-setting2">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["PHYSICAL_ATM_TRANSFER"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="physicalATMTransferCheck" value="0">
+                                <input type="checkbox" name="physicalATMTransferCheck" class="onoffswitch-checkbox" id="physicalATMTransferCheck" value="1" ({if $data.one.physicalATMTransferCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="physicalATMTransferCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="physicalATMTransferDetail">({$data.one.physicalATMTransferDetail})</textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DETAILED_INFORMATION"]})</label>
+                            <textarea class="form-control" rows="8" name="physicalATMTransferMemo">({$data.one.physicalATMTransferMemo})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- 實體ATM轉帳(綠界) -->
+                <div class="card-body tab-pane fade" id="list-setting3">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["PHYSICAL_ATM_TRANSFER_ECPAY"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="physicalATMTransferECPayCheck" value="0">
+                                <input type="checkbox" name="physicalATMTransferECPayCheck" class="onoffswitch-checkbox" id="physicalATMTransferECPayCheck" value="1" ({if $data.one.physicalATMTransferECPayCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="physicalATMTransferECPayCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="physicalATMTransferECPayDetail">({$data.one.physicalATMTransferECPayDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- 網路ATM轉帳(綠界) -->
+                <div class="card-body tab-pane fade" id="list-setting4">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["INTERNET_ATM_TRANSFER_ECPAY"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="internetATMTransferECPayCheck" value="0">
+                                <input type="checkbox" name="internetATMTransferECPayCheck" class="onoffswitch-checkbox" id="internetATMTransferECPayCheck" value="1" ({if $data.one.internetATMTransferECPayCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="internetATMTransferECPayCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="internetATMTransferECPayDetail">({$data.one.internetATMTransferECPayDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- 線上刷卡(綠界) -->
+                <div class="card-body tab-pane fade" id="list-setting5">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["ONLINE_CARD_ECPAY"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="onlineCardECPayCheck" value="0">
+                                <input type="checkbox" name="onlineCardECPayCheck" class="onoffswitch-checkbox" id="onlineCardECPayCheck" value="1" ({if $data.one.onlineCardECPayCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="onlineCardECPayCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="onlineCardECPayDetail">({$data.one.onlineCardECPayDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+                <!-- 超商取貨付款(綠界) -->
+                <div class="card-body tab-pane fade" id="list-setting6">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="convenienceStorePickUpPaymentECPayCheck" value="0">
+                                <input type="checkbox" name="convenienceStorePickUpPaymentECPayCheck" class="onoffswitch-checkbox" id="convenienceStorePickUpPaymentECPayCheck" value="1" ({if $data.one.convenienceStorePickUpPaymentECPayCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="convenienceStorePickUpPaymentECPayCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="convenienceStorePickUpPaymentECPayDetail">({$data.one.convenienceStorePickUpPaymentECPayDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                
+                <!-- 超商代碼(綠界) -->
+                <div class="card-body tab-pane fade" id="list-setting7">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["CVS_ECPAY"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="cvsECPayCheck" value="0">
+                                <input type="checkbox" name="cvsECPayCheck" class="onoffswitch-checkbox" id="cvsECPayCheck" value="1" ({if $data.one.cvsECPayCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="cvsECPayCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="cvsECPayDetail">({$data.one.cvsECPayDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                
+                <!-- 超商條碼(綠界) -->
+                <div class="card-body tab-pane fade" id="list-setting8">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back["BARCODE_ECPAY"]})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="barcodeECPayCheck" value="0">
+                                <input type="checkbox" name="barcodeECPayCheck" class="onoffswitch-checkbox" id="barcodeECPayCheck" value="1" ({if $data.one.barcodeECPayCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="barcodeECPayCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="barcodeECPayDetail">({$data.one.barcodeECPayDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({include file='foor.html'})

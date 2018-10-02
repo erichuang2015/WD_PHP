@@ -1,0 +1,12 @@
+2018-09-20 12:43:47 pid:1 exception 'Exception' with message 'class \Protocols\//0.0.0.0 not exist' in C:\AppServ\www\MTsung\include\phpsocket.io\workerman\workerman\Worker.php:2068
+Stack trace:
+#0 C:\AppServ\www\MTsung\socket.php(31): Workerman\Worker->listen()
+#1 [internal function]: {closure}(Object(Workerman\Worker))
+#2 C:\AppServ\www\MTsung\include\phpsocket.io\workerman\workerman\Worker.php(2220): call_user_func(Object(Closure), Object(Workerman\Worker))
+#3 C:\AppServ\www\MTsung\include\phpsocket.io\workerman\workerman\Worker.php(1225): Workerman\Worker->run()
+#4 C:\AppServ\www\MTsung\include\phpsocket.io\workerman\workerman\Worker.php(1168): Workerman\Worker::forkWorkersForWindows()
+#5 C:\AppServ\www\MTsung\include\phpsocket.io\workerman\workerman\Worker.php(478): Workerman\Worker::forkWorkers()
+#6 C:\AppServ\www\MTsung\socket.php(43): Workerman\Worker::runAll()
+#7 {main}
+2018-09-20 12:43:48 pid:1 Worker process terminated
+2018-09-20 14:15:06 pid:1 Worker process terminated with ERROR: E_ERROR "Call to a member function to() on null in C:\AppServ\www\MTsung\socket.php on line 41"

@@ -1,0 +1,55 @@
+({include "top.html"})
+
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner" style=" background-image: url(images/banner002.jpg);">
+  <div class="banner-title">
+     <div class="banner-ch">最新消息</div>
+     <div class="banner-en">What’s news</div>
+  </div>
+</div>
+<!-- InstanceEndEditable -->
+<div class="warpper">
+  <div class="main clearfix"><!-- 編輯區 --> 
+    <!-- InstanceBeginEditable name="EditRegion1" -->
+    <div class="content-body clearfix">
+    ({if $data.list})
+         <div class="cor-100 col-m"><!-- 左欄 -->
+         
+           
+           <div class="news">
+           <ul class="news-list" >
+            ({section name=i loop=$data.list})
+                
+             <li><!-- 單筆消息 --><a href="({$console->path[0]})/({$data.list[i].urlKey})">
+                 
+               <div class="news-date"><div class="day">({$data.list[i].viewDate|date_format:"%d"})</div>({$data.list[i].viewDate|date_format:"%b"})．({$data.list[i].viewDate|date_format:"%Y"})</div>
+               <div class="news-lis-cont">({$data.list[i].name})</div>
+             </a></li>
+            ({/section})
+             
+           </ul>
+           </div>
+            <!-- 頁次模組 -->
+           <div class="page">({$data.page})
+           </div>
+         </div><!-- 左欄 EDN -->
+    ({else if $data.one})
+        <div class="cor-100 col-m">
+        <h3 class="page-title">({$data.one.name})</h3>
+        <div class="time"><div class="news-day">({$data.one.viewDate|date_format:"%d"})</div>({$data.one.viewDate|date_format:"%b"})．({$data.one.viewDate|date_format:"%Y"})</div>
+        <div class="page-main">
+            ({$data.one.detail})
+        </div>
+        
+        <!-- 頁次模組 -->
+        <div class="page"><a href="({$console->path[0]})">回上一頁</a></div>
+        </div> <!-- 右欄 END -->
+    ({/if})
+     
+    </div>
+  <!-- InstanceEndEditable --> </div>
+  <!-- 編輯區 END --> 
+</div>
+
+
+({include "foor.html"})

@@ -1,0 +1,142 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner" style=" background-image: url(images/banner006.jpg);">
+    <div class="banner-title">
+        <div class="banner-ch">會員專區</div>
+        <div class="banner-en">Member</div>
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<div class="warpper">
+    <div class="main clearfix">
+        <!-- 編輯區 -->
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body clearfix">
+            <div class="col-025 col-m">
+                <div class="in-left-menu classBox">
+                    <ul class="classLink">
+                        <li><a href="({$console->path[0]})/detail">修改會員資料</a></li>
+                        <li><a href="({$console->path[0]})/order" class="current">訂單查詢</a></li>
+                        <li><a href="({$console->path[0]})/password">修改密碼</a></li>
+                        <li><a href="({$console->path[0]})/logout">登出</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            ({if !isset($console->path[2])})
+                <div class="cor-075 col-m">
+                    <h3 class="page-title">訂單查詢</h3>
+                    <div class="order-list">
+                        <ul class="order-list">
+                            <li class="th clearfix">
+                                <div class="order-list-th col-030">訂單號碼</div>
+                                <div class="order-list-th col-020">訂單日期</div>
+                                <div class="order-list-th col-015">合計</div>
+                                <div class="order-list-th col-020">訂單狀態</div>
+                                <div class="order-list-th cor-015">訂單明細</div>
+                            </li>
+                            ({section name=i loop=$data.list})
+                            <li class="clearfix">
+                                <div class="order-list-td order_no col-030"><span class="oproject">訂單號碼：</span>({$data.list[i].orderNumber})</div>
+                                <div class="order-list-td order_date col-020"><span class="oproject">訂單日期：</span>({$data.list[i].create_date})</div>
+                                <div class="order-list-td order_total col-015"><span class="oproject">合　　計：</span>NT$({$data.list[i].total+$data.list[i].freight})</div>
+                                <div class="order-list-td order_state col-020"><span class="oproject">訂單狀態：</span> ({$data["paymentStatus"][$data.list[i].paymentStatus]}) ({$data["shipmentStatus"][$data.list[i].shipmentStatus]})
+                                </div>
+                                <div class="order-list-td order_query cor-015"><span class="oproject">訂單明細：</span><a href="({$console->path[0]})/({$console->path[1]})/({$data.list[i].id})">查詢</a></div>
+                            </li>
+                            ({/section})
+                        </ul>
+                    </div>
+                </div>
+            ({else})
+                <div class="cor-075 col-m">
+                    <h3 class="page-title">訂單查詢</h3>
+                    <div class="shopping-car">
+                        <h3 class="order-numb">訂單編號：({$data.order.orderNumber})</h3>
+                        <ul class="shopping-car-list">
+                            <li class="th clearfix">
+                                <div class="shop-car-info col-045">商品資料</div>
+                                <div class="shop-car-price col-020">價 格</div>
+                                <div class="shop-car-quantity col-015">數 量</div>
+                                <div class="shop-car-subtotal col-020">小 計</div>
+                            </li>
+                            ({section name=i loop=$data.orderList})
+                                <li class="clearfix">
+                                    <div class="shop-car-info col-045">
+                                        <a href="product/detail/({$data.orderList[i].id})" target="_blank" class="pro-photo" style="background-image: url('({$data.orderList[i].picture})')"></a>
+                                        <div class="description">
+                                            <div>({$data.orderList[i].name})</div>
+                                        </div>
+                                    </div>
+                                    <div class="shop-car-price price col-020">NT$({$data.orderList[i].price})</div>
+                                    <div class="shop-car-quantity numb col-015">({$data.orderList[i].count})</div>
+                                    <div class="shop-car-subtotal count col-020">NT$({$data.orderList[i].price*$data.orderList[i].count})</div>
+                                </li>
+                            ({/section})
+                        </ul>
+                        <div class="clearfix">
+                            <div class="cor-100 col-m clearfix">
+                                <div class="section-body">
+                                    <div class="checkout-cart-summary">
+                                        <div class="subtotal clearfix"> <span class="pull-left">小計:</span> <span class="pull-right">NT$({$data.order.total})</span> </div>
+                                        <div class="delivery-fee clearfix"> <span class="pull-left">運費:</span> <span class="pull-right">NT$({$data.order.freight})</span> </div>
+                                        <div class="total clearfix"> <span class="pull-left">合計<span class="hidden-sm hidden-md hidden-lg"> (({count($data.orderList)})件)</span>:</span> <span class="pull-right toc">NT$({$data.order.total+$data.order.freight})</span> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 顧客資料 -->
+                        <h3 class="order-title">購買人資料</h3>
+                        <p>購買人姓名：({$data.order.formData.BuyName})</p>
+                        <p>電子信箱：({$data.order.formData.BuyEmail})</p>
+                        <p>聯絡電話：({$data.order.formData.BuyPhone})</p>
+                        <p>聯絡地址：({$data.order.formData.BuyAddress[0]})({$data.order.formData.BuyAddress[1]})({$data.order.formData.BuyAddress[2]})({$data.order.formData.BuyAddress[3]})</p>
+                        <p>訂單備註：({$data.order.formData.memo})</p>
+                        <!-- 顧客資料 -->
+                        <!-- 送貨資料 -->
+                        <h3 class="order-title">收件人資料</h3>
+                        <p>收件人姓名：({$data.order.formData.ReceiverName})</p>
+                        <p>電子信箱：({$data.order.formData.ReceiverEmail})</p>
+                        <p>聯絡電話：({$data.order.formData.ReceiverCellPhone})</p>
+                        <p>聯絡地址：({$data.order.formData.ReceiverAddress[0]})({$data.order.formData.ReceiverAddress[1]})({$data.order.formData.ReceiverAddress[2]})({$data.order.formData.ReceiverAddress[3]})</p>
+                        <!-- 送貨資料 -->
+                        <!-- 付款資料 -->
+                        <h3 class="order-title">付款資料</h3>
+                        <p>選擇的付款方式：({$data["paymentTitle"][$data.order.paymentMethod]}) <a class="btn-send" href="member/payment/({$data.order.id})">點此付款</a></p>
+                        <h3 class="order-title">送貨資料</h3>
+                        <p>選擇的送貨方式：({$data["shipmentTitle"][$data.order.shipmentMethod]})</p>
+                        <!-- 付款資料 -->
+                        <!-- 超商資料 -->
+                        ({if $data.order.formData.CVSStoreID})
+                            <h3 class="order-title">超商資料</h3>
+                            <p>超商店號：({$data.order.formData.CVSStoreID})</p>
+                            <p>超商名稱：({$data.order.formData.CVSStoreName})</p>
+                            <p>超商地址：({$data.order.formData.CVSAddress})</p>
+                            ({if $data.orderLog.CVSPaymentNo})
+                                <p>寄貨編號：({$data.orderLog.CVSPaymentNo})({$data.orderLog.CVSValidationNo})</p>
+                            ({/if})
+                            <p>最新狀態：({$data.orderLog.RtnMsg})</p>
+                            ({if $data.orderLog.CVSPaymentNo})
+                                <p>查詢：<a  href="https://eservice.7-11.com.tw/e-tracking/search.aspx" target="_blank">E-Tracking 貨態查詢系統</a></p>
+                            ({/if})
+                        ({/if})
+                        <!-- 超商資料 -->
+                        <!-- 發票資料 -->
+                        <h3 class="order-title">發票資料</h3>
+                        <p>索取發票：({$data.order.formData.invoiceType})</p>
+                        <p>載具類型：({$data.order.formData.vehicleType})</p>
+                        <p>公司抬頭：({$data.order.formData.companyName})</p>
+                        <p>公司統編：({$data.order.formData.companyGUINumber})</p>
+                        <!-- 發票資料 -->
+                    </div>
+                    <!-- 頁次模組 -->
+                    <div class="page"><a href="javascript:history.back();">回上一頁</a></div>
+                </div>
+            ({/if})
+            <!-- 右欄 END -->
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 END -->
+</div>
+({include "foor.html"})

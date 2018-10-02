@@ -1,0 +1,51 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="list" href="#list-detail">({$label_back["DETAIL"]})</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                <div class="card-body tab-pane fade show active" id="list-detail">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back['TABLE']})</label>
+                            <br>
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                <label class="custom-control-label" for="checkAll">({$label_back["ALL_CHECKED"]})</label>
+                            </div>
+                            <br>
+                            ({section name=i loop=$data.tables})
+                                <br>
+                                <div class="custom-control custom-checkbox custom-control-inline mb-2">
+                                    <input type="checkbox" class="custom-control-input" name="checkElement[]" id="({$data.tables[i].key})" value="({$data.tables[i].key})" ({if $smarty.section.i.index==0})data-check_min="1" data-text="({$label_back['TABLE']})"({/if})>
+                                    <label class="custom-control-label" for="({$data.tables[i].key})">({$data.tables[i].name})</label>
+                                </div>
+                            ({/section})
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$label_back['COPY_TO']})</label>
+                            ({$console->getLanguageArray('form','','form-control')})
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

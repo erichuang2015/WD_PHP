@@ -1,0 +1,69 @@
+({include "top.html"})
+
+    <!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner" style=" background-image: url(images/banner006.jpg);">
+  <div class="banner-title">
+     <div class="banner-ch">會員專區</div>
+     <div class="banner-en">Member</div>
+  </div>
+</div>
+<!-- InstanceEndEditable -->
+<div class="warpper">
+  <div class="main clearfix"><!-- 編輯區 --> 
+    <!-- InstanceBeginEditable name="EditRegion1" -->
+     <div class="content-body clearfix">
+    <div class="member-login-box bg-gary-whrite">
+
+       <h3 class="page-title">加入會員</h3>
+       <form action="" method="POST">
+       <div class="form-box clearfix"><!-- 表單 -->
+        <div class="opinion clearfix"> <span class="opinion-left01">帳號</span>
+          <input type="email" name="account" data-text="帳號" data-check="Email" placeholder="請輸入您的E-mail" class="input-main-style02" value="({$data.socialData.email})" required>
+        </div>
+        <div class="opinion clearfix"> <span class="opinion-left01">設定密碼</span>
+        <input type="password" name="password" placeholder="密碼至少8碼" class="input-main-style02" data-text="密碼" data-check="Password" required>
+        </div>
+        <div class="opinion clearfix"> <span class="opinion-left01">確認密碼</span>
+        <input type="password" name="checkPassword" placeholder="確認密碼" class="input-main-style02" data-text="確認密碼" data-check="Password" required>
+        </div>
+          <div class="opinion clearfix"> <span class="opinion-left01">姓名</span>
+        <input type="text" placeholder="姓名" name="name" class="input-main-style02" value="({$data.socialData.name})" data-text="性名" required>
+        </div>
+        <div class="opinion clearfix"> <span class="opinion-left01">聯絡電話</span>
+        <input type="text" name="phone" placeholder="0912345678 或 02-12345678" class="input-main-style02" data-text="聯絡電話"  required>
+        </div>
+        <div class="opinion clearfix"> <span class="opinion-left01">聯絡地址</span>
+		     <div class="input-main-select"id="twzipcode">
+                <script>
+                    $('#twzipcode').twzipcode({
+                        'css': ['form-control', 'form-control'],
+                          'countyName': 'address[0]',
+                          'districtName': 'address[1]',
+                          'zipcodeName': 'address[2]',
+                          'zipcodeIntoDistrict': true,
+                    });
+                    $('#twzipcode').find('select').attr('required', true);
+                    $('#twzipcode').find('select[name="address[0]"]').attr('data-text', "聯絡地址-縣市");
+                    $('#twzipcode').find('select[name="address[1]"]').attr('data-text', "聯絡地址-鄉鎮市區");
+                </script>
+		     <input type="text" name="address[3]" placeholder="吉林路109號2樓" data-text="聯絡地址" class="input-main-style03" required>	
+		     </div>
+             
+             </div>
+       <div class="cart-btn">
+           <button class="btn-send"  onclick="formSubmit(0); return false;">確認送出</button>
+	   </div>
+     </div>
+     ({$console->getToken()})
+     </form>
+    </div> 
+
+    </div>
+  <!-- InstanceEndEditable --> </div>
+  <!-- 編輯區 END --> 
+</div>
+
+
+    
+
+({include "foor.html"})

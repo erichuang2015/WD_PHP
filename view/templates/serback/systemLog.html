@@ -1,0 +1,166 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.detailList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-detail">({$label_back["DETAIL"]})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-old">({$label_back["OLD_DATA"]})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-new">({$label_back["NEW_DATA"]})</a>
+                        </li>
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                ({if $switch.listList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-list">
+                        <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">({$label_back["ID"]})</th>
+                                    <th scope="col">({$label_back["TABLE"]})</th>
+                                    <!-- <th scope="col">({$label_back["LANG"]})</th> -->
+                                    <th scope="col">({$label_back["MODE"]})</th>
+                                    <th scope="col">({$label_back["URL"]})</th>
+                                    <th scope="col">({$label_back["DATE"]})(({$label_back["USER"]}))</th>
+                                    <th scope="col">({$label_back["IP"]})</th>
+                                    <th scope="col">({$label_back["STATUS"]})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.list})
+                                    <tr>
+                                        <td>
+                                            <a href="({$data.listUrl})/detail/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].id})</a>
+                                        </td>
+                                        <td>
+                                            <a href="({$data.listUrl})/detail/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].dataTable})</a>
+                                        </td>
+                                        <!-- <td>
+                                            ({$data.list[i].language})
+                                        </td> -->
+                                        <td>
+                                            <a href="({$data.listUrl})/detail/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].type})</a>
+                                        </td>
+                                        <td>
+                                            <a href="({$data.list[i].url})">({$data.list[i].url})</a>
+                                        </td>
+                                        <td>
+                                            ({$data.list[i].create_date})(({$data.list[i].create_user}))
+                                        </td>
+                                        <td>
+                                            ({$data.list[i].IP})
+                                        </td>
+                                        <td>
+                                            ({if !$data.list[i].status})<font color="green">({$label_back["ALREADY_REDO"]})</font>({else})({$label_back["NOT_REDO"]})({/if})
+                                        </td>
+                                    </tr>
+
+                                ({/section})
+                                
+                            </tbody>
+                        </table>          
+                    </div>
+                ({/if})
+
+                ({if $switch.detailList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-detail">
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back['ID']})</label>
+                            <div class="col-sm-11">
+                                <input type="text" readonly class="form-control" value="({$data.one.id})">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back['LANG']})</label>
+                            <div class="col-sm-11">
+                                <input type="text" readonly class="form-control" value="({$data.one.language})">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back['TABLE']})</label>
+                            <div class="col-sm-11">
+                                <input type="text" readonly class="form-control" value="({$data.one.dataTable})">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back['MODE']})</label>
+                            <div class="col-sm-11">
+                                <input type="text" readonly class="form-control" value="({$data.one.type})">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back['URL']})</label>
+                            <div class="col-sm-11">
+                                <input type="text" readonly class="form-control" value="({$data.one.url})">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back['DATE']})</label>
+                            <div class="col-sm-11">
+                                <input type="text" readonly class="form-control" value="({$data.one.create_date})">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back['USER']})</label>
+                            <div class="col-sm-11">
+                                <input type="text" readonly class="form-control" value="({$data.one.create_user})">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back['IP']})</label>
+                            <div class="col-sm-11">
+                                <input type="text" readonly class="form-control" value="({$data.one.IP})">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body tab-pane fade" id="list-old">
+                        ({foreach from=$data.one.oldData key=k item=v})
+                            ({if !is_numeric($k)})
+                                <div class="form-group row">
+                                    <label class="col-sm-1 col-form-label">({$k})</label>
+                                    <div class="col-sm-11">
+                                        <input type="text" readonly class="form-control" value="({$v})">
+                                    </div>
+                                </div>
+                            ({/if})
+                        ({/foreach})
+                    </div>
+
+                    <div class="card-body tab-pane fade" id="list-new">
+                        ({foreach from=$data.one.newData key=k item=v})
+                            ({if !is_numeric($k)})
+                                <div class="form-group row">
+                                    <label class="col-sm-1 col-form-label">({$k})</label>
+                                    <div class="col-sm-11">
+                                        <input type="text" readonly class="form-control" value="({$v})">
+                                    </div>
+                                </div>
+                            ({/if})
+                        ({/foreach})
+                    </div>
+                ({/if})
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

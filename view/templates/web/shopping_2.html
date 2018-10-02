@@ -1,0 +1,215 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner" style=" background-image: url(images/banner005.jpg);">
+    <div class="banner-title">
+        <div class="banner-ch">購物車</div>
+        <div class="banner-en">Shopping Car</div>
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<div class="warpper">
+    <div class="main clearfix">
+        <!-- 編輯區 -->
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body clearfix">
+            <div class="steps clearfix">
+                <div class="step"><span class="badge"><span class="text">1</span></span> <span>購物車</span></div>
+                <div class="step active"><span class="badge"><span class="text">2</span></span> <span>填寫資料</span></div>
+                <div class="step"><span class="badge"><span class="text">3</span></span> <span>完成訂單</span></div>
+            </div>
+            <h3 class="page-title">填寫資料</h3>
+            <div class="section-body">
+                <div class="checkout-cart-summary">
+                    <div class="total" style="border-top:0;">
+                        <div class="toc" align="center">合計：NT$({$data.order.total+$data.order.freight})</div>
+                        <div class="shopping-list-more">購物車(({count($data.orderList)})件) <i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                        <script type="text/javascript">
+                        $(document).ready(function() {
+                            $(".shopping-list-more").click(function() {
+                                $(".shopping-car").slideToggle("20");
+                                $(this).css("transform", "180deg");
+                            });
+                        });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <!-- 購物清單 -->
+            <div class="shopping-car" style="display:none;">
+                <ul class="shopping-car-list">
+                    <li class="th clearfix">
+                        <div class="shop-car-info col-045">商品資料</div>
+                        <div class="shop-car-price col-020">價 格</div>
+                        <div class="shop-car-quantity col-015">數 量</div>
+                        <div class="shop-car-subtotal col-020">小 計</div>
+                    </li>
+                    ({section name=i loop=$data.orderList})
+                    <li class="clearfix">
+                        <div class="shop-car-info col-045">
+                            <a href="product/detail/({$data.orderList[i].productId})" target="_blank" class="pro-photo" style="background-image: url('({$data.orderList[i].picture})')"></a>
+                            <div class="description">
+                                <div>({$data.orderList[i].name})</div>
+                            </div>
+                        </div>
+                        <div class="shop-car-price price col-020">NT$({$data.orderList[i].price})</div>
+                        <div class="shop-car-quantity numb col-015">({$data.orderList[i].count})</div>
+                        <div class="shop-car-subtotal count col-020">NT$({$data.orderList[i].price*$data.orderList[i].count})</div>
+                    </li>
+                    ({/section})
+                </ul>
+            </div>
+            <form action="" method="POST">
+                <div class="cart-body clearfix">
+                    <div class="col-050 col-m">
+                        <h3 class="page-title04">購買人資料</h3>
+                        <div class="form-box clearfix">
+                            <!-- 表單 -->
+                            <div class="opinion clearfix"> <span class="opinion-left01">購買人姓名</span>
+                                <input type="text" placeholder="李小明" class="input-main-style02" name="BuyName" data-text="購買人姓名" data-check="" value="({$member.name})" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">電子信箱</span>
+                                <input type="email" placeholder="minlee@vipcase.net" class="input-main-style02" name="BuyEmail" data-text="購買人電子信箱" data-check="Email" value="({$member.email})" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">聯絡電話</span>
+                                <input type="text" placeholder="02-25216998" class="input-main-style02" name="BuyPhone" data-text="購買人聯絡電話" value="({$member.phone})" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">聯絡地址</span>
+                                <div class="input-main-select" id="twzipcode">
+                                    <script>
+                                    $('#twzipcode').twzipcode({
+                                        'countyName': 'BuyAddress[0]',
+                                        'districtName': 'BuyAddress[1]',
+                                        'zipcodeName': 'BuyAddress[2]',
+                                        'zipcodeIntoDistrict': true,
+                                        'countySel'   : '({$member.address[0]})',
+                                        'districtSel' : '({$member.address[1]})',
+                                        'zipcodeSel' : '({$member.address[2]})'
+                                    });
+                                    $('#twzipcode').find('select').attr('required', true);
+                                    $('#twzipcode').find('select[name="BuyAddress[0]"]').attr('data-text', "購買人聯絡地址-縣市");
+                                    $('#twzipcode').find('select[name="BuyAddress[1]"]').attr('data-text', "購買人聯絡地址-鄉鎮市區");
+                                    </script>
+                                    <input type="text" placeholder="吉林路109號2樓" class="input-main-style03" name="BuyAddress[3]" data-text="購買人聯絡地址" value="({$member.address[3]})" required>
+                                </div>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">訂單備註</span>
+                                <textarea rows="5" class="input-style01" type="text" name="memo" placeholder="有什麼想告訴賣家嗎？"></textarea>
+                            </div>
+                        </div>
+                        <h3 class="page-title02">付款資料</h3>
+                        <div class="shopping-note">已選擇的付款方式：({$data.order.paymentTitle})</div>
+                        <div class="shopping-note">({$data.order.paymentText})</div>
+                        <h3 class="page-title02">送貨資料</h3>
+                        <div class="shopping-note">已選擇的送貨方式：({$data.order.shipmentTitle})</div>
+                        <div class="shopping-note">({$data.order.shipmentText})</div>
+                    </div>
+                    <div class="cor-050 col-m">
+                        <h3 class="page-title05">收件人資料</h3>
+                        <label class="control-label">
+                            <input type="checkbox" id="sameDataCheckbox" onclick="sameData();"> 同購買人資料
+                        </label>
+                        <script>
+                          function sameData() {
+                              if ($('#sameDataCheckbox:checked').length > 0) {
+                                  $('input[name="ReceiverName"]').val($('input[name="BuyName"]').val());
+                                  $('input[name="ReceiverEmail"]').val($('input[name="BuyEmail"]').val());
+                                  $('input[name="ReceiverAddress[3]"]').val($('input[name="BuyAddress[3]"]').val());
+                                  $('input[name="ReceiverCellPhone"]').val($('input[name="BuyPhone"]').val());
+                                  $('select[name="ReceiverAddress[0]"]').val($('select[name="BuyAddress[0]"]').val());
+                                  $('select[name="ReceiverAddress[0]"]').change();
+                                  $('select[name="ReceiverAddress[1]"]').val($('select[name="BuyAddress[1]"]').val());
+                                  $('select[name="ReceiverAddress[2]"]').val($('select[name="BuyAddress[2]"]').val());
+                              }
+                          }
+                        </script>
+                        <div class="form-box clearfix">
+                            <!-- 表單 -->
+                            <div class="opinion clearfix"> <span class="opinion-left01">收件人姓名</span>
+                                <input type="text" placeholder="請填入收件人真實姓名，以確保順利收件" class="input-main-style02" name="ReceiverName" data-check="SenderName" data-text="收件人姓名" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">電子信箱</span>
+                                <input type="email" placeholder="minlee@vipcase.net" class="input-main-style02" name="ReceiverEmail" data-check="Email" data-text="收件人電子信箱" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">聯絡電話</span>
+                                <input type="text" placeholder="必填" class="input-main-style02" name="ReceiverCellPhone" data-check="SenderCellPhone" data-text="收件人聯絡電話" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">聯絡地址</span>
+                                <div class="input-main-select" id="twzipcode1">
+                                    <script>
+                                    $('#twzipcode1').twzipcode({
+                                        'countyName': 'ReceiverAddress[0]',
+                                        'districtName': 'ReceiverAddress[1]',
+                                        'zipcodeName': 'ReceiverAddress[2]',
+                                        'zipcodeIntoDistrict': true
+                                    });
+                                    $('#twzipcode1').find('select').attr('required', true);
+                                    $('#twzipcode1').find('select[name="ReceiverAddress[0]"]').attr('data-text', "收件人聯絡地址-縣市");
+                                    $('#twzipcode1').find('select[name="ReceiverAddress[1]"]').attr('data-text', "收件人聯絡地址-鄉鎮市區");
+                                    </script>
+                                    <input type="text" placeholder="吉林路109號2樓" class="input-main-style03" name="ReceiverAddress[3]" data-text="收件人聯絡地址" required>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="page-title06">發票資料</h3>
+                        <div class="form-box clearfix">
+                            <div class="opinion clearfix"> <span class="opinion-left01">索取發票</span>
+                                <select class="input-main-style02" name="invoiceType">
+                                    <option selected="selected" value="二聯式">二聯式</option>
+                                    <option value="三聯式">三聯式</option>
+                                </select>
+                            </div>
+                            <div class="opinion clearfix">
+                                <span class="opinion-left01">載具類型</span>
+                                <select class="input-main-style02" name="vehicleType">
+                                    <option selected="selected" value="隨貨寄送">隨貨寄送</option>
+                                    <option value="捐贈發票">捐贈發票</option>
+                                </select>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">公司抬頭</span>
+                                <input type="text" placeholder="公司抬頭" name="companyName" class="input-main-style02">
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">公司統編</span>
+                                <input type="text" placeholder="公司統編" name="companyGUINumber" class="input-main-style02">
+                            </div>
+                        </div>
+                        ({if $data.needMap})
+                        <h3 class="page-title05">超商資料</h3>
+                        <div class="form-box clearfix">
+                            <div class="opinion clearfix"> <span class="opinion-left01">超商店號</span>
+                                <input type="text" readonly required placeholder="超商店號" name="CVSStoreID" data-text="超商店號" class="input-main-style02">
+                                <a class="btn-send" href="javascript:;" onclick="changeMap();return false;">選擇超商</a>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">超商名稱</span>
+                                <input type="text" readonly required placeholder="超商名稱" name="CVSStoreName" data-text="超商名稱" class="input-main-style02">
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">超商地址</span>
+                                <input type="text" readonly required placeholder="超商地址" name="CVSAddress" data-text="超商地址" class="input-main-style02">
+                            </div>
+                        </div>
+                        ({/if})
+                    </div>
+                </div>
+                <script>
+                    function mapLoad(){
+                        $('input[name="CVSStoreID"]').val(mapData.CVSStoreID);
+                        $('input[name="CVSStoreName"]').val(mapData.CVSStoreName);
+                        $('input[name="CVSAddress"]').val(mapData.CVSAddress);
+                    }
+                    function changeMap(){
+                        window.open(_jsPath+'/shopping/map'
+                                    , 'ECPayMap'
+                                    , config='height=800,width=1200,left='+(window.screen.width-1200)/2+',top='+(window.screen.height-800)/2);
+                    }
+                </script>
+                <div class="cart-btn">
+                    <a class="btn-reset" href="javascript:;" onclick="location.href='({$console->path[0]})/1';return false;">返回購物車</a>
+                    <button class="btn-send" onclick="formSubmit(0);return false;">提交訂單</button>
+                </div>
+                ({$console->getToken()})
+            </form>
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 END -->
+</div>
+({include "foor.html"})

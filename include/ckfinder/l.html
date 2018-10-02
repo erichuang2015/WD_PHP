@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CKFinder Keygen</title>
+    </head>
+    <body>
+        <table style="border: 1px solid #999;">
+            <thead>
+                <tr>
+                    <th colspan="2" style="background-color: #eee; color: #333; text-align: center;">
+                        CKFinder 2.x Keygen
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label for="licenseName">License Name</label>:</td>
+                    <td><input type="text" id="licenseName" placeholder="License Name" /></td>
+                </tr>
+                <tr>
+                    <td><label for="licenseKey">License Name</label>:</td>
+                    <td><input type="text" id="licenseKey" onClick="this.select();" readonly /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center">
+                        <button id="generateBtn">Generate</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        &copy; 2014 <a href="http://huytq.com">@huytq</a>
+        <script>
+        String.prototype.replaceAt = function(index, character) {
+            if (index > this.length - 1) return this;
+            return this.substr(0, index) + character + this.substr(index + character.length);
+        }
+
+        function generateKey(licenseName) {
+            licenseKey = "";
+
+            // T?p ky t? s? d?ng trong license key
+            chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+
+            // T?o m?t license key ng?u nhien g?m 32 ky t?
+            for (i = 0; i <= 31; i++) {
+                licenseKey += chars[Math.floor((Math.random() * (chars.length - 1)))];
+            }
+
+            // Cac ky t? quan tr?ng: 0, 3, 12, 25
+
+            /*
+             * ----------------------------------------------
+             * T?o ky t? th? 0
+             * ----------------------------------------------
+             * Cong th?:
+             * La cac ky t? trong t?p ky t? ma co s? th? t? khi chia cho 5 s? d? 4.
+             */
+            zeroChars = chars[4] + chars[9] + chars[14] + chars[19] + chars[24] + chars[29];
+            licenseKey = licenseKey.replaceAt(0, zeroChars[Math.floor((Math.random() * (zeroChars.length - 1)))]);
+
+            /*
+             * ----------------------------------------------
+             * T?o ky t? th? 3
+             * ----------------------------------------------
+             * Cong th?:
+             * Ki?m tra xem ky t? th? 1 n?m ? v? tri nao trong t?p ky t?. Sau ?o c?ng v?i ??
+             * dai c?a license name. Ti?p ??n nhan v?i 9, r?i chia cho phep d?ch bit trai
+             * c?a 2 va 4 l?y ph?n d? => Vi tri c?a ky t? th? 3 ? trong t?p ky t?.
+             */
+            licenseKey = licenseKey.replaceAt(3, chars.substr(((licenseName.length + chars.indexOf(licenseKey[1])) * 9 % (2 << 4)), 1));
+
+            /*
+             * ----------------------------------------------
+             * T?o ky t? th? 12
+             * ----------------------------------------------
+             * Cong th?:
+             * L?y v? tri trong t?p ky t? c?a ky t? th? 11 c?ng v?i v? tri trong t?p ky t?
+             * c?a ky t? th? 8 r?i nhan v?i 9, sau ?o chia cho ?? dai c?a t?p ky t? tr? ?i 1
+             * => v? tri c?a ky t? th? 12 ? trong t?p ky t?
+             */
+            licenseKey = licenseKey.replaceAt(12, chars[(chars.indexOf(licenseKey[11]) + chars.indexOf(licenseKey[8])) * 9 % (chars.length - 1)]);
+
+            /*
+             * ----------------------------------------------
+             * T?o ky t? th? 25
+             * ----------------------------------------------
+             * Cong th?:
+             * La cac ky t? trong t?p ky t? ma co s? th? t? khi chia cho 8 s? co s? d? = 7.
+             */
+            twentyFiveChars = chars[7] + chars[15] + chars[23] + chars[31];
+            licenseKey = licenseKey.replaceAt(25, twentyFiveChars[Math.floor((Math.random() * (twentyFiveChars.length - 1)))]);
+
+            return licenseKey;
+        }
+
+        document.getElementById("generateBtn").onclick = function(event) {
+            event.preventDefault();
+
+            licenseName = document.getElementById('licenseName').value.trim();
+
+            if (licenseName == "") alert("Please enter License Name!");
+            else document.getElementById('licenseKey').value = generateKey(licenseName);
+        }
+        </script>
+    </body>
+</html>

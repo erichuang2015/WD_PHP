@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>表單登記通知</title>
+</head>
+
+<body>
+<span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">親愛的 管理員 您好：</span>
+<span style="font-size:15px; color: #6C5F25; font-family:Microsoft JhengHei; padding-bottom: 10px; display: block; ">瀏覽者在「<a href="({$data.webUrl})">({$data.webName})</a>」上填寫表單內容如下，你也可以登入管理員賬號，於『表單管理』中查看以下內容</span>
+
+<table width="100%" border="0" cellspacing="5" cellpadding="1" bgcolor=" #EDEDED" style="border:1px solid #000;">
+  <tbody>
+    <tr>
+      <td bgcolor="#ffffff" style="font-family:Microsoft JhengHei;color: #000; font-size: 13px;"><table width="100%" border="0" cellspacing="1" cellpadding="5">
+        <tbody>
+          ({section name=i loop=$data.keyName})
+            <tr>
+              <td width="16%" align="center" bgcolor="#010101" style="color: #fff;">({$data.keyName[i]})</td>
+              <td width="84%" style="border-bottom:1px #E7E7E7 solid">({$data.keyData[i]})</td>
+            </tr>
+          ({/section})
+        </tbody>
+      </table></td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

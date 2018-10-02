@@ -1,0 +1,151 @@
+({include file='top.html'})
+<div class="card-deck">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link " data-toggle="list" href="#list-version">版本信息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="list" href="#list-development">開發訊息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="list" href="#list-new">網動消息與資訊</a>
+                </li>
+                ({if $data.dataSize})
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="list" href="#list-data">使用空間</a>
+                    </li>
+                ({/if})
+            </ul>
+        </div>
+            <div class="tab-content">
+                <div class="card-body tab-pane fade" id="list-version">
+                    <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="10%">標題</th>
+                                    <th scope="col">內容</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                               ({$data.version})
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="card-body tab-pane fade" id="list-development">
+                    <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="10%">標題</th>
+                                    <th scope="col">內容</th>
+                                </tr>
+                            </thead>          
+                            <tbody>
+                               ({$data.info})
+                            </tbody>
+                    </table>
+                </div>
+                <div class="card-body tab-pane fade" id="list-new">
+                    <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="10%">日期</th>
+                                    <th scope="col">標題</th>
+                                </tr>
+                            </thead>          
+                            <tbody>
+                               ({$data.news})
+                            </tbody>
+                    </table>
+                </div>
+
+                ({if $data.dataSize})
+                    <div class="card-body tab-pane fade show active" id="list-data">
+                        <div class="card-deck text-center ">
+                            <div class="card">
+                                <h5 class="card-header">網站使用空間</h5>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <div id="test-circle1"></div>
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Last updated ({$web.date})</small></p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h5 class="card-header">上傳檔案使用空間</h5>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <div id="test-circle2"></div>
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Last updated ({$web.date})</small></p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h5 class="card-header">輸出檔案使用空間</h5>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <div id="test-circle3"></div>
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Last updated ({$web.date})</small></p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h5 class="card-header">資料庫使用空間</h5>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <div id="test-circle4"></div>
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Last updated ({$web.date})</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ({/if})
+            </div>
+    </div>
+</div>
+({if $data.dataSize})
+    <script>
+        $(function() { 
+            $("#test-circle1").circliful({
+                animation: 1,
+                // animationStep: 1,
+                percent: ({$data.dataSize[0]['percentage']}),
+                // foregroundBorderWidth: 10,
+                // backgroundBorderWidth: 15,
+                textStyle: 'font-size: 12px;',
+                // backgroundColor: '#000',     
+                foregroundColor: '({$data.dataSize[0]['color']})',
+                textBelow: true,
+                text: '({$data.dataSize[0]['size']}) / ({$data.dataSize[0]['max']})',
+            });
+            $("#test-circle2").circliful({
+                animation: 1,
+                percent: ({$data.dataSize[1]['percentage']}),
+                textBelow: true,
+                textStyle: 'font-size: 12px;',
+                foregroundColor: '({$data.dataSize[1]['color']})',
+                text: '({$data.dataSize[1]['size']}) / ({$data.dataSize[1]['max']})',
+            });
+            $("#test-circle3").circliful({
+                animation: 1,
+                percent: ({$data.dataSize[2]['percentage']}),
+                textBelow: true,
+                textStyle: 'font-size: 12px;',
+                foregroundColor: '({$data.dataSize[2]['color']})',
+                text: '({$data.dataSize[2]['size']}) / ({$data.dataSize[2]['max']})',
+            });
+            $("#test-circle4").circliful({
+                animation: 1,
+                percent: ({$data.dataSize[3]['percentage']}),
+                textBelow: true,
+                textStyle: 'font-size: 12px;',
+                foregroundColor: '({$data.dataSize[3]['color']})',
+                text: '({$data.dataSize[3]['size']}) / ({$data.dataSize[3]['max']})',
+            });
+        });
+    </script>
+({/if})
+({include file='foor.html'})

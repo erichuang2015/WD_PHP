@@ -1,0 +1,8 @@
+/images
+/upload/*
+!/upload/.htaccess
+/output
+!/output/.htaccess
+/sessionTemp/*
+/view/templates_c/*
+backup.txt

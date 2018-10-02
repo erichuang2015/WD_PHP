@@ -1,0 +1,148 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner" style=" background-image: url(images/banner003.jpg);">
+    <div class="banner-title">
+        <div class="banner-ch">商品情報</div>
+        <div class="banner-en">Products</div>
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<div class="warpper">
+    <div class="main clearfix">
+        <!-- 編輯區 -->
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body clearfix">
+            <div class="col-025 col-m">
+                <div class="in-left-menu classBox">
+                    <ul class="classLink">
+                        ({section name=i loop=$data.class})
+                        <li><a href="({$console->path[0]})/({$data.class[i].urlKey})" ({if $data.class[i].id==$data.oneClass.id})class="current" ({/if})>({$data.class[i].name})</a>
+                            <ul>
+                                ({section name=j loop=$data.listAll[$data.class[i].id]})
+                                <li><a href="({$console->path[0]})/({$data.class[i].urlKey})/({$data.listAll[$data.class[i].id][j].urlKey})">({$data.listAll[$data.class[i].id][j].name})</a></li>
+                                ({/section})
+                            </ul>
+                        </li>
+                        ({/section})
+                    </ul>
+                </div>
+            </div>
+            ({if !isset($console->path[2])})
+            <div class="cor-075">
+                <!-- 左欄 -->
+                <h3 class="page-title">({$data.oneClass.name})</h3>
+                <div class="pro-list">
+                    <ul class="clearfix">
+                        ({section name=i loop=$data.list})
+                        <li>
+                            <!--銷售 -->
+                            <div class="pro-photo"><a href="({$console->path[0]})/({$data.oneClass.urlKey})/({$data.list[i].urlKey})"><img src="({$data.list[i].picture})" class="index-pro-img"></a></div>
+                            <h4>({$data.list[i].name})</h4>
+                        </li>
+                        <!-- 銷售 END -->
+                        ({/section})
+                    </ul>
+                </div>
+                <script>
+                var pro_photo_height = $('.pro-photo').width() * 4 / 4;
+                $('.pro-photo').css('height', pro_photo_height + 'px');
+
+                window.onresize = function() {
+                    var pro_photo_height = $('.pro-photo').width() * 4 / 4;
+                    $('.pro-photo').css('height', pro_photo_height + 'px');
+                }
+                </script>
+                <style>
+                .pro-photo img.index-pro-img {
+                    max-height: 100%;
+                    max-width: 100%;
+                }
+                </style>
+                <!-- 頁次模組 -->
+                <div class="page">
+                    ({$data.page})
+                </div>
+            </div>
+            <!-- 左欄 EDN -->
+            ({else})
+            <div class="cor-075 col-m">
+                <!-- 右欄 -->
+                <h3 class="page-title">({$data.oneClass.name})</h3>
+                <div class="pro-detaile clearfix">
+                    <!-- 產品明細 -->
+                    <h3 class="pro-detaile-title">({$data.one.name})</h3>
+                    <div class="pro-detaile-box">
+                        <!-- 明細上半區塊 -->
+                        <div class="pro-detaile-photo-box">
+                            <!-- 明細區塊左邊  -->
+                            <div class="pro-photo-box slider-wrap clearfix">
+                                <!-- 產品大圖 -->
+                                <img src="({$data.one.picture})">
+                            </div>
+                            <!-- 產品大圖 END -->
+                        </div>
+                        <!-- 產品明細左欄 EDN -->
+                        <div class="pro-detaile-spe-box">
+                            <!-- 明細區塊右邊  -->
+                            <!-- 產品標題 -->
+                            <div class="pro-specification">
+                                <!-- 簡介 -->
+                                ({$data.one.detail})
+                            </div>
+                            <div class="cart-info">
+                                <!-- 售價與購物車按鈕 -->
+                                <div class="quantity-price">
+                                    <div class="quantity">
+                                        <div class="quantity-title">購買數量</div>
+                                        <div class="qtyInputBox">
+                                            <!-- 購買數量增減模組 Begin -->
+                                            <span class="input-group-btn">
+                                                <button><i class="fa fa-minus"></i></button>
+                                            </span>
+                                            <input type="text" value="1" maxlength="5" id="count" data-productid="({$data.one.id})" data-specifications="({$data.one.specificationsID})">
+                                            <span class="input-group-btn">
+                                                <button><i class="fa fa-plus"></i></button>
+                                            </span>
+                                            <!-- 購買數量增減模組 End -->
+                                        </div>
+                                        <script>
+                                        $('.qtyInputBox button i.fa-plus').click(function() {
+                                            var qty = $('.qtyInputBox input').val();
+                                            qty = parseInt(qty) + 1;
+                                            $('.qtyInputBox input').val(qty);
+                                        });
+
+                                        $('.qtyInputBox button i.fa-minus').click(function() {
+                                            var qty = $('.qtyInputBox input').val();
+                                            if (qty < 2) {
+                                                $('.qtyInputBox input').val(1);
+                                            } else {
+                                                qty = qty - 1;
+                                                $('.qtyInputBox input').val(qty);
+                                            }
+                                        });
+                                        </script>
+                                    </div>
+                                    <div class="price">NT $ ({$data.one.price})</div>
+                                </div>
+                                <div class="add-to-cart">
+                                    <a href="javascript:;" onclick="$('#sidr-left').show();shoppingAddProduct($('#count'));" class="cart"><i class="fa fa-shopping-basket" aria-hidden="true"></i> 加入購物車</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 明細區塊右邊 END  -->
+                    </div>
+                    <!-- 產品明細上半區塊 -->
+                </div>
+                <!-- 產品明細 END  -->
+                <!-- 頁次模組 -->
+                <div class="page"><a href="({$console->path[0]})/({$console->path[1]})">回上一頁</a></div>
+            </div>
+            <!-- 右邊區塊 -->
+            ({/if})
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 END -->
+</div>
+({include "foor.html"})

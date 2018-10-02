@@ -1,0 +1,112 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.editList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["EDIT"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.addList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["ADD"]})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.instructionsList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link " data-toggle="list" href="#list-instructions">({$label_back["INSTRUCTIONS"]})</a>
+                        </li>
+                    ({/if})
+                </ul>
+            </div>
+                <div class="tab-content">
+
+                    ({if $switch.listList!=0})
+                        <div class="card-body tab-pane fade show active" id="list-list">
+                            <table class="table table-striped">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" width="2%">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                                <label class="custom-control-label" for="checkAll"></label>
+                                            </div>
+                                        </th>
+                                        <th scope="col">({$label_back["LANGUAGE_NAME"]})</th>
+                                        <th scope="col">({$label_back["LANGUAGE_KEY"]})</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ({foreach from=$data.list key=k item=v})
+                                        <tr>
+                                            <td scope="row">
+                                                ({if $langDefault != $k})
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck_({$k})" name="checkElement[]" value="({$k})">
+                                                        <label class="custom-control-label" for="customCheck_({$k})"></label>
+                                                    </div>
+                                                ({/if})
+                                            </td>
+                                            <td><a href="({$data.listUrl})/edit/({$k})">({$v})</a></td>
+                                            <td>({$k})</td>
+                                        </tr>
+                                    ({/foreach})
+                                </tbody>
+                            </table>            
+                        </div>
+                    ({/if})
+
+                    ({if $switch.editList!=0})
+                        <div class="card-body tab-pane fade show active" id="list-edit">
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back["LANGUAGE_KEY"]})</label>
+                                    <input type="text" name="languageKey" class="form-control" value="({$console->path[2]})" autocomplete="off" required>
+                                    <small class="text-muted">({$label_back["LANGUAGE_KEY_SMALL"]})</small>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label>({$label_back["DETAIL"]})</label>
+                                    ({include file='module.aceEditor.html'})
+                                </div>
+                            </div>
+                        </div>
+                    ({/if})
+
+                    ({if $switch.addList!=0})
+                        <div class="card-body tab-pane fade show active" id="list-add">
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$label_back["LANGUAGE_KEY"]})</label>
+                                    <input type="text" name="languageKey" class="form-control" value="" autocomplete="off" required>
+                                    <small class="text-muted">({$label_back["LANGUAGE_KEY_SMALL"]})</small>
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label>({$label_back["DETAIL"]})</label>
+                                    ({include file='module.aceEditor.html'})
+                                </div>
+                            </div>
+                        </div>
+                    ({/if})
+
+                    ({if $switch.instructionsList!=0})
+                        <div class="card-body tab-pane fade" id="list-instructions">
+                        </div>
+                    ({/if})
+                </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({include file='foor.html'})

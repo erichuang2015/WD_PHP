@@ -1,0 +1,122 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner" style=" background-image: url(images/banner004.jpg);">
+    <div class="banner-title">
+        <div class="banner-ch">聯絡我們</div>
+        <div class="banner-en">Contact Us</div>
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<div class="warpper">
+    <div class="main clearfix">
+        <!-- 編輯區 -->
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body clearfix">
+            <div class="cor-100 col-m">
+                <!-- 左欄 -->
+                <div class="contact">
+                    <ul>
+                        <li>
+                            <div class="contact-icon"><img src="images/contact-icon01.png" alt=""/></div>
+                                <div class="contact-content">({$web.companyPhone})</div>
+                        </li>
+                        <li>
+                            <div class="contact-icon"><img src="images/contact-icon02.png" alt=""/></div>
+                                <div class="contact-content"><a href="mailto:({$web.companyEmail})">({$web.companyEmail})</a></div>
+                        </li>
+                        <li>
+                            <div class="contact-icon"><img src="images/contact-icon03.png" alt=""/></div>
+                                <div class="contact-content">({$web.companyAddress})</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-body">
+                    <form action="" method="POST">
+                        <div class="form-box clearfix">
+                            <!-- 表單 -->
+                            ({foreach from=$data.one.dataName key=k item=v})
+                            ({if $k==0 || $k==2})
+                            <div class="opinion02">
+                                ({/if})
+                                ({if $data.one.dataType[$k] == "text" ||
+                                $data.one.dataType[$k] == "email" ||
+                                $data.one.dataType[$k] == "password" ||
+                                $data.one.dataType[$k] == "date" ||
+                                $data.one.dataType[$k] == "file"
+                                })
+                                <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
+                                    <input type="({$data.one.dataType[$k]})" name="key({$k})" placeholder="({$v})" ({if $data.one.dataRequired[$k]})required({/if}) class="input-main-style02" data-text="({$v})">
+                                </div>
+                                ({else if $data.one.dataType[$k] == "radio"})
+                                <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
+                                    <div class="input-main-style02">
+                                        ({section name=i loop=$data.one.dataOption[$k]})
+                                            <input type="radio" name="key({$k})" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})
+                                        ({/section})
+                                    </div>
+                                </div>
+                                ({else if $data.one.dataType[$k] == "checkbox"})
+                                <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
+                                    <div class="input-main-style02">
+                                        ({section name=i loop=$data.one.dataOption[$k]})
+                                            <input type="checkbox" name="key({$k})[]" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})
+                                        ({/section})
+                                    </div>
+                                </div>
+                                ({else if $data.one.dataType[$k] == "select"})
+                                <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
+                                    <div class="input-main-style02">
+                                        <select name="key({$k})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})>
+                                            <option value="">請選擇</option>
+                                            ({section name=i loop=$data.one.dataOption[$k]})
+                                                <option value="({$data.one.dataOption[$k][i]})">({$data.one.dataOption[$k][i]})</option>
+                                            ({/section})
+                                        </select>
+                                    </div>
+                                </div>
+                                ({else if $data.one.dataType[$k] == "address"})
+                                <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
+                                    <div class="input-main-style02" id="twzipcode({$k})">
+                                        <script>
+                                            $('#twzipcode({$k})').twzipcode({
+                                                'countyName': 'key({$k})[0]',
+                                                'districtName': 'key({$k})[1]',
+                                                'zipcodeName': 'key({$k})[2]',
+                                                'zipcodeIntoDistrict': true
+                                            });
+                                            ({if $data.one.dataRequired[$k]})
+                                                $('#twzipcode({$k})').find('select').attr('required', true);
+                                            ({/if})
+                                            $('#twzipcode({$k})').find('select[name="key({$k})[0]"]').attr('data-text', "聯絡地址-縣市");
+                                            $('#twzipcode({$k})').find('select[name="key({$k})[1]"]').attr('data-text', "聯絡地址-鄉鎮市區");
+                                        </script>
+                                    </div>
+                                </div>
+                                ({else if $data.one.dataType[$k] == "textarea"})
+                                <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
+                                    <textarea rows="5" class="input-style01" name="key({$k})" placeholder="({$v})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})></textarea>
+                                </div>
+                                ({/if})
+                                ({if $k==1 || $k==3})
+                            </div>
+                            ({/if})
+                            ({/foreach})
+                            <div class="opinion clearfix"> <span class="opinion-left01">驗證碼 ※</span>
+                                <input type="text" placeholder="請輸入驗證碼" name="verifycode" data-text="驗證碼" class="input-main-style02" required>
+                                <img src="verifycode.php" width="auto" height="31" class="code" name="verifycode" onclick="$(this).attr('src',$(this).attr('src'));"/></div>
+                                <div class="cart-btn">
+                                    <button class="btn-send" onclick="formSubmit(0); return false;">確認送出</button>
+                                    <button class="btn-reset" type="reset">重新填寫</button>
+                                </div>
+                            </div>
+                            ({$console->getToken()})
+                    </form>
+                </div>
+            </div><!-- 左欄 EDN -->
+        </div>
+        <div class="google-map">({$data.one.memo})</div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 END -->
+</div>
+({include "foor.html"})

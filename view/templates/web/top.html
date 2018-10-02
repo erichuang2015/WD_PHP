@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<!-- InstanceBegin template="/Templates/page.dwt" codeOutsideHTMLIsLocked="false" -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="({$web.main_path})/" target="">
+    <!-- InstanceBeginEditable name="doctitle" -->
+    <title>({$web.title})</title>
+    ({$web.hreflang})
+    ({$web.meta})
+    ({$web.otherCode})
+    <!-- InstanceEndEditable -->
+    <link href="css/front.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="css/slicknav.css" rel="stylesheet" type="text/css" media="screen and (max-width: 640px)">
+    <link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="css/main-mid.css" rel="stylesheet" type="text/css" media="screen and (max-width: 780px)">
+    <link href="css/main-mobile.css" rel="stylesheet" type="text/css" media="screen and (max-width: 640px)">
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+    <!-- 卷軸 -->
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/serback/jquery.all.min.js"></script>
+    <script src="js/config.js" id="config" data-lang="({$lang})" data-path="({$web.main_path})"></script>
+    <script src="//apis.google.com/js/api:client.js?hl=({$lang})"></script>
+    <script src="js/socialLogin.js" async></script>
+    <script src="js/front.js" async></script>
+    <script src="js/validation.js"></script>
+    <script type="text/javascript" src="js/jsManage.js"></script>
+    <!-- googlefont -->
+    <link href="css/googlefont.css" rel="stylesheet">
+    <!-- InstanceBeginEditable name="head" -->
+    <style>
+    .main {
+        padding: 0;
+    }
+
+    .content-body {
+        padding: 30px 10px;
+    }
+    </style>
+    <!-- InstanceEndEditable -->
+    <link rel="icon" href="({$web.icon})" sizes="16x16" type="image/png">
+    <link rel="apple-touch-icon" href="({$web.icon})">
+    <link rel="apple-touch-icon-precomposed" href="({$web.icon})">
+</head>
+
+<body>
+    ({include "fbMsg.html"})
+    <div id="sidr-left">
+        <!--  購物車狀況 Begin -->
+        <div class="cart-header"><i class="fa fa-shopping-basket" aria-hidden="true"></i> 購物車 <a id="left-menu2" href="#left-menu" class="pull-right"><i class="fa fa-times" aria-hidden="true"></i></a></div>
+        <div id="cartItemtDiv" style="display:none;">
+            <div class="cart-items clearfix">
+                <!-- cart-item -->
+                <div class="cart-item clearfix">
+                    <a href="produc-detailes.html" target="_blank" class="product-link"><img src="images/pro001.jpg"></a>
+                    <div class="cart-item-content">
+                        <div class="title">產品名稱</div>
+                        <div class="ng-scope">數量：1</div>
+                        <div class="price-details">NT$250</div>
+                    </div>
+                    <a href="javascript:;" class="remove">刪除</a>
+                </div>
+                <!-- cart-item -->
+            </div>
+        </div>
+        <div id="shoppingListDiv">
+        </div>
+        <!--  購物車狀況 End -->
+    </div>
+    <header id="header">
+        <!-- 頭部 -->
+        <div class="head-main">
+            <div class="logo"><a href=""><img src="images/logo.png" alt=""/></a></div>
+            <div class="home"><a href=""><i class="fa fa-home" aria-hidden="true"></i></a></div>
+            <div class="head-tool">
+                <li><a href="notice" title="購物須知"><i class="fa fa-file-text" aria-hidden="true"></i><span>購物須知</span></a></li>
+                <!-- 登出切換 -->
+                ({if $member})
+                <li><a href="member" title="會員專區"><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>會員專區</span></a></li>
+                ({else})
+                <li><a href="member" title="會員登入"><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>會員登入</span></a></li>
+                ({/if})
+                <li><a href="#left-menu" onclick="shoppingListReload();" id="left-menu" title="購物車"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span id="shoppingCountSpan">購物車(({$data.orderCount}))</span></a></li>
+            </div>
+            <nav id="nav" class="b-color">
+                <ul id="menu" class="menu clearfix">
+                    <li><a href="about">公司簡介<div class="menu-en">about us</div></a></li>
+                    <li><a href="news">最新消息<div class="menu-en">news</div></a></li>
+                    <li><a href="product">商品情報<div class="menu-en">products</div></a></li>
+                    <li><a href="contact">聯絡我們<div class="menu-en">contact us</div></a></li>
+                    <li><a href="member">會員專區<div class="menu-en">member</div></a></li>
+                    <li><a href="notice">購物須知<div class="menu-en">shopping</div></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- InstanceBeginEditable name="banner" -->

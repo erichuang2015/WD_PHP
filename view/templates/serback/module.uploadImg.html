@@ -1,0 +1,361 @@
+    <!-- 上傳圖片模組 -->
+    <style>
+        #dropDIV({$_I_}) {
+            background-color: #f5f7ff;
+            text-align: center;
+            width: 100%;
+            height: 250px;
+            margin: auto;
+            border: dashed 5px gray;
+        }
+
+        #imgDIV({$_I_}){
+            width: 100%;
+            margin: auto;
+        }
+
+        .imgDivE({$_I_}) > img {
+            max-height: 220px;
+            max-width: 80%;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            max-height: 70vh;
+        }
+
+        .imgDivE({$_I_}){
+            padding : 15px;
+            ({if $module.uploadImg[$_I_].max>1})border: dashed  5px #e9e9e9;({/if})
+            border-top-width: 0px; 
+        }
+        .custom-file-input ~ .custom-file-label::after {
+            content: "({$label_back.BROWSER})";
+        }
+
+    </style>
+    <script>
+        function dragoverHandler({$_I_})(evt) {
+            evt.preventDefault();
+        }
+
+        function dropHandler({$_I_})(evt,flag) { //evt 為 DragEvent 物件
+
+            if(typeof(flag) == "undefined"){
+                flag = 1;
+            }
+            if(($('#imgDIV({$_I_})>div').length+document.getElementById('ff({$_I_})').files.length) > ({$module.uploadImg[$_I_].max})){
+                document.getElementById('ff({$_I_})').value = '';
+                alert("({$label_back.UPLOAD_MAX_OUT})({(int)$module.uploadImg[$_I_].max})");
+                return false;
+            }
+            if(flag==1){
+                evt.preventDefault();
+                var files = evt.dataTransfer.files; //由DataTransfer物件的files屬性取得檔案物件
+            }else{
+                var files = document.getElementById('ff({$_I_})').files;
+            }
+            var objForm = new FormData();
+            var xhr = new XMLHttpRequest();
+            var up_progress = document.getElementById('up_progress({$_I_})');
+            xhr.open('POST', _jsPath+'/upload.php({if isset($module.uploadImg[$_I_].watermark)})?watermark=({$module.uploadImg[$_I_].watermark})({/if})');
+            
+            xhr.onload = function() {
+                //上傳完成
+                try{
+                    var fileName=JSON.parse(this.responseText);
+                    for(var key in fileName){
+                        openFile({$_I_})(_jsPath+'/'+fileName[key]);
+                    }
+                    up_progress.innerHTML = '({$label_back.UPLOAD_IMG_OK})';
+                }catch(e){
+                    up_progress.innerHTML = '({$label_back.UPLOAD_IMG_ERROR})';
+                    alert('({$label_back.UPLOAD_IMG_ERROR})' + this.responseText);
+                }
+                document.getElementById('ff({$_I_})').value = '';
+                document.getElementById('dropDIV({$_I_})').style.border = 'dashed 5px gray';
+            };
+            xhr.upload.onprogress = function(evt) {
+                //上傳進度
+                if (evt.lengthComputable) {
+                    var complete = (evt.loaded / evt.total * 100 | 0);
+                    if (100 == complete) {
+                        up_progress.innerHTML = '({$label_back.FILE_PROCESSING})';
+                    }else{
+                        up_progress.innerHTML = complete + ' %';
+                    }
+                }
+            };
+            var errMsg='';
+            for (var i = 0; i < files.length; i++) {
+                var check_image_type = ['jpeg', 'jpg', 'bmp', 'gif', 'png', 'ico'];
+                var check_file_name = files[i].name.split('.');
+                check_file_name = check_file_name[check_file_name.length - 1];
+                if (check_image_type.indexOf(check_file_name.toLowerCase()) < 0) {
+                    errMsg += files[i].name+'({$label_back.UPLOAD_IMG_TYPE_ERROR})\n';
+                } else {
+                    objForm.append('images[]', files[i]);
+                }
+            }
+            if(errMsg!=''){
+                alert(errMsg);
+            }else{
+                xhr.send(objForm); //開始上傳
+            }
+        }
+
+
+        function openFile({$_I_})(imgSrc) {
+            var imgDiv = document.createElement('div');
+            var imgBtnDiv = document.createElement('div');
+            var imgBtn = document.createElement('input');
+            var imgBtnCropper = document.createElement('input');
+            var imgInput = document.createElement('input');
+            var imgTag = document.createElement('img');
+            imgDiv.id = imgSrc;
+            imgDiv.className = "imgDivE({$_I_})";
+            imgBtnDiv.className = "btn-group";
+
+            imgBtn.className = "btn btn-outline-secondary";
+            imgBtn.type = "button";
+            imgBtn.value = "({$label_back.DELETE})";
+            imgBtn.onclick = function (){
+                if (confirm("({$label_back.IMG_DELETE_CONFIRM})")) {
+                    $.ajax({
+                        url: _jsPath+"/ajax.php",
+                        type: "GET",
+                        data: {
+                            rmSrc: imgSrc,
+                        },
+                        dataType:'text',
+                        async: false,
+                        success: function(msg){
+                            if(msg){
+                                // alert("({$label_back.DELETE_OK})");
+                            }else{
+                                // alert("({$label_back.DELETE_ERROR})");
+                            }
+                            temp = imgSrc.replace(/\./g, "\\.");
+                            temp = temp.replace(/\//g, "\\\/");
+                            $('#'+temp).remove();
+                        }
+                    });
+                }
+            };
+
+            imgBtnCropper.className = "btn btn-outline-secondary";
+            imgBtnCropper.dataset.target = "#modalCropper({$_I_})";
+            imgBtnCropper.dataset.toggle = "modal";
+            imgBtnCropper.dataset.backdrop = "static";
+            imgBtnCropper.dataset.src = imgSrc;
+            imgBtnCropper.type = "button";
+            imgBtnCropper.value = "({$label_back.CROPPER_IMAGE})";
+            imgBtnCropper.onclick = function (){
+                openCropper({$_I_})(this);
+            };
+
+            ({if $module.uploadImg[$_I_].max>1})imgBtnDiv.style.float = "right";({/if})
+            imgBtnDiv.appendChild(imgBtnCropper);
+            imgBtnDiv.appendChild(imgBtn);
+
+            imgTag.src = imgSrc+"?aaa=" + new Date().getTime();
+            imgTag.style.margin = "10px";
+
+            imgDiv.appendChild(imgBtnDiv);
+            imgDiv.appendChild(document.createElement("br"));
+            imgDiv.appendChild(imgTag);
+
+            imgInput.type = "hidden";
+            imgInput.name = "({$module.uploadImg[$_I_].name})({if $module.uploadImg[$_I_].max>1})[]({/if})";
+            
+            if(_jsPath || imgSrc.indexOf("/")==0){
+                imgInput.value = imgSrc.replace(_jsPath+'/', "");
+            }else{
+                imgInput.value = imgSrc;
+            }
+            imgDiv.appendChild(imgInput);
+
+
+
+
+
+
+
+            ({if isset($module.uploadImg[$_I_].textOther)})
+                ({section name=i loop=$module.uploadImg[$_I_].textOther})
+
+                    var imgDiv({$smarty.section.i.index}) = document.createElement('div');
+                    var imgInput({$smarty.section.i.index}) = document.createElement('input');
+                    var imgLabel({$smarty.section.i.index}) = document.createElement('label');
+                    imgDiv({$smarty.section.i.index}).className = "form-row";
+
+                    imgLabel({$smarty.section.i.index}).className = " control-label col-sm-1";
+                    imgLabel({$smarty.section.i.index}).innerText = "({$module.uploadImg[$_I_].textOtherText[i]})";
+
+                    imgInput({$smarty.section.i.index}).type = "text";
+                    imgInput({$smarty.section.i.index}).className = " col-sm-11 form-control mb-2";
+                    imgInput({$smarty.section.i.index}).name = "({$module.uploadImg[$_I_].name})({$module.uploadImg[$_I_].textOther[i]})({if $module.uploadImg[$_I_].max>1})[]({/if})";
+                    var temp = textOther_({$module.uploadImg[$_I_].textOther[i]})({$_I_}).shift();
+                    temp = (typeof(temp)=="undefined") ?　"" : temp;
+                    imgInput({$smarty.section.i.index}).value = temp;
+
+                    imgDiv({$smarty.section.i.index}).appendChild(imgLabel({$smarty.section.i.index}));
+                    imgDiv({$smarty.section.i.index}).appendChild(imgInput({$smarty.section.i.index}));
+                    imgDiv.appendChild(imgDiv({$smarty.section.i.index}));
+
+                ({/section})
+            ({/if})
+
+
+
+            document.getElementById('imgDIV({$_I_})').appendChild(imgDiv);
+
+        }
+        $(function(){
+            ({if isset($module.uploadImg[$_I_].textOther)})
+                ({section name=i loop=$module.uploadImg[$_I_].textOther})
+                    textOther_({$module.uploadImg[$_I_].textOther[i]})({$_I_}) = [];
+
+                    ({assign var="temp" value=$module.uploadImg[$_I_].name|cat:$module.uploadImg[$_I_].textOther[i]})
+                    ({if isset($data[$temp])})
+                        ({foreach key=k item=v from=$data[$temp]})
+                            textOther_({$module.uploadImg[$_I_].textOther[i]})({$_I_}) = $.parseJSON('({$v|unescape:"html"|addslashes})');
+                        ({/foreach})
+                    ({else if isset($data["one"][$temp])})
+                        ({foreach key=k item=v from=$data["one"][$temp]})
+                            textOther_({$module.uploadImg[$_I_].textOther[i]})({$_I_}) = $.parseJSON('({$v|unescape:"html"|addslashes})');
+                        ({/foreach})
+                    ({/if})
+
+                ({/section})
+            ({/if})
+
+            ({if isset($data[$module.uploadImg[$_I_].name])})
+                ({foreach key=k item=v from=$data[$module.uploadImg[$_I_].name]})
+                    ({if $v})
+                        openFile({$_I_})("({$v})");
+                    ({/if})
+                ({/foreach})
+            ({else if isset($data["one"][$module.uploadImg[$_I_].name])})
+                ({foreach key=k item=v from=$data["one"][$module.uploadImg[$_I_].name]})
+                    ({if $v})
+                        openFile({$_I_})("({$v})");
+                    ({/if})
+                ({/foreach})
+            ({/if})
+
+            //拖曳排序
+            $("#imgDIV({$_I_})").sortable({ 
+                items:'.imgDivE({$_I_})'
+                // stop: function(){
+                //     imgDivSort({$_I_})();
+                // }
+            });
+        });
+        // function imgDivSort({$_I_})(){
+        //     // $('#imgDIV({$_I_})>div').each(function (index,obj){
+        //     //     $(obj).find('div input[type="text"][id]').val(index+1);
+        //     // });
+        // }
+    </script>
+
+    <div id="dropDIV({$_I_})" ondragover="dragoverHandler({$_I_})(event)" ondrop="dropHandler({$_I_})(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" onclick="document.getElementById('ff({$_I_})').click();" ({if $module.uploadImg[$_I_].max<=1})style="display: none;"({/if})>
+        ({$label_back.IMG_DROP})
+        ({if isset($module.uploadImg[$_I_].suggestText)})
+        <br>({$label_back.SUGGEST_SIZE})({$module.uploadImg[$_I_].suggestText})
+        ({/if})
+        <div id="up_progress({$_I_})"></div>
+        ({if $module.uploadImg[$_I_].max>1})
+            <input type="file" class="form-control-file" id="ff({$_I_})" multiple onchange="dropHandler({$_I_})('',0);" style="display: none;" />
+        ({/if})
+    </div>
+    <input type="hidden" name="({$module.uploadImg[$_I_].name})" value="">
+    ({if isset($module.uploadImg[$_I_].textOther)})
+        ({section name=i loop=$module.uploadImg[$_I_].textOther})
+            <input type="hidden" name="({$module.uploadImg[$_I_].name})({$module.uploadImg[$_I_].textOther[i]})" value="">
+        ({/section})
+    ({/if})
+    <div id="imgDIV({$_I_})"></div>
+    ({if $module.uploadImg[$_I_].max<=1})
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="ff({$_I_})" onchange="dropHandler({$_I_})('',0);">
+            <label class="custom-file-label" for="ff({$_I_})">({$label_back.CHANGE_FILE})</label>
+        </div>
+    ({/if})
+
+    <!-- 剪裁 -->
+    <div class="modal fade" style="overflow-y: auto;max-height: 100vh;" id="modalCropper({$_I_})" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">({$label_back.CROPPER_IMAGE})</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="img-container">
+                        <img id="imageCropper({$_I_})" src="">
+                        <h5 style="text-align:center;" id="cropperText({$_I_})"></h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="if(cropperImage(cropperData({$_I_}))) $('#modalCropper({$_I_})').modal('hide');">({$label_back.SAVE})</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">({$label_back.BACK})</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var cropperData({$_I_});
+        function openCropper({$_I_})(btn){
+            $(".cropper-container").remove();
+            loadingStart();
+            var imageCropper = document.getElementById('imageCropper({$_I_})');
+            var cropper;
+            imgSrc = btn.dataset.src;
+            imageCropper.src = imgSrc+"?aaa=" + new Date().getTime();
+
+            $('#modalCropper({$_I_})').on('shown.bs.modal', function() {
+                $('.modal').insertAfter($('body'));
+                cropper = new Cropper(imageCropper, {
+                    viewMode: 1,//不超過圖
+                    autoCropArea: 0.8,//預設大小
+                    ({if isset($module.uploadImg[$_I_].suggestText)})
+                        ({assign var=ratio value="*"|explode:$module.uploadImg[$_I_].suggestText})
+                        ({if isset($ratio[1])})
+                            aspectRatio: ({$ratio[0]})/({$ratio[1]}),//固定比例 *
+                        ({else})
+                            ({assign var=ratio value="x"|explode:$module.uploadImg[$_I_].suggestText})
+                            ({if isset($ratio[1])})
+                                aspectRatio: ({$ratio[0]})/({$ratio[1]}),//固定比例 x
+                            ({else})
+                                ({assign var=ratio value=":"|explode:$module.uploadImg[$_I_].suggestText})
+                                ({if isset($ratio[1])})
+                                    aspectRatio: ({$ratio[0]})/({$ratio[1]}),//固定比例 :
+                                ({else})
+                                    
+                                ({/if})
+                            ({/if})
+                        ({/if})
+                    ({/if})
+
+                    ready: function(){
+                        loadingStop();
+                    },
+
+                    crop: function (event) {
+                      cropperData({$_I_}) = cropper.getData();
+                      cropperData({$_I_}).src = imgSrc;
+                      $("#cropperText({$_I_})").html("x : "+parseInt(cropperData({$_I_}).x)+" y : "+parseInt(cropperData({$_I_}).y)+" <br>width : "+parseInt(cropperData({$_I_}).width)+" height : "+parseInt(cropperData({$_I_}).height));
+                    }
+                });
+            }).on('hidden.bs.modal', function() {
+                cropper.destroy();
+            });
+        }
+    </script>
+
+    <!-- 上傳圖片模組 end -->
+    

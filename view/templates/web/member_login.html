@@ -1,0 +1,49 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner" style=" background-image: url(images/banner006.jpg);">
+    <div class="banner-title">
+        <div class="banner-ch">會員專區</div>
+        <div class="banner-en">Member</div>
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<div class="warpper">
+    <div class="main clearfix">
+        <!-- 編輯區 -->
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body clearfix">
+            <div class="member-login-box bg-gary-whrite">
+                <div class="col-065">
+                    <h3 class="page-title">登入會員</h3>
+                    <form action="" method="POST">
+                        <div class="form-box clearfix">
+                            <!-- 表單 -->
+                            <div class="opinion clearfix"> <span class="opinion-left01">帳號</span>
+                                <input type="email" placeholder="E-mail" name="account" class="input-main-style02" data-text="帳號" data-check="Email"  required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">密碼</span>
+                                <input type="password" placeholder="Password" name="password" class="input-main-style02" data-text="密碼" required>
+                            </div>
+                            <div class="cart-btn">
+                                <button class="btn-send" onclick="formSubmit(0);return false;">會員登入</button>
+                                <button class="btn-forget" onclick="location.href='({$console->path[0]})/forget';return false;">忘記密碼</button>
+                                <button class="btn-send-over" onclick="location.href='({$console->path[0]})/terms';return false;">加入會員</button>
+                            </div>
+                        </div>
+                        ({$console->getToken()})
+                    </form>
+                </div>
+                <div class="cor-035">
+                    <h3 class="page-title">社群登入</h3>
+                    <div class="login-tool">
+                        <a href="javascript:;" onclick="fbLogin();"><img src="images/fb.jpg" alt=""/></a>
+                    </div>
+                </div>
+                <!-- 右欄 END -->
+            </div>
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 END -->
+</div>
+({include "foor.html"})
