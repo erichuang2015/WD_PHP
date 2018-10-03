@@ -521,12 +521,39 @@
                         </div>
                         
                         <hr>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["REQUEST_FOR_INVOICE"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.invoiceType})">
+                            </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["CARRIAGE_TYPE"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.vehicleType})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["COMPANY_UP"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.companyName})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$label_back["COMPANY_EDITOR"]})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.companyGUINumber})">
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label">({$label_back["MEMO"]})</label>
                             <div class="col-sm-5">
-                                <textarea class="form-control" readonly rows="5">({$data.order.memo})</textarea>
+                                <textarea class="form-control" readonly rows="5">({$data.order.formData.memo})</textarea>
                             </div>
                         </div>
 

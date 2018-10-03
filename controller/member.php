@@ -48,6 +48,7 @@
 					$_POST["emailCheck"] = MTsung\emailCheckType::CHECK_OK;
 
 					if($member->addUser($_POST,false)){
+						$member->login($_POST['account'],$_POST['password']);
 						$console->alert($member->message,MEMBER_PATH.'detail');
 					}else{
 						$console->alert($member->message,-1);
