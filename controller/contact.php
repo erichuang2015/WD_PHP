@@ -33,6 +33,7 @@
 			$i = 0;
 			foreach ($_FILES as $key => $value) {
 				$_POST[$key] = $temp[$i++];
+				$_FILES[$key]["tmp_name"] = APP_PATH.$_POST[$key];
 			}
 			ksort($_POST);
 
