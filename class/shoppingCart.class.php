@@ -631,9 +631,6 @@ namespace MTsung{
 			//發送訂單結帳完成信件
 			$this->sendMail($orderNumber,orderSendMailType::ORDER_CHECKOUT_COMPLETED);
 
-
-			$this->payment($orderNumber);
-
 			return $orderNumber;
 		}
 

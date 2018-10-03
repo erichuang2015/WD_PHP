@@ -188,6 +188,10 @@
 					if(!$order->payment($orderNumber)){
 						$console->alert($order->message,-1);
 					}
+					
+					if($data["order"]["paymentMethod"] == MTsung\paymentMethodType::PHYSICAL_ATM_TRANSFER){
+						$console->alert($console->getMessage("PHYSICAL_ATM_TRANSFER_MAIL_TEXT"),SHOPPING_PATH."3");
+					}
 
 					if(!$order->shipment($orderNumber)){
 						$console->alert($order->message,-1);
