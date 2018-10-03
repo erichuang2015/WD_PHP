@@ -22,6 +22,22 @@
 				$_POST[$key] = implode(",",$value);
 			}
 		}
+
+		if(isset($_FILES)){
+			$upload = new MTsung\Upload(array(),array(),20971520,false,'upload/form/'.$console->path[0]);
+			$upload->callUploadFile();
+			$temp = $upload->getDestination();
+			if(count($temp)!=count($_FILES)){
+				$console->alert("ERROR",-1);
+			}
+			$i = 0;
+			foreach ($_FILES as $key => $value) {
+				$_POST[$key] = $temp[$i++];
+			}
+			ksort($_POST);
+
+		}
+
 		$input["keyData"] = implode("|__|",$_POST);
 		$form = new MTsung\form($console,PREFIX.$console->path[0]."_form",$lang);
 		if($form->setData($input)){

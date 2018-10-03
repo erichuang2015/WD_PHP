@@ -140,13 +140,13 @@ namespace MTsung{
 			//建立人and修改人
 			$data["create_user"] = $data["update_user"] = $data["account"];
 			if (isset($_SESSION[FRAME_NAME]["member"])) {
-				if($this->console->langSessionName=="Serback" && $_SESSION[FRAME_NAME]["member"]["serback"]["account"]){
+				if($this->console->langSessionName=="Serback" && isset($_SESSION[FRAME_NAME]["member"]["serback"]["account"])){
 					$data["update_user"] = $_SESSION[FRAME_NAME]["member"]["serback"]["account"];
-				}else if($this->console->langSessionName=="" && $_SESSION[FRAME_NAME]["member"]["member"]["account"]){
+				}else if($this->console->langSessionName=="" && isset($_SESSION[FRAME_NAME]["member"]["member"]["account"])){
 					$data["update_user"] = $_SESSION[FRAME_NAME]["member"]["member"]["account"];
 				}else{
 					foreach ($_SESSION[FRAME_NAME]["member"] as $key => $value) {
-						$data["update_user"] = $value["account"];
+						$data["update_user"] = isset($value["account"])?$value["account"]:"_AUTO_";
 						break;
 					}
 				}
@@ -188,13 +188,13 @@ namespace MTsung{
 
 				//修改人
 				if (isset($_SESSION[FRAME_NAME]["member"])) {
-					if($this->console->langSessionName=="Serback" && $_SESSION[FRAME_NAME]["member"]["serback"]["account"]){
+					if($this->console->langSessionName=="Serback" && isset($_SESSION[FRAME_NAME]["member"]["serback"]["account"])){
 						$data["update_user"] = $_SESSION[FRAME_NAME]["member"]["serback"]["account"];
-					}else if($this->console->langSessionName=="" && $_SESSION[FRAME_NAME]["member"]["member"]["account"]){
+					}else if($this->console->langSessionName=="" && isset($_SESSION[FRAME_NAME]["member"]["member"]["account"])){
 						$data["update_user"] = $_SESSION[FRAME_NAME]["member"]["member"]["account"];
 					}else{
 						foreach ($_SESSION[FRAME_NAME]["member"] as $key => $value) {
-							$data["update_user"] = $value["account"];
+							$data["update_user"] = isset($value["account"])?$value["account"]:"_AUTO_";
 							break;
 						}
 					}

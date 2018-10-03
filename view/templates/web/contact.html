@@ -31,7 +31,7 @@
                     </ul>
                 </div>
                 <div class="contact-body">
-                    <form action="" method="POST">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         <div class="form-box clearfix">
                             <!-- 表單 -->
                             ({foreach from=$data.one.dataName key=k item=v})
@@ -45,11 +45,12 @@
                                 $data.one.dataType[$k] == "file"
                                 })
                                 <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
-                                    <input type="({$data.one.dataType[$k]})" name="key({$k})" placeholder="({$v})" ({if $data.one.dataRequired[$k]})required({/if}) class="input-main-style02" data-text="({$v})">
+                                    <input type="({$data.one.dataType[$k]})" name="key({$k})" placeholder="({$v})" ({if $data.one.dataRequired[$k]})required({/if}) class="input-main-style02" data-text="({$v})" ({if $data.one.dataType[$k] == "email"})data-check="Email"({/if})>
                                 </div>
                                 ({else if $data.one.dataType[$k] == "radio"})
                                 <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
                                     <div class="input-main-style02">
+                                        <input type="hidden" name="key({$k})" value="">
                                         ({section name=i loop=$data.one.dataOption[$k]})
                                             <input type="radio" name="key({$k})" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})
                                         ({/section})
@@ -58,6 +59,7 @@
                                 ({else if $data.one.dataType[$k] == "checkbox"})
                                 <div class="opinion clearfix"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) ※ ({/if})</span>
                                     <div class="input-main-style02">
+                                        <input type="hidden" name="key({$k})" value="">
                                         ({section name=i loop=$data.one.dataOption[$k]})
                                             <input type="checkbox" name="key({$k})[]" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})
                                         ({/section})

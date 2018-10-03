@@ -47,6 +47,9 @@ namespace MTsung{
 			$data["webUrl"] = $this->console->MT_web['http_path'];
 			$data["webName"] = $this->console->webSetting->getValue("webTitle");
 
+			foreach ($_FILES as $key => $value) {
+				$mail->setMailFile($value["tmp_name"],$value["name"]);
+			}
 			$mail->setMailTitle($this->console->getMessage('CONTACT_FORM_MEIL'));
 			$mail->setMailAddress($this->console->setting->getValue("recipientEmail"));			
 			$mail->setMailBody("mail_forms-notice.html",array('data' => $data));

@@ -45,7 +45,7 @@
                                             </div>
                                         </td>
                                         ({section name=j loop=$data.list[i].keyData})
-                                            <td >
+                                            <td style="max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
                                                 <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].keyData[j]})</a>
                                             </td>
                                         ({/section})
@@ -76,7 +76,7 @@
                                 ({section name=i loop=$data.one.keyName})
                                     <tr>
                                         <td scope="col">({$data.one.keyName[i]})</td>
-                                        <td>({$data.one.keyData[i]})</td>
+                                        <td>({if strpos($data.one.keyData[i],'upload/form/') !== false })<a href="({$data.one.keyData[i]})" target="_black">({$data.one.keyData[i]})</a>({else})({$data.one.keyData[i]})({/if})</td>
                                     </tr>
                                 ({/section})
                             </tbody>

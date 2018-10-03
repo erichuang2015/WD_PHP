@@ -223,9 +223,11 @@ namespace MTsung{
          * @return boolean
          */
         private function checkMIME($file){
-            if (!in_array($file['type'], $this->allowMIME)) {
-                $this->res['error'] = $file['name'] . '不是允許的檔案類型';
-                return false;
+            if($this->allowMIME){
+                if (!in_array($file['type'], $this->allowMIME)) {
+                    $this->res['error'] = $file['name'] . '不是允許的檔案類型';
+                    return false;
+                }
             }
             return true;
         }
@@ -238,6 +240,9 @@ namespace MTsung{
          */
         private function checkExt($file){
             $this->ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));  // 取得上傳檔案的擴展名
+            if(!$this->allowExt){
+                return true;
+            }
      
             // 檢查上傳檔案是否為允許的擴展名、及參數是否為陣列
             if (!is_array($this->allowExt)) {  
