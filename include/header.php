@@ -51,9 +51,6 @@
 		$_SESSION['LAST_REMOTE_ADDR'] = @$_SERVER['REMOTE_ADDR'];
 		$_SESSION['LAST_USER_AGENT'] = @$_SERVER['HTTP_USER_AGENT'];
 		
-		if($_POST){
-			echo "<title>Loading...</title>";
-		}
 	}
 
 	include_once(APP_PATH.'config/define.php');

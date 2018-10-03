@@ -2,6 +2,9 @@
 /**
  * 後台上板
  */
+if($_POST){
+	echo "<title>Loading...</title>";
+}
 
 $memberSessionName = 'serback';
 $member = new MTsung\member($console,PREFIX.'admin',$memberSessionName);

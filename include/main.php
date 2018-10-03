@@ -142,7 +142,7 @@ namespace MTsung{
 
 			//在哪邊不開
 			$XSSArray = array('serback');
-			$CSRFArray = array("ECPayResponse","shopping");
+			$CSRFArray = array(/*"ECPayResponse","shopping"*/);
 
 			$csrfWhitelist = explode("\n",$this->setting->getValue("csrfWhitelist"));//網域 IP 白名單
 
