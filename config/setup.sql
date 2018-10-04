@@ -26,8 +26,8 @@ CREATE TABLE `database_admin` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=開啟,0=關閉',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
   `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',
-  `create_user` varchar(20) NOT NULL COMMENT '創建人',
-  `update_user` varchar(20) NOT NULL COMMENT '最後修改人',
+  `create_user` varchar(191) NOT NULL COMMENT '創建人',
+  `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
   `fbID` varchar(100) DEFAULT NULL COMMENT 'fb帳號連結',
   `fbName` varchar(100) DEFAULT NULL COMMENT 'fb名字',
   `fbEmail` varchar(100) DEFAULT NULL COMMENT 'fb-email',
@@ -65,8 +65,8 @@ CREATE TABLE `database_admin_group` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=開啟,0=關閉',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
   `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',
-  `create_user` varchar(20) NOT NULL COMMENT '創建人',
-  `update_user` varchar(20) NOT NULL COMMENT '最後修改人',
+  `create_user` varchar(191) NOT NULL COMMENT '創建人',
+  `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
@@ -88,8 +88,8 @@ CREATE TABLE `database_menu` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=開啟,0=關閉',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
   `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',
-  `create_user` varchar(20) NOT NULL COMMENT '創建人',
-  `update_user` varchar(20) NOT NULL COMMENT '最後修改人',
+  `create_user` varchar(191) NOT NULL COMMENT '創建人',
+  `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4;
 
@@ -194,8 +194,8 @@ CREATE TABLE `database_template` (
   `sort` int(11) NOT NULL COMMENT '排序',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
   `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',
-  `create_user` varchar(20) NOT NULL COMMENT '創建人',
-  `update_user` varchar(20) NOT NULL COMMENT '最後修改人',
+  `create_user` varchar(191) NOT NULL COMMENT '創建人',
+  `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`type`,`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;

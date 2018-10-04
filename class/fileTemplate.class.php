@@ -40,8 +40,8 @@ namespace MTsung{
 					  `sort` int(11) NOT NULL COMMENT '排序',
 					  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
 					  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',
-					  `create_user` varchar(20) NOT NULL COMMENT '創建人',
-					  `update_user` varchar(20) NOT NULL COMMENT '最後修改人',
+					  `create_user` varchar(191) NOT NULL COMMENT '創建人',
+					  `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
 					  PRIMARY KEY (`id`),
 					  UNIQUE KEY `name` ( `type`,`name`)
 					) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
