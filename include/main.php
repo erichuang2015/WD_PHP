@@ -136,18 +136,25 @@ namespace MTsung{
 				setcookie("lang".$this->langSessionName , '' , time()-157680000, '/');
 				$this->setLanguage();
 			}
-			
-
 			/*switch*/
 
 			//在哪邊不開
 			$XSSArray = array('serback');
-			$CSRFArray = array("ECPayResponse","shopping");
+			$CSRFArray = array();
 
 			$csrfWhitelist = explode("\n",$this->setting->getValue("csrfWhitelist"));//網域 IP 白名單
+			$csrfWhitelist = array_map(function($v){
+				return str_replace("\r","",$v);
+			}, $csrfWhitelist);
 
 			$this->switch["XSSVerifty"] = !in_array($this->controller, $XSSArray);
-			$this->switch["CSRFVerifty"] = !in_array($this->controller, $CSRFArray) && !in_array($this->getIP(),$csrfWhitelist);
+			$this->switch["CSRFVerifty"] = (
+				!in_array($this->controller, $CSRFArray) && 
+				!in_array($this->getIP(),$csrfWhitelist) && 
+				!($this->path[0] == "ECPayResponse" && $this->path[1] == "map") &&
+				!($this->path[0] == "shopping" && $this->path[1] == "aio") &&
+				!($this->path[0] == "shopping" && $this->path[1] == "shipment")
+			);
 
 			/*switch*/
 			
