@@ -1443,7 +1443,7 @@ namespace MTsung{
 		 * @return [type]     [description]
 		 */
 		function rmData($id){
-			$list = new center($this->console,$this->tableList);
+			$list = new center($this->console,$this->table.'_list',$this->lang);
 			$deleteID = (is_array($id)) ? implode(",",$id) : $id;
 
 			$temp = $list->getData("where shoppingCartId in (".$deleteID.")");
