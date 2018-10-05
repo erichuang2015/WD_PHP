@@ -6,37 +6,39 @@
 
 var _jsPath = $('#config').data('path') ? $('#config').data('path') : ""; 				//沒有則空值
 var _jsSerbackPath = _jsPath+'/serback';
-var _fbAppID = '';
-var _googleClientID = '';
+var _fbAppID = $('#config').data('fb_app_id') ? $('#config').data('fb_app_id') : "";
+var _googleClientID = $('#config').data('google_client_id') ? $('#config').data('google_client_id') : "";
 var _lang = $('#config').data('lang');
 
-// 取得fbAuthAppID
-$.ajax({
-    url: _jsPath+"/ajax.php",
-    type: "GET",
-    data: {
-        appKey: 'fbAuthAppID'
-    },
-    dataType:'text',
-    async: false,
-    success: function(msg){
-        _fbAppID = msg;
-    }
-});
+if(typeof($('#config').data('fb_app_id'))=="undefined"){
+    $.ajax({
+        url: _jsPath+"/ajax.php",
+        type: "GET",
+        data: {
+            appKey: 'fbAuthAppID'
+        },
+        dataType:'text',
+        async: false,
+        success: function(msg){
+            _fbAppID = msg;
+        }
+    });
+}
 
-// 取得googleAuthAppID
-$.ajax({
-    url: _jsPath+"/ajax.php",
-    type: "GET",
-    data: {
-        appKey: 'googleAuthAppID'
-    },
-    dataType:'text',
-    async: false,
-    success: function(msg){
-        _googleClientID = msg;
-    }
-});
+if(typeof($('#config').data('google_client_id'))=="undefined"){
+    $.ajax({
+        url: _jsPath+"/ajax.php",
+        type: "GET",
+        data: {
+            appKey: 'googleAuthAppID'
+        },
+        dataType:'text',
+        async: false,
+        success: function(msg){
+            _googleClientID = msg;
+        }
+    });
+}
 
 
 // 取得語言包
