@@ -6,7 +6,8 @@
 	ini_set("session.cookie_httponly", 1);
 
 	//session過期時間
-	ini_set('session.gc_maxlifetime', 0);
+	ini_set('session.cookie_lifetime', 999999999);
+	ini_set('session.gc_maxlifetime', 999999999);
 
 	//只能在https傳遞
 	ini_set('session.cookie_secure', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']));
