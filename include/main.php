@@ -147,7 +147,7 @@ namespace MTsung{
 				return str_replace("\r","",$v);
 			}, $csrfWhitelist);
 
-			$this->switch["XSSVerifty"] = !in_array($this->controller, $XSSArray);
+			$this->switch["XSSVerifty"] = false && !in_array($this->controller, $XSSArray);//輸出會過濾就不需要了
 			$this->switch["CSRFVerifty"] = (
 				!in_array($this->controller, $CSRFArray) && 
 				!in_array($this->getIP(),$csrfWhitelist) && 
