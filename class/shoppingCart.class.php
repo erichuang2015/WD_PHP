@@ -105,6 +105,11 @@ namespace MTsung{
 		 * @return [type] [description]
 		 */
 		function reloadCart(){
+			//非會員購物車最後更新時間2天後刪除
+			$rmDate = date('Y-m-d H:i:s',strtotime(DATE)-86400*2);
+			$sql = "delete ".$this->table." from ".$this->table." left join ".$this->tableList." on ".$this->tableList.".shoppingCartId=".$this->table.".id WHERE memberId='0' and step='1' and ".$this->table.".update_date<'".$rmDate."'";
+			$this->conn->Execute($sql);
+
 			do{
 				$data["orderNumber"] = strtoupper(base_convert(microtime(true),10,36));
 			}while($this->conn->GetRow("select * from ".$this->table." where step='1' and orderNumber='".$data["orderNumber"]."'"));
@@ -130,7 +135,7 @@ namespace MTsung{
 				$this->order = $this->conn->GetRow("select * from ".$this->table." where step='1' and memberId='".$this->memberInfo["id"]."'");
 			}else{
 				//使用session記憶購物車orderNumber
-				if(!isset($_SESSION[FRAME_NAME]["shoppingCart"])){
+				if(!isset($_SESSION[FRAME_NAME]["shoppingCart"]) || !$this->order = $this->conn->GetRow("select * from ".$this->table." where step='1' and orderNumber='".$_SESSION[FRAME_NAME]["shoppingCart"]."'")){
 					$_SESSION[FRAME_NAME]["shoppingCart"] = $data["orderNumber"];
 					$this->conn->AutoExecute($this->table,$data,"INSERT");
 				}
