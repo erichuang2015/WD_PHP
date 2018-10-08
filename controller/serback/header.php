@@ -8,7 +8,6 @@ if($_POST){
 
 $memberSessionName = 'serback';
 $member = new MTsung\member($console,PREFIX.'admin',$memberSessionName);
-$_SESSION[FRAME_NAME]["BACK_URI"] = $_SERVER["REQUEST_URI"];
 
 $loginUrl = $console->MT_web["serback_path"].'/login';
 
@@ -19,9 +18,11 @@ if(!$member->isLogin()){
 	if($member->message){
 		$console->alert($member->message,$loginUrl);
 	}else{
+		$_SESSION[FRAME_NAME]["BACK_URI"] = $_SERVER["REQUEST_URI"];
 		$console->linkTo($loginUrl);
 	}
 }
+unset($_SESSION[FRAME_NAME]["BACK_URI"]);
 
 /**
  * 帳號資訊
