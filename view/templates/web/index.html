@@ -91,9 +91,9 @@
     	     
             ({section name=i loop=$data.product})
                 <li><!--銷售 -->
-                    <div class="pro-photo"><a href="product/({$data.product[i].class})/({$data.product[i].urlKey})"><img src="({$data.product[i].picture})" class="index-pro-img"></a></div>
+                    <div class="pro-photo"><a href="({$web.main_url})/product/({$data.product[i].class})/({$data.product[i].urlKey})"><img src="({$data.product[i].picture})" class="index-pro-img"></a></div>
                     <h4>({$data.product[i].name})</h4>
-                    <div class="index-pro-more"><a href="product/({$data.product[i].class})/({$data.product[i].urlKey})">+</a></div>
+                    <div class="index-pro-more"><a href="({$web.main_url})/product/({$data.product[i].class})/({$data.product[i].urlKey})">+</a></div>
                 </li><!-- 銷售 END -->
             ({/section})
         
@@ -108,11 +108,11 @@
     	  </h3>
           <ul>
             ({section name=i loop=$data.news})
-                <li><a href="news/({$data.news[i].urlKey})">({$data.news[i].name})</a></li>
+                <li><a href="({$web.main_url})/news/({$data.news[i].urlKey})">({$data.news[i].name})</a></li>
             ({/section})
              
           </ul>
-          <div class="i-news-more"><a href="news">MORE</a></div>
+          <div class="i-news-more"><a href="({$web.main_url})/news">MORE</a></div>
         </div>
     	<!-- 消息 end -->
      </div>

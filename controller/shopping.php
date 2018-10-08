@@ -2,7 +2,7 @@
 	include_once('header.php');
 	$web_set["titlePrefix"] = "購物車";
 
-	define("SHOPPING_PATH",WEB_PATH."/".$console->path[0]."/");
+	define("SHOPPING_PATH",WEB_PATH.$lang_url."/".$console->path[0]."/");
 
 	//預設第一步
 	$step = "1";
@@ -13,7 +13,7 @@
 	//判斷登入
 	if(!$member->isLogin() && !isset($_GET["ajax"])){
 		$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] = $_SERVER["REQUEST_URI"];
-		$console->linkTo(WEB_PATH."/member/login");
+		$console->linkTo(WEB_PATH.$lang_url."/member/login");
 		exit;
 	}
 	

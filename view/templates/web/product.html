@@ -16,10 +16,10 @@
                 <div class="in-left-menu classBox">
                     <ul class="classLink">
                         ({section name=i loop=$data.class})
-                        <li><a href="({$console->path[0]})/({$data.class[i].urlKey})" ({if $data.class[i].id==$data.oneClass.id})class="current" ({/if})>({$data.class[i].name})</a>
+                        <li><a href="({$web.main_url})/({$console->path[0]})/({$data.class[i].urlKey})" ({if $data.class[i].id==$data.oneClass.id})class="current" ({/if})>({$data.class[i].name})</a>
                             <ul>
                                 ({section name=j loop=$data.listAll[$data.class[i].id]})
-                                <li><a href="({$console->path[0]})/({$data.class[i].urlKey})/({$data.listAll[$data.class[i].id][j].urlKey})">({$data.listAll[$data.class[i].id][j].name})</a></li>
+                                <li><a href="({$web.main_url})/({$console->path[0]})/({$data.class[i].urlKey})/({$data.listAll[$data.class[i].id][j].urlKey})">({$data.listAll[$data.class[i].id][j].name})</a></li>
                                 ({/section})
                             </ul>
                         </li>
@@ -36,7 +36,7 @@
                         ({section name=i loop=$data.list})
                         <li>
                             <!--銷售 -->
-                            <div class="pro-photo"><a href="({$console->path[0]})/({$data.oneClass.urlKey})/({$data.list[i].urlKey})"><img src="({$data.list[i].picture})" class="index-pro-img"></a></div>
+                            <div class="pro-photo"><a href="({$web.main_url})/({$console->path[0]})/({$data.oneClass.urlKey})/({$data.list[i].urlKey})"><img src="({$data.list[i].picture})" class="index-pro-img"></a></div>
                             <h4>({$data.list[i].name})</h4>
                         </li>
                         <!-- 銷售 END -->
@@ -136,7 +136,7 @@
                 </div>
                 <!-- 產品明細 END  -->
                 <!-- 頁次模組 -->
-                <div class="page"><a href="({$console->path[0]})/({$console->path[1]})">回上一頁</a></div>
+                <div class="page"><a href="({$web.main_url})/({$console->path[0]})/({$console->path[1]})">回上一頁</a></div>
             </div>
             <!-- 右邊區塊 -->
             ({/if})

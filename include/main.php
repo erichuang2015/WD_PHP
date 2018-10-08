@@ -110,7 +110,7 @@ namespace MTsung{
 				if(isset($this->path[0]) && $this->path[0]){
 					$this->controller = $this->path[0];
 				}else{
-					$this->controller = INDEX_PATH;
+					$this->controller = $setting->getValue("indexPATH")?$setting->getValue("indexPATH"):INDEX_PATH;
 				}
 			 	setcookie("lang".$this->langSessionName, $temp, time()+157680000, '/');
 			}else if(isset($_COOKIE["lang".$this->langSessionName])){

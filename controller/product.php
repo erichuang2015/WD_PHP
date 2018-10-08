@@ -39,10 +39,12 @@
 	}
 
 	//全部商品
-	foreach ($data["class"] as $key => $value) {
-		$findClassSql = $product->findArrayString("class",$value["id"]);
-		$data["listAll"][$value["id"]] = $product->getData("where status='1' ".$findClassSql." order by sort");
-		$data["listAll"][$value["id"]] = $console->urlKey($data["listAll"][$value["id"]]);
+	if($data["class"]){
+		foreach ($data["class"] as $key => $value) {
+			$findClassSql = $product->findArrayString("class",$value["id"]);
+			$data["listAll"][$value["id"]] = $product->getData("where status='1' ".$findClassSql." order by sort");
+			$data["listAll"][$value["id"]] = $console->urlKey($data["listAll"][$value["id"]]);
+		}
 	}
 
 

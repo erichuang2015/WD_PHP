@@ -26,8 +26,8 @@
                             </div>
                             <div class="cart-btn">
                                 <button class="btn-send" onclick="formSubmit(0);return false;">會員登入</button>
-                                <button class="btn-forget" onclick="location.href='({$console->path[0]})/forget';return false;">忘記密碼</button>
-                                <button class="btn-send-over" onclick="location.href='({$console->path[0]})/terms';return false;">加入會員</button>
+                                <button class="btn-forget" onclick="location.href='({$web.main_url})/({$console->path[0]})/forget';return false;">忘記密碼</button>
+                                <button class="btn-send-over" onclick="location.href='({$web.main_url})/({$console->path[0]})/terms';return false;">加入會員</button>
                             </div>
                         </div>
                         ({$console->getToken()})

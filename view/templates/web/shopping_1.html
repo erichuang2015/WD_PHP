@@ -24,7 +24,7 @@
                         <div class="form-box clearfix">
                             <!-- 表單 -->
                             <div class="contact-note">您的購物車中沒有商品。</div>
-                            <div class="cart-btn"><a href="product" class="btn-send">前往購物</a></div>
+                            <div class="cart-btn"><a href="({$web.main_url})/product" class="btn-send">前往購物</a></div>
                         </div>
                     </div>
                     <!-- 右欄 END -->
@@ -44,7 +44,7 @@
                         ({section name=i loop=$data.orderList})
                         <li class="clearfix">
                             <div class="shop-car-info col-045">
-                                <a href="product/detail/({$data.orderList[i].productId})" target="_blank" class="pro-photo" style="background-image: url('({$data.orderList[i].picture})')"></a>
+                                <a href="({$web.main_url})/product/detail/({$data.orderList[i].productId})" target="_blank" class="pro-photo" style="background-image: url('({$data.orderList[i].picture})')"></a>
                                 <div class="description">
                                     <div>({$data.orderList[i].name})</div>
                                 </div>
@@ -165,11 +165,11 @@
                     </div>
                 </div>
                 <div class="clearfix" style="height:30px;"></div>
-                <div class="cart-btn"><a href="product" class="btn-reset">繼續購物</a> <a href="javascript:;" onclick="return next();" class="btn-send">填寫資料</a></div>
+                <div class="cart-btn"><a href="({$web.main_url})/product" class="btn-reset">繼續購物</a> <a href="javascript:;" onclick="return next();" class="btn-send">填寫資料</a></div>
                 <script>
                     function next(){
                         if($("#paymentMethod").val() && $("#shipmentMethod").val()){
-                            location.href = '({$console->path[0]})/2';
+                            location.href = '({$web.main_url})/({$console->path[0]})/2';
                         }else{
                             alert("請選擇付款方式及送貨方式");
                         }

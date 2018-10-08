@@ -12,6 +12,9 @@
 		$console->webSetting->getValue("bonusDiscountPoint")
 	);
 
+	$web_set['lang'] = count($console->getLanguageArray("array"))==1?'':$console->getLanguage();
+	$lang_url = ($web_set['lang']?'/'.$web_set['lang']:'');
+
 	//購物內容數量
 	$data["orderCount"] = count($order->getShoppingCartList());
 ?>

@@ -46,7 +46,7 @@
                     ({section name=i loop=$data.orderList})
                     <li class="clearfix">
                         <div class="shop-car-info col-045">
-                            <a href="product/detail/({$data.orderList[i].productId})" target="_blank" class="pro-photo" style="background-image: url('({$data.orderList[i].picture})')"></a>
+                            <a href="({$web.main_url})/product/detail/({$data.orderList[i].productId})" target="_blank" class="pro-photo" style="background-image: url('({$data.orderList[i].picture})')"></a>
                             <div class="description">
                                 <div>({$data.orderList[i].name})</div>
                             </div>
@@ -202,7 +202,7 @@
                     }
                 </script>
                 <div class="cart-btn">
-                    <a class="btn-reset" href="javascript:;" onclick="location.href='({$console->path[0]})/1';return false;">返回購物車</a>
+                    <a class="btn-reset" href="javascript:;" onclick="location.href='({$web.main_url})/({$console->path[0]})/1';return false;">返回購物車</a>
                     <button class="btn-send" onclick="formSubmit(0);return false;">提交訂單</button>
                 </div>
                 ({$console->getToken()})

@@ -1,8 +1,8 @@
 <?php
 	include_once('header.php');
 	$web_set["titlePrefix"] = "會員專區";
-
-	define("MEMBER_PATH",WEB_PATH."/".$console->path[0]."/");
+	
+	define("MEMBER_PATH",WEB_PATH.$lang_url."/".$console->path[0]."/");
 
 	$type = "login";
 	if(isset($console->path[1]) && $console->path[1]){

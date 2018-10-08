@@ -1,6 +1,5 @@
 <?php 
 	include_once('header.php'); 
-
 	//EDM
 	$edm = new MTsung\dataList($console,PREFIX."edm",$lang);
 	$temp = $edm->getOne();

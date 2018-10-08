@@ -68,13 +68,13 @@
 		$web_set['setting_lang'] = $_SESSION[FRAME_NAME]["SETTING_LANG"];
 	}
 	//語言
-	$web_set['lang'] = $console->getLanguage()==LANG?'':$console->getLanguage();
+	$web_set['lang'] = count($console->getLanguageArray("array"))==1?'':$console->getLanguage();
 	$lang = $console->getLanguage();
 	$langDefault = LANG;
 	
 	//一般連結用
 	$web_set['main_url'] = $web_set['main_path'].($web_set['lang']?'/'.$web_set['lang']:'');
-	$web_set['serback_url'] = $console->MT_web['main_path'].($web_set['lang']?'/'.$web_set['lang']:'').'/serback';
+	$web_set['serback_url'] = $web_set['main_url'].'/serback';
 
 	//現在時間
 	$web_set['date'] = DATE;

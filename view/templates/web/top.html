@@ -73,26 +73,26 @@
     <header id="header">
         <!-- 頭部 -->
         <div class="head-main">
-            <div class="logo"><a href=""><img src="images/logo.png" alt=""/></a></div>
-            <div class="home"><a href=""><i class="fa fa-home" aria-hidden="true"></i></a></div>
+            <div class="logo"><a href="({$web.main_url})"><img src="images/logo.png" alt=""/></a></div>
+            <div class="home"><a href="({$web.main_url})"><i class="fa fa-home" aria-hidden="true"></i></a></div>
             <div class="head-tool">
-                <li><a href="notice" title="購物須知"><i class="fa fa-file-text" aria-hidden="true"></i><span>購物須知</span></a></li>
+                <li><a href="({$web.main_url})/notice" title="購物須知"><i class="fa fa-file-text" aria-hidden="true"></i><span>購物須知</span></a></li>
                 <!-- 登出切換 -->
                 ({if $member})
-                <li><a href="member" title="會員專區"><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>會員專區</span></a></li>
+                <li><a href="({$web.main_url})/member/detail" title="會員專區"><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>會員專區</span></a></li>
                 ({else})
-                <li><a href="member" title="會員登入"><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>會員登入</span></a></li>
+                <li><a href="({$web.main_url})/member" title="會員登入"><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>會員登入</span></a></li>
                 ({/if})
                 <li><a href="#left-menu" onclick="shoppingListReload();" id="left-menu" title="購物車"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span id="shoppingCountSpan">購物車(({$data.orderCount}))</span></a></li>
             </div>
             <nav id="nav" class="b-color">
                 <ul id="menu" class="menu clearfix">
-                    <li><a href="about">公司簡介<div class="menu-en">about us</div></a></li>
-                    <li><a href="news">最新消息<div class="menu-en">news</div></a></li>
-                    <li><a href="product">商品情報<div class="menu-en">products</div></a></li>
-                    <li><a href="contact">聯絡我們<div class="menu-en">contact us</div></a></li>
-                    <li><a href="member">會員專區<div class="menu-en">member</div></a></li>
-                    <li><a href="notice">購物須知<div class="menu-en">shopping</div></a></li>
+                    <li><a href="({$web.main_url})/about">公司簡介<div class="menu-en">about us</div></a></li>
+                    <li><a href="({$web.main_url})/news">最新消息<div class="menu-en">news</div></a></li>
+                    <li><a href="({$web.main_url})/product">商品情報<div class="menu-en">products</div></a></li>
+                    <li><a href="({$web.main_url})/contact">聯絡我們<div class="menu-en">contact us</div></a></li>
+                    <li><a href="({$web.main_url})/member/detail">會員專區<div class="menu-en">member</div></a></li>
+                    <li><a href="({$web.main_url})/notice">購物須知<div class="menu-en">shopping</div></a></li>
                 </ul>
             </nav>
         </div>

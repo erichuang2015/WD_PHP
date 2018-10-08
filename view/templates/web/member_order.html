@@ -15,10 +15,10 @@
             <div class="col-025 col-m">
                 <div class="in-left-menu classBox">
                     <ul class="classLink">
-                        <li><a href="({$console->path[0]})/detail">修改會員資料</a></li>
-                        <li><a href="({$console->path[0]})/order" class="current">訂單查詢</a></li>
-                        <li><a href="({$console->path[0]})/password">修改密碼</a></li>
-                        <li><a href="({$console->path[0]})/logout">登出</a></li>
+                        <li><a href="({$web.main_url})/({$console->path[0]})/detail">修改會員資料</a></li>
+                        <li><a href="({$web.main_url})/({$console->path[0]})/order" class="current">訂單查詢</a></li>
+                        <li><a href="({$web.main_url})/({$console->path[0]})/password">修改密碼</a></li>
+                        <li><a href="({$web.main_url})/({$console->path[0]})/logout">登出</a></li>
                     </ul>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                                 <div class="order-list-td order_total col-015"><span class="oproject">合　　計：</span>NT$({$data.list[i].total+$data.list[i].freight})</div>
                                 <div class="order-list-td order_state col-020"><span class="oproject">訂單狀態：</span> ({$data["paymentStatus"][$data.list[i].paymentStatus]}) ({$data["shipmentStatus"][$data.list[i].shipmentStatus]})
                                 </div>
-                                <div class="order-list-td order_query cor-015"><span class="oproject">訂單明細：</span><a href="({$console->path[0]})/({$console->path[1]})/({$data.list[i].id})">查詢</a></div>
+                                <div class="order-list-td order_query cor-015"><span class="oproject">訂單明細：</span><a href="({$web.main_url})/({$console->path[0]})/({$console->path[1]})/({$data.list[i].id})">查詢</a></div>
                             </li>
                             ({/section})
                         </ul>
@@ -63,7 +63,7 @@
                             ({section name=i loop=$data.orderList})
                                 <li class="clearfix">
                                     <div class="shop-car-info col-045">
-                                        <a href="product/detail/({$data.orderList[i].id})" target="_blank" class="pro-photo" style="background-image: url('({$data.orderList[i].picture})')"></a>
+                                        <a href="({$web.main_url})/product/detail/({$data.orderList[i].id})" target="_blank" class="pro-photo" style="background-image: url('({$data.orderList[i].picture})')"></a>
                                         <div class="description">
                                             <div>({$data.orderList[i].name})</div>
                                         </div>
@@ -102,7 +102,7 @@
                         <!-- 送貨資料 -->
                         <!-- 付款資料 -->
                         <h3 class="order-title">付款資料</h3>
-                        <p>選擇的付款方式：({$data["paymentTitle"][$data.order.paymentMethod]}) <a class="btn-send" href="member/payment/({$data.order.id})">點此付款</a></p>
+                        <p>選擇的付款方式：({$data["paymentTitle"][$data.order.paymentMethod]}) <a class="btn-send" href="({$web.main_url})/member/payment/({$data.order.id})">點此付款</a></p>
                         <h3 class="order-title">送貨資料</h3>
                         <p>選擇的送貨方式：({$data["shipmentTitle"][$data.order.shipmentMethod]})</p>
                         <!-- 付款資料 -->
