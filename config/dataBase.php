@@ -12,15 +12,15 @@
 	if(!isset($_SERVER["HTTP_HOST"]) || strpos($_SERVER["HTTP_HOST"],"localhost")!==false || strpos($_SERVER["HTTP_HOST"],"127.0.0.1")!==false){
 		//本機
 		$dbHost = "localhost";
-		$dbUser = "root";
-		$dbPass = "74512345";
-		$dbData = "database";
+		$dbUser = "";
+		$dbPass = "";
+		$dbData = "";
 	}else{
 		//線上
 		$dbHost = "localhost";
-		$dbUser = "MTsung";
-		$dbPass = "t7h;4i4T&6)z";
-		$dbData = "database_MTsung";
+		$dbUser = "";
+		$dbPass = "";
+		$dbData = "";
 	}
 
 
