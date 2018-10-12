@@ -270,7 +270,11 @@ namespace MTsung{
 			$this->imgWatermark = imagecreatetruecolor($newX, $newY);
 
 			# Save image
-			$functionTarget($this->imgSource, $imgTarget);
+			if($functionTarget == "imagepng"){
+				$functionTarget($this->imgSource, $imgTarget, 0);
+			}else{
+				$functionTarget($this->imgSource, $imgTarget, 100);
+			}
 
 			# Destroy temp images
 			imagedestroy($this->imgSource);
