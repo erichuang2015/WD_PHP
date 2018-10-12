@@ -100,7 +100,8 @@
 				}else{
 					//未通過email驗證
 					//$temp = 會員id
-					$console->alert($member->message,MEMBER_PATH.$type);
+					$member->checkEmail($temp,MEMBER_PATH."login");
+					// $console->alert($member->message,MEMBER_PATH.$type);
 				}
 			}
 
@@ -124,7 +125,8 @@
 				}else{
 					//未通過email驗證
 					//$temp = 會員id
-					$console->alert($member->message,MEMBER_PATH.$type);
+					$member->checkEmail($temp,MEMBER_PATH."login");
+					// $console->alert($member->message,MEMBER_PATH.$type);
 				}
 			}
 

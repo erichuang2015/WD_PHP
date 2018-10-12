@@ -18,7 +18,7 @@ function formSubmit(index) {
 	$(".chosen-container").removeClass("is-invalid");
 	$("form:eq("+index+")").find('input,textarea,select').removeClass("is-invalid");
 	$("form:eq("+index+")").find('input,textarea,select').each(function(index) {
-		if($(this).attr("type") == "checkbox"){
+		if($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio"){
 			if($(this).data("check_min")){
 				if($("input[name='"+$(this).attr("name")+"']:checked").length < $(this).data("check_min")){
 					msg += " [" + ($(this).data("text")?$(this).data("text"):$(this).attr("name")) + "] " + _jsMsg["LEAST_SELECT"] + " " + $(this).data("check_min") + " " + _jsMsg["ITEM"] + "\n";
@@ -196,6 +196,14 @@ function isNumber(number){
 
 function msgNumber(){
 	return  _jsMsg["IS_NUMBER"];
+}
+
+function isNumberMin450(number){
+	return 	!isNaN(number) && (number>=450);
+}
+
+function msgNumberMin450(){
+	return  _jsMsg["IS_NUMBER_MIN450"];
 }
 
 function isOnly(data){

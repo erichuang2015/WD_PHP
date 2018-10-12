@@ -38,7 +38,8 @@
 
 	
 	if(isset($_SESSION[FRAME_NAME]["member"]["serback"]) && $_SESSION[FRAME_NAME]["member"]["serback"]){
-		
+		$allowMIME = array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword');
+		$allowExt = array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4');
 		// 取得來源
 		if(isset($_SERVER["HTTP_REFERER"]) && substr($_SERVER["HTTP_REFERER"], -1)=='/'){
 			$_SERVER["HTTP_REFERER"] = substr($_SERVER["HTTP_REFERER"],0,-1);
@@ -47,12 +48,14 @@
 		if(isset($temp[1])){
 			if(isset($_GET["isTinyMCE"]) && $_GET["isTinyMCE"]==='1'){
 				$temp = 'files';
+				$allowMIME = array();
+				$allowExt = array();
 			}else{
 				$temp[1] = str_replace("/serback","",$temp[1]);
 				$temp = explode("/",$temp[1])[1];
 			}
-			$upload = new MTsung\Upload(array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword'),
-											array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4'),
+			$upload = new MTsung\Upload(	$allowMIME,
+											$allowExt,
 											20971520,
 											false,
 											'upload/'.$temp
