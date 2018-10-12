@@ -48,19 +48,19 @@ CREATE TABLE `database_admin` (
   UNIQUE KEY `fbID` (`fbID`),
   UNIQUE KEY `googleID` (`googleID`),
   UNIQUE KEY `lineID` (`lineID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `database_admin` (`id`,`account`,`password`,`groupID`,`name`,`email`,`sex`,`picture`,`country`,`county`,`city`,`zipcode`,`address`,`company`,`landline`,`landline2`,`phone`,`phone2`,`fax`,`fax2`,`emailCheck`,`status`,`create_date`,`update_date`,`create_user`,`update_user`,`fbID`,`fbName`,`fbEmail`,`fbPicture`,`googleID`,`googleName`,`googleEmail`,`googlePicture`,`lineID`,`lineName`,`lineEmail`,`linePicture`,`memo`,`point`,`doingTime`) VALUES
 ('1','vipadmin','$2y$10$3SWwHjBqaKiZHr.LBGJgauEfPZdHT6vxlLZxnHs0LCRohzuz8BqXq','1','vipadmin','toby@vipcase.net','','','','','','0','','','','','','','','','-1','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'0'),
-('2','service','$2y$10$RSnERK0TCLCYZrH8UIO78uL997uPJi8V0n0Mqemt.lxSA4ObM/qKS','2','客戶管理者','','','','','','','0','','','','','','','','','-1','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'0'),
-('3','EDward','$2y$10$shC0gnmzcete0MNLDeJI1uDm11RU5A9J01fcWvPfuyVNm3KmlcIAm','3','EDward','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 20:37:59','2018-10-04 22:27:33','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
-('4','Elain','$2y$10$wmn4cxmFhIKgmXlPxCh68eEB0BjFkESF7ZcB9BsO73Pn2w6QSJ6fu','3','Elain','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 20:42:29','2018-10-04 22:27:17','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
-('5','Alvin','$2y$10$Hckq9/zw6Lfx169oS9eQ2OK/zBWGVwBtcsnSYVjUoEnC0HY3tjQ7u','3','Alvin','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 20:43:48','2018-10-04 20:43:48','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
-('6','Bear','$2y$10$TnfHjWCZr7BnUG9G1IoTo.Y7dg8Wdwi6vMnMTGlimFp1SrvGgM95G','3','Bear','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 20:45:32','2018-10-04 20:45:32','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
-('7','andy','$2y$10$DXs1j.tomufDxO9T/mxLxOgZm3K1qUfuFfUWvZ0AAnXEA0lmqv0wC','3','andy','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 22:28:01','2018-10-04 22:28:01','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
-('8','Una','$2y$10$jueJN/9aMtWmk2tnzROMSuy6sJalFWGRV1Bqi21e.uBfCik.dA8xe','3','Una','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 22:28:46','2018-10-04 22:28:46','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
-('9','Lucy','$2y$10$IwwBnNzkx.jYgnrZl4KY5.VG/LDFVvv1fdogZHb2khXCThioudM5i','3','Lucy','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 22:30:26','2018-10-04 22:30:26','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0');
+('2','service','$2y$10$RSnERK0TCLCYZrH8UIO78uL997uPJi8V0n0Mqemt.lxSA4ObM/qKS','2','客戶管理者','','','','','','','0','','','','','','','','','-1','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'0');
+-- ('3','EDward','$2y$10$shC0gnmzcete0MNLDeJI1uDm11RU5A9J01fcWvPfuyVNm3KmlcIAm','3','EDward','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 20:37:59','2018-10-04 22:27:33','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
+-- ('4','Elain','$2y$10$wmn4cxmFhIKgmXlPxCh68eEB0BjFkESF7ZcB9BsO73Pn2w6QSJ6fu','3','Elain','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 20:42:29','2018-10-04 22:27:17','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
+-- ('5','Alvin','$2y$10$Hckq9/zw6Lfx169oS9eQ2OK/zBWGVwBtcsnSYVjUoEnC0HY3tjQ7u','3','Alvin','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 20:43:48','2018-10-04 20:43:48','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
+-- ('6','Bear','$2y$10$TnfHjWCZr7BnUG9G1IoTo.Y7dg8Wdwi6vMnMTGlimFp1SrvGgM95G','3','Bear','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 20:45:32','2018-10-04 20:45:32','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
+-- ('7','andy','$2y$10$DXs1j.tomufDxO9T/mxLxOgZm3K1qUfuFfUWvZ0AAnXEA0lmqv0wC','3','andy','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 22:28:01','2018-10-04 22:28:01','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
+-- ('8','Una','$2y$10$jueJN/9aMtWmk2tnzROMSuy6sJalFWGRV1Bqi21e.uBfCik.dA8xe','3','Una','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 22:28:46','2018-10-04 22:28:46','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0'),
+-- ('9','Lucy','$2y$10$IwwBnNzkx.jYgnrZl4KY5.VG/LDFVvv1fdogZHb2khXCThioudM5i','3','Lucy','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-04 22:30:26','2018-10-04 22:30:26','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'0');
 
 DROP TABLE IF EXISTS `database_admin_group`;
 
@@ -75,13 +75,13 @@ CREATE TABLE `database_admin_group` (
   `create_user` varchar(191) NOT NULL COMMENT '創建人',
   `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `database_admin_group` (`id`,`name`,`control`,`auth`,`status`,`create_date`,`update_date`,`create_user`,`update_user`) VALUES
 ('1','系統管理員','-999','1,42,47,66,50,43,48,49,61,74,76,44,51,65,45,54,55,46,53,52,3,17,71,72,2,18,19,38,39,40,64,4,5,6,7,70,8,21,36,22','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
-('2','客戶管理者','0','1,42,47,66,50,43,48,49,61,74,76,44,51,65,45,54,55,46,53,52,3,17,71,72,2,18,19,38,39,40,4,6,21,22','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
-('3','網動人員','-1','1,42,47,66,50,43,48,49,61,74,76,44,51,65,45,54,55,46,53,52,3,17,71,72,2,18,19,4,6,21,36,22','1','2018-10-04 20:15:04','2018-10-04 22:31:58','vipadmin','vipadmin');
+('2','客戶管理者','0','1,42,47,66,50,43,48,49,61,74,76,44,51,65,45,54,55,46,53,52,3,17,71,72,2,18,19,38,39,40,4,6,21,22','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin');
+-- ('3','網動人員','-1','1,42,47,66,50,43,48,49,61,74,76,44,51,65,45,54,55,46,53,52,3,17,71,72,2,18,19,4,6,21,36,22','1','2018-10-04 20:15:04','2018-10-04 22:31:58','vipadmin','vipadmin');
 
 DROP TABLE IF EXISTS `database_menu`;
 
@@ -99,7 +99,7 @@ CREATE TABLE `database_menu` (
   `create_user` varchar(191) NOT NULL COMMENT '創建人',
   `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `database_menu` (`id`,`name`,`floor`,`parent`,`url`,`sort`,`step`,`status`,`create_date`,`update_date`,`create_user`,`update_user`) VALUES
@@ -153,7 +153,7 @@ CREATE TABLE `database_setting` (
   `detail` mediumtext NOT NULL COMMENT 'detail',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `database_setting` (`id`,`name`,`detail`) VALUES
@@ -206,7 +206,7 @@ CREATE TABLE `database_template` (
   `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`type`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `database_template` (`id`,`type`,`name`,`detail`,`sort`,`create_date`,`update_date`,`create_user`,`update_user`) VALUES
@@ -252,7 +252,7 @@ CREATE TABLE `database_web_setting__zh_tw` (
   `detail` text NOT NULL COMMENT '內容',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `database_web_setting__zh_tw` (`id`,`name`,`detail`) VALUES
