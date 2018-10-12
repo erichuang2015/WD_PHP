@@ -111,7 +111,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="({$web.serback_url})">({$label_back['INDEX']})</a></li>
                     ({section name=i loop=$breadcru})
-                        <li class="breadcrumb-item active" aria-current="page"><a href="({$web.main_url})({$web.serback_url})/({$breadcru[i].url})">({$label_back[$breadcru[i].name]})</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="({$web.serback_url})/({$breadcru[i].url})">({$label_back[$breadcru[i].name]})</a></li>
                     ({/section})
                     <!-- <li class="breadcrumb-item active" aria-current="page">({$label_back['MEMBER_CENTRE']})</li> -->
                 </ol>
@@ -135,7 +135,7 @@
                             <a class="btn btn-outline-secondary" href="javascript:;" onclick="formSubmitDelete(({$switch.searchBox}));"><span class="glyphicon glyphicon-remove"></span> ({$label_back['DELETE']})</a>
                         ({/if})
                         ({if $switch.backButton!=0})
-                            <a class="btn btn-outline-secondary" href="({$web.main_url})({if $data.listUrl})({$data.listUrl})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})({/if})"><span class="glyphicon glyphicon-th-list"></span> ({$label_back['BACK']})</a>
+                            <a class="btn btn-outline-secondary" href="({if $data.listUrl})({$data.listUrl})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})({/if})"><span class="glyphicon glyphicon-th-list"></span> ({$label_back['BACK']})</a>
                         ({/if})
                     </div>
                 </div> 
