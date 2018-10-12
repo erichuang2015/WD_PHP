@@ -304,7 +304,11 @@
 	        imageinterlace($output, 1);
 	        imagefill($output, 0, 0, imagecolorallocatealpha($output, 0, 0, 0, 127));
 	        imagecopy($output, $img, 0, 0, $_GET["x"], $_GET["y"], $_GET["w"], $_GET["h"]);
-	        eval("image".$type."(\$output,\$_GET['src']);");
+	        if($type == 'jpeg'){
+	        	eval("image".$type."(\$output,\$_GET['src'],100);");
+	        }else{
+	        	eval("image".$type."(\$output,\$_GET['src']);");
+	        }
         }
 		
 		exit;

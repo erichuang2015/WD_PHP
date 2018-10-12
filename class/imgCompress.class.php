@@ -113,20 +113,50 @@ namespace MTsung{
 			}elseif(!empty($sourseExt) && in_array($sourseExt,$allowImgs)){  
 				$dstName = $dstImgName.$sourseExt;  
 			}else{  
-				$dstName = $dstImgName.$this->imageinfo['type'];  
+				$dstName = $dstImgName.$this->imageinfo['type'];
 			}  
-			$funcs = "image".$this->imageinfo['type'];  
+			$funcs = "image".$this->imageinfo['type'];
 			imagesavealpha($this->image, true);
 			imageinterlace($this->image, 1);
-			$funcs($this->image,$dstName);  
+			$funcs($this->image,$dstName);
+			imagedestroy($this->image);
 		}  
-	  
-		/** 
-		 * 銷燬圖片 
-		 */  
-		public function __destruct(){  
-			imagedestroy($this->image);  
-		}  
-	  
+	
+	  	/**
+	  	 * tinyPNG壓縮
+	  	 * @param [type] $input [description]
+	  	 */
+	  	function TinyPNG($input,$key = "GCJkLWVet5vrqS9pUWsKTsbiQZAyG5T2"){
+			$request = curl_init();
+			curl_setopt_array($request, array(
+				CURLOPT_URL => "https://api.tinypng.com/shrink",
+				CURLOPT_USERPWD => "api:" . $key,
+				CURLOPT_POSTFIELDS => file_get_contents($input),
+				CURLOPT_BINARYTRANSFER => true,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_HEADER => true,
+				CURLOPT_SSL_VERIFYPEER => false
+			));
+			$response = curl_exec($request);
+			if (curl_getinfo($request, CURLINFO_HTTP_CODE) === 201) {
+				$headers = substr($response, 0, curl_getinfo($request, CURLINFO_HEADER_SIZE));
+				foreach (explode("\r\n", $headers) as $header) {
+					if (substr($header, 0, 10) === "Location: ") {
+						$request = curl_init();
+						curl_setopt_array($request, array(
+							CURLOPT_URL => substr($header, 10),
+							CURLOPT_RETURNTRANSFER => true,
+							CURLOPT_SSL_VERIFYPEER => false
+						));
+						file_put_contents($input, curl_exec($request));
+					}
+				}
+			}else{
+				//失敗用php的壓
+				$this->compressImg($input);
+				// print(curl_error($request));
+				// print("Compression failed");
+			}
+		}
 	} 
 }

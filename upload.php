@@ -72,7 +72,7 @@
 								copy($value['tmp_name'][$key1],$tempFile);
 
 								//壓縮
-								$image = (new MTsung\imgCompress($tempFile,1))->compressImg($tempFile);
+								// $image = (new MTsung\imgCompress($tempFile,1))->TinyPNG($tempFile);
 								//浮水印
 								if(isset($_GET["watermark"]) && is_numeric($_GET["watermark"]) && $setting->getValue("watermark")){
 									$watermark = new MTsung\watermark();
@@ -91,8 +91,8 @@
 							copy($value['tmp_name'],$tempFile);
 
 							//壓縮
-							$image = (new MTsung\imgCompress($tempFile,1))->compressImg($tempFile);
-							//浮水印
+							// $image = (new MTsung\imgCompress($tempFile,1))->TinyPNG($tempFile);
+							// 浮水印
 							if(isset($_GET["watermark"]) && is_numeric($_GET["watermark"]) && $setting->getValue("watermark")){
 								$watermark = new MTsung\watermark();
 								$watermarkFile = str_replace(WEB_PATH,APP_PATH,$setting->getValue("watermark"));
@@ -109,7 +109,8 @@
 			$upload->callUploadFile();
 
 			if(!$upload->getDestination()){
-				echo "upload_max_filesize is ".ini_get('upload_max_filesize');
+				echo "Upload error.";
+				// echo "upload_max_filesize is ".ini_get('upload_max_filesize');
 				exit;
 			}
 			if(isset($_GET["isTinyMCE"]) && $_GET["isTinyMCE"]==='1'){
