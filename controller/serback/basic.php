@@ -1,6 +1,6 @@
 <?php
 $switch["buttonBox"] = 1;
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0].'/'.$console->path[1];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0].'/'.$console->path[1];
 
 if($console->path[1]=="product"){
 	$basic = new MTsung\product($console,PREFIX.$console->path[1],$settingLang);

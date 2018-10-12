@@ -44,15 +44,14 @@
                             </div>
                         </div>
                     </div>  
-                    <div class="form-row">
+                    <!-- <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$label_back['WATERMARK']})</label>
                             <div>
-                                ({assign var=_I_ value=1})
-                                ({include file='module.uploadImg.html'})
+                                
                             </div>
                         </div>
-                    </div>  
+                    </div>   -->
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$label_back['RECIPIENT_EMAIL']})</label>
@@ -155,116 +154,116 @@
                         ({$data.update_date})(({$data.update_user}))
                     </small>
                 </div>
-
-                <!-- 網站備份 -->
-                <div class="card-body tab-pane fade" id="list-backup">
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$label_back['BACKUP_SWITCH']})</label>
-                            <div class="onoffswitch">
-                                <input type="hidden" name="backupSwitch" value="0">
-                                <input type="checkbox" class="onoffswitch-checkbox" name="backupSwitch" id="backupSwitch" value="1" ({if $data.backupSwitch=="1"})checked({/if})>
-                                <label class="onoffswitch-label" for="backupSwitch"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$label_back['BACKUP_DAY']})</label>
-                            <input type="text" class="form-control" name="backupDay" value="({$data.backupDay})" data-check="Number" data-text="({$label_back['BACKUP_DAY']})">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$label_back['BACKUP_DELETE_DAY']})</label>
-                            <input type="text" class="form-control" name="backupDeleteDay" value="({$data.backupDeleteDay})" data-check="Number" data-text="({$label_back['BACKUP_DELETE_DAY']})">
-                            <small class="text-muted">({$label_back['ZERO_IS_NO_DELETE']})</small>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="sqlBackup();"><span class="glyphicon glyphicon-cloud"></span> ({$label_back['IMMEDIATELY_BACKUP']})</a>
-                        </div>
-                    </div>
-                    <script>
-                        function sqlBackup(){
-                            if(confirm("({$label_back["BAKCUP_CONFIRM"]})")){
-                                loadingStart();
-                                $.ajax({
-                                    url: _jsPath+"/ajax.php",type: "GET",data: {sqlBackup: '1'},dataType:'text',
-                                    async: true,timeout: 0,success: function(msg){
-                                        if(!msg){
-                                            alert("ERROR");
-                                        }else{
-                                            alert("({$label_back["BAKCUP_OK"]})");
-                                            window.location.reload();
-                                        }
-                                        loadingStop();
-                                    }
-                                });
-                            }
-                        }
-                    </script>
-
-                    <hr>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$label_back['BACKUP_MAIL_SWITCH']})</label>
-                            <div class="onoffswitch">
-                                <input type="hidden" name="backupMailSwitch" value="0">
-                                <input type="checkbox" class="onoffswitch-checkbox" name="backupMailSwitch" id="backupMailSwitch" value="1" ({if $data.backupMailSwitch=="1"})checked({/if})>
-                                <label class="onoffswitch-label" for="backupMailSwitch"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$label_back['BACKUP_MAIL_USER']})</label>
-                            <input type="text" class="form-control" name="backupMailUser" value="({$data.backupMailUser})">
-                            <small class="text-muted">({$label_back['PLURAL_COMMA_SEPARATION']})</small>
-                        </div>
-                    </div>
-                    <hr>
-
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$label_back['BACKUP_SQL_FILE']})</label>
-                            <select class="form-control" id="backupSelect">
-                                <option value="">({$label_back['PLEASE_CHOOSE']})</option>
-                                ({section name=i loop=$data.backupFile})
-                                    <option value="({$data.backupFile[i].fileName})">({$data.backupFile[i].fileName})</option>
-                                ({/section})
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="sqlImport();"><span class="glyphicon glyphicon-repeat"></span> ({$label_back['IMPORT_SQL']})</a>
-                        </div>
-                    </div>
-                    <script>
-                        function sqlImport(){
-                            if(!$('#backupSelect').val()){
-                                return false;
-                            }
-                            if(confirm("({$label_back["IMPORT_CONFIRM"]})")){
-                                loadingStart();
-                                $.ajax({
-                                    url: _jsPath+"/ajax.php",type: "GET",data: {sqlImport: $('#backupSelect').val()},dataType:'text',
-                                    async: true,timeout: 0,success: function(){alert("({$label_back["IMPORT_OK"]})");loadingStop();window.location.reload();}
-                                });
-                            }
-                        }
-                    </script>
-
-
-                    <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
-                        ({$data.update_date})(({$data.update_user}))
-                    </small>
-                </div>
                 ({if $member.groupID==1})
+
+                    <!-- 網站備份 -->
+                    <div class="card-body tab-pane fade" id="list-backup">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['BACKUP_SWITCH']})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="backupSwitch" value="0">
+                                    <input type="checkbox" class="onoffswitch-checkbox" name="backupSwitch" id="backupSwitch" value="1" ({if $data.backupSwitch=="1"})checked({/if})>
+                                    <label class="onoffswitch-label" for="backupSwitch"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['BACKUP_DAY']})</label>
+                                <input type="text" class="form-control" name="backupDay" value="({$data.backupDay})" data-check="Number" data-text="({$label_back['BACKUP_DAY']})">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['BACKUP_DELETE_DAY']})</label>
+                                <input type="text" class="form-control" name="backupDeleteDay" value="({$data.backupDeleteDay})" data-check="Number" data-text="({$label_back['BACKUP_DELETE_DAY']})">
+                                <small class="text-muted">({$label_back['ZERO_IS_NO_DELETE']})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <a class="btn btn-outline-secondary" href="javascript:;" onclick="sqlBackup();"><span class="glyphicon glyphicon-cloud"></span> ({$label_back['IMMEDIATELY_BACKUP']})</a>
+                            </div>
+                        </div>
+                        <script>
+                            function sqlBackup(){
+                                if(confirm("({$label_back["BAKCUP_CONFIRM"]})")){
+                                    loadingStart();
+                                    $.ajax({
+                                        url: _jsPath+"/ajax.php",type: "GET",data: {sqlBackup: '1'},dataType:'text',
+                                        async: true,timeout: 0,success: function(msg){
+                                            if(!msg){
+                                                alert("ERROR");
+                                            }else{
+                                                alert("({$label_back["BAKCUP_OK"]})");
+                                                window.location.reload();
+                                            }
+                                            loadingStop();
+                                        }
+                                    });
+                                }
+                            }
+                        </script>
+
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['BACKUP_MAIL_SWITCH']})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="backupMailSwitch" value="0">
+                                    <input type="checkbox" class="onoffswitch-checkbox" name="backupMailSwitch" id="backupMailSwitch" value="1" ({if $data.backupMailSwitch=="1"})checked({/if})>
+                                    <label class="onoffswitch-label" for="backupMailSwitch"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['BACKUP_MAIL_USER']})</label>
+                                <input type="text" class="form-control" name="backupMailUser" value="({$data.backupMailUser})">
+                                <small class="text-muted">({$label_back['PLURAL_COMMA_SEPARATION']})</small>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$label_back['BACKUP_SQL_FILE']})</label>
+                                <select class="form-control" id="backupSelect">
+                                    <option value="">({$label_back['PLEASE_CHOOSE']})</option>
+                                    ({section name=i loop=$data.backupFile})
+                                        <option value="({$data.backupFile[i].fileName})">({$data.backupFile[i].fileName})</option>
+                                    ({/section})
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <a class="btn btn-outline-secondary" href="javascript:;" onclick="sqlImport();"><span class="glyphicon glyphicon-repeat"></span> ({$label_back['IMPORT_SQL']})</a>
+                            </div>
+                        </div>
+                        <script>
+                            function sqlImport(){
+                                if(!$('#backupSelect').val()){
+                                    return false;
+                                }
+                                if(confirm("({$label_back["IMPORT_CONFIRM"]})")){
+                                    loadingStart();
+                                    $.ajax({
+                                        url: _jsPath+"/ajax.php",type: "GET",data: {sqlImport: $('#backupSelect').val()},dataType:'text',
+                                        async: true,timeout: 0,success: function(){alert("({$label_back["IMPORT_OK"]})");loadingStop();window.location.reload();}
+                                    });
+                                }
+                            }
+                        </script>
+
+
+                        <small class="text-muted">
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.update_date})(({$data.update_user}))
+                        </small>
+                    </div>
 
                     <!-- 網站空間 -->
                     <div class="card-body tab-pane fade" id="list-data-size">
@@ -331,77 +330,77 @@
                             ({$data.update_date})(({$data.update_user}))
                         </small>
                     </div>
-                ({/if})
 
-                <!-- AppKey -->
-                <div class="card-body tab-pane fade" id="list-app-key">
-                    <small class="text-muted">
-                        ({$label_back['APPKEY_TEXT']})
-                    </small>
-                    <hr>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['RECAPTCHA_SITE_KEY']})<a href="https://www.google.com/recaptcha/admin" target="_blank">({$label_back['ONCLICK']})</a></label>
-                            <input type="text" class="form-control" name="reCAPTCHASiteKey" value="({$data.reCAPTCHASiteKey})">
+                    <!-- AppKey -->
+                    <div class="card-body tab-pane fade" id="list-app-key">
+                        <small class="text-muted">
+                            ({$label_back['APPKEY_TEXT']})
+                        </small>
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['RECAPTCHA_SITE_KEY']})<a href="https://www.google.com/recaptcha/admin" target="_blank">({$label_back['ONCLICK']})</a></label>
+                                <input type="text" class="form-control" name="reCAPTCHASiteKey" value="({$data.reCAPTCHASiteKey})">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['RECAPTCHA_SECRET_KEY']})</label>
-                            <input type="text" class="form-control" name="reCAPTCHASecretKey" value="({$data.reCAPTCHASecretKey})">
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['RECAPTCHA_SECRET_KEY']})</label>
+                                <input type="text" class="form-control" name="reCAPTCHASecretKey" value="({$data.reCAPTCHASecretKey})">
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['GOOGLE_APP_ID']})<a href="https://console.developers.google.com/" target="_blank">({$label_back['ONCLICK']})</a></label>
-                            <input type="text" class="form-control" name="googleAuthAppID" value="({$data.googleAuthAppID})">
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['GOOGLE_APP_ID']})<a href="https://console.developers.google.com/" target="_blank">({$label_back['ONCLICK']})</a></label>
+                                <input type="text" class="form-control" name="googleAuthAppID" value="({$data.googleAuthAppID})">
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['FB_APP_ID']})<a href="https://developers.facebook.com/" target="_blank">({$label_back['ONCLICK']})</a></label>
-                            <input type="text" class="form-control" name="fbAuthAppID" value="({$data.fbAuthAppID})">
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['FB_APP_ID']})<a href="https://developers.facebook.com/" target="_blank">({$label_back['ONCLICK']})</a></label>
+                                <input type="text" class="form-control" name="fbAuthAppID" value="({$data.fbAuthAppID})">
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['LINE_CLIENT_ID']})<a href="https://developers.line.me/console/" target="_blank">({$label_back['ONCLICK']})</a></label>
-                            <input type="text" class="form-control" name="lineAuthClientID" value="({$data.lineAuthClientID})">
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['LINE_CLIENT_ID']})<a href="https://developers.line.me/console/" target="_blank">({$label_back['ONCLICK']})</a></label>
+                                <input type="text" class="form-control" name="lineAuthClientID" value="({$data.lineAuthClientID})">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['LINE_CLIENT_SECRET']})</label>
-                            <input type="text" class="form-control" name="lineAuthClientSecret" value="({$data.lineAuthClientSecret})">
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['LINE_CLIENT_SECRET']})</label>
+                                <input type="text" class="form-control" name="lineAuthClientSecret" value="({$data.lineAuthClientSecret})">
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['ECPAY_MERCHANT_ID']})<a href="https://vendor.ecpay.com.tw/" target="_blank">({$label_back['ONCLICK']})</a></label>
-                            <input type="text" class="form-control" name="ecpayMerchantID" value="({$data.ecpayMerchantID})">
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['ECPAY_MERCHANT_ID']})<a href="https://vendor.ecpay.com.tw/" target="_blank">({$label_back['ONCLICK']})</a></label>
+                                <input type="text" class="form-control" name="ecpayMerchantID" value="({$data.ecpayMerchantID})">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['ECPAY_HASH_KEY']})</label>
-                            <input type="text" class="form-control" name="ecpayHashKey" value="({$data.ecpayHashKey})">
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['ECPAY_HASH_KEY']})</label>
+                                <input type="text" class="form-control" name="ecpayHashKey" value="({$data.ecpayHashKey})">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3">
-                            <label>({$label_back['ECPAY_HASH_IV']})</label>
-                            <input type="text" class="form-control" name="ecpayHashIV" value="({$data.ecpayHashIV})">
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$label_back['ECPAY_HASH_IV']})</label>
+                                <input type="text" class="form-control" name="ecpayHashIV" value="({$data.ecpayHashIV})">
+                            </div>
                         </div>
+                        <small class="text-muted">
+                            ({$label_back['UPDATE_DATE']})
+                            ({$data.update_date})(({$data.update_user}))
+                        </small>
                     </div>
-                    <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
-                        ({$data.update_date})(({$data.update_user}))
-                    </small>
-                </div>
+                ({/if})
             
                 <!-- embed code -->
                 <div class="card-body tab-pane fade" id="list-embed-code">

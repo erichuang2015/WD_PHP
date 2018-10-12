@@ -2,7 +2,7 @@
 /**
  * 網站設定
  */
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0].'/'.$console->path[1];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0].'/'.$console->path[1];
 
 $_webSetting = new MTsung\webSetting($console,PREFIX.$console->path[1]."_setting",$settingLang);
 

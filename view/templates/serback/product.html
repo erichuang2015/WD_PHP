@@ -80,7 +80,7 @@
                                                 </div>
                                             </td>
                                             <td >
-                                                <a href="({$web.main_url})({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
+                                                <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
                                                 
                                             </td>
                                             <td>
@@ -199,7 +199,7 @@
                             </div>
 
                             <button class="btn btn-secondary glyphicon-search" type="submit"> ({$label_back["SEARCH"]})</button>
-                            <button class="btn btn-link glyphicon" onclick="location.href='({$web.main_url})({$data.listUrl})';return false;"> ({$label_back["RESET"]})</button>
+                            <button class="btn btn-link glyphicon" onclick="location.href='({$data.listUrl})';return false;"> ({$label_back["RESET"]})</button>
                         </form>
                     </div>
                 ({/if})

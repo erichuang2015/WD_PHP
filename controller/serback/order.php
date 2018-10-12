@@ -1,6 +1,6 @@
 <?php
 $switch["buttonBox"] = 1;
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
 $order_member = new MTsung\member($console,PREFIX.'member');
 $order_product = new MTsung\product($console,PREFIX."product",$settingLang);

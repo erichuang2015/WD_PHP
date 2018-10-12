@@ -4,7 +4,7 @@
  */
 
 $switch["buttonBox"] = 1;
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
 $module["aceEditor"]["name"] = '_aceEditor';//POST欄位名稱，不可使用"aceEditor"
 

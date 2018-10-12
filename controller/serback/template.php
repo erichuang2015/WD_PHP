@@ -4,7 +4,7 @@
  */
 
 $switch["buttonBox"] = 1;
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0].'/'.$console->path[1];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0].'/'.$console->path[1];
 
 $fileTemplate = new MTsung\fileTemplate($console);
 

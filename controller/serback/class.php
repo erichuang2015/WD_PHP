@@ -1,8 +1,8 @@
 <?php
 
 $switch["buttonBox"] = 1;
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0].'/'.$console->path[1];
-$data["basic"]["listUrl"] = $console->MT_web["serback_path"].'/basic/'.$console->path[1];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0].'/'.$console->path[1];
+$data["basic"]["listUrl"] = $web_set['serback_url'].'/basic/'.$console->path[1];
 
 $dataClass = new MTsung\dataClass($console,PREFIX.$console->path[1]."_class",$settingLang);
 //目前最大層數

@@ -46,7 +46,7 @@
                                         </td>
                                         ({section name=j loop=$data.list[i].keyData})
                                             <td style="max-width: 100px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                                                <a href="({$web.main_url})({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].keyData[j]})</a>
+                                                <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].keyData[j]})</a>
                                             </td>
                                         ({/section})
                                         <td >

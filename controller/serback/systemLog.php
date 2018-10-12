@@ -1,6 +1,6 @@
 <?php
 
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 $systemLog = new MTsung\systemLog($console,PREFIX.'system_log');
 if(isset($console->path[1])){
 	$switch["buttonBox"] = 1;
@@ -21,7 +21,7 @@ if(isset($console->path[1])){
 
 			$data["redoOnClick"] = "
 				if(confirm('".$console->getMessage("REDO_ALERT_TEXT")."')){
-					window.location.href='".$console->MT_web["serback_path"].'/'.$console->path[0]."/redo/".$console->path[2]."';
+					window.location.href='".$web_set['serback_url'].'/'.$console->path[0]."/redo/".$console->path[2]."';
 				}
 			";
 			$switch["redoButton"] = 1;
@@ -64,7 +64,7 @@ if(isset($console->path[1])){
 		}
 	}
 	$data["pageNumber"] = $systemLog->pageNumber;
-	$data["addOnClick"] = "window.location.href='".$console->MT_web["serback_path"].'/'.$console->path[0]."/add';";
+	$data["addOnClick"] = "window.location.href='".$web_set['serback_url'].'/'.$console->path[0]."/add';";
 	$switch["listList"] = 1;
 	$switch["searchBox"] = 1;
 }

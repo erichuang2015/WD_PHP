@@ -1,7 +1,7 @@
 <?php
 
 $switch["buttonBox"] = 1;
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
 $memberGroupList = new MTsung\memberGroup($console,PREFIX.'admin_group');
 
@@ -145,7 +145,7 @@ if(isset($console->path[1])){
 	$switch["deleteButton"] = 1;
 
 	$switch["addButton"] = 1;
-	$data["addOnClick"] = "window.location.href='".$console->MT_web["serback_path"].'/'.$console->path[0]."/add';";
+	$data["addOnClick"] = "window.location.href='".$web_set['serback_url'].'/'.$console->path[0]."/add';";
 
 	$switch["saveButton"] = 1;
 	$switch["listList"] = 1;

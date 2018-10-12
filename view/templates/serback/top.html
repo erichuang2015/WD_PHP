@@ -111,7 +111,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="({$web.serback_url})">({$label_back['INDEX']})</a></li>
                     ({section name=i loop=$breadcru})
-                        <li class="breadcrumb-item active" aria-current="page"><a href="({$web.serback_url})/({$breadcru[i].url})">({$label_back[$breadcru[i].name]})</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="({$web.main_url})({$web.serback_url})/({$breadcru[i].url})">({$label_back[$breadcru[i].name]})</a></li>
                     ({/section})
                     <!-- <li class="breadcrumb-item active" aria-current="page">({$label_back['MEMBER_CENTRE']})</li> -->
                 </ol>

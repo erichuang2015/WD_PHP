@@ -12,18 +12,18 @@
                     ({if $switch.editList!=0})
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["BASIC_INFORMATION"]})</a>
-                        </li>
+                        </li><!-- 
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="list" href="#list-page-setting">({$label_back["PAGE_SETTING"]})</a>
-                        </li>
+                        </li> -->
                     ({/if})
                     ({if $switch.addList!=0})
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["BASIC_INFORMATION"]})</a>
-                        </li>
+                        </li><!-- 
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="list" href="#list-page-setting">({$label_back["PAGE_SETTING"]})</a>
-                        </li>
+                        </li> -->
                     ({/if})
                 </ul>
             </div>
@@ -100,12 +100,12 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
+                       <!--  <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$label_back['DATE']})</label>
                                 <input type="date" name="viewDate" class="form-control" data-text="({$label_back["DATE"]})" value="({$data.one.viewDate})" required>
                             </div>
-                        </div>
+                        </div> -->
                               
                         <div class="form-row">
                             <div class="col-md-12 mb-3">
@@ -168,12 +168,12 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$label_back['DATE']})</label>
                                 <input type="date" name="viewDate" class="form-control" data-text="({$label_back["DATE"]})" value="({array_shift(explode(" ", $web.date))})" required>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-row">
                             <div class="col-md-12 mb-3">

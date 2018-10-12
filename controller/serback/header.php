@@ -109,6 +109,10 @@ if($temp){
 unset($temp);
 $console->design->setData("menu", @$menuArray);
 
+$web_set['lang'] = count($console->getLanguageArray("array"))==1?'':$console->getLanguage();
+$web_set['main_url'] = WEB_PATH.($web_set['lang']?'/'.$web_set['lang']:'');
+$web_set['serback_url'] = $web_set['main_url'].'/serback';
+
 
 /**
  * 開關

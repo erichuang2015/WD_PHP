@@ -67,10 +67,9 @@
 	if(isset($_SESSION[FRAME_NAME]["SETTING_LANG"])){
 		$web_set['setting_lang'] = $_SESSION[FRAME_NAME]["SETTING_LANG"];
 	}
+	
 	//語言
 	$web_set['lang'] = count($console->getLanguageArray("array"))==1?'':$console->getLanguage();
-	$lang = $console->getLanguage();
-	$langDefault = LANG;
 	
 	//一般連結用
 	$web_set['main_url'] = $web_set['main_path'].($web_set['lang']?'/'.$web_set['lang']:'');
@@ -110,8 +109,8 @@
 		$console->design->setData("member", $member->getUser($_SESSION[FRAME_NAME]["member"][$member->sessionName]['id']));
 	}
 	$console->design->setData("web", @$web_set);
-	$console->design->setData("lang", @$lang);//語言
-	$console->design->setData("langDefault", @$langDefault);//預設語言
+	$console->design->setData("lang", @$console->getLanguage());//語言
+	$console->design->setData("langDefault", LANG);//預設語言
 	$console->design->setData("switch", @$switch);//開關
 	$console->design->setData("breadcru", @$breadcru);//麵包屑
 	$console->design->setData("console", $console);

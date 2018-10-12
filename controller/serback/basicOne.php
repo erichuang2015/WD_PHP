@@ -3,7 +3,7 @@
 $switch["buttonBox"] = 1;
 $switch["saveButton"] = 1;
 
-$data["listUrl"] = $console->MT_web["serback_path"].'/'.$console->path[0].'/'.$console->path[1];
+$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0].'/'.$console->path[1];
 
 $basicOne = new MTsung\dataList($console,PREFIX.$console->path[1],$settingLang);
 if($console->conn->GetArray("desc ".PREFIX.$console->path[1]."_class__".str_replace("-","_",$settingLang))){
@@ -59,7 +59,7 @@ switch ($console->path[1]) {
 		$module["tinemceEditor"][0]["name"] = 'detail';
 		$module["uploadImg"][0]["name"] = "picture";
 		$module["uploadImg"][0]["max"] = 10;
-		$module["uploadImg"][0]["suggestText"] = "1920x874";
+		$module["uploadImg"][0]["suggestText"] = "1920x576";
 		// $module["uploadImg"][0]["textOther"] = array("Alt");
 		// $module["uploadImg"][0]["textOtherText"] = array($console->serbackLabel["ALT"]);
 
