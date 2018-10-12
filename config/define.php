@@ -26,7 +26,7 @@
 
 	$MT_web['ssl'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) ? "https://" : "http://";
 	$MT_web['main_path'] = WEB_PATH;
-	$MT_web['serback_path'] = WEB_PATH.'/serback';
+	$MT_web['serback_path'] = '/serback';
 	if(php_sapi_name() != "cli"){
 		$MT_web['http_path'] = $MT_web['ssl'].$_SERVER['HTTP_HOST'].$MT_web['main_path'].'/';
 		define('HTTP_PATH',$MT_web['http_path']);

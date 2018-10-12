@@ -135,7 +135,7 @@
                             <a class="btn btn-outline-secondary" href="javascript:;" onclick="formSubmitDelete(({$switch.searchBox}));"><span class="glyphicon glyphicon-remove"></span> ({$label_back['DELETE']})</a>
                         ({/if})
                         ({if $switch.backButton!=0})
-                            <a class="btn btn-outline-secondary" href="({if $data.listUrl})({$data.listUrl})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})({/if})"><span class="glyphicon glyphicon-th-list"></span> ({$label_back['BACK']})</a>
+                            <a class="btn btn-outline-secondary" href="({$web.main_url})({if $data.listUrl})({$data.listUrl})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})({/if})"><span class="glyphicon glyphicon-th-list"></span> ({$label_back['BACK']})</a>
                         ({/if})
                     </div>
                 </div> 
