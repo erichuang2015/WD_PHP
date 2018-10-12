@@ -57,7 +57,7 @@
                                             ({else})
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                             ({/if})
-                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$label_back[$data.list[i].name]})</a>
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({if $label_back[$data.list[i].name]})({$label_back[$data.list[i].name]})({else})({$data.list[i].name})({/if})</a>
                                         </td>
                                         <td>
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].url})</a>

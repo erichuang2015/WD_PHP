@@ -170,3 +170,10 @@ function loadingStop(selector){
     }
     $(selector).loading("stop");
 }
+
+
+$(window).keydown(function(event) {
+    if (event.which == 27){
+      loadingStop();
+    }
+});

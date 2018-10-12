@@ -215,9 +215,14 @@ $(function() {
 });
 
 $(window).keydown(function(event) {
-  if ((event.which == 83 && event.ctrlKey)){
-      event.preventDefault();
-  }
+	if ((event.which == 83 && event.ctrlKey)){
+	  event.preventDefault();
+	}
+	
+	if (event.which == 27){
+	  loadingStop();
+	}
+
 });
 
 jQuery.expr[':'].Contains = function(a, i, m) {  
@@ -350,7 +355,6 @@ $(function() {
  */
 function cropperImage(data){
 	var src = data.src.toLowerCase();
-
 	if(src.indexOf(".jpg")!=-1 || src.indexOf(".jpeg")!=-1 || src.indexOf(".bmp")!=-1 || src.indexOf(".png")!=-1){
 		if(confirm(_jsMsg["CROPPER_CONFIRM"])){
 			$.ajax({
