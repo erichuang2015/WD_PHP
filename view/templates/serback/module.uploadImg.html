@@ -40,15 +40,25 @@
         }
 
         function dropHandler({$_I_})(evt,flag) { //evt 為 DragEvent 物件
-
+            evt.preventDefault();
             if(typeof(flag) == "undefined"){
                 flag = 1;
             }
-            if(($('#imgDIV({$_I_})>div').length+document.getElementById('ff({$_I_})').files.length) > ({$module.uploadImg[$_I_].max})){
-                document.getElementById('ff({$_I_})').value = '';
-                alert("({$label_back.UPLOAD_MAX_OUT})({(int)$module.uploadImg[$_I_].max})");
-                return false;
+
+            if(flag){
+                if(($('#imgDIV({$_I_})>div').length+document.getElementById('ff({$_I_})').files.length) >= ({(int)$module.uploadImg[$_I_].max})){
+                    document.getElementById('ff({$_I_})').value = '';
+                    alert("({$label_back.UPLOAD_MAX_OUT})({(int)$module.uploadImg[$_I_].max})");
+                    return false;
+                }
+            }else{
+                if(($('#imgDIV({$_I_})>div').length+document.getElementById('ff({$_I_})').files.length) > ({(int)$module.uploadImg[$_I_].max})){
+                    document.getElementById('ff({$_I_})').value = '';
+                    alert("({$label_back.UPLOAD_MAX_OUT})({(int)$module.uploadImg[$_I_].max})");
+                    return false;
+                }
             }
+
             if(flag==1){
                 evt.preventDefault();
                 var files = evt.dataTransfer.files; //由DataTransfer物件的files屬性取得檔案物件

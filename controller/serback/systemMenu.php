@@ -12,6 +12,10 @@ $data["maxFloor"] = $systemMenu->getMaxFloor();
 //限制最大層數 (0開始算)
 $data["addMaxFloor"] = 2;
 
+if(isset($_POST["name"])){
+	$_POST["name"] = strtoupper($_POST["name"]);
+}
+
 if(isset($console->path[1])){
 //動作
 	switch ($console->path[1]) {
