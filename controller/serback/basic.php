@@ -126,6 +126,13 @@ if(isset($console->path[2])){
 										}
 									}
 								}
+								if(isset($value["textareaOther"])){
+									foreach ($value["textareaOther"] as $key1 => $value1) {
+										if(isset($data["one"][$value["name"].$value1])){
+											$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
+										}
+									}
+								}
 							}
 						}
 						if(isset($explodeArray)){
@@ -153,7 +160,7 @@ if(isset($console->path[2])){
 			//新增
 			if($_POST){
 				if($basic->setData($_POST,false,$checkArray,$requiredArray)){
-					$console->alert($basic->message,$data["listUrl"]);
+					$console->alert($basic->message,$data["listUrl"]."?".$_SERVER["QUERY_STRING"]);
 				}else{
 					$console->alert($basic->message,-1);
 				}
@@ -171,7 +178,7 @@ if(isset($console->path[2])){
 				foreach ($_POST["checkElement"] as $key => $value) {
 					$basic->rmData($value);
 				}
-				$console->alert($basic->message,$data["listUrl"]);
+				$console->alert($basic->message,$data["listUrl"]."?".$_SERVER["QUERY_STRING"]);
 			}
 		default:
 			//網址參數錯誤
@@ -201,9 +208,9 @@ if(isset($console->path[2])){
 
 	$switch["addButton"] = 1;
 	$data["addOnClick"] = "window.location.href='".$data["listUrl"]."/add';";
-	// if($_SERVER["QUERY_STRING"]){
-	// 	$data["addOnClick"] = "window.location.href='".$data["listUrl"]."/add?".$_SERVER["QUERY_STRING"]."';";
-	// }
+	if($_SERVER["QUERY_STRING"]){
+		$data["addOnClick"] = "window.location.href='".$data["listUrl"]."/add?".$_SERVER["QUERY_STRING"]."';";
+	}
 
 	$switch["saveButton"] = 1;
 	$switch["listList"] = 1;

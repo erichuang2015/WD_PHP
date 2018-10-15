@@ -59,7 +59,7 @@ function formSubmitDelete(index) {
 	}
 	if($("input[name='checkElement[]']").is(':checked')){
 		if(confirm(_jsMsg["DELETE_CONFIRM"])){
-			$("form:eq("+index+")").attr("action", location.pathname + "/delete");
+			$("form:eq("+index+")").attr("action", location.pathname + "/delete" + location.search);
 			$('#hiddenSubmitButton'+index).trigger('click');
 			return true;
 		}else{

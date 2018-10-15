@@ -96,6 +96,13 @@ if(isset($console->path[2])){
 										}
 									}
 								}
+								if(isset($value["textareaOther"])){
+									foreach ($value["textareaOther"] as $key1 => $value1) {
+										if(isset($data["one"][$value["name"].$value1])){
+											$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
+										}
+									}
+								}
 							}
 						}
 						if(isset($explodeArray)){
@@ -127,7 +134,7 @@ if(isset($console->path[2])){
 				$_POST["floor"] = explode(",", $_POST["parent"])[1] + 1;
 				$_POST["parent"] = explode(",", $_POST["parent"])[0];
 				if($dataClass->setData($_POST,false,$checkArray,$requiredArray)){
-					$console->alert($dataClass->message,$data["listUrl"]);
+					$console->alert($dataClass->message,$data["listUrl"]."?".$_SERVER["QUERY_STRING"]);
 				}else{
 					$console->alert($dataClass->message,-1);
 				}
@@ -143,7 +150,7 @@ if(isset($console->path[2])){
 			//刪除
 			if($_POST && isset($_POST["checkElement"])){
 				$dataClass->rmData($_POST["checkElement"]);
-				$console->alert($dataClass->message,$data["listUrl"]);
+				$console->alert($dataClass->message,$data["listUrl"]."?".$_SERVER["QUERY_STRING"]);
 			}
 		default:
 			//網址參數錯誤
@@ -172,6 +179,9 @@ if(isset($console->path[2])){
 
 	$switch["addButton"] = 1;
 	$data["addOnClick"] = "window.location.href='".$data["listUrl"]."/add';";
+	if($_SERVER["QUERY_STRING"]){
+		$data["addOnClick"] = "window.location.href='".$data["listUrl"]."/add?".$_SERVER["QUERY_STRING"]."';";
+	}
 
 	$switch["saveButton"] = 1;
 	$switch["listList"] = 1;

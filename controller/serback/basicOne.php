@@ -118,6 +118,13 @@ if($_POST){
 					}
 				}
 			}
+			if(isset($value["textareaOther"])){
+				foreach ($value["textareaOther"] as $key1 => $value1) {
+					if(isset($data["one"][$value["name"].$value1])){
+						$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
+					}
+				}
+			}
 		}
 	}
 

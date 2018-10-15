@@ -164,9 +164,18 @@ namespace MTsung{
 				//新增
 				$data["create_user"] = $data["update_user"];
 				if($this->conn->AutoExecute($this->table,$data,"INSERT")){
+					$data["id"] = $this->conn->GetRow("SELECT LAST_INSERT_ID()")[0];
+					if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
+						$dataSort = array(
+							"classID" => $_GET["class"],
+							"dataID" => $data["id"],
+							"sort" => '0'
+						);
+						$this->conn->AutoExecute($this->tableSort,$dataSort,"INSERT");
+					}
+
 					if(!$this->isTree) $this->sortTable();
 					$this->message = $this->console->getMessage('ADD_OK');
-					$data["id"] = $this->conn->GetRow("SELECT LAST_INSERT_ID()")[0];
 					$this->systemLog->addLog("INSERT",$this->table,array(),$data);
 					return true;
 				}else{
@@ -464,11 +473,11 @@ namespace MTsung{
 		 * 排序資料表
 		 */
 		function sortTable(){
-			if(!in_array("sort", $this->getField()) || !in_array("class", $this->getField()) || $this->isTree){
+			if(!in_array("sort", $this->getField()) || $this->isTree){
 				return false;
 			}
 			$this->conn->Execute("set @j:=0;");
-			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
+			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && !$isInsert){
 				$this->conn->Execute("update ".$this->tableSort." set sort=@j:=@j+1 where classID='".$_GET["class"]."' order by sort");
 			}else{
 				$this->conn->Execute("update ".$this->table." set sort=@j:=@j+1 order by sort");
