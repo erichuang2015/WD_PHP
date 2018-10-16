@@ -298,6 +298,19 @@ $(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+/**
+ * td最大寬度
+ */
+$(function() {
+    $('td').each(function (index,obj){
+    	if($(obj).data("max_width")){
+    		$(obj).css("max-width",$(obj).data("max_width"));
+    		$(obj).css("overflow","hidden");
+    		$(obj).css("white-space","nowrap");
+    		$(obj).css("text-overflow","ellipsis");
+    	}
+    });
+});
 
 /**
  * 設定管理語系

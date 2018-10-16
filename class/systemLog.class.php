@@ -85,7 +85,7 @@ namespace MTsung{
 			$data["dataTable"] = $table;
 			$data["oldData"] = json_encode($oldData);
 			$data["newData"] = json_encode($newData);
-			$data["url"] = $_SERVER["REDIRECT_URL"]?$_SERVER["REDIRECT_URL"]:$_SERVER["REQUEST_URI"];
+			$data["url"] = $this->console->addQuery(array("setSettingLang" => $this->lang));
 			$data["language"] = $this->lang;
 			$this->conn->AutoExecute($this->table,$data,"INSERT");
 		}

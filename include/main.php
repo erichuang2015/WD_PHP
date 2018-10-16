@@ -908,7 +908,7 @@ namespace MTsung{
 					$_GET[$key] = $value;
 				}
 			}
-			return $_SERVER['REDIRECT_URL'].'?'.http_build_query($_GET);
+			return explode("?",$_SERVER['REQUEST_URI'])[0].'?'.http_build_query($_GET);
 		}
 
 		/**

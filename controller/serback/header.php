@@ -51,6 +51,9 @@ if($_POST && $console->setting->getValue("sizeSwitch") && ($console->setting->ge
 /**
  * 管理語系
  */
+if(isset($_GET['setSettingLang'])){
+	$_SESSION[FRAME_NAME]["SETTING_LANG"] = $_GET['setSettingLang'];
+}
 if(isset($_SESSION[FRAME_NAME]["SETTING_LANG"]) && $_SESSION[FRAME_NAME]["SETTING_LANG"] && isset($console->languageArray[$_SESSION[FRAME_NAME]["SETTING_LANG"]])){
 	$settingLang = $_SESSION[FRAME_NAME]["SETTING_LANG"];
 }else{

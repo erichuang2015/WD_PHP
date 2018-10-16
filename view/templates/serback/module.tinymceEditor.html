@@ -23,6 +23,12 @@
         );
 
         tinymce.init({
+            content_css: [
+                _jsPath + "/css/main.css?" + new Date().getTime()
+            ],
+            document_base_url: [
+                _jsPath + "/"
+            ],
             selector: "#tinemceEditor({$_I_})",
             // selector: "textarea",
             // auto_focus: "tinemceEditor({$_I_})",

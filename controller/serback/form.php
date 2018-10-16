@@ -56,6 +56,9 @@ if(isset($console->path[2])){
 		foreach ($data["list"] as $key => $value) {
 			$data["list"][$key]["keyName"] = explode("|__|", $value["keyName"]);
 			$data["list"][$key]["keyData"] = explode("|__|", $value["keyData"]);
+		
+			$data["list"][$key]["keyName"] = array_slice($data["list"][$key]["keyName"],0,5);
+			$data["list"][$key]["keyData"] = array_slice($data["list"][$key]["keyData"],0,5);
 		}
 	}
 
