@@ -75,7 +75,7 @@
         <div class="g-recaptcha" data-sitekey="({$console->setting->getValue("reCAPTCHASiteKey")})" data-callback="login" data-size="invisible"></div>
         <!-- reCAPTCHA -->
 
-        <a ({if $web.lineAuthAppID})href="javascript:;" onclick="lineLogin();"({else})style="-webkit-filter:grayscale(1);"({/if})><img width="50" src="images/LINE_LOGO.png"></a>
+        <a ({if $web.lineAuthClientID})href="javascript:;" onclick="lineLogin();"({else})style="-webkit-filter:grayscale(1);"({/if})><img width="50" src="images/LINE_LOGO.png"></a>
         <a ({if $web.fbAuthAppID})href="javascript:;" onclick="fbLogin();"({else})style="-webkit-filter:grayscale(1);"({/if})><img width="50" src="images/FB_LOGO.png"></a>
         <a ({if $web.googleAuthAppID})href="javascript:;" id="GoogleBtn"({else})style="-webkit-filter:grayscale(1);"({/if})><img width="50" src="images/GOOGLE_LOGO.png"></a>
         

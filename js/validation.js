@@ -199,7 +199,7 @@ function msgNumber(){
 }
 
 function isNumberMin450(number){
-	return 	!isNaN(number) && (number>=450);
+	return 	!isNaN(number) && (number>=450 || number==0);
 }
 
 function msgNumberMin450(){
