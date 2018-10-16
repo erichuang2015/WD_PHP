@@ -11,7 +11,7 @@
                 "client_id" => $setting->getValue("lineAuthClientID"),
                 "client_secret" => $setting->getValue("lineAuthClientSecret"),
                 "code" => $_GET["code"],
-                "redirect_uri" => 'http://'.$_SERVER['HTTP_HOST'].$MT_web['main_path']."/include/LineLogin/line_callback.php"
+                "redirect_uri" => HTTP_PATH."include/LineLogin/line_callback.php"
             );
 
             curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/token");
