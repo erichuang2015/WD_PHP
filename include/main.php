@@ -79,7 +79,11 @@ namespace MTsung{
 			}else{
 				$this->path = explode('/', urldecode($url));
 			}
-			
+			foreach ($this->path as $key => $value) {
+				if($value==""){
+					unset($this->path[$key]);
+				}
+			}
 			$this->controller = $this->path[0];
 
 			//語言Session前後台不同
