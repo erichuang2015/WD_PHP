@@ -313,12 +313,27 @@ namespace MTsung{
 		 * @return [type]           [description]
 		 */
 		function getData($whereSql='',$sqlArray=array()){
+			//分類排序
+			if(strpos($whereSql,"limit")){
+				$tempSql = "limit".explode("limit",$whereSql)[1];
+				$count = array(
+					explode(",",explode("limit ",$whereSql)[1])[0],
+					explode(",",explode("limit ",$whereSql)[1])[1]
+				);
+				$whereSql = explode("limit",$whereSql)[0];
+			}
+			//分類排序
+
 			if($sqlArray){
 				$temp = $this->conn->GetArray($this->conn->Prepare("select * from ".$this->table." ".$whereSql),$sqlArray);
 			}else{
 				$temp = $this->conn->GetArray("select * from ".$this->table." ".$whereSql);
 			}
 
+			//分類排序
+			$whereSql .= $tempSql;
+			//分類排序
+			
 			// if($this->conn->errorMsg()) echo "error :["."select * from ".$this->table." ".$whereSql."]<br>".$this->conn->errorMsg();
 
 			//分類排序
@@ -329,6 +344,9 @@ namespace MTsung{
 					}
 				}
 				usort($temp, array($this, 'classSort'));
+			}
+			if(strpos($whereSql,"limit")){
+				$temp = array_slice($temp,$count[0],$count[1]);
 			}
 			//分類排序
 

@@ -17,4 +17,8 @@
 
 	//購物內容數量
 	$data["orderCount"] = count($order->getShoppingCartList());
+	$data["foor"] = (new MTsung\dataList($console,PREFIX."foor",$lang))->getOne();
+
+	//自身網址
+	$data["thisUrl"] = str_replace(WEB_PATH."/","",HTTP_PATH).$_SERVER["REQUEST_URI"];
 ?>

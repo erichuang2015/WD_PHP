@@ -312,7 +312,7 @@ function tdMaxWidth(){
 		if($(window).width() <= 768){
 	    	$(obj).css("max-width","");
 			$(obj).css("overflow","");
-    		$(obj).css("white-space","");
+    		// $(obj).css("white-space","");
     		$(obj).css("text-overflow","");
 		}else{
 	    	if(!isNaN($(obj).data("max_width"))){
@@ -321,7 +321,7 @@ function tdMaxWidth(){
 	    		$(obj).css("max-width",250);//預設250
 	    	}
 			$(obj).css("overflow","hidden");
-			$(obj).css("white-space","nowrap");
+			// $(obj).css("white-space","nowrap");
 			$(obj).css("text-overflow","ellipsis");
 		}
     });
