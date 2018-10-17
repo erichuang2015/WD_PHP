@@ -3,6 +3,17 @@
  * required data-check="可用,區隔" data-text="" data-check_min="" data-check_max=""
  */
 
+/**
+ * 表單清除 設計師使用a tag時用
+ */
+function formReset(index){
+	if(typeof(index) == "undefined"){
+		index = 0;
+	}
+	$("form:eq("+index+")")[0].reset();
+	return false;
+}
+
 
 /**
  * 傳送表單

@@ -302,16 +302,26 @@ $(function() {
  * td最大寬度
  */
 $(function() {
+	if($(window).width() > 768){
+	    $('td').each(function (index,obj){
+	    	if($(obj).data("max_width")){
+	    		$(obj).css("max-width",$(obj).data("max_width"));
+	    		$(obj).css("overflow","hidden");
+	    		$(obj).css("white-space","nowrap");
+	    		$(obj).css("text-overflow","ellipsis");
+	    	}
+	    });
+	}
+});
+$(window).resize(function(){ 
     $('td').each(function (index,obj){
-    	if($(obj).data("max_width")){
-    		$(obj).css("max-width",$(obj).data("max_width"));
-    		$(obj).css("overflow","hidden");
-    		$(obj).css("white-space","nowrap");
-    		$(obj).css("text-overflow","ellipsis");
-    	}
+		if($(window).width() <= 768){
+			$(obj).css("overflow","");
+		}else{
+			$(obj).css("overflow","hidden");
+		}
     });
 });
-
 /**
  * 設定管理語系
  */
