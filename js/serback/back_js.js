@@ -302,26 +302,31 @@ $(function() {
  * td最大寬度
  */
 $(function() {
-	if($(window).width() > 768){
-	    $('td').each(function (index,obj){
-	    	if($(obj).data("max_width")){
-	    		$(obj).css("max-width",$(obj).data("max_width"));
-	    		$(obj).css("overflow","hidden");
-	    		$(obj).css("white-space","nowrap");
-	    		$(obj).css("text-overflow","ellipsis");
-	    	}
-	    });
-	}
+    tdMaxWidth();
 });
 $(window).resize(function(){ 
+    tdMaxWidth();
+});
+function tdMaxWidth(){
     $('td').each(function (index,obj){
 		if($(window).width() <= 768){
+	    	$(obj).css("max-width","");
 			$(obj).css("overflow","");
+    		$(obj).css("white-space","");
+    		$(obj).css("text-overflow","");
 		}else{
+	    	if(!isNaN($(obj).data("max_width"))){
+	    		$(obj).css("max-width",$(obj).data("max_width"));
+	    	}else{
+	    		$(obj).css("max-width",250);//預設250
+	    	}
 			$(obj).css("overflow","hidden");
+			$(obj).css("white-space","nowrap");
+			$(obj).css("text-overflow","ellipsis");
 		}
     });
-});
+}
+
 /**
  * 設定管理語系
  */
