@@ -195,8 +195,10 @@ namespace MTsung{
 		 */
 		function caluTotal(){
 			$total = 0;
-			foreach ($this->orderList as $key => $value) {
-				$total += ($value["price"]*$value["count"]);
+			if($this->orderList){
+				foreach ($this->orderList as $key => $value) {
+					$total += ($value["price"]*$value["count"]);
+				}
 			}
 			if(is_numeric($this->order["deshprice"]) && $this->order["deshprice"]<=1 && $this->order["deshprice"]>0){
 				$total *= $this->order["deshprice"];
@@ -1177,8 +1179,10 @@ namespace MTsung{
 		function getShoppingCartList(){
 			// $this->reloadCart();
 			$temp = $this->conn->GetArray("select * from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and parentId IS NULL");
-			foreach ($temp as $key => $value) {
-				$temp[$key]["addProductList"] = $this->conn->GetArray("select * from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and parentId='".$value["productId"]."'");
+			if($temp){
+				foreach ($temp as $key => $value) {
+					$temp[$key]["addProductList"] = $this->conn->GetArray("select * from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and parentId='".$value["productId"]."'");
+				}
 			}
 			return $temp;
 		}

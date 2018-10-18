@@ -167,12 +167,12 @@ function msgEnglishNumber(){
 }
 
 function isPassword(password){
-	return 	(password.length > 7) &&
-			(password.length < 255);
+	var checkString = /^(?=^.{8,255}$)((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.*$/;
+	return password.match(checkString);
 }
 
 function msgPassword(){
-	return _jsMsg["LAN_8_254"];
+	return _jsMsg["PASSWORD_MSG"];
 }
 
 function isEmail(email){
