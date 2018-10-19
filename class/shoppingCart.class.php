@@ -162,7 +162,7 @@ namespace MTsung{
 			if($orderList){
 				foreach ($orderList as $key => $value) {
 					$temp = $this->product->getProduct($value["productId"]);
-					if($temp && in_array($value["specifications"],$temp["specificationsID"])){
+					if($value["price"]<=0 || ($temp && in_array($value["specifications"],$temp["specificationsID"]))){
 
 						if($value["name"] != $temp["name"]) $data["name"] = $temp["name"];
 						if($value["memo"] != $temp["memo"]) $data["memo"] = $temp["memo"];
@@ -409,6 +409,10 @@ namespace MTsung{
 						$data["picture"] = $tempAdd["picture"][0];
 						$data["price"] = $this->product->getAddPrice($parentId,$id,$specifications);
 
+						if(!$data["price"]){
+							$this->message = $this->console->getMessage("PRICE_IS_NULL");
+							return false;
+						}
 						if($this->conn->AutoExecute($this->tableList,$data,"INSERT")){
 							$this->message = $this->console->getMessage("ADD_ADD_PRODUCT_OK");
 							return true;
