@@ -29,7 +29,7 @@ if(isset($_GET["uID"]) && isset($_GET["auth"])){
 			if($temp){
 				$console->alert($member->message,'login');
 			}else{
-				$console->alert($member->message,'forget');
+				$console->alert($member->message,-1);
 			}
 		}
 	}

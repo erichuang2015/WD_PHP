@@ -29,6 +29,7 @@
 
 		case 'join':
 
+			//前往註冊頁面 帶資料
 			if(isset($_GET["socialLogin"]) && isset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN'])){
 				if(!$_POST){
 					$console->alert($console->getMessage("JOIN_IN_SOCIAL"),"NO");
@@ -47,7 +48,7 @@
 					unset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']);
 					$_POST["emailCheck"] = MTsung\emailCheckType::CHECK_OK;
 
-					if($member->addUser($_POST,false)){
+					if($member->addUser($_POST,false) === true){
 						$member->login($_POST['account'],$_POST['password']);
 						$console->alert($member->message,MEMBER_PATH.'detail');
 					}else{
@@ -60,7 +61,7 @@
 				if (!$_POST["email"]) {
 					$_POST["email"] = $_POST["account"];
 				}
-				if($member->addUser($_POST,$console->webSetting->getValue("emailCheck"))){
+				if($member->addUser($_POST,$console->webSetting->getValue("emailCheck")) === true){
 					$temp = $member->login($_POST['account'],$_POST['password']);
 					if($temp === true){
 						$console->linkTo($link);
@@ -111,6 +112,29 @@
 			if(isset($_GET["socialLogin"]) && isset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN'])){
 				$temp = $member->socialLogin($_GET["socialLogin"],$_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']["id"]);
 				if(($temp === false) && ($member->message == $console->getMessage('SOCIAL_LINK_NULL'))){
+
+					//直接自動註冊
+					// $socialName = strtolower($_GET['socialLogin']);
+					// $info[$socialName."ID"] = $_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']["id"];
+					// $info["name"] = $info[$socialName."Name"] = $_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']["name"];
+					// $info["account"] = $info["email"] = $info[$socialName."Email"] = $_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']["email"];
+					// $info[$socialName."Picture"] = $_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']["picture"];
+					// $info['password'] = $info["checkPassword"] = strtoupper(base_convert(microtime(true),10,36));
+					// $info["emailCheck"] = MTsung\emailCheckType::CHECK_OK;
+					// if (!$info["account"]) {
+					// 	$info["account"] = $info[$socialName."ID"];
+					// }
+
+					// unset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']);
+
+					// if($member->addUser($info,false) === true){
+					// 	$member->login($info['account'],$info['password']);
+					// 	$console->alert($member->message,MEMBER_PATH.'detail');
+					// }else{
+					// 	$console->alert($member->message,-1);
+					// }
+
+					//前往註冊頁面 帶資料
 					$console->linkTo(MEMBER_PATH."join?".explode("?",$_SERVER["REQUEST_URI"])[1]);
 				}
 

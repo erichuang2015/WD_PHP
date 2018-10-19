@@ -314,7 +314,7 @@ namespace MTsung{
 		 */
 		function getData($whereSql='',$sqlArray=array()){
 			//分類排序
-			if(strpos($whereSql,"limit")){
+			if(strpos($whereSql,"limit") && isset(explode(",",explode("limit ",$whereSql)[1])[1])){
 				$tempSql = "limit".explode("limit",$whereSql)[1];
 				$count = array(
 					explode(",",explode("limit ",$whereSql)[1])[0],
@@ -345,9 +345,10 @@ namespace MTsung{
 				}
 				usort($temp, array($this, 'classSort'));
 			}
-			if(strpos($whereSql,"limit")){
+			if(strpos($whereSql,"limit") && isset(explode(",",explode("limit ",$whereSql)[1])[1])){
 				$temp = array_slice($temp,$count[0],$count[1]);
 			}
+			// print_r($whereSql);
 			//分類排序
 
 			if($temp){

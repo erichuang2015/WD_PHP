@@ -14,6 +14,19 @@ function formReset(index){
 	return false;
 }
 
+$(function() {
+	$('input').on('keydown', function(e){
+		if((e.which == 13 || (e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
+			formSubmit($("form").index($(this).form()));
+		}
+		return e.which !== 13;
+	});
+	$('textarea').on('keydown', function(e){
+		if(((e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
+			formSubmit($("form").index($(this).form()));
+		}
+	});
+});
 
 /**
  * 傳送表單

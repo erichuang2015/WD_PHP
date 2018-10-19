@@ -6,23 +6,20 @@
     <base href="({$web.main_path})/" target="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/serback/bootstrap.min.css">
+    <link rel="stylesheet" href="css/serback/back.css">
     <link rel="stylesheet" href="css/serback/MTsung.css">
-    <link rel="stylesheet" href="css/serback/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="css/serback/jquery.circliful.css">
-    <link rel="stylesheet" href="css/serback/basictable.css">
     <link rel="stylesheet" href="css/serback/signin.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-    <script src="js/config.js"></script>
-    <script src="js/serback/jquery3.3.1.min.js"></script>
-    <script src="js/serback/bootstrap.min.js"></script>
-    <script src="js/serback/jquery.circliful.js"></script>
-    <script src="js/serback/jquery.basictable.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <script src="js/serback/jquery.all.min.js"></script>
+    <script src="js/config.js" id="config" data-lang="({$lang})" data-path="({$web.main_path})"  data-fb_app_id="({$web.fbAuthAppID})" data-google_client_id="({$web.googleAuthAppID})"></script>
     <script src="js/serback/back_js.js"></script>
-    <script src="js/fbLogin.js"></script>
-    <script src="js/LineLogin.js"></script>
-    <script src="https://apis.google.com/js/api:client.js"></script>
-    <script src="js/GoogleLogin.js"></script>
+    <script src="//apis.google.com/js/api:client.js?hl=({$lang})"></script>
+    <script src="js/socialLogin.js" async></script>
+    <script src="js/serback/bootstrap.min.js"></script>
+    <script src="js/serback/bootstrap.bundle.min.js"></script>
+    <script src="js/validation.js"></script>
+    <!-- reCAPTCHA -->
+    <script src='//www.google.com/recaptcha/api.js?hl=({$lang})' async defer></script>
     <title>({$label_back['LOGIN_FORGET']})</title>
     
     <link rel="icon" href="({$web.icon})" sizes="16x16" type="image/png">
@@ -33,28 +30,24 @@
 <body class="text-center">
 
     <form class="form-signin" action="" method="POST">
-        <img class="mb-4" src="images/serback/logo.png">
+        <img class="mb-4" src="({$web.icon})">
         <h1 class="h3 mb-3 font-weight-normal">({$label_back['FORGET_TITEL']})</h1>
-        <div class="checkbox mb-3">
-            ({$label_back['LOGIN_LANG']})
-            ({$console->getLanguageArray('html','/serback')})
-        </div>
         ({if isset($smarty.get.uID)})
-                <input type="password" name="newPassword" class="form-control" placeholder="({$label_back['FORGET_NEW_PASSWORD']})" required autofocus>
+                <input type="password" name="newPassword" class="form-control" placeholder="({$label_back['FORGET_NEW_PASSWORD']})" data-check="Password" data-text="({$label_back['NEW_PASSWORD']})"  required autofocus>
                 <br>
-                <input type="password" name="checkNewPassword" class="form-control" placeholder="({$label_back['FORGET_CHECK_NEW_PASSWORD']})" required autofocus>
+                <input type="password" name="checkNewPassword" class="form-control" placeholder="({$label_back['FORGET_CHECK_NEW_PASSWORD']})" data-check="Password" data-text="({$label_back['CHECK_NEW_PASSWORD']})"  required autofocus>
                 <br>
                 <div class="checkbox mb-3">
-                    <a href="login">({$label_back['LOGIN_LOGIN_LABEL']})</a>
+                    <a href="({$web.serback_path})/login">({$label_back['LOGIN_LOGIN_LABEL']})</a>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">({$label_back['LOGIN_FORGET_EDIT']})</button><br>
+                <button class="btn btn-lg btn-primary btn-block" onclick="return formSubmit(0);">({$label_back['LOGIN_FORGET_EDIT']})</button><br>
         ({else})
-                <input type="text" name="email" class="form-control" placeholder="({$label_back['FORGET_EMAIL']})" required autofocus>
+                <input type="text" name="email" class="form-control" placeholder="({$label_back['FORGET_EMAIL']})" data-check="Email" required autofocus>
                 <br>
                 <div class="checkbox mb-3">
-                    <a href="login">({$label_back['LOGIN_LOGIN_LABEL']})</a>
+                    <a href="({$web.serback_path})/login">({$label_back['LOGIN_LOGIN_LABEL']})</a>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">({$label_back['LOGIN_FORGET']})</button><br>
+                <button class="btn btn-lg btn-primary btn-block" onclick="return formSubmit(0);">({$label_back['LOGIN_FORGET']})</button><br>
         ({/if})
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2018 Power by vipcase</p>
         ({$console->getToken()})
