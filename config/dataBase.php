@@ -75,6 +75,8 @@
 		echo "Database connection failed.";
 		exit;
 	}else{
+		//關閉嚴格模式
+		$conn->Execute("SET sql_mode = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
 		//設定utf8mb4編碼
 		$conn->Execute("SET NAMES utf8mb4;");
 		$conn->Execute("SET CHARACTER_SET_CLIENT=utf8mb4;");
