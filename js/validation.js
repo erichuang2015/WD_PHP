@@ -27,6 +27,11 @@ $(function() {
 		}
 	});
 });
+$(window).keydown(function(event) {
+	if ((event.which == 83 && event.ctrlKey)){
+	  event.preventDefault();
+	}
+});
 
 /**
  * 傳送表單

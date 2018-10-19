@@ -200,25 +200,9 @@ $(function() {
 		$(this).blowup();
 	});
 
-
-	$('input').on('keydown', function(e){
-		if((e.which == 13 || (e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
-			formSubmit($("form").index($(this).form()));
-		}
-		return e.which !== 13;
-	});
-	$('textarea').on('keydown', function(e){
-		if(((e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
-			formSubmit($("form").index($(this).form()));
-		}
-	});
 });
 
 $(window).keydown(function(event) {
-	if ((event.which == 83 && event.ctrlKey)){
-	  event.preventDefault();
-	}
-	
 	if (event.which == 27){
 	  loadingStop();
 	}
