@@ -66,6 +66,9 @@ function shoppingAddProduct($obj) {
                 temp = JSON.parse(msg);
                 if (!temp.response) {
                     alert(temp.message);
+                    if(temp.data["toUrl"]){
+                        location.href = temp.data["toUrl"];
+                    }
                     return false;
                 }
                 shoppingListReload(temp.data);

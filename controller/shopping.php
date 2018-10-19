@@ -81,7 +81,8 @@
 	if(isset($_GET["ajax"]) && $_GET["ajax"]){
 
 		if(!$member->isLogin()){
-			$console->outputJson(false,$console->getMessage("PLEASE_LOGIN"));
+			$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] = $_SERVER["HTTP_REFERER"];
+			$console->outputJson(false,$console->getMessage("PLEASE_LOGIN"),array("toUrl" => WEB_PATH.$lang_url."/member/login"));
 		}
 
 		switch ($_GET["ajax"]) {
