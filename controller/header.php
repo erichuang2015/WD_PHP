@@ -20,5 +20,8 @@
 	$data["foor"] = (new MTsung\dataList($console,PREFIX."foor",$lang))->getOne();
 
 	//自身網址
-	$data["thisUrl"] = str_replace(WEB_PATH."/","",HTTP_PATH).$_SERVER["REQUEST_URI"];
+	$data["thisUrl"] = HTTP_PATH.$_SERVER["REQUEST_URI"];
+	if(WEB_PATH!=""){
+		$data["thisUrl"] = str_replace(WEB_PATH."/","",HTTP_PATH).$_SERVER["REQUEST_URI"];
+	}
 ?>
