@@ -284,6 +284,10 @@ namespace MTsung{
 					$data["picture"] = $temp["picture"][0];
 					$data["price"] = $this->product->getPrice($id,$this->member->isLogin());
 
+					if(!$data["price"]){
+						$this->message = $this->console->getMessage("PRICE_IS_NULL");
+						return false;
+					}
 					if($this->conn->AutoExecute($this->tableList,$data,"INSERT")){
 						$this->message = $this->console->getMessage("ADD_PRODUCT_OK");
 						return true;
