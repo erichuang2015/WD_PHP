@@ -1,4 +1,10 @@
 <?php 
+	//建構中 需要有登入後台才能看內頁
+	if($console->setting->getValue("indexPATH")=="demo" && !(isset($_SESSION[FRAME_NAME]["member"]["serback"])&&$_SESSION[FRAME_NAME]["member"]["serback"])){
+		$console->linkTo(HTTP_PATH);
+		exit;
+	}
+
 	$lang = $console->getLanguage();
 	$member = new MTsung\member($console,PREFIX.'member');
 	$product = new MTsung\product($console,PREFIX."product",$lang);
