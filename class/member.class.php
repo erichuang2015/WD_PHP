@@ -46,7 +46,7 @@ namespace MTsung{
 					  `email` varchar(50) DEFAULT NULL COMMENT '電子郵件',
 					  `doingTime` int(11) DEFAULT 3600 COMMENT '閒置登出時間',
 					  `sex` varchar(20) DEFAULT NULL COMMENT '1=男 2=女 3=不提供',
-					  `point` int(11) DEFAULT 0 COMMENT '紅利點數',
+					  `point` int(11) DEFAULT '0' COMMENT '紅利點數',
 					  `picture` varchar(50) DEFAULT NULL COMMENT '照片',
 					  `country` varchar(191) DEFAULT NULL COMMENT '國家',
 					  `county` varchar(191) DEFAULT NULL COMMENT '城市',

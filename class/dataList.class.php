@@ -34,7 +34,7 @@ namespace MTsung{
 					  `detail` TEXT DEFAULT NULL COMMENT '內容',
 					  `picture` TEXT DEFAULT NULL COMMENT '圖片',
 
-					  `sort` int(11) NOT NULL COMMENT '排序',
+					  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
 					  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=開啟,0=關閉',
 					  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
 					  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',

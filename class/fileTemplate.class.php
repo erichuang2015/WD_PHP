@@ -37,7 +37,7 @@ namespace MTsung{
 					  `type` varchar(191) NOT NULL COMMENT 'type',
 					  `name` varchar(191) NOT NULL COMMENT 'name',
 					  `detail` text NOT NULL COMMENT 'detail',
-					  `sort` int(11) NOT NULL COMMENT '排序',
+					  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
 					  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
 					  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',
 					  `create_user` varchar(191) NOT NULL COMMENT '創建人',

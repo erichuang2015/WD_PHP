@@ -43,19 +43,19 @@ namespace MTsung{
 					CREATE TABLE `".$this->table."` (
 					  `id` int(11) NOT NULL AUTO_INCREMENT,
 					  `orderNumber` varchar(191) NOT NULL COMMENT '訂單編號',
-					  `memberId` int(11) DEFAULT 0 COMMENT '會員ID',
+					  `memberId` int(11) DEFAULT '0' COMMENT '會員ID',
 					  `step` int(11) DEFAULT 1 COMMENT '步驟 1=未結帳,2=已結帳待付款,3=付款完成',
-					  `total` int(11) DEFAULT 0 COMMENT '總額',
-					  `freight` int(11) DEFAULT 0 COMMENT '運費',
+					  `total` int(11) DEFAULT '0' COMMENT '總額',
+					  `freight` int(11) DEFAULT '0' COMMENT '運費',
 					  `deshprice` float DEFAULT 1 COMMENT '折扣',
-					  `getPoint` int(11) DEFAULT 0 COMMENT '取得的紅利',
-					  `getPointStatus` tinyint(1) DEFAULT 0 COMMENT '取得的紅利狀態',
-					  `usePoint` int(11) DEFAULT 0 COMMENT '使用的紅利',
-					  `usePointStatus` tinyint(1) DEFAULT 0 COMMENT '使用的紅利狀態',
-					  `paymentMethod` int(11) DEFAULT 0 COMMENT '付款方式',
-					  `paymentStatus` int(11) DEFAULT 0 COMMENT '付款狀態',
-					  `shipmentMethod` int(11) DEFAULT 0 COMMENT '出貨方式',
-					  `shipmentStatus` int(11) DEFAULT 0 COMMENT '出貨狀態',
+					  `getPoint` int(11) DEFAULT '0' COMMENT '取得的紅利',
+					  `getPointStatus` tinyint(1) DEFAULT '0' COMMENT '取得的紅利狀態',
+					  `usePoint` int(11) DEFAULT '0' COMMENT '使用的紅利',
+					  `usePointStatus` tinyint(1) DEFAULT '0' COMMENT '使用的紅利狀態',
+					  `paymentMethod` int(11) DEFAULT '0' COMMENT '付款方式',
+					  `paymentStatus` int(11) DEFAULT '0' COMMENT '付款狀態',
+					  `shipmentMethod` int(11) DEFAULT '0' COMMENT '出貨方式',
+					  `shipmentStatus` int(11) DEFAULT '0' COMMENT '出貨狀態',
 					  `formData` TEXT DEFAULT NULL COMMENT '表單資料(json)',
 					  `memo` TEXT DEFAULT NULL COMMENT '備註',
 
@@ -606,6 +606,13 @@ namespace MTsung{
 					}
 					break;
 			}
+
+			//南蠻堂特殊功能 多一個收件人多一次運費
+			// if(is_array($_POST["ReceiverName"])){
+			// 	if(count($_POST["ReceiverName"])>1){
+			// 		$this->setFreight((count($_POST["ReceiverName"])-floor($this->order["total"]/$this->console->webSetting->getValue("freeFreightMoney")))*$this->console->webSetting->getValue("freight"));
+			// 	}
+			// }
 
 			//扣除點數
 			if((int)$this->order['usePoint']>0){

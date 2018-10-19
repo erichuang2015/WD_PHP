@@ -158,12 +158,20 @@ namespace MTsung{
 					return true;
 				}else{
 					$this->message = $this->console->getMessage('EDIT_ERROR');
+					error_log($this->message.$this->conn->errorMsg());
 					return false;
 				}
 			}else{
 				//新增
+				if(in_array("sort", $this->getField())){
+					$data["sort"] = 0;
+				}
+				if(in_array("step", $this->getField())){
+					$data["step"] = 0;
+				}
 				$data["create_user"] = $data["update_user"];
 				if($this->conn->AutoExecute($this->table,$data,"INSERT")){
+
 					$data["id"] = $this->conn->GetRow("SELECT LAST_INSERT_ID()")[0];
 					if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
 						$dataSort = array(
@@ -180,6 +188,7 @@ namespace MTsung{
 					return true;
 				}else{
 					$this->message = $this->console->getMessage('ADD_ERROR');
+					error_log($this->message.$this->conn->errorMsg());
 					return false;					
 				}
 			}
@@ -405,6 +414,7 @@ namespace MTsung{
 				return true;
 			}else{
 				$this->message = $this->console->getMessage('DELETE_ERROR');
+				error_log($this->message.$this->conn->errorMsg());
 				return false;
 			}
 		}

@@ -94,7 +94,9 @@ namespace MTsung{
 				if($validation->isEmail($value)){
 					$this->AddAddress($value);
 				}else{
-					$str .= $value.' ';
+					if($value){
+						$str .= $value.' ';
+					}
 				}				
 			}
 			if($str){
@@ -147,7 +149,7 @@ namespace MTsung{
 			}
 			if(!$this->Send()){
 				$this->console->alert($this->console->getMessage('MAIL_SEND_ERROR'),'NO');
-				echo "Error: " . $this->ErrorInfo;
+				error_log("Send mail error: " . $this->ErrorInfo);
 				return false;
 			}else{
 				if($message){
