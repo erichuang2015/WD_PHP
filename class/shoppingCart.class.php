@@ -1456,8 +1456,10 @@ namespace MTsung{
 			$deleteID = (is_array($id)) ? implode(",",$id) : $id;
 
 			$temp = $list->getData("where shoppingCartId in (".$deleteID.")");
-			foreach ($temp as $key => $value) {
-				$list->rmData($value["id"]);
+			if($temp){
+				foreach ($temp as $key => $value) {
+					$list->rmData($value["id"]);
+				}
 			}
 			parent::rmData($id);
 			return true;
