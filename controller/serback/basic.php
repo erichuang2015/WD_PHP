@@ -199,8 +199,18 @@ if(isset($console->path[2])){
 		}
 	}
 
-
-	$data["list"] = $basic->getListData("order by sort ",$searchKey);
+	if($data["list"] = $basic->getListData("order by sort ",$searchKey)){
+		foreach ($data["list"] as $key => $value) {
+			if(isset($data["list"][$key]["class"]) && $dataClass){
+				$data["list"][$key]["class"] = explode("|__|",$value["class"]);
+				$temp = array();
+				foreach ($data["list"][$key]["class"] as $key1 => $value1) {
+					$temp[] = $dataClass->getData("where id='".$value1."'")[0]["name"];
+				}
+				$data["list"][$key]["class"] = implode("/",$temp);
+			}
+		}
+	}
 
 	$data["pageNumber"] = $basic->pageNumber;
 
