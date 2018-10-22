@@ -21,6 +21,7 @@ function shoppingListReload(shoppingList) {
             }
         });
     }else{
+        $("#shoppingCountSpan").html("購物車("+shoppingList.length+")");
         if(shoppingList.length>0){
             $(shoppingList).each(function(k,v){
                 $('#shoppingListDiv').append($('#cartItemtDiv').html());
@@ -37,7 +38,6 @@ function shoppingListReload(shoppingList) {
                     shoppingListReload();
                 });
             });
-            $("#shoppingCountSpan").html("購物車("+shoppingList.length+")");
             $('#shoppingListDiv').append('<div class="cart-chkt-btn"><button onclick="javascript:location.href=\'shopping\'"> 訂單結帳 </button></div>');
         }else{
             $('#shoppingListDiv').append('<div class="ng-hide"> 你的購物車是空的 </div>');
