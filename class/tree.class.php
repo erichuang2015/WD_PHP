@@ -190,7 +190,8 @@ namespace MTsung{
 		function arrange($data){
 			if($data !== false){
 				$tempAll = array('0');
-				foreach ($data as $key => $value) {
+				$temp = parent::getData(" where status='1' ");
+				foreach ($temp as $key => $value) {
 					$tempAll[$value["id"]] = $value["id"];
 				}
 				foreach ($data as $key => $value) {

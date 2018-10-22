@@ -5,7 +5,7 @@
 
 	if(isset($console->path[1])){
 		$key = $console->path[1];
-		if(!$data["one"] = $temp->getOne("and id=? or urlKey=?",array($key,$key))){
+		if(!$data["one"] = $temp->getOne("and (id=? or urlKey=?)",array($key,$key))){
 			$console->to404();
 		}
 	}else{

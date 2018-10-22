@@ -9,12 +9,12 @@
 		//網址轉換
 		if($console->path[1] == "detail"){
 			$key = $console->path[2];
-			$console->linkTo(explode("|__|",WEB_PATH."/".$console->path[0]."/".$product->getOne("and id=? or urlKey=?",array($key,$key))["class"])[0]."/".$console->path[2]);
+			$console->linkTo(explode("|__|",WEB_PATH."/".$console->path[0]."/".$product->getOne("and (id=? or urlKey=?)",array($key,$key))["class"])[0]."/".$console->path[2]);
 			exit;
 		}
 
 		$key = $console->path[1];
-		if(!$data["one"] = $data["oneClass"] = $class->getOne("and id=? or urlKey=?",array($key,$key))){
+		if(!$data["one"] = $data["oneClass"] = $class->getOne("and (id=? or urlKey=?)",array($key,$key))){
 			$console->to404();
 		}
 	}else{
@@ -28,7 +28,7 @@
 	//商品
 	if(isset($console->path[2])){
 		$key = $console->path[2];
-		if(!$data["one"] = $product->getOne("and id=? or urlKey=? ".$findClassSql,array($key,$key))){
+		if(!$data["one"] = $product->getOne("and (id=? or urlKey=?) ".$findClassSql,array($key,$key))){
 			$console->to404();
 		}
 		$data["one"]["price"] = $product->getPrice($data["one"]["id"]);
