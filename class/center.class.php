@@ -295,7 +295,7 @@ namespace MTsung{
 				$sql = "where 1=1 ";
 			}
 			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
-				$sql .= " and class='".$_GET["class"]."' ";
+				$sql .= $this->findArrayString("class",$_GET["class"]);
 			}
 			if(isset($_GET["stockBelow"]) && is_numeric($_GET["stockBelow"]) && $_GET["stockBelow"] && $_GET["stockBelow"]<1000){
 
