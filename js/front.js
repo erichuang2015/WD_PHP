@@ -21,23 +21,23 @@ function shoppingListReload(shoppingList) {
             }
         });
     }else{
-        $(shoppingList).each(function(k,v){
-            $('#shoppingListDiv').append($('#cartItemtDiv').html());
-            var temp = $('#shoppingListDiv').find('div.cart-item:last');
-            $(temp).find('.product-link').attr('href', 'products/detail/' + v.productId);
-            $(temp).find('img').attr('src', v.picture);
-            $(temp).find('.title').html(v.name);
-            $(temp).find('.ng-scope').html('數量：' + v.count);
-            $(temp).find('.price-details').html('NT ' + v.price * v.count);
-            $(temp).find('.remove').data("productid",v.productId);
-            $(temp).find('.remove').data("specifications",v.specifications);
-            $(temp).find('.remove').on('click',function(){
-                shoppingRmProduct($(temp).find('.remove'),false);
-                shoppingListReload();
-            });
-        });
-        $("#shoppingCountSpan").html("購物車("+shoppingList.length+")");
         if(shoppingList.length>0){
+            $(shoppingList).each(function(k,v){
+                $('#shoppingListDiv').append($('#cartItemtDiv').html());
+                var temp = $('#shoppingListDiv').find('div.cart-item:last');
+                $(temp).find('.product-link').attr('href', 'products/detail/' + v.productId);
+                $(temp).find('img').attr('src', v.picture);
+                $(temp).find('.title').html(v.name);
+                $(temp).find('.ng-scope').html('數量：' + v.count);
+                $(temp).find('.price-details').html('NT ' + v.price * v.count);
+                $(temp).find('.remove').data("productid",v.productId);
+                $(temp).find('.remove').data("specifications",v.specifications);
+                $(temp).find('.remove').on('click',function(){
+                    shoppingRmProduct($(temp).find('.remove'),false);
+                    shoppingListReload();
+                });
+            });
+            $("#shoppingCountSpan").html("購物車("+shoppingList.length+")");
             $('#shoppingListDiv').append('<div class="cart-chkt-btn"><button onclick="javascript:location.href=\'shopping\'"> 訂單結帳 </button></div>');
         }else{
             $('#shoppingListDiv').append('<div class="ng-hide"> 你的購物車是空的 </div>');
