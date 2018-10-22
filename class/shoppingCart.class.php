@@ -162,7 +162,7 @@ namespace MTsung{
 			if($orderList){
 				foreach ($orderList as $key => $value) {
 					$temp = $this->product->getProduct($value["productId"]);
-					if($value["price"]<=0 || ($temp && in_array($value["specifications"],$temp["specificationsID"]))){
+					if($temp && in_array($value["specifications"],$temp["specificationsID"]) && $value["price"]>0){
 
 						if($value["name"] != $temp["name"]) $data["name"] = $temp["name"];
 						if($value["memo"] != $temp["memo"]) $data["memo"] = $temp["memo"];

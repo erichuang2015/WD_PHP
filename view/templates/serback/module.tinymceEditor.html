@@ -63,11 +63,16 @@
                         return;
                     }
 
-                    json = JSON.parse(xhr.responseText);
+                    try{
+                        json = JSON.parse(xhr.responseText);
+                    }catch(e){
+                        alert('({$message["UPLOAD_JSON_ERROR"]}) ' + xhr.responseText);
+                        return false;
+                    }
 
                     if (!json || typeof json.location != 'string') {
                         alert('({$message["UPLOAD_JSON_ERROR"]}) ' + xhr.responseText);
-                        return;
+                        return false;
                     }
                     success(_jsPath+'/'+json.location);
                 };
@@ -113,7 +118,12 @@
                         return;
                     }
 
-                    json = JSON.parse(xhr.responseText);
+                    try{
+                        json = JSON.parse(xhr.responseText);
+                    }catch(e){
+                        alert('({$message["UPLOAD_JSON_ERROR"]}) ' + xhr.responseText);
+                        return false;
+                    }
 
                     if (!json || typeof json.location != 'string') {
                         alert('({$message["UPLOAD_JSON_ERROR"]})' + xhr.responseText);
