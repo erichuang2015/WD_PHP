@@ -142,9 +142,6 @@
 			break;
 
 		case '2':
-			if(!$member->isLogin()){
-				$console->alert($console->getMessage("IF_LOGIN_SHOPPING_THEN_INFO"),"NO");
-			}
 			try {
 				if(is_array($data["order"]["paymentTitle"]) || is_array($data["order"]["shipmentTitle"]) || count($data["orderList"])<1){
 					$console->linkto(SHOPPING_PATH);
