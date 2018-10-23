@@ -38,7 +38,6 @@ function shoppingListReload(shoppingList) {
                 $(temp).find('.remove').data("specifications",v.specifications);
                 $(temp).find('.remove').on('click',function(){
                     shoppingRmProduct($(temp).find('.remove'),false);
-                    shoppingListReload();
                 });
             });
             $('#shoppingListDiv').append('<div class="cart-chkt-btn"><button onclick="javascript:location.href=\'shopping\'"> 訂單結帳 </button></div>');
@@ -65,7 +64,6 @@ function shoppingAddProduct($obj) {
         dataType: 'text',
         success: function(msg) {
             try {
-                loadingStop();
                 temp = JSON.parse(msg);
                 if (!temp.response) {
                     alert(temp.message);
@@ -75,6 +73,7 @@ function shoppingAddProduct($obj) {
                     return false;
                 }
                 shoppingListReload(temp.data);
+                loadingStop();
                 // window.location.reload();
                 // 左側
             } catch (e) {
@@ -100,6 +99,7 @@ function shoppingRmProduct($obj,flag) {
         dataType: 'text',
         success: function(msg) {
             try {
+                shoppingListReload();
                 loadingStop();
                 temp = JSON.parse(msg);
                 if(typeof(flag) == "undefined"){
