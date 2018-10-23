@@ -11,7 +11,7 @@
 	}
 
 	//判斷登入
-	if(!$member->isLogin() && !isset($_GET["ajax"])){
+	if(!$member->isLogin() && !isset($_GET["ajax"]) && !$console->webSetting->getValue("noLoginOrder")){
 		$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] = $_SERVER["REQUEST_URI"];
 		$console->linkTo(WEB_PATH.$lang_url."/member/login");
 		exit;
@@ -80,7 +80,7 @@
 	//ajax
 	if(isset($_GET["ajax"]) && $_GET["ajax"]){
 
-		if(!$member->isLogin()){
+		if(!$member->isLogin() && !$console->webSetting->getValue("noLoginOrder")){
 			$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] = $_SERVER["HTTP_REFERER"];
 			$console->outputJson(false,$console->getMessage("PLEASE_LOGIN"),array("toUrl" => WEB_PATH.$lang_url."/member/login"));
 		}
@@ -142,6 +142,9 @@
 			break;
 
 		case '2':
+			if(!$member->isLogin()){
+				$console->alert($console->getMessage("IF_LOGIN_SHOPPING_THEN_INFO"),"NO");
+			}
 			try {
 				if(is_array($data["order"]["paymentTitle"]) || is_array($data["order"]["shipmentTitle"]) || count($data["orderList"])<1){
 					$console->linkto(SHOPPING_PATH);

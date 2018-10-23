@@ -116,17 +116,21 @@ namespace MTsung{
 
 			//是否登入
 			if($this->member->isLogin()){
-				//沒購物車新增
-				if (!$this->conn->GetRow("select * from ".$this->table." where step='1' and memberId='".$this->memberInfo["id"]."'")){
-					//session內有購物車的話取代 
-					if(isset($_SESSION[FRAME_NAME]["shoppingCart"])){
+
+				//session內有購物車的話取代 
+				if(isset($_SESSION[FRAME_NAME]["shoppingCart"])){
+					$shoppingCartId = $this->conn->GetRow("select * from ".$this->table." where step='1' and orderNumber='".$_SESSION[FRAME_NAME]["shoppingCart"]."'")["id"];
+					if($this->conn->GetArray("select * from ".$this->tableList." where shoppingCartId='".$shoppingCartId."'")){
 						$data["memberId"] = $this->memberInfo["id"];
 						$this->conn->Execute("delete ".$this->table.",".$this->tableList." from ".$this->table." INNER JOIN ".$this->tableList." ON ".$this->table.".id=".$this->tableList.".shoppingCartId where step='1' and memberId='".$data["memberId"]."'");
 						$this->conn->Execute("delete from ".$this->table." where step='1' and memberId='".$data["memberId"]."'");
 						$this->conn->AutoExecute($this->table,$data,"UPDATE","orderNumber='".$_SESSION[FRAME_NAME]["shoppingCart"]."'");
 						unset($_SESSION[FRAME_NAME]["shoppingCart"]);
 					}
+				}
 
+				//沒購物車新增
+				if (!$this->conn->GetRow("select * from ".$this->table." where step='1' and memberId='".$this->memberInfo["id"]."'")){
 					$data["memberId"] = $this->memberInfo["id"];
 					$this->conn->AutoExecute($this->table,$data,"INSERT");
 				}

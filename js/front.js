@@ -21,6 +21,9 @@ function shoppingListReload(shoppingList) {
             }
         });
     }else{
+        if(typeof(shoppingList.length) == "undefined"){
+            shoppingList.length = 0;
+        }
         $("#shoppingCountSpan").html("購物車("+shoppingList.length+")");
         if(shoppingList.length>0){
             $(shoppingList).each(function(k,v){
