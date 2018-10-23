@@ -406,14 +406,14 @@ function loadingStart(selector,theme){
 	if(theme){
 	    $(selector).loading( {
 	    	theme: 'dark',
-	    	zIndex: 9999
+	    	zIndex: 9999999
 	    });
 	}else{
 
 		$(selector).append('<div class="loader loader-default is-active" data-text="'+_jsMsg["LOADING"]+'"></div>');
 		$(selector).loading({
 			overlay: $(".loader"),
-			zIndex: 9999
+			zIndex: 9999999
 		});
 	}
 }
