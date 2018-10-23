@@ -1,5 +1,6 @@
 
 function shoppingListReload(shoppingList) {
+    loadingStart();
     $('#shoppingListDiv').html("");
     if(typeof(shoppingList) == "undefined"){
         var shoppingList;
@@ -18,6 +19,7 @@ function shoppingListReload(shoppingList) {
                 } catch (e) {
                     alert("error : " + e);
                 }
+                loadingStop();
             }
         });
     }else{
@@ -74,8 +76,6 @@ function shoppingAddProduct($obj) {
                 }
                 shoppingListReload(temp.data);
                 loadingStop();
-                // window.location.reload();
-                // 左側
             } catch (e) {
                 alert("error : " + e);
             }
@@ -99,8 +99,6 @@ function shoppingRmProduct($obj,flag) {
         dataType: 'text',
         success: function(msg) {
             try {
-                shoppingListReload();
-                loadingStop();
                 temp = JSON.parse(msg);
                 if(typeof(flag) == "undefined"){
                     alert(temp.message);
@@ -109,6 +107,7 @@ function shoppingRmProduct($obj,flag) {
                     }
                     window.location.reload();
                 }
+                shoppingListReload();
             } catch (e) {
                 alert("error : " + e);
             }
