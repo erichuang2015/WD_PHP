@@ -45,19 +45,20 @@ function formSubmit(index) {
 	
 	msg = "";
 	$(".chosen-container").removeClass("is-invalid");
+	$("div").removeClass("is-invalid");
 	$("form:eq("+index+")").find('input,textarea,select').removeClass("is-invalid");
 	$("form:eq("+index+")").find('input,textarea,select').each(function(index) {
 		if($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio"){
 			if($(this).data("check_min")){
 				if($("input[name='"+$(this).attr("name")+"']:checked").length < $(this).data("check_min")){
 					msg += " [" + ($(this).data("text")?$(this).data("text"):$(this).attr("name")) + "] " + _jsMsg["LEAST_SELECT"] + " " + $(this).data("check_min") + " " + _jsMsg["ITEM"] + "\n";
-					$(this).addClass("is-invalid");
+					$(this).parent().addClass("is-invalid");
 				}
 			}
 			if($(this).data("check_max")){
 				if($("input[name='"+$(this).attr("name")+"']:checked").length > $(this).data("check_max")){
 					msg += " [" + ($(this).data("text")?$(this).data("text"):$(this).attr("name")) + "] " + _jsMsg["SELECT_ACHIEVE_MAX"] + " " + $(this).data("check_max") + " " + _jsMsg["ITEM"] + "\n";
-					$(this).addClass("is-invalid");
+					$(this).parent().addClass("is-invalid");
 				}
 			}
 		}else{
