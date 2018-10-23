@@ -43,6 +43,7 @@ function formSubmit(index) {
 		index = 0;
 	}
 	
+	tempInput = [];
 	msg = "";
 	$(".chosen-container").removeClass("is-invalid");
 	$("div").removeClass("is-invalid");
@@ -68,6 +69,7 @@ function formSubmit(index) {
 				if($(this).data("type")=="chosen"){
 					$(this).next("div").addClass("is-invalid");
 				}else{
+					tempInput.push(this);
 					$(this).addClass("is-invalid");
 				}
 				// }
@@ -85,10 +87,12 @@ function formSubmit(index) {
 						try{
 							if(!eval(fun+"('"+dataVal+"')")){
 								msg += " [" + (dataText?dataText:dataName) + "] " + _jsMsg["FIELD_FORMAT_ERROR"] + " " + eval(fun1+"()") + "\n";
+								tempInput.push(dataObj);
 								dataObj.addClass("is-invalid");
 							}
 						}catch(exception){
 							msg += " [" + (dataText?dataText:dataName) + "] " + _jsMsg["FIELD_FORMAT_ERROR"] + " " + eval(fun1+"()") + "\n";
+							tempInput.push(dataObj);
 							dataObj.addClass("is-invalid");
 						}
 					}else{
@@ -104,12 +108,19 @@ function formSubmit(index) {
 			if(parent && (parent!=$(this).val())){
 				msg += _jsMsg["USER_PASSWORD_CHECK_ERROR"];
 				$(this).addClass("is-invalid");
+				tempInput.push(this);
 			}
 			parent = $(this).val();
 		});
 	}
 
 	if(msg){
+		$(tempInput).each(function(){
+			if($(this).is(":visible")){
+				$(this).focus();
+				return false;
+			}
+		});
 		alert(msg);
 		return false;
 	}else{
