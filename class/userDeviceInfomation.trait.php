@@ -41,7 +41,7 @@ namespace MTsung{
 		        $os = "Windows 98";
 		    }elseif(stripos($sys, "95")){
 		        $os = "Windows 95";
-		    }elseif(stripos($sys, "Mac")){
+		    }elseif(stripos($sys, "Mac") && $this->getDevice()=="Desktop"){
 		        $os = "Mac";
 		    }elseif(stripos($sys, "Unix")){
 		        $os = "Unix";
@@ -57,6 +57,10 @@ namespace MTsung{
 		        $os = "Macintosh";
 		    }elseif(stripos($sys, "AIX")){
 		        $os = "AIX";
+		    }elseif(stripos($sys, "Android")){
+		        $os = "Android";
+		    }elseif(stripos($sys, "iPhone")){
+		        $os = "iOS";
 		    }else{
 		        $os = "Other";
 		    }
@@ -73,15 +77,12 @@ namespace MTsung{
 		    $android = strstr(strtolower($ua), 'android'); //Search for 'android' in user-agent
 		    $windowsPhone = strstr(strtolower($ua), 'phone'); //Search for 'phone' in user-agent (Windows Phone uses that)
 		 
-		 
-		    function androidTablet($ua){ //Find out if it is a tablet
-		        if(strstr(strtolower($ua), 'android') ){//Search for android in user-agent
-		            if(!strstr(strtolower($ua), 'mobile')){ //If there is no ''mobile' in user-agent (Android have that on their phones, but not tablets)
-		                return true;
-		            }
-		        }
-		    }
-		    $androidTablet = androidTablet($ua); //Do androidTablet function
+		    $androidTablet = false;
+		    if(strstr(strtolower($ua), 'android') ){//Search for android in user-agent
+	            if(!strstr(strtolower($ua), 'mobile')){ //If there is no ''mobile' in user-agent (Android have that on their phones, but not tablets)
+	                $androidTablet = ture;
+	            }
+	        }
 		    $ipad = strstr(strtolower($ua), 'ipad'); //Search for iPad in user-agent
 		 
 		    if($androidTablet || $ipad){ //If it's a tablet (iPad / Android)

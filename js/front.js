@@ -26,7 +26,7 @@ function shoppingListReload(shoppingList) {
         if(typeof(shoppingList.length) == "undefined"){
             shoppingList.length = 0;
         }
-        $("#shoppingCountSpan").html("購物車("+shoppingList.length+")");
+        $("#shoppingCountSpan").html("購物車("+(shoppingList.length*1)+")");
         if(shoppingList.length>0){
             $(shoppingList).each(function(k,v){
                 $('#shoppingListDiv').append($('#cartItemtDiv').html());
@@ -72,10 +72,11 @@ function shoppingAddProduct($obj) {
                     if(temp.data["toUrl"]){
                         location.href = temp.data["toUrl"];
                     }
-                    return false;
                 }
                 shoppingListReload(temp.data);
                 loadingStop();
+                // window.location.reload();
+                // 左側
             } catch (e) {
                 alert("error : " + e);
             }
@@ -103,6 +104,7 @@ function shoppingRmProduct($obj,flag) {
                 if(typeof(flag) == "undefined"){
                     alert(temp.message);
                     if (!temp.response) {
+                        loadingStop();
                         return false;
                     }
                     window.location.reload();
@@ -157,14 +159,14 @@ function loadingStart(selector,theme){
     if(theme){
         $(selector).loading( {
             theme: 'dark',
-            zIndex: 9999999
+            zIndex: 99999999
         });
     }else{
 
         $(selector).append('<div class="loader loader-default is-active" data-text="'+_jsMsg["LOADING"]+'"></div>');
         $(selector).loading({
             overlay: $(".loader"),
-            zIndex: 9999999
+            zIndex: 99999999
         });
     }
 }

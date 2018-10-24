@@ -586,7 +586,7 @@
                                 ({section name=i loop=$data.orderList})
 
                                     <tr bgcolor="#eee">
-                                        <th scope="row">({$data.orderList[i].id})</th>
+                                        <th scope="row">({$data.orderList[i].productId})</th>
                                         <td><img style="max-height: 45px; max-width: 45px;" src="({$data.orderList[i].picture})"></td>
                                         <td>({$data.orderList[i].name})</td>
                                         <td>({$data.orderList[i].specifications})</td>
@@ -597,7 +597,7 @@
                                     ({if isset($data.orderList.addList)})
                                         ({section name=j loop=$data.orderList.addList})
                                             <tr>
-                                                <th scope="row">({$data.orderList[i].addList[j].id})</th>
+                                                <th scope="row">({$data.orderList[i].addList[j].productId})</th>
                                                 <td><img style="max-height: 45px; max-width: 45px;" src="({$data.orderList[i].addList[j].picture})"></td>
                                                 <td>({$data.orderList[i].addList[j].name})</td>
                                                 <td>({$data.orderList[i].addList[j].specifications})</td>

@@ -20,6 +20,7 @@ namespace MTsung{
 		var $table;//資料表名稱(購物車)
 		var $tableList;//資料表名稱(購物車商品清單)
 		var $message;//訊息
+		var $isStockMode = true;//庫存模式
 
 		function __construct($console,$member,$product,$table=PREFIX."shopping_cart",$lang=LANG){
 			parent::__construct($console,$table,$lang);
@@ -270,11 +271,12 @@ namespace MTsung{
 			}else{
 				$temp = $this->product->getProduct($id);
 				if($temp && in_array($specifications,$temp["specificationsID"])){
-					if($count > $temp["maxCount"][array_search($specifications, $temp["specificationsID"])]){
+					$maxCount = $temp["maxCount"][array_search($specifications, $temp["specificationsID"])];
+					if(($count > $maxCount) && $maxCount){
 						$this->message = $this->console->getMessage("ERROR_PRODUCT_MAX_COUNT");
 						return false;
 					}
-					if($count+$addCount > $temp["stock"][array_search($specifications, $temp["specificationsID"])]){
+					if($count+$addCount > $temp["stock"][array_search($specifications, $temp["specificationsID"])] && $this->isStockMode){
 						$this->message = $this->console->getMessage("ERROR_PRODUCT_STOCK",array($temp["name"],$count+$addCount));
 						return false;
 					}
@@ -325,11 +327,12 @@ namespace MTsung{
 			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->tableList." where parentId is NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications));
 			if($temp){
 				$temp = $this->product->getProduct($id);
-				if($count > $temp["maxCount"][array_search($specifications, $temp["specificationsID"])]){
+				$maxCount = $temp["maxCount"][array_search($specifications, $temp["specificationsID"])];
+				if(($count > $maxCount) && $maxCount){
 					$this->message = $this->console->getMessage("ERROR_PRODUCT_MAX_COUNT");
 					return false;
 				}
-				if($count+$addCount > $temp["stock"][array_search($specifications, $temp["specificationsID"])]){
+				if($count+$addCount > $temp["stock"][array_search($specifications, $temp["specificationsID"])] && $this->isStockMode){
 					$this->message = $this->console->getMessage("ERROR_PRODUCT_STOCK",array($temp["name"],$count+$addCount));
 					return false;
 				}
@@ -394,11 +397,12 @@ namespace MTsung{
 					$tempParent = $this->product->getProduct($parentId);
 					$tempAdd = $this->product->getProduct($id);
 					if(in_array($specifications,$tempAdd["specificationsID"]) && in_array($specifications,$tempParent["addProductSpecifications"])){
-						if($count > $tempParent["addProductMaxCount"][array_search($specifications, $tempParent["addProductSpecifications"])]){
+						$addMaxCount = $tempParent["addProductMaxCount"][array_search($specifications, $tempParent["addProductSpecifications"])];
+						if(($count > $addMaxCount) && $addMaxCount){
 							$this->message = $this->console->getMessage("ERROR_PRODUCT_MAX_COUNT");
 							return false;
 						}
-						if($count+$parentCount > $tempAdd["stock"][array_search($specifications, $tempAdd["specificationsID"])]){
+						if($count+$parentCount > $tempAdd["stock"][array_search($specifications, $tempAdd["specificationsID"])] && $this->isStockMode){
 							$this->message = $this->console->getMessage("ERROR_PRODUCT_STOCK",array($tempAdd["name"],$count+$parentCount));
 							return false;
 						}
@@ -461,11 +465,12 @@ namespace MTsung{
 
 				$tempParent = $this->product->getProduct($parentId);
 				$tempAdd = $this->product->getProduct($id);
-				if($count > $tempParent["addProductMaxCount"][array_search($specifications, $tempParent["addProductSpecifications"])]){
+				$addMaxCount = $tempParent["addProductMaxCount"][array_search($specifications, $tempParent["addProductSpecifications"])];
+				if(($count > $addMaxCount) && $addMaxCount){
 					$this->message = $this->console->getMessage("ERROR_PRODUCT_MAX_COUNT");
 					return false;
 				}
-				if($count+$parentCount > $tempAdd["stock"][array_search($specifications, $tempAdd["specificationsID"])]){
+				if($count+$parentCount > $tempAdd["stock"][array_search($specifications, $tempAdd["specificationsID"])] && $this->isStockMode){
 					$this->message = $this->console->getMessage("ERROR_PRODUCT_STOCK",array($tempAdd["name"],$count+$parentCount));
 					return false;
 				}
@@ -511,6 +516,9 @@ namespace MTsung{
 		 * @return [type] [description]
 		 */
 		function checkStock($rm=false){
+			if(!$this->isStockMode){
+				return true;
+			}
 			$this->message = '';
 			$temp =  $this->conn->GetArray("select productId,specifications,SUM(count) as count from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' group by productId,specifications");
 			if($temp){
@@ -544,13 +552,15 @@ namespace MTsung{
 			if($temp){
 				foreach ($temp as $key => $value) {
 					$productTemp = $this->product->getProduct($value["productId"]);
-					if($value["count"] > $productTemp["maxCount"][array_search($value["specifications"], $productTemp["specificationsID"])]){
+					$maxCount = $productTemp["maxCount"][array_search($value["specifications"], $productTemp["specificationsID"])];
+					if(($value["count"] > $maxCount) && $maxCount){
 						$this->message .= $this->console->getMessage("PRODUCT_MAX_COUNT",array($value["name"])).'\n';
 					}
 					if($value["addProductList"]){
 						foreach ($value["addProductList"] as $keyAdd => $valueAdd) {
 							$tempParent = $this->product->getProduct($valueAdd["parentId"]);
-							if($valueAdd["count"] > $tempParent["addProductMaxCount"][array_search($valueAdd["specifications"], $tempParent["addProductSpecifications"])]){
+							$addMaxCount = $tempParent["addProductMaxCount"][array_search($valueAdd["specifications"], $tempParent["addProductSpecifications"])];
+							if(($valueAdd["count"] > $addMaxCount) && $addMaxCount){
 								$this->message .= $this->console->getMessage("ADD_PRODUCT_MAX_COUNT",array($valueAdd["name"])).'\n';
 							}
 						}

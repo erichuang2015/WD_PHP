@@ -1,0 +1,218 @@
+({include file='top.html'})
+<div class="card-deck">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="list" href="#list-version">({$label_back["ANALYTICS"]})</a>
+                </li>
+            </ul>
+        </div>
+            <div class="tab-content">
+                <div class="card-body tab-pane fade show active" id="list-test">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <canvas id="canvasDevice"></canvas>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <canvas id="canvasSystem"></canvas>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <canvas id="canvasLang"></canvas>
+                        </div>
+                        <div class="col-md-10 mb-3">
+                            <canvas id="canvasCount"></canvas>
+                        </div>
+                    </div>
+                    <script>
+
+
+
+
+
+
+
+                        var randomScalingFactor = function() {
+                            return Math.round(Math.random() * 1000);
+                        };
+                        var color = Chart.helpers.color;
+                        var colorArray = [
+                                "rgb(54, 162, 235)",
+                                "rgb(75, 192, 192)",
+                                "rgb(242, 239, 70)",
+                                "rgb(255, 159, 64)",
+                                "rgb(153, 102, 255)",
+                                "rgb(255, 99, 132)",
+                                "rgb(255, 205, 86)",
+                            ];
+
+
+                        window.onload = function() {
+
+                            var ctx = document.getElementById('canvasCount').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: [({section name=i loop=$data.analytics.month})'({$data.analytics.month[i]})',({/section})],
+                                    datasets: [{
+                                        label: '({$label_back["ANALYTICS_COUNT"]})',
+                                        backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
+                                        data: [
+                                            ({section name=i loop=$data.analytics.count})'({$data.analytics.count[i]})',({/section})
+                                        ],
+                                        fill: false,
+                                    },
+                                    {
+                                        label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                        backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+                                        data: [
+                                            ({section name=i loop=$data.analytics.repeatCount})'({$data.analytics.repeatCount[i]})',({/section})
+                                        ],
+                                        fill: false,
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    title: {
+                                        display: true,
+                                        text: '({$label_back["ANALYTICS_6_MONTH_COUNT"]})'
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        intersect: false,
+                                    },
+                                    hover: {
+                                        mode: 'nearest',
+                                        intersect: true
+                                    }
+                                }
+                            });
+
+
+                            var ctx = document.getElementById('canvasDevice').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: [({section name=i loop=$data.analytics.device})'({$data.analytics.device[i].name})',({/section})],
+                                    datasets: [{
+                                        backgroundColor: [
+                                            ({section name=i loop=$data.analytics.device})colorArray[({$smarty.section.i.index})%7],({/section})
+                                        ],
+                                        // borderColor: '#0000FF',
+                                        borderWidth: 1,
+                                        data: [
+                                            ({section name=i loop=$data.analytics.device})'({$data.analytics.device[i].count})',({/section})
+                                        ]
+                                    }]
+
+                                },
+                                options: {
+                                    responsive: true,
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: '({$label_back["ANALYTICS_DEVICE"]})'
+                                    }
+                                }
+                            });
+
+
+                            var ctx = document.getElementById('canvasSystem').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: [({section name=i loop=$data.analytics.system})'({$data.analytics.system[i].name})',({/section})],
+                                    datasets: [{
+                                        backgroundColor: [
+                                            ({section name=i loop=$data.analytics.system})colorArray[({$smarty.section.i.index})%7],({/section})
+                                        ],
+                                        borderWidth: 1,
+                                        data: [
+                                            ({section name=i loop=$data.analytics.system})'({$data.analytics.system[i].count})',({/section})
+                                        ]
+                                    }]
+
+                                },
+                                options: {
+                                    responsive: true,
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: '({$label_back["ANALYTICS_SYSTEM"]})'
+                                    }
+                                }
+                            });
+                            
+                            ({if count($console->getLanguageArray("array"))>1})
+                            var ctx = document.getElementById('canvasLang').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: [({section name=i loop=$data.analytics.lang})'({$data.analytics.lang[i].name})',({/section})],
+                                    datasets: [{
+                                        backgroundColor: [
+                                            ({section name=i loop=$data.analytics.lang})colorArray[({$smarty.section.i.index})%7],({/section})
+                                        ],
+                                        borderWidth: 1,
+                                        data: [
+                                            ({section name=i loop=$data.analytics.lang})'({$data.analytics.lang[i].count})',({/section})
+                                        ]
+                                    }]
+
+                                },
+                                options: {
+                                    responsive: true,
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: '({$label_back["ANALYTICS_LANG"]})'
+                                    }
+                                }
+                            });
+                            ({/if})
+
+                            // Define a plugin to provide data labels
+                            // Chart.plugins.register({
+                            //     afterDatasetsDraw: function(chart) {
+                            //         var ctx = chart.ctx;
+
+                            //         chart.data.datasets.forEach(function(dataset, i) {
+                            //             var meta = chart.getDatasetMeta(i);
+                            //             if (!meta.hidden) {
+                            //                 meta.data.forEach(function(element, index) {
+                            //                     // Draw the text in black, with the specified font
+                            //                     ctx.fillStyle = 'rgb(0, 0, 0, 0.7)';
+
+                            //                     var fontSize = 16;
+                            //                     var fontStyle = 'normal';
+                            //                     var fontFamily = 'Helvetica Neue';
+                            //                     ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                            //                     // Just naively convert to string for now
+                            //                     var dataString = dataset.data[index].toString();
+
+                            //                     // Make sure alignment settings are correct
+                            //                     ctx.textAlign = 'center';
+                            //                     ctx.textBaseline = 'middle';
+
+                            //                     var padding = 5;
+                            //                     var position = element.tooltipPosition();
+                            //                     ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+                            //                 });
+                            //             }
+                            //         });
+                            //     }
+                            // });
+                        };
+
+                    </script>
+                </div>
+    </div>
+</div>
+({include file='foor.html'})

@@ -5,6 +5,10 @@
 		exit;
 	}
 
+	$analytics = new MTsung\analytics($console);
+	$analytics->addLog();
+	
+
 	$lang = $console->getLanguage();
 	$member = new MTsung\member($console,PREFIX.'member');
 	$product = new MTsung\product($console,PREFIX."product",$lang);
