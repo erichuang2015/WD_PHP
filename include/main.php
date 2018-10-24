@@ -933,6 +933,13 @@ namespace MTsung{
 		 */
 		function to404(){
 			http_response_code(404);
+			$web_set['main_path'] = $this->MT_web['main_path'];
+			$web_set['lang'] = count($this->getLanguageArray("array"))==1?'':$this->getLanguage();
+			$web_set['main_url'] = $web_set['main_path'].($web_set['lang']?'/'.$web_set['lang']:'');
+			$web_set = array_merge($web_set,$this->webSetting->getValue());
+			$web_set = array_merge($web_set,$this->setting->getValue());
+			$web_set = array_map("htmlspecialchars_decode",$web_set);
+			$this->design->setData("web", @$web_set);
 			$this->design->loadDisplay('../../../404.html');
 			exit;
 		}

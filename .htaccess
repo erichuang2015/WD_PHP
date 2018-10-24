@@ -20,8 +20,8 @@ Options -Indexes
     RewriteEngine on
     #RewriteBase /
 
-	ErrorDocument 403 http://%{HTTP_HOST}/404.html
-	ErrorDocument 404 http://%{HTTP_HOST}/404.html
+	ErrorDocument 403 http://%{HTTP_HOST}/404
+	ErrorDocument 404 http://%{HTTP_HOST}/404
 
 	#縮圖轉址
     RewriteRule (.+)\.(.+)\.min$ $1_min\.$2 [R,L]
@@ -29,7 +29,7 @@ Options -Indexes
 	#RewriteRule (.[^\.]).(php)$ - [L]
 	#RewriteRule (.[^\.]).(mp3|mov|php|mp4|avi|wmv)$ - [NC,F,L]
 
-	RewriteCond $1 !^(ajax\.php|upload\.php|web|socket\.php|robots\.txt|output|upload|css|js|fonts|images|language|include|verifycode\.php|.*\.ico|404\.html|$)
+	RewriteCond $1 !^(ajax\.php|upload\.php|web|socket\.php|robots\.txt|output|upload|css|js|fonts|images|language|include|verifycode\.php|.*\.ico|$)
 	#RewriteCond $1 ^(error|serback)
 
 	#.* 一到多個任意字元 
