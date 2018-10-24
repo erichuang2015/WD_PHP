@@ -66,12 +66,12 @@
                     try{
                         json = JSON.parse(xhr.responseText);
                     }catch(e){
-                        alert('({$message["UPLOAD_JSON_ERROR"]}) ' + xhr.responseText);
+                        alert('({$message["UPLOAD_ERROR"]}) ' + xhr.responseText);
                         return false;
                     }
 
                     if (!json || typeof json.location != 'string') {
-                        alert('({$message["UPLOAD_JSON_ERROR"]}) ' + xhr.responseText);
+                        alert('({$message["UPLOAD_ERROR"]}) ' + xhr.responseText);
                         return false;
                     }
                     success(_jsPath+'/'+json.location);
@@ -121,12 +121,12 @@
                     try{
                         json = JSON.parse(xhr.responseText);
                     }catch(e){
-                        alert('({$message["UPLOAD_JSON_ERROR"]}) ' + xhr.responseText);
+                        alert('({$message["UPLOAD_ERROR"]}) ' + xhr.responseText);
                         return false;
                     }
 
                     if (!json || typeof json.location != 'string') {
-                        alert('({$message["UPLOAD_JSON_ERROR"]})' + xhr.responseText);
+                        alert('({$message["UPLOAD_ERROR"]})' + xhr.responseText);
                         return;
                     }
 
