@@ -80,8 +80,8 @@ if($temp){
 $url = str_replace($console->getLanguage()."/","",$_SERVER["REQUEST_URI"]);//刪除網址的語言部份
 if(0 === strpos($url,$console->MT_web["serback_path"]) && isset($console->path[0]) && $console->path[0] != "index" && $console->path[0] != "" ){
 	$_OK = false;
+	$url = substr($url,strlen($console->MT_web["serback_path"]."/"));
 	foreach ($menuUrl as $key => $value) {
-		$url = str_replace($console->MT_web["serback_path"]."/","",$url);
 		if((0 === strpos($url,$value)) && (!isset($url[strlen($value)]) || (isset($url[strlen($value)]) && ($url[strlen($value)]=="/" || $url[strlen($value)]=="?")))){
 			$_OK = true;
 			/**

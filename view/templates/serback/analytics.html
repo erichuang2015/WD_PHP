@@ -11,16 +11,22 @@
             <div class="tab-content">
                 <div class="card-body tab-pane fade show active" id="list-test">
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-6 mb-3">
                             <canvas id="canvasDevice"></canvas>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-6 mb-3">
                             <canvas id="canvasSystem"></canvas>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-6 mb-3">
                             <canvas id="canvasLang"></canvas>
                         </div>
-                        <div class="col-md-10 mb-3">
+                        <div class="col-md-12 mb-3">
+                            <canvas id="canvasCount24H"></canvas>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <canvas id="canvasCountMonth"></canvas>
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <canvas id="canvasCount"></canvas>
                         </div>
                     </div>
@@ -76,6 +82,84 @@
                                     title: {
                                         display: true,
                                         text: '({$label_back["ANALYTICS_6_MONTH_COUNT"]})'
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        intersect: false,
+                                    },
+                                    hover: {
+                                        mode: 'nearest',
+                                        intersect: true
+                                    }
+                                }
+                            });
+
+                            var ctx = document.getElementById('canvasCount24H').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: [({section name=i loop=$data.analytics.count24H})'({$smarty.section.i.index})',({/section})],
+                                    datasets: [{
+                                        label: '({$label_back["ANALYTICS_COUNT"]})',
+                                        backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
+                                        data: [
+                                            ({section name=i loop=$data.analytics.count24H})'({$data.analytics.count24H[i]})',({/section})
+                                        ],
+                                        fill: false,
+                                    },
+                                    {
+                                        label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                        backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+                                        data: [
+                                            ({section name=i loop=$data.analytics.repeatCount24H})'({$data.analytics.repeatCount24H[i]})',({/section})
+                                        ],
+                                        fill: false,
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    title: {
+                                        display: true,
+                                        text: '({$label_back["ANALYTICS_24H_COUNT"]})'
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        intersect: false,
+                                    },
+                                    hover: {
+                                        mode: 'nearest',
+                                        intersect: true
+                                    }
+                                }
+                            });
+
+                            var ctx = document.getElementById('canvasCountMonth').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: [({section name=i loop=$data.analytics.countMonth})'({$smarty.section.i.index+1})',({/section})],
+                                    datasets: [{
+                                        label: '({$label_back["ANALYTICS_COUNT"]})',
+                                        backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
+                                        data: [
+                                            ({section name=i loop=$data.analytics.countMonth})'({$data.analytics.countMonth[i]})',({/section})
+                                        ],
+                                        fill: false,
+                                    },
+                                    {
+                                        label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                        backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+                                        data: [
+                                            ({section name=i loop=$data.analytics.repeatCountMonth})'({$data.analytics.repeatCountMonth[i]})',({/section})
+                                        ],
+                                        fill: false,
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    title: {
+                                        display: true,
+                                        text: '({$label_back["ANALYTICS_MONTH_COUNT"]})'
                                     },
                                     tooltips: {
                                         mode: 'index',

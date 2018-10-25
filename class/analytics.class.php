@@ -13,6 +13,9 @@ namespace MTsung{
 			$this->setConsole($console);
 			$this->conn = $this->console->conn;
 			$this->checkTable();
+			//刪除超過半年的資料
+			$rmDate = date('Y-m-d H:i:s',strtotime(DATE)-(86400*365/2));
+			$this->conn->Execute("delete from ".$this->table." where time<'".$rmDate."'");
 		}
 
 		/**
