@@ -29,6 +29,7 @@
 	include_once(APP_PATH.'class/ECPay.class.php');					//綠界
 	include_once(APP_PATH.'class/ECPayLog.class.php');				//綠界
 	include_once(APP_PATH.'class/csv.class.php');					//csv
+	include_once(APP_PATH.'class/analytics.class.php');				//analytics
 	include_once(APP_PATH.'include/main.php');						//核心
 	
 	$design = new MTsung\design();

@@ -24,16 +24,29 @@
                 <div class="tab-content">
 
                     ({if $switch.listList!=0})
+                    <style>
+                        #dropDIV{
+                            background-color: #f5f7ff;
+                            text-align: center;
+                            width: 100%;
+                            height: 80px;
+                            margin: auto;
+                            border: dashed 5px gray;
+                        }
+                    </style>
                         <div class="card-body tab-pane fade show active" id="list-list">
+                            <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" style="border:dashed 5px gray;"  onclick="document.getElementById('ff({$_I_})').click();">({$label_back.FILE_DROP})
+                            <div id="up_progress"></div></div>
+                            <input type="file" class="form-control-file" id="ff" multiple onchange="dropHandler('',0);" style="display: none;" />
                             <table class="table table-striped">
                                 <thead class="thead-light">
                                     <tr>
-                                       <!--  <th scope="col" width="2%">
+                                        <th scope="col" width="2%">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input border" id="checkAll">
                                                 <label class="custom-control-label" for="checkAll"></label>
                                             </div>
-                                        </th> -->
+                                        </th>
                                         <th scope="col">({$label_back["NAME"]})</th>
                                         <th scope="col">({$label_back["FILE_SIZE"]})</th>
                                     </tr>
@@ -41,12 +54,12 @@
                                 <tbody>
                                     ({section name=i loop=$data.list})
                                         <tr>
-                                            <!-- <td scope="row">
+                                            <td scope="row">
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck_({$data.list[i].name})" name="checkElement[]" value="({$data.list[i].name})">
                                                     <label class="custom-control-label" for="customCheck_({$data.list[i].name})"></label>
                                                 </div>
-                                            </td> -->
+                                            </td>
                                             <td><a href="({$data.listUrl})/({$data.list[i].name})">({$data.list[i].name})</a></td>
                                             <td>({$data.list[i].size})</td>
                                         </tr>
@@ -54,6 +67,64 @@
                                 </tbody>
                             </table>            
                         </div>
+    <script>
+        function dragoverHandler(evt) {
+            evt.preventDefault();
+        }
+
+        function dropHandler(evt,flag) { //evt 為 DragEvent 物件
+            if(typeof(flag) == "undefined"){
+                flag = 1;
+            }
+
+            if(flag==1){
+                evt.preventDefault();
+                var files = evt.dataTransfer.files; //由DataTransfer物件的files屬性取得檔案物件
+            }else{
+                var files = document.getElementById('ff').files;
+            }
+
+            var objForm = new FormData();
+            var xhr = new XMLHttpRequest();
+            var up_progress = document.getElementById('up_progress');
+            xhr.open('POST', '({$smarty.server.REQUEST_URI})');
+            
+            xhr.onload = function() {
+                up_progress.innerHTML = '({$label_back.UPLOAD_IMG_OK})';
+                window.location.reload();
+                document.getElementById('ff').value = '';
+                document.getElementById('dropDIV').style.border = 'dashed 5px gray';
+            };
+            xhr.upload.onprogress = function(evt) {
+                //上傳進度
+                if (evt.lengthComputable) {
+                    var complete = (evt.loaded / evt.total * 100 | 0);
+                    if (100 == complete) {
+                        up_progress.innerHTML = '({$label_back.FILE_PROCESSING})';
+                    }else{
+                        up_progress.innerHTML = complete + ' %';
+                    }
+                }
+            };
+            var errMsg='';
+            for (var i = 0; i < files.length; i++) {
+                // var check_image_type = ['jpeg', 'jpg', 'bmp', 'gif', 'png', 'ico'];
+                // var check_file_name = files[i].name.split('.');
+                // check_file_name = check_file_name[check_file_name.length - 1];
+                // if (check_image_type.indexOf(check_file_name.toLowerCase()) < 0) {
+                //     errMsg += files[i].name+'({$label_back.UPLOAD_IMG_TYPE_ERROR})\n';
+                // } else {
+                    objForm.append('images[]', files[i]);
+                // }
+            }
+            if(errMsg!=''){
+                alert(errMsg);
+            }else{
+                xhr.send(objForm); //開始上傳
+            }
+        }
+
+    </script>
                     ({/if})
 
                     ({if $switch.editList!=0})

@@ -31,6 +31,15 @@ while(strpos($dir,'../')!==false || strpos($dir,'..\\')!==false){
 $dirPath = iconv("BIG5", "UTF-8",APP_PATH.$dir);
 
 
+if($_FILES){
+	foreach ($_FILES as $key => $value) {
+		foreach ($value["name"] as $key1 => $value1) {
+			move_uploaded_file($value["tmp_name"][$key1],$dirPath."/".$value1);
+		}
+	}
+	exit;
+}
+
 //刪除
 if($_POST && $console->path[count($console->path)-1]=="delete" && isset($_POST["checkElement"])){
 	$data["listUrl"] = str_replace('/delete',"/",$data["listUrl"]);
@@ -103,7 +112,7 @@ if(!is_dir($dirPath)){//編輯
 	});
     closedir ($dh);
 
-	// $switch["deleteButton"] = 1;
+	$switch["deleteButton"] = 1;
 	$switch["listList"] = 1;
 }
 

@@ -12,14 +12,18 @@
         <div class="aceEditor" id="aceEditor" >({$data[$module.aceEditor.name]})</div>
     </div>
 
-    ({literal})
         <script>
             $(function() {
                 var editor = ace.edit("aceEditor");
                 ace.require("ace/ext/language_tools");
                 ace.require('ace/multi_select');
                 editor.setTheme("ace/theme/monokai");
-                editor.session.setMode("ace/mode/html");
+                ({if !isset($module.aceEditor.type)})
+                    editor.session.setMode("ace/mode/html");
+                ({else})
+                    editor.session.setMode("ace/mode/({$module.aceEditor.type})");
+                ({/if})
+    ({literal})
                 editor.setFontSize(16);
                 editor.setPrintMarginColumn(-1);
                 editor.setHighlightActiveLine(true);

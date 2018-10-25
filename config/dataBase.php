@@ -12,9 +12,9 @@
 	if(!isset($_SERVER["HTTP_HOST"]) || strpos($_SERVER["HTTP_HOST"],"localhost")!==false || strpos($_SERVER["HTTP_HOST"],"127.0.0.1")!==false){
 		//本機
 		$dbHost = "localhost";
-		$dbUser = "";
-		$dbPass = "";
-		$dbData = "";
+		$dbUser = "root";
+		$dbPass = "74512345";
+		$dbData = "MT_test";
 	}else{
 		//線上
 		$dbHost = "localhost";
