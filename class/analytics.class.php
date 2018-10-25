@@ -4,7 +4,7 @@ namespace MTsung{
 
 	class analytics{
 		use userDeviceInfomation;
-		var $resetTime = 600;//秒數內不重複計算
+		var $resetTime = 1800;//秒數內不重複計算
 		var $table = PREFIX."analytics";
 		var $console;
 		var $member;
@@ -26,7 +26,7 @@ namespace MTsung{
 					CREATE TABLE `".$this->table."` (
 					  `id` int(11) NOT NULL AUTO_INCREMENT,
 					  `ip` varchar(191) DEFAULT NULL COMMENT 'ip',
-					  `agent` varchar(191) DEFAULT NULL COMMENT '使用環境',
+					  `agent` TEXT DEFAULT NULL COMMENT '使用環境',
 					  `device` varchar(191) DEFAULT NULL COMMENT '裝置',
 					  `system` varchar(191) DEFAULT NULL COMMENT '系統',
 					  `lang` varchar(191) DEFAULT NULL COMMENT '語系',

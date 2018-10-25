@@ -143,7 +143,10 @@ INSERT INTO `database_menu` (`id`,`name`,`floor`,`parent`,`url`,`sort`,`step`,`s
 ('71','PAYMENT_SETTING','2','3','setting/payment','2','22','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
 ('72','SHIPMENT_SETTING','2','3','setting/shipment','3','23','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
 ('74','SHOPPING_NOTICE','2','43','basicOne/notice','4','9','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
-('76','TERMS','2','43','basicOne/terms','5','10','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin');
+('76','TERMS','2','43','basicOne/terms','5','10','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
+('77','WEB_ANALYSIS','0','0','','1','41','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
+('78','WEB_ANALYSIS','1','77','','1','42','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
+('79','USER_ANALYSIS','2','78','analyticss','1','43','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin');
 
 DROP TABLE IF EXISTS `database_setting`;
 
