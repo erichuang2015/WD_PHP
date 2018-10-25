@@ -112,6 +112,7 @@ if(!is_dir($dirPath)){//編輯
 	});
     closedir ($dh);
 
+    $data["dirPath"] = $dir;
 	$switch["deleteButton"] = 1;
 	$switch["listList"] = 1;
 }

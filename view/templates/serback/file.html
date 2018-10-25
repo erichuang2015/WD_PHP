@@ -60,7 +60,7 @@
                                                     <label class="custom-control-label" for="customCheck_({$data.list[i].name})"></label>
                                                 </div>
                                             </td>
-                                            <td><a href="({$data.listUrl})/({$data.list[i].name})">({$data.list[i].name})</a></td>
+                                            <td><a href="({$data.listUrl})/({$data.list[i].name})"><img src="({$data.dirPath})/({$data.list[i].name})" onerror="this.remove();" width="50" >({$data.list[i].name})</a></td>
                                             <td>({$data.list[i].size})</td>
                                         </tr>
                                     ({/section})
@@ -108,14 +108,7 @@
             };
             var errMsg='';
             for (var i = 0; i < files.length; i++) {
-                // var check_image_type = ['jpeg', 'jpg', 'bmp', 'gif', 'png', 'ico'];
-                // var check_file_name = files[i].name.split('.');
-                // check_file_name = check_file_name[check_file_name.length - 1];
-                // if (check_image_type.indexOf(check_file_name.toLowerCase()) < 0) {
-                //     errMsg += files[i].name+'({$label_back.UPLOAD_IMG_TYPE_ERROR})\n';
-                // } else {
-                    objForm.append('images[]', files[i]);
-                // }
+                objForm.append('images[]', files[i]);
             }
             if(errMsg!=''){
                 alert(errMsg);
@@ -128,43 +121,7 @@
                     ({/if})
 
                     ({if $switch.editList!=0})
-                        <div class="card-body tab-pane fade show active" id="list-edit"><!-- 
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label>({$label_back["NAME"]})</label>
-                                    <input type="text" name="detail" class="form-control" value="({$data.one.detail})" autocomplete="off" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label>({$label_back["FILE_NAME"]})</label>
-                                    <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="off" required>
-                                </div>
-                            </div> -->
-                            <div class="form-row">
-                                <div class="col-md-12 mb-3">
-                                    <label>({$label_back["DETAIL"]})</label>
-                                    ({include file='module.aceEditor.html'})
-                                </div>
-                            </div>
-                        </div>
-                    ({/if})
-
-                    ({if $switch.addList!=0})
-                        <div class="card-body tab-pane fade show active" id="list-add">
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label>({$label_back["NAME"]})</label>
-                                    <input type="text" name="detail" class="form-control" value="" autocomplete="off" required>
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label>({$label_back["FILE_NAME"]})</label>
-                                    <input type="text" name="name" class="form-control" value="" autocomplete="off" required>
-                                </div>
-                            </div>
+                        <div class="card-body tab-pane fade show active" id="list-edit">
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label>({$label_back["DETAIL"]})</label>
