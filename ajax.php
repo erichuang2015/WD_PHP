@@ -237,6 +237,24 @@
 		echo "ok";
 		exit;
 	}
+	
+	/**
+	 * 資料庫log檔案清除
+	 */
+	if(isset($_GET["rmLogData"])){
+		if(!$serbackIsLogin){
+			echo false;
+			exit;
+		}
+		$conn->Execute("TRUNCATE ".PREFIX."admin_logs");
+		$conn->Execute("TRUNCATE ".PREFIX."analytics");
+		$conn->Execute("TRUNCATE ".PREFIX."ecpay_log");
+		$conn->Execute("TRUNCATE ".PREFIX."member_logs");
+		$conn->Execute("TRUNCATE ".PREFIX."system_log");
+		$conn->Execute("TRUNCATE ".PREFIX."admin_logs");
+		echo "ok";
+		exit;
+	}
 
 	/**
 	 * 備份資料庫
