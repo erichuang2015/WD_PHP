@@ -1,8 +1,6 @@
 <?php
 
 $analytics = new MTsung\analytics($console);
-// $analytics->addLog();
-
 $monthArray = array("","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 for ($i=(DATE_M-5); $i <=DATE_M ; $i++) {
 	$s = DATE_Y."-".$i."-01 ";
@@ -14,9 +12,10 @@ for ($i=(DATE_M-5); $i <=DATE_M ; $i++) {
 $data["analytics"]["device"] = $analytics->getFieldCount("device",$s,$e);
 $data["analytics"]["system"] = $analytics->getFieldCount("system",$s,$e);
 $data["analytics"]["lang"] = $analytics->getFieldCount("lang",$s,$e);
-for ($i=0; $i <24 ; $i++) { 
-	$s = DATE_Y."-".DATE_M."-".DATE_D." ".$i.":00:00";
-	$e = DATE_Y."-".DATE_M."-".DATE_D." ".($i+1).":00:00";
+for ($i=date('H')+1; $i < date('H')+25 ; $i++) {
+	$s = DATE_Y."-".DATE_M."-".(DATE_D-($i>23?0:1))." ".($i%24).":00:00";
+	$e = DATE_Y."-".DATE_M."-".(DATE_D-(($i+1)>23?0:1))." ".(($i+1)%24).":00:00";
+	$data["analytics"]["hour"][] = ($i%24);
 	$data["analytics"]["count24H"][] = $analytics->getTotalCount(false,$s,$e);
 	$data["analytics"]["repeatCount24H"][] = $analytics->getTotalCount(true,$s,$e);
 }

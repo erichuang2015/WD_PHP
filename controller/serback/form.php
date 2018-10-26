@@ -7,6 +7,40 @@ $form = new MTsung\form($console,PREFIX.$console->path[1]."_form",$settingLang);
 
 $designName = $console->path[1]."_form";
 
+if(isset($_GET["ajax"]) && $_GET["ajax"]){
+	$mail = new MTsung\phpMailer($console);
+	$mail->setMailTitle($_GET["mailTitle"]);
+	$mail->setMailFrom($console->setting->getValue("senderEmail"),$console->setting->getValue("senderName"));
+	$mail->setMailAddress($_GET["mailRecipient"]);
+	$mail->Body = $_GET["mailDetail"];
+	if(!$mail->sendMail('','')){
+		$console->outputJson(false,$console->getMessage("MAIL_SEND_ERROR"));
+
+	}
+	if(isset($console->path[3]) && is_numeric($console->path[3])){
+		$temp = $form->getData("where id='".$console->path[3]."'")[0];
+		if($temp["reply"]){
+			$temp["reply"] = explode("|__|",$temp["reply"]);
+		}
+		$temp["reply"][] = $_GET["mailDetail"];
+		$temp["reply"] = implode("|__|",$temp["reply"]);
+
+		if($temp["replyDate"]){
+			$temp["replyDate"] = explode("|__|",$temp["replyDate"]);
+		}
+		$temp["replyDate"][] = DATE;
+		$temp["replyDate"] = implode("|__|",$temp["replyDate"]);
+
+		if($temp["replyRecipient"]){
+			$temp["replyRecipient"] = explode("|__|",$temp["replyRecipient"]);
+		}
+		$temp["replyRecipient"][] = $_GET["mailRecipient"];
+		$temp["replyRecipient"] = implode("|__|",$temp["replyRecipient"]);
+		$form->setData($temp);
+	}
+	$console->outputJson(true,$console->getMessage("MAIL_SEND_OK"));
+}
+
 if(isset($console->path[2])){
 //動作
 	switch ($console->path[2]) {
@@ -23,6 +57,9 @@ if(isset($console->path[2])){
 					foreach ($data["one"]["keyData"] as $key => $value) {
 						$data["one"]["dataIsEmail"][$key] = $validation->isEmail($value);
 					}
+					$data["one"]["reply"] = explode("|__|",$data["one"]["reply"]);
+					$data["one"]["replyDate"] = explode("|__|",$data["one"]["replyDate"]);
+					$data["one"]["replyRecipient"] = explode("|__|",$data["one"]["replyRecipient"]);
 				}else{
 					$console->alert($form->message,$data["listUrl"]);
 				}

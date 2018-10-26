@@ -3,6 +3,12 @@
  * 檔案
  */
 
+$disallowArray = array("css","js","fonts","upload","output","images",".htaccess","robots.txt","404.html");
+if(!in_array($console->path[1],$disallowArray)){
+	$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
+	exit;
+}
+
 $switch["buttonBox"] = 1;
 
 $module["aceEditor"]["name"] = '_aceEditor';//POST欄位名稱，不可使用"aceEditor"
@@ -32,8 +38,14 @@ $dirPath = iconv("BIG5", "UTF-8",APP_PATH.$dir);
 
 
 if($_FILES){
+	$disallowArray = array("php","htaccess");
 	foreach ($_FILES as $key => $value) {
 		foreach ($value["name"] as $key1 => $value1) {
+			$MIME = explode('.', $value1);
+			$MIME = end($MIME);
+			if(in_array($MIME, $disallowArray)){
+				continue;
+			}
 			move_uploaded_file($value["tmp_name"][$key1],$dirPath."/".$value1);
 		}
 	}
@@ -48,10 +60,12 @@ if($_POST && $console->path[count($console->path)-1]=="delete" && isset($_POST["
 		if(is_dir($dirPath.$value)){
 			delTree($dirPath.$value);
 		}else{
-			unlink($dirPath.$value);
+			if($value!=".htaccess"){
+				unlink($dirPath.$value);
+			}
 		}
 	}
-	$console->alert($console->getMessage("DELETE_OK"),$data["listUrl"]);
+	$console->linkTo($data["listUrl"]);
 }
 
 function delTree($dir) {
@@ -67,14 +81,28 @@ if(!is_dir($dirPath)){//編輯
 		$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
 	}
 
-    $MIME = explode("/",mime_content_type($dirPath))[0];
+	if(function_exists("mime_content_type")){
+    	$MIME = explode("/",mime_content_type($dirPath))[0];
+    }else{
+		$MIME = explode('.', $dirPath);
+		$MIME = end($MIME);
+    }
+
     switch ($MIME) {
     	case 'text':
+    	case 'txt':
+    	case 'html':
+    	case 'js':
+    	case 'css':
+    	case 'htaccess':
+    		if(in_array(".htaccess",explode("/",$dirPath)) && ($console->path[1]!=".htaccess")){
+				$console->alert($console->getMessage("MIME_ERROR"),-1);
+    		}
     		if($_POST){
             	file_put_contents($dirPath, $_POST[$module["aceEditor"]["name"]]);
 				$console->alert($console->getMessage("EDIT_OK"),$_SERVER["REQUEST_URI"]);
     		}
-			$data[$module["aceEditor"]["name"]] = file_get_contents($dirPath);
+			$data[$module["aceEditor"]["name"]] = htmlspecialchars(file_get_contents($dirPath));
     		break;
     	default:
 			$console->alert($console->getMessage("MIME_ERROR"),-1);
@@ -84,7 +112,7 @@ if(!is_dir($dirPath)){//編輯
 	$data["listUrl"] .= "../../";
 	$switch["editList"] = 1;
 	$switch["saveButton"] = 1;
-	$switch["backButton"] = 1;
+	$switch["backButton"] = isset($console->path[2]);
 }else{//資料夾
     $data["list"] = array();
 

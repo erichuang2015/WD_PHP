@@ -13,6 +13,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="list" href="#list-basic">({$label_back["DETAIL"]})</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-log">({$label_back["LOG"]})</a>
+                        </li>
                     ({/if})
                 </ul>
             </div>
@@ -65,6 +68,8 @@
                 ({if $switch.editList!=0})
                     <div class="card-body tab-pane fade show active" id="list-basic">
                         
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">回覆</button><hr>
+
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -89,6 +94,35 @@
                         </small>
                         
                     </div>
+                    <div class="card-body tab-pane fade" id="list-log">
+                        
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="20%">({$label_back["RECIPIENT_EMAIL"]})</th>
+                                    <th scope="col" width="20%">({$label_back["DATE"]})</th>
+                                    <th scope="col">({$label_back["DETAIL"]})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.one.reply})
+                                    <tr>
+                                        <td scope="col">({$data.one.replyRecipient[i]})</td>
+                                        <td scope="col">({$data.one.replyDate[i]})</td>
+                                        <td scope="col">({$data.one.reply[i]})</td>
+                                    </tr>
+                                ({/section})
+                            </tbody>
+                        </table>
+
+
+                        <small class="text-muted">
+                            ({$label_back['CREATE_DATE']})
+                            ({$data.one.create_date})
+                        </small>
+                        
+                    </div>
+
                 ({/if})
             </div>
         </div>
@@ -101,3 +135,68 @@
     </nav>
 ({/if})
 ({include file='foor.html'})
+
+
+({if $switch.editList!=0})
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">({$label_back['REPLY_MAIL']})</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label>({$label_back["TITLE"]})</label>
+                        <input type="text" class="form-control" id="mailTitle" value="({$label_back['CONTACT_REPLY']})">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label>({$label_back["RECIPIENT_EMAIL"]})</label>
+                        <input type="text" class="form-control" id="mailRecipient" value="({section name=i loop=$data.one.keyName})({if $data.one.dataIsEmail[i]})({$data.one.keyData[i]}),({/if})({/section})">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label>({$label_back["DETAIL"]})</label>
+                        <textarea class="form-control" rows="8" id="mailDetail"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">({$label_back['CLOSE']})</button>
+                <button type="button" class="btn btn-primary" onclick="sned();">({$label_back['SEND']})</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function sned(){
+        if(!$("#mailTitle").val() || !$("#mailRecipient").val() || !$("#mailDetail").val()){
+            alert("({$label_back['PLEASE_KEY_DETAIL']})");
+            return false;
+        }
+        loadingStart();
+        $.ajax({
+            type: "GET",data: {ajax: 1,mailTitle: $("#mailTitle").val(),mailRecipient: $("#mailRecipient").val(),mailDetail: $("#mailDetail").val()},dataType:'text',
+            async: true,timeout: 0,success: function(msg){
+                try{
+                    temp = JSON.parse(msg);
+                    alert(temp.message);
+                    if(temp.response){
+                        $("#mailDetail").val("");
+                        $('#exampleModalCenter').modal('hide');
+                    }
+                }catch(e){
+                    alert("error");
+                }
+                loadingStop();
+            }
+        });
+    }
+</script>
+({/if})

@@ -99,7 +99,7 @@
                             new Chart(ctx, {
                                 type: 'bar',
                                 data: {
-                                    labels: [({section name=i loop=$data.analytics.count24H})'({$smarty.section.i.index})',({/section})],
+                                    labels: [({section name=i loop=$data.analytics.count24H})'({$data.analytics.hour[i]})',({/section})],
                                     datasets: [{
                                         label: '({$label_back["ANALYTICS_COUNT"]})',
                                         backgroundColor: color('#0000FF').alpha(0.5).rgbString(),

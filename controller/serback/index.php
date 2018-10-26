@@ -20,8 +20,21 @@ curl_setopt_array($ch,array(
 	CURLOPT_SSL_VERIFYPEER => false,
 	CURLOPT_TIMEOUT => 4
 ));
-$data["news"] = $data["info"] = $data["version"] = curl_exec($ch);
+
+$newData = strtotime(DATE);
+if(isset($_SESSION["SERBACK_NEW"]) && $_SESSION["SERBACK_NEW"]){
+	foreach ($_SESSION["SERBACK_NEW"] as $key => $value) {
+		if($newData-$key > 3600*24*3){
+			unset($_SESSION["SERBACK_NEW"][$key]);
+			$_SESSION["SERBACK_NEW"][$newData] = curl_exec($ch);
+		}
+		$data["news"] = $data["info"] = $data["version"] = $value;
+	}
+}else{
+	$data["news"] = $data["info"] = $data["version"] = $_SESSION["SERBACK_NEW"][$newData] = curl_exec($ch);
+}
 curl_close($ch);
+
 $data["news"] = explode("網動消息與資訊</th>",$data["news"])[1];
 $data["news"] = explode("</table>",$data["news"])[0];
 $data["news"] = str_replace('align="center"',"",$data["news"]);

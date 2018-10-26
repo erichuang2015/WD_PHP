@@ -267,10 +267,17 @@ namespace MTsung{
 	     * @return [type] [description]
 	     */
 	    function getHTML1(){
-	    	$str = '全部共 '.$this->dataCount.'  筆 (每頁 '.$this->per.' 筆) <br>　　<a href="'.$this->newQuery.$this->pagePrevious.'">上一頁</a>　　<a href="'.$this->newQuery.$this->pageNext.'">下一頁</a>　　<br>前往第 <select onchange="location=this.value;">';
+	    	if(!$this->dataCount || $this->pageTotal<2){
+	    		return "";
+	    	}
+	    	$str = '全部共 '.$this->dataCount.'  筆 (每頁 '.$this->per.' 筆) <br>　　'.($this->pageNow>$this->pagePrevious?'<a href="'.$this->newQuery.$this->pagePrevious.'">上一頁</a>':'').'　　'.($this->pageNow<$this->pageNext?'<a href="'.$this->newQuery.$this->pageNext.'">下一頁</a>':'').'　　<br>前往第 <select onchange="location=this.value;">';
 
 	    	for ($i=1; $i <= $this->pageTotal ; $i++) { 
-	    		$str .= '<option value="'.$this->newQuery.$i.'">'.$i.'</option>';
+	    		if($i == $this->pageNow){
+	    			$str .= '<option value="'.$this->newQuery.$i.'" selected>'.$i.'</option>';
+	    		}else{
+	    			$str .= '<option value="'.$this->newQuery.$i.'">'.$i.'</option>';
+	    		}
 	    	}
 
 	    	$str .= '</select>頁';

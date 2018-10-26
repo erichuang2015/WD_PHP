@@ -37,10 +37,6 @@ namespace MTsung{
 		        $os = "Windows ME";
 		    }elseif(stripos($sys, "NT 4")){
 		        $os = "Windows NT 4.0";
-		    }elseif(stripos($sys, "98")){
-		        $os = "Windows 98";
-		    }elseif(stripos($sys, "95")){
-		        $os = "Windows 95";
 		    }elseif(stripos($sys, "Mac") && $this->getDevice()=="Desktop"){
 		        $os = "Mac";
 		    }elseif(stripos($sys, "Unix")){
@@ -61,6 +57,10 @@ namespace MTsung{
 		        $os = "Android";
 		    }elseif(stripos($sys, "iPhone")){
 		        $os = "iOS";
+		    }elseif(stripos($sys, "98")){
+		        $os = "Windows 98";
+		    }elseif(stripos($sys, "95")){
+		        $os = "Windows 95";
 		    }else{
 		        $os = "Other";
 		    }
