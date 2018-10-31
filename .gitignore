@@ -1,5 +1,9 @@
 /images/*
 !/images/.htaccess
+!/images/FB_LOGO.png
+!/images/GOOGLE_LOGO.png
+!/images/LINE_LOGO.png
+!/images/ProfilePicture.jpg
 /upload/*
 !/upload/.htaccess
 /output
