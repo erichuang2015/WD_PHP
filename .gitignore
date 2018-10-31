@@ -1,4 +1,4 @@
-/images
+/images/*
 /upload/*
 !/upload/.htaccess
 /output

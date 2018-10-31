@@ -43,7 +43,7 @@ if($memberInfo["group"]["status"]==0){
 /**
  * 資料庫容量限制
  */
-if($_POST && $console->setting->getValue("sizeSwitch") && ($console->setting->getValue("sqlMaxSize")<$console->getSqlSize())){
+if($_POST && $console->setting->getValue("sizeSwitch") && ($console->setting->getValue("sqlMaxSize")<$console->getSqlSize()) && !in_array($console->path[0], array("systemSetting"))){
 	$console->alert($console->getMessage("SQL_SIZE_MAX_MSG"),-1);
 	exit;
 }

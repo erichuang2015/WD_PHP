@@ -50,7 +50,7 @@
 
             var objForm = new FormData();
             var xhr = new XMLHttpRequest();
-            var up_progress = document.getElementById('up_progress({$_I_})');
+            var up_progress = document.getElementById('up_progressFile({$_I_})');
             xhr.open('POST', _jsPath+'/upload.php?isTinyMCE=1');
             
             xhr.onload = function() {
@@ -296,7 +296,7 @@
         ({if isset($module.uploadFile[$_I_].suggestText)})
         <br>({$label_back.SUGGEST_SIZE})({$module.uploadFile[$_I_].suggestText})
         ({/if})
-        <div id="up_progress({$_I_})"></div>
+        <div id="up_progressFile({$_I_})"></div>
         ({if $module.uploadFile[$_I_].max>1})
             <input type="file" class="form-control-file" id="ff1({$_I_})" multiple onchange="dropHandlerFile({$_I_})('',0);" style="display: none;" />
         ({/if})
