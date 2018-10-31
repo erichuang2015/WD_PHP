@@ -197,7 +197,7 @@ function msgEnglishNumber(){
 }
 
 function isPassword(password){
-	var checkString = /^(?=^.{8,255}$)((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.*$/;
+	var checkString = /^(?=^.{8,255}$)((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$/;
 	return password.match(checkString);
 }
 
