@@ -49,19 +49,27 @@
                                         </th>
                                         <th scope="col">({$label_back["NAME"]})</th>
                                         <th scope="col">({$label_back["FILE_SIZE"]})</th>
+                                        <th scope="col" width="5%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     ({section name=i loop=$data.list})
                                         <tr>
                                             <td scope="row">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck_({$data.list[i].name})" name="checkElement[]" value="({$data.list[i].name})">
-                                                    <label class="custom-control-label" for="customCheck_({$data.list[i].name})"></label>
-                                                </div>
+                                                ({if $data.list[i].name!="../"})
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck_({$data.list[i].name})" name="checkElement[]" value="({$data.list[i].name})">
+                                                        <label class="custom-control-label" for="customCheck_({$data.list[i].name})"></label>
+                                                    </div>
+                                                ({/if})
                                             </td>
                                             <td><a href="({$data.listUrl})/({$data.list[i].name})"><img src="({$data.dirPath})/({$data.list[i].name})" onerror="this.remove();" width="50" >({$data.list[i].name})</a></td>
                                             <td>({$data.list[i].size})</td>
+                                            <td>
+                                            ({if $data.list[i].name!=".htaccess" && !$data.list[i].isDir})
+                                                <a href="({$data.dirPath})/({$data.list[i].name})" download><span class="glyphicon-download" style="font-size: 25px;"></span></a>
+                                            ({/if})
+                                            </td>
                                         </tr>
                                     ({/section})
                                 </tbody>

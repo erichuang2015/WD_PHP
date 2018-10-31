@@ -52,7 +52,7 @@ CREATE TABLE `database_admin` (
 
 
 INSERT INTO `database_admin` (`id`,`account`,`password`,`groupID`,`name`,`email`,`sex`,`picture`,`country`,`county`,`city`,`zipcode`,`address`,`company`,`landline`,`landline2`,`phone`,`phone2`,`fax`,`fax2`,`emailCheck`,`status`,`create_date`,`update_date`,`create_user`,`update_user`,`fbID`,`fbName`,`fbEmail`,`fbPicture`,`googleID`,`googleName`,`googleEmail`,`googlePicture`,`lineID`,`lineName`,`lineEmail`,`linePicture`,`memo`,`point`,`doingTime`) VALUES
-('1','vipadmin','$2y$10$vdcAEXgjaN2oCoElBmIOru6J9WB.hIkwGRg1G6lkEB9RhhpGXhxye','1','vipadmin','toby@vipcase.net','','','','','','0','','','','','','','','','-1','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'18000'),
+('1','vipadmin','$2y$10$vdcAEXgjaN2oCoElBmIOru6J9WB.hIkwGRg1G6lkEB9RhhpGXhxye','1','vipadmin','toby@vipcase.net','','','','','','0','','','','','','','','','-1','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'0'),
 ('2','service','$2y$10$0e14rlQE82WLN62PaOBgX.K3Q96hbmioOkO5ksWbkscVbBGoamJYy','2','客戶管理者','','','','','','','0','','','','','','','','','-1','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'3600'),
 ('3','admin','$2y$10$40GaEV/xy0vgHTte66pkle6aZ6DEQKNZgwzDDnut6VOPwY5jjctN.','3','設計師','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600');
 
@@ -73,9 +73,9 @@ CREATE TABLE `database_admin_group` (
 
 
 INSERT INTO `database_admin_group` (`id`,`name`,`control`,`auth`,`status`,`create_date`,`update_date`,`create_user`,`update_user`) VALUES
-('1','系統管理員','-999','77,78,79,1,42,47,66,50,43,48,49,61,74,76,44,51,65,45,54,55,46,53,52,3,17,71,72,2,18,19,38,39,40,64,4,5,6,7,70,8,86,84,83,21,36,22,85,81,80,82','1','2018-10-01 00:00:00','2018-10-26 11:33:28','vipadmin','vipadmin'),
-('2','客戶管理者','0','1,42,47,66,50,43,48,49,61,74,76,44,51,65,45,54,55,46,53,52,3,17,71,72,2,18,19,38,39,40,4,6','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin'),
-('3','設計師','0','2,18,19,21,36,22,85,81,80,82','1','2018-10-01 00:00:00','2018-10-01 00:00:00','vipadmin','vipadmin');
+('1','系統管理員','-999','79,80,81,1,42,47,66,50,43,48,49,61,44,51,53,65,45,54,55,46,52,3,17,71,72,2,18,19,38,39,40,64,4,5,6,7,70,8,89,88,21,36,22,87,91,85,83,84,86,90','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('2','客戶管理者','0','1,42,77,43,48,49,74,76,61,78,44,51,65,45,54,55,46,53,52,3,17,71,72,2,18,19,38,39,40,4,6','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('3','設計師','0','1,42,77,43,48,49,74,76,61,78,44,51,53,65,45,54,55,46,52,3,17,71,72,2,18,19,21,36,22,87,91,85,83,84','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin');
 
 DROP TABLE IF EXISTS `database_menu`;
 
@@ -97,57 +97,59 @@ CREATE TABLE `database_menu` (
 
 
 INSERT INTO `database_menu` (`id`,`name`,`floor`,`parent`,`url`,`sort`,`step`,`status`,`create_date`,`update_date`,`create_user`,`update_user`) VALUES
-('1','FORESTAGE','0','0','','2','3','1','2018-10-01 00:00:00','2018-10-25 11:30:10','vipadmin','vipadmin'),
-('2','BACKSTAGE','0','0','','3','27','1','2018-10-01 00:00:00','2018-10-25 11:27:09','vipadmin','vipadmin'),
-('3','OTHER_MANAGEMENT','1','1','','6','23','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('4','SYSTEM_MANAGEMENT','1','2','','3','34','1','2018-10-01 00:00:00','2018-10-25 11:27:10','vipadmin','vipadmin'),
-('5','SYSTEM_MENU','2','4','systemMenu','1','35','1','2018-10-01 00:00:00','2018-10-26 11:31:58','vipadmin','vipadmin'),
-('6','SYSTEM_SETTING','2','4','systemSetting','2','36','1','2018-10-01 00:00:00','2018-10-26 11:32:55','vipadmin','vipadmin'),
-('7','LANGUAGE_MANAGEMENT','2','4','language','3','37','1','2018-10-01 00:00:00','2018-10-26 11:32:55','vipadmin','vipadmin'),
-('8','OPERATION_RECORD','2','4','systemLog','5','39','1','2018-10-01 00:00:00','2018-10-26 11:32:55','vipadmin','vipadmin'),
-('17','WEB_SETTING','2','3','setting/web','1','24','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('18','PERSONAL_MANAGEMENT','1','2','','1','28','1','2018-10-01 00:00:00','2018-10-25 11:27:09','vipadmin','vipadmin'),
-('19','PROFILE','2','18','profile','1','29','1','2018-10-01 00:00:00','2018-10-25 11:27:09','vipadmin','vipadmin'),
-('21','TEMPLATE_MANAGEMENT','1','2','','4','43','1','2018-10-01 00:00:00','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('22','MAIL_TEMPLATE','2','21','template/mail','2','45','1','2018-10-01 00:00:00','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('36','WEB_TEMPLATE','2','21','template/web','1','44','1','2018-10-01 00:00:00','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('37','PDF_TEMPLATE','2','21','template/PDF','7','50','0','2018-10-01 00:00:00','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('38','ADMIN_MANAGEMENT','1','2','','2','30','1','2018-10-01 00:00:00','2018-10-25 11:27:09','vipadmin','vipadmin'),
-('39','ADMIN_LIST','2','38','admin','1','31','1','2018-10-01 00:00:00','2018-10-25 11:27:09','vipadmin','vipadmin'),
-('40','ADMIN_GROUP','2','38','adminGroup','2','32','1','2018-10-01 00:00:00','2018-10-25 11:27:10','vipadmin','vipadmin'),
-('42','INDEX_MANAGEMENT','1','1','','1','4','1','2018-10-01 00:00:00','2018-10-25 11:30:10','vipadmin','vipadmin'),
-('43','PAGE_MANAGEMENT','1','1','','2','8','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('44','MEMBER_MANAGEMENT','1','1','','3','14','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('45','PRODUCT_MANAGEMENT','1','1','','4','17','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('46','FORM_MANAGEMENT','1','1','','5','20','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('47','EDM','2','42','basicOne/edm','1','5','1','2018-10-01 00:00:00','2018-10-25 11:30:10','vipadmin','vipadmin'),
-('48','ABOUT','2','43','basicOne/about','1','9','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('49','NEWS','2','43','basic/news','2','10','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('50','HOT_PRODUCT','2','42','basicOne/index_product','3','7','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('51','MEMBER_LIST','2','44','member','1','15','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('52','CONTACT','2','46','form/contact','2','22','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('53','ORDERS','2','46','order','1','21','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('54','PRODUCT_CATEGORY','2','45','class/product','1','18','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('55','PRODUCT_LIST','2','45','basic/product','2','19','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('61','CONTACT','2','43','basicOne/contact','3','11','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('64','MEMBER_LOG','2','38','memberLog/admin','3','33','1','2018-10-01 00:00:00','2018-10-25 11:27:10','vipadmin','vipadmin'),
-('65','MEMBER_LOG','2','44','memberLog/member','2','16','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('66','NEWS','2','42','basicOne/index_news','2','6','1','2018-10-01 00:00:00','2018-10-25 11:30:10','vipadmin','vipadmin'),
-('70','LANGUAGE_COPY','2','4','languageCopy','4','38','1','2018-10-01 00:00:00','2018-10-26 11:32:55','vipadmin','vipadmin'),
-('71','PAYMENT_SETTING','2','3','setting/payment','2','25','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('72','SHIPMENT_SETTING','2','3','setting/shipment','3','26','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('74','SHOPPING_NOTICE','2','43','basicOne/notice','4','12','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('76','TERMS','2','43','basicOne/terms','5','13','1','2018-10-01 00:00:00','2018-10-25 11:30:11','vipadmin','vipadmin'),
-('77','WEB_ANALYSIS','0','0','','1','0','1','2018-10-01 00:00:00','2018-10-25 11:30:10','vipadmin','vipadmin'),
-('78','WEB_ANALYSIS','1','77','','1','1','1','2018-10-01 00:00:00','2018-10-25 11:30:10','vipadmin','vipadmin'),
-('79','USER_ANALYSIS','2','78','analytics','1','2','1','2018-10-01 00:00:00','2018-10-25 11:30:51','vipadmin','vipadmin'),
-('80','CSS','2','21','file/css','5','48','1','2018-10-25 11:27:09','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('81','JS','2','21','file/js','4','47','1','2018-10-25 11:27:22','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('82','IMAGE_FILE','2','21','file/images','6','49','1','2018-10-25 12:22:21','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('83','ROBOTS_TXT','2','4','file/robots.txt','8','42','1','2018-10-26 11:31:10','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('84','HTACCESS_FILE','2','4','file/.htaccess','7','41','1','2018-10-26 11:31:25','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('85','HTML404_FILE','2','21','file/404.html','3','46','1','2018-10-26 11:31:38','2018-10-26 11:32:46','vipadmin','vipadmin'),
-('86','UPLOAD_FILE','2','4','file/upload','6','40','1','2018-10-26 11:32:33','2018-10-26 11:32:55','vipadmin','vipadmin');
+('1','FORESTAGE','0','0','','2','3','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('2','BACKSTAGE','0','0','','3','25','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('3','OTHER_MANAGEMENT','1','1','','6','21','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('4','SYSTEM_MANAGEMENT','1','2','','3','32','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('5','SYSTEM_MENU','2','4','systemMenu','1','33','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('6','SYSTEM_SETTING','2','4','systemSetting','2','34','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('7','LANGUAGE_MANAGEMENT','2','4','language','3','35','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('8','OPERATION_RECORD','2','4','systemLog','5','37','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('17','WEB_SETTING','2','3','setting/web','1','22','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('18','PERSONAL_MANAGEMENT','1','2','','1','26','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('19','PROFILE','2','18','profile','1','27','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('21','TEMPLATE_MANAGEMENT','1','2','','4','40','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('22','MAIL_TEMPLATE','2','21','template/mail','2','42','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('36','WEB_TEMPLATE','2','21','template/web','1','41','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('37','PDF_TEMPLATE','2','21','template/PDF','4','44','0','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('38','ADMIN_MANAGEMENT','1','2','','2','28','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('39','ADMIN_LIST','2','38','admin','1','29','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('40','ADMIN_GROUP','2','38','adminGroup','2','30','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('42','INDEX_MANAGEMENT','1','1','','1','4','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('43','PAGE_MANAGEMENT','1','1','','2','8','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('44','MEMBER_MANAGEMENT','1','1','','3','12','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('45','PRODUCT_MANAGEMENT','1','1','','4','16','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('46','FORM_MANAGEMENT','1','1','','5','19','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('47','EDM','2','42','basicOne/edm','1','5','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('48','ABOUT','2','43','basicOne/about','1','9','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('49','NEWS','2','43','basic/news','2','10','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('50','HOT_PRODUCT','2','42','basicOne/index_product','3','7','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('51','MEMBER_LIST','2','44','member','1','13','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('52','CONTACT','2','46','form/contact','1','20','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('53','ORDERS','2','44','order','2','14','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('54','PRODUCT_CATEGORY','2','45','class/product','1','17','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('55','PRODUCT_LIST','2','45','basic/product','2','18','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('61','CONTACT','2','43','basicOne/contact','3','11','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('64','MEMBER_LOG','2','38','memberLog/admin','3','31','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('65','MEMBER_LOG','2','44','memberLog/member','3','15','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('66','NEWS','2','42','basicOne/index_news','2','6','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('70','LANGUAGE_COPY','2','4','languageCopy','4','36','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('71','PAYMENT_SETTING','2','3','setting/payment','2','23','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('72','SHIPMENT_SETTING','2','3','setting/shipment','3','24','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('79','WEB_ANALYSIS','0','0','','1','0','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('80','WEB_ANALYSIS','1','79','','1','1','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('81','USER_ANALYSIS','2','80','analytics','1','2','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('83','CSS','2','91','file/css','2','47','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('84','JS','2','91','file/js','3','48','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('85','IMAGE_FILE','2','91','file/images','1','46','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('86','UPLOAD_FILE','2','91','file/upload','4','49','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('87','HTML404_FILE','2','21','file/404.html','3','43','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('88','ROBOTS_TXT','2','4','file/robots.txt','7','39','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('89','HTACCESS_FILE','2','4','file/.htaccess','6','38','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('90','OUTPUT_FILE','2','91','file/output','5','50','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin'),
+('91','FILE_SETTING','1','2','','5','45','1','2018-10-31 00:00:00','2018-10-31 00:00:00','vipadmin','vipadmin');
+
+
 
 DROP TABLE IF EXISTS `database_setting`;
 
