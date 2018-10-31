@@ -141,7 +141,7 @@ namespace MTsung{
 		 * @param  string $back 轉跳頁
 		 * @return [type]       [description]
 		 */
-		public function sendMail($back='NO',$message='MAIL_SEND_OK'){
+		public function sendMail($back='NO',$message='MAIL_SEND_OK',$message1=''){
 			$this->IsHTML(true); //郵件內容為html
 			$BCC = explode(',', $this->console->setting->getValue("recipientEmail"));
 			foreach ($BCC as $key => $value){
@@ -152,7 +152,9 @@ namespace MTsung{
 				error_log("Send mail error: " . $this->ErrorInfo);
 				return false;
 			}else{
-				if($message){
+				if($message1){//msg1優先度高
+					$this->console->alert($message1,$back);
+				}else if($message){
 					$this->console->alert($this->console->getMessage($message),$back);
 				}
 				return true;

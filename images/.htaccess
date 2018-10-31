@@ -1,0 +1,6 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    php_flag engine off
+</IfModule>
+
