@@ -398,13 +398,13 @@ namespace MTsung{
 				foreach ($id as $key => $value) {
 					$oldData[] = $this->getData("where id='".$value."'")[0];
 				}
-				$deleteID = implode(",",$id);
+				$deleteID = implode("','",$id);
 			}else{
 				$deleteID = $id;
 				$oldData[] = $this->getData("where id='".$id."'")[0];
 			}
 			
-			if($this->conn->Execute("delete from ".$this->table." where id in (".$deleteID.")")){
+			if($this->conn->Execute("delete from ".$this->table." where id in ('".$deleteID."')")){
 				$this->conn->Execute("delete from ".$this->tableSort." where dataID in (".$deleteID.")");
 				if(!$this->isTree) $this->sortTable();
 				$this->message = $this->console->getMessage('DELETE_OK');
