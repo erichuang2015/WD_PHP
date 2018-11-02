@@ -99,9 +99,9 @@ namespace MTsung{
 					}
 				}				
 			}
-			if($str){
-				$this->console->alert($this->console->getMessage('MAIL_ERROR',array($str)),'NO');
-			}
+			// if($str){
+			// 	$this->console->alert($this->console->getMessage('MAIL_ERROR',array($str)),'NO');
+			// }
 		}
 
 		/**

@@ -4,12 +4,18 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="list" href="#list-version">({$label_back["ANALYTICS"]})</a>
+                    <a class="nav-link active" data-toggle="list" href="#list-analytics">({$label_back["USER_ANALYSIS"]})</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " data-toggle="list" href="#list-analytics-page">({$label_back["ANALYTICS_PAGE"]})</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " data-toggle="list" href="#list-analytics-page-product">({$label_back["ANALYTICS_PAGE_PRODUCT"]})</a>
                 </li>
             </ul>
         </div>
             <div class="tab-content">
-                <div class="card-body tab-pane fade show active" id="list-test">
+                <div class="card-body tab-pane fade show active" id="list-analytics">
                     <small class="text-muted">({$label_back['ANALYTICS_SMALL']})</small>
                     <div class="form-row">
                         <div class="col-xl-6 col-md-12 mb-10">
@@ -17,6 +23,9 @@
                         </div>
                         <div class="col-xl-6 col-md-12 mb-10">
                             <canvas id="canvasSystem"></canvas>
+                        </div>
+                        <div class="col-xl-6 col-md-12 mb-10">
+                            <canvas id="canvasReferer"></canvas>
                         </div>
                         <div class="col-xl-6 col-md-12 mb-10">
                             <canvas id="canvasLang"></canvas>
@@ -31,273 +40,458 @@
                             <canvas id="canvasCount"></canvas>
                         </div>
                     </div>
-                    <script>
-
-
-
-
-
-
-
-                        var randomScalingFactor = function() {
-                            return Math.round(Math.random() * 1000);
-                        };
-                        var color = Chart.helpers.color;
-                        var colorArray = [
-                                "rgb(54, 162, 235)",
-                                "rgb(75, 192, 192)",
-                                "rgb(242, 239, 70)",
-                                "rgb(255, 159, 64)",
-                                "rgb(153, 102, 255)",
-                                "rgb(255, 99, 132)",
-                                "rgb(255, 205, 86)",
-                            ];
-
-
-                        window.onload = function() {
-
-                            var ctx = document.getElementById('canvasCount').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: [({section name=i loop=$data.analytics.month})'({$data.analytics.month[i]})',({/section})],
-                                    datasets: [{
-                                        label: '({$label_back["ANALYTICS_COUNT"]})',
-                                        backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
-                                        data: [
-                                            ({section name=i loop=$data.analytics.count})'({$data.analytics.count[i]})',({/section})
-                                        ],
-                                        fill: false,
-                                    },
-                                    {
-                                        label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
-                                        backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
-                                        data: [
-                                            ({section name=i loop=$data.analytics.repeatCount})'({$data.analytics.repeatCount[i]})',({/section})
-                                        ],
-                                        fill: false,
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    title: {
-                                        display: true,
-                                        text: '({$label_back["ANALYTICS_6_MONTH_COUNT"]})'
-                                    },
-                                    tooltips: {
-                                        mode: 'index',
-                                        intersect: false,
-                                    },
-                                    hover: {
-                                        mode: 'nearest',
-                                        intersect: true
-                                    }
-                                }
-                            });
-
-                            var ctx = document.getElementById('canvasCount24H').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: [({section name=i loop=$data.analytics.count24H})'({$data.analytics.hour[i]})',({/section})],
-                                    datasets: [{
-                                        label: '({$label_back["ANALYTICS_COUNT"]})',
-                                        backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
-                                        data: [
-                                            ({section name=i loop=$data.analytics.count24H})'({$data.analytics.count24H[i]})',({/section})
-                                        ],
-                                        fill: false,
-                                    },
-                                    {
-                                        label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
-                                        backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
-                                        data: [
-                                            ({section name=i loop=$data.analytics.repeatCount24H})'({$data.analytics.repeatCount24H[i]})',({/section})
-                                        ],
-                                        fill: false,
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    title: {
-                                        display: true,
-                                        text: '({$label_back["ANALYTICS_24H_COUNT"]})'
-                                    },
-                                    tooltips: {
-                                        mode: 'index',
-                                        intersect: false,
-                                    },
-                                    hover: {
-                                        mode: 'nearest',
-                                        intersect: true
-                                    }
-                                }
-                            });
-
-                            var ctx = document.getElementById('canvasCountMonth').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: [({section name=i loop=$data.analytics.countMonth})'({$smarty.section.i.index+1})',({/section})],
-                                    datasets: [{
-                                        label: '({$label_back["ANALYTICS_COUNT"]})',
-                                        backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
-                                        data: [
-                                            ({section name=i loop=$data.analytics.countMonth})'({$data.analytics.countMonth[i]})',({/section})
-                                        ],
-                                        fill: false,
-                                    },
-                                    {
-                                        label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
-                                        backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
-                                        data: [
-                                            ({section name=i loop=$data.analytics.repeatCountMonth})'({$data.analytics.repeatCountMonth[i]})',({/section})
-                                        ],
-                                        fill: false,
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    title: {
-                                        display: true,
-                                        text: '({$label_back["ANALYTICS_MONTH_COUNT"]})'
-                                    },
-                                    tooltips: {
-                                        mode: 'index',
-                                        intersect: false,
-                                    },
-                                    hover: {
-                                        mode: 'nearest',
-                                        intersect: true
-                                    }
-                                }
-                            });
-
-
-                            var ctx = document.getElementById('canvasDevice').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'doughnut',
-                                data: {
-                                    labels: [({section name=i loop=$data.analytics.device})'({$data.analytics.device[i].name})',({/section})],
-                                    datasets: [{
-                                        backgroundColor: [
-                                            ({section name=i loop=$data.analytics.device})colorArray[({$smarty.section.i.index})%7],({/section})
-                                        ],
-                                        // borderColor: '#0000FF',
-                                        borderWidth: 1,
-                                        data: [
-                                            ({section name=i loop=$data.analytics.device})'({$data.analytics.device[i].count})',({/section})
-                                        ]
-                                    }]
-
-                                },
-                                options: {
-                                    responsive: true,
-                                    legend: {
-                                        position: 'top',
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: '({$label_back["ANALYTICS_DEVICE"]})'
-                                    }
-                                }
-                            });
-
-
-                            var ctx = document.getElementById('canvasSystem').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'doughnut',
-                                data: {
-                                    labels: [({section name=i loop=$data.analytics.system})'({$data.analytics.system[i].name})',({/section})],
-                                    datasets: [{
-                                        backgroundColor: [
-                                            ({section name=i loop=$data.analytics.system})colorArray[({$smarty.section.i.index})%7],({/section})
-                                        ],
-                                        borderWidth: 1,
-                                        data: [
-                                            ({section name=i loop=$data.analytics.system})'({$data.analytics.system[i].count})',({/section})
-                                        ]
-                                    }]
-
-                                },
-                                options: {
-                                    responsive: true,
-                                    legend: {
-                                        position: 'top',
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: '({$label_back["ANALYTICS_SYSTEM"]})'
-                                    }
-                                }
-                            });
-                            
-                            ({if count($console->getLanguageArray("array"))>1})
-                            var ctx = document.getElementById('canvasLang').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'doughnut',
-                                data: {
-                                    labels: [({section name=i loop=$data.analytics.lang})'({$data.analytics.lang[i].name})',({/section})],
-                                    datasets: [{
-                                        backgroundColor: [
-                                            ({section name=i loop=$data.analytics.lang})colorArray[({$smarty.section.i.index})%7],({/section})
-                                        ],
-                                        borderWidth: 1,
-                                        data: [
-                                            ({section name=i loop=$data.analytics.lang})'({$data.analytics.lang[i].count})',({/section})
-                                        ]
-                                    }]
-
-                                },
-                                options: {
-                                    responsive: true,
-                                    legend: {
-                                        position: 'top',
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: '({$label_back["ANALYTICS_LANG"]})'
-                                    }
-                                }
-                            });
-                            ({/if})
-
-                            // Define a plugin to provide data labels
-                            // Chart.plugins.register({
-                            //     afterDatasetsDraw: function(chart) {
-                            //         var ctx = chart.ctx;
-
-                            //         chart.data.datasets.forEach(function(dataset, i) {
-                            //             var meta = chart.getDatasetMeta(i);
-                            //             if (!meta.hidden) {
-                            //                 meta.data.forEach(function(element, index) {
-                            //                     // Draw the text in black, with the specified font
-                            //                     ctx.fillStyle = 'rgb(0, 0, 0, 0.7)';
-
-                            //                     var fontSize = 16;
-                            //                     var fontStyle = 'normal';
-                            //                     var fontFamily = 'Helvetica Neue';
-                            //                     ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-
-                            //                     // Just naively convert to string for now
-                            //                     var dataString = dataset.data[index].toString();
-
-                            //                     // Make sure alignment settings are correct
-                            //                     ctx.textAlign = 'center';
-                            //                     ctx.textBaseline = 'middle';
-
-                            //                     var padding = 5;
-                            //                     var position = element.tooltipPosition();
-                            //                     ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
-                            //                 });
-                            //             }
-                            //         });
-                            //     }
-                            // });
-                        };
-
-                    </script>
                 </div>
+                <div class="card-body tab-pane fade " id="list-analytics-page">
+                    <small class="text-muted">({$label_back['ANALYTICS_SMALL']})</small>
+                    <div class="form-row">
+                        <div class="col-md-8 mb-3">
+                            <canvas id="canvasUrlCount"></canvas>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <canvas id="canvasUrlCountRepeat"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body tab-pane fade " id="list-analytics-page-product">
+                    <small class="text-muted">({$label_back['ANALYTICS_SMALL']})</small>
+                    <div class="form-row">
+                        <div class="col-md-8 mb-3">
+                            <canvas id="canvasUrlCountProduct"></canvas>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <canvas id="canvasUrlCountRepeatProduct"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    var randomScalingFactor = function() {
+                        return Math.round(Math.random() * 1000);
+                    };
+                    var color = Chart.helpers.color;
+                    var colorArray = [
+                            "rgb(54, 162, 235)",
+                            "rgb(75, 192, 192)",
+                            "rgb(242, 239, 70)",
+                            "rgb(255, 159, 64)",
+                            "rgb(153, 102, 255)",
+                            "rgb(255, 99, 132)",
+                            "rgb(255, 205, 86)",
+                        ];
+
+
+                    window.onload = function() {
+
+                        var ctx = document.getElementById('canvasCount').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: [({section name=i loop=$data.analytics.month})'({$data.analytics.month[i]})',({/section})],
+                                datasets: [{
+                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analytics.count})'({$data.analytics.count[i]})',({/section})
+                                    ],
+                                    fill: false,
+                                },
+                                {
+                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analytics.repeatCount})'({$data.analytics.repeatCount[i]})',({/section})
+                                    ],
+                                    fill: false,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_6_MONTH_COUNT"]})'
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                    intersect: true
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            min: 0
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                        var ctx = document.getElementById('canvasUrlCount').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'horizontalBar',
+                            data: {
+                                labels: [({section name=i loop=$data.analyticsPage.url})'({$data.analyticsPage.url[i].name})',({/section})],
+                                datasets: [{
+                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analyticsPage.url})'({$data.analyticsPage.url[i].count})',({/section})
+                                    ],
+                                    fill: false,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_PAGE_COUNT"]})'
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                    intersect: true
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        ticks: {
+                                            min: 0
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                        var ctx = document.getElementById('canvasUrlCountRepeat').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'horizontalBar',
+                            data: {
+                                labels: [({section name=i loop=$data.analyticsPage.repeatUrl})'({$data.analyticsPage.repeatUrl[i].name})',({/section})],
+                                datasets: [
+                                {
+                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analyticsPage.repeatUrl})'({$data.analyticsPage.repeatUrl[i].count})',({/section})
+                                    ],
+                                    fill: false,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_PAGE_COUNT_REPEAT"]})'
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                    intersect: true
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        ticks: {
+                                            min: 0
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                        var ctx = document.getElementById('canvasUrlCountProduct').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'horizontalBar',
+                            data: {
+                                labels: [({section name=i loop=$data.analyticsPage.urlProduct})'({$data.analyticsPage.urlProduct[i].name})',({/section})],
+                                datasets: [{
+                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analyticsPage.urlProduct})'({$data.analyticsPage.urlProduct[i].count})',({/section})
+                                    ],
+                                    fill: false,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_PAGE_COUNT"]})'
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                    intersect: true
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        ticks: {
+                                            min: 0
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                        var ctx = document.getElementById('canvasUrlCountRepeatProduct').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'horizontalBar',
+                            data: {
+                                labels: [({section name=i loop=$data.analyticsPage.repeatUrlProduct})'({$data.analyticsPage.repeatUrlProduct[i].name})',({/section})],
+                                datasets: [
+                                {
+                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analyticsPage.repeatUrlProduct})'({$data.analyticsPage.repeatUrlProduct[i].count})',({/section})
+                                    ],
+                                    fill: false,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_PAGE_COUNT_REPEAT"]})'
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                    intersect: true
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        ticks: {
+                                            min: 0
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                        var ctx = document.getElementById('canvasCount24H').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: [({section name=i loop=$data.analytics.count24H})'({$data.analytics.hour[i]})',({/section})],
+                                datasets: [{
+                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analytics.count24H})'({$data.analytics.count24H[i]})',({/section})
+                                    ],
+                                    fill: false,
+                                },
+                                {
+                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analytics.repeatCount24H})'({$data.analytics.repeatCount24H[i]})',({/section})
+                                    ],
+                                    fill: false,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_24H_COUNT"]})'
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                    intersect: true
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            min: 0
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                        var ctx = document.getElementById('canvasCountMonth').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: [({section name=i loop=$data.analytics.countMonth})'({$data.analytics.day[i]})',({/section})],
+                                datasets: [{
+                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analytics.countMonth})'({$data.analytics.countMonth[i]})',({/section})
+                                    ],
+                                    fill: false,
+                                },
+                                {
+                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+                                    data: [
+                                        ({section name=i loop=$data.analytics.repeatCountMonth})'({$data.analytics.repeatCountMonth[i]})',({/section})
+                                    ],
+                                    fill: false,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_MONTH_COUNT"]})'
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                    intersect: true
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            min: 0
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+
+                        var ctx = document.getElementById('canvasDevice').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: [({section name=i loop=$data.analytics.device})'({$data.analytics.device[i].name})',({/section})],
+                                datasets: [{
+                                    backgroundColor: [
+                                        ({section name=i loop=$data.analytics.device})colorArray[({$smarty.section.i.index})%7],({/section})
+                                    ],
+                                    // borderColor: '#0000FF',
+                                    borderWidth: 1,
+                                    data: [
+                                        ({section name=i loop=$data.analytics.device})'({$data.analytics.device[i].count})',({/section})
+                                    ]
+                                }]
+
+                            },
+                            options: {
+                                responsive: true,
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_DEVICE"]})'
+                                }
+                            }
+                        });
+
+
+                        var ctx = document.getElementById('canvasSystem').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: [({section name=i loop=$data.analytics.system})'({$data.analytics.system[i].name})',({/section})],
+                                datasets: [{
+                                    backgroundColor: [
+                                        ({section name=i loop=$data.analytics.system})colorArray[({$smarty.section.i.index})%7],({/section})
+                                    ],
+                                    borderWidth: 1,
+                                    data: [
+                                        ({section name=i loop=$data.analytics.system})'({$data.analytics.system[i].count})',({/section})
+                                    ]
+                                }]
+
+                            },
+                            options: {
+                                responsive: true,
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_SYSTEM"]})'
+                                }
+                            }
+                        });
+                        
+                        var ctx = document.getElementById('canvasReferer').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: [({section name=i loop=$data.analytics.referer})'({$data.analytics.referer[i].name})',({/section})],
+                                datasets: [{
+                                    backgroundColor: [
+                                        ({section name=i loop=$data.analytics.referer})colorArray[({$smarty.section.i.index})%7],({/section})
+                                    ],
+                                    borderWidth: 1,
+                                    data: [
+                                        ({section name=i loop=$data.analytics.referer})'({$data.analytics.referer[i].count})',({/section})
+                                    ]
+                                }]
+
+                            },
+                            options: {
+                                responsive: true,
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_REFERER"]})'
+                                }
+                            }
+                        });
+
+                        ({if count($console->getLanguageArray("array"))>1})
+                        var ctx = document.getElementById('canvasLang').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: [({section name=i loop=$data.analytics.lang})'({$data.analytics.lang[i].name})',({/section})],
+                                datasets: [{
+                                    backgroundColor: [
+                                        ({section name=i loop=$data.analytics.lang})colorArray[({$smarty.section.i.index})%7],({/section})
+                                    ],
+                                    borderWidth: 1,
+                                    data: [
+                                        ({section name=i loop=$data.analytics.lang})'({$data.analytics.lang[i].count})',({/section})
+                                    ]
+                                }]
+
+                            },
+                            options: {
+                                responsive: true,
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: '({$label_back["ANALYTICS_LANG"]})'
+                                }
+                            }
+                        });
+                        ({/if})
+
+                    };
+                </script>
     </div>
 </div>
 ({include file='foor.html'})
