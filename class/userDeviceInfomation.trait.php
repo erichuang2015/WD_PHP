@@ -112,5 +112,34 @@ namespace MTsung{
 
 			return $ip;
 		}
+
+		/**
+		 * 取得來源網域
+		 * @return [type] [description]
+		 */
+		function getReferer(){
+		    $temp = explode("/",str_replace(array("https://","http://"),"",$_SERVER["HTTP_REFERER"]))[0];
+
+		    if($temp == $_SERVER["HTTP_HOST"]){
+		        $referer = "";
+		    }else if(stripos($temp, "google")){
+		        $referer = "google";
+		    }else if(stripos($temp, "yahoo")){
+		        $referer = "yahoo";
+		    }else if(stripos($temp, "bing")){
+		        $referer = "bing";
+		    }else if(stripos($temp, "facebook")){
+		        $referer = "facebook";
+		    }else if(stripos($temp, "instagram")){
+		        $referer = "instagram";
+		    }else if(stripos($temp, "instagram")){
+		        $referer = "instagram";
+		    }else if(stripos($temp, "pchome")){
+		        $referer = "pchome";
+		    }else{
+		        $referer = $temp;
+		    }
+		    return $referer;
+		}
 	}
 }

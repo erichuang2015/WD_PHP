@@ -105,10 +105,7 @@ namespace MTsung{
 			    }
 			}
 
-			$data["referer"] = "";
-			if(($temp = explode("/",str_replace(array("https://","http://"),"",$_SERVER["HTTP_REFERER"]))[0]) != $_SERVER["HTTP_HOST"]){
-				$data["referer"] = $temp;
-			}
+			$data["referer"] = $this->getReferer();
 
 			$endDate = date('Y-m-d H:i:s',strtotime(DATE)-$this->resetTime);
 
