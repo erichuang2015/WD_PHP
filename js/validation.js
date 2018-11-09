@@ -49,6 +49,9 @@ function formSubmit(index) {
 	$("div").removeClass("is-invalid");
 	$("form:eq("+index+")").find('input,textarea,select').removeClass("is-invalid");
 	$("form:eq("+index+")").find('input,textarea,select').each(function(index) {
+		if(!$(this).attr("name")){
+			return ;
+		}
 		if($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio"){
 			if($(this).data("check_min")){
 				if($("input[name='"+$(this).attr("name")+"']:checked").length < $(this).data("check_min")){

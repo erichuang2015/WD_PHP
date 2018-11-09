@@ -136,6 +136,10 @@ namespace MTsung{
 		        $referer = "instagram";
 		    }else if(stripos($temp, "pchome")){
 		        $referer = "pchome";
+		    }else if(stripos($temp, "wikipedia")){
+		        $referer = "wikipedia";
+		    }else if(stripos($temp, "android-app:")){
+		        $referer = "android";
 		    }else{
 		        $referer = $temp;
 		    }
