@@ -581,6 +581,30 @@ namespace MTsung{
 		 */
 		function payBill($prefix='WD',$length=ORDER_SIZE,$start=1){
 			$this->reloadCart();
+
+			$this->conn->Execute("BEGIN;");
+
+			switch ($this->order["shipmentMethod"]) {
+
+				case shipmentMethodType::FAMI:									//超商取貨(綠界) 全家
+				case shipmentMethodType::UNIMART:								//超商取貨(綠界) 統一超商
+				case shipmentMethodType::HILIFE:								//超商取貨(綠界) 萊爾富
+				case shipmentMethodType::FAMIC2C:								//超商取貨(綠界) 全家店到店
+				case shipmentMethodType::UNIMARTC2C:							//超商取貨(綠界) 統一超商店到店
+				case shipmentMethodType::HILIFEC2C:								//超商取貨(綠界) 萊爾富店到店
+				case shipmentMethodType::FAMI_COLLECTION_Y:						//超商取貨付款(綠界) 全家
+				case shipmentMethodType::UNIMART_COLLECTION_Y:					//超商取貨付款(綠界) 統一超商
+				case shipmentMethodType::HILIFE_COLLECTION_Y:					//超商取貨付款(綠界) 萊爾富
+				case shipmentMethodType::FAMIC2C_COLLECTION_Y:					//超商取貨付款(綠界) 全家店到店
+				case shipmentMethodType::UNIMARTC2C_COLLECTION_Y:				//超商取貨付款(綠界) 統一超商店到店
+				case shipmentMethodType::HILIFEC2C_COLLECTION_Y:				//超商取貨付款(綠界) 萊爾富店到店
+					if(($this->order["total"]+$this->order["freight"])>20000){
+						$this->message =  $this->console->getMessage('MONEY_MAX_20000');
+						return false;
+					}
+					break;
+			}
+			
 			//購物車內容
 			if(!$this->getShoppingCartList()){
 				$this->message = $this->console->getMessage('CAR_ITEM_IS_NULL_TO_PAY');
@@ -607,27 +631,6 @@ namespace MTsung{
 				return false;
 			}
 
-
-			switch ($this->order["shipmentMethod"]) {
-
-				case shipmentMethodType::FAMI:									//超商取貨(綠界) 全家
-				case shipmentMethodType::UNIMART:								//超商取貨(綠界) 統一超商
-				case shipmentMethodType::HILIFE:								//超商取貨(綠界) 萊爾富
-				case shipmentMethodType::FAMIC2C:								//超商取貨(綠界) 全家店到店
-				case shipmentMethodType::UNIMARTC2C:							//超商取貨(綠界) 統一超商店到店
-				case shipmentMethodType::HILIFEC2C:								//超商取貨(綠界) 萊爾富店到店
-				case shipmentMethodType::FAMI_COLLECTION_Y:						//超商取貨付款(綠界) 全家
-				case shipmentMethodType::UNIMART_COLLECTION_Y:					//超商取貨付款(綠界) 統一超商
-				case shipmentMethodType::HILIFE_COLLECTION_Y:					//超商取貨付款(綠界) 萊爾富
-				case shipmentMethodType::FAMIC2C_COLLECTION_Y:					//超商取貨付款(綠界) 全家店到店
-				case shipmentMethodType::UNIMARTC2C_COLLECTION_Y:				//超商取貨付款(綠界) 統一超商店到店
-				case shipmentMethodType::HILIFEC2C_COLLECTION_Y:				//超商取貨付款(綠界) 萊爾富店到店
-					if(($this->order["total"]+$this->order["freight"])>20000){
-						$this->message =  $this->console->getMessage('MONEY_MAX_20000');
-						return false;
-					}
-					break;
-			}
 
 			//南蠻堂特殊功能 多一個收件人多一次運費
 			// if(is_array($_POST["ReceiverName"])){
@@ -664,6 +667,8 @@ namespace MTsung{
 
 			$this->conn->Execute("UPDATE ".$this->table." SET orderNumber='".$orderNumber."',step='2',create_date='".DATE."' where id='".$this->order['id']."'");
 
+			$this->conn->Execute("COMMIT;");
+			
 			//發送訂單結帳完成信件
 			$this->sendMail($orderNumber,orderSendMailType::ORDER_CHECKOUT_COMPLETED);
 
