@@ -4,6 +4,22 @@ $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
 $memberList = new MTsung\member($console,PREFIX.'member');
 
+$csvKeyArray = array("account","name","email","address","phone");
+
+if($_GET["export"] == "1"){
+	$csv = new MTsung\csv();
+	$temp = $memberList->getData();
+
+	foreach ($temp as $key => $value) {
+		foreach ($value as $key1 => $value1) {
+			if(!in_array($key1, $csvKeyArray) || is_numeric($key1)){
+				unset($temp[$key][$key1]);
+			}
+		}
+	}
+	$csv->export($temp);
+}
+
 $explodeArray = array("address");
 if(isset($console->path[1])){
 //動作

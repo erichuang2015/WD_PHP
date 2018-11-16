@@ -250,17 +250,28 @@ namespace MTsung{
 		/**
 		 * 取得資料 列表用
 		 * @param  string  $whereSql    sql and xxxx
-	 	 * @param  array   $searckKey   keyword搜尋的欄位名稱
+	 	 * @param  array   $searchKey   keyword搜尋的欄位名稱
 		 * @param  integer $per         每頁幾筆
 		 * @param  integer $pageViewMax 頁碼顯示N個
 		 * @return [type]               [description]
 		 */
-		function getListData($whereSql='',$searckKey=array("name"),$per=15,$pageViewMax=5){
+		function getListData($whereSql='',$searchKey=array("name"),$per=15,$pageViewMax=5){
 
 			if(isset($_GET["per"]) && is_numeric($_GET["per"]) && ($_GET["per"] > 0)){
 				$per = $_GET["per"];
 			}
 
+			
+			$whereSql = $this->getSqlWhere($searchKey).$whereSql;
+			$this->pageNumber = new pageNumber($this->console,'select * from '.$this->table." ".$whereSql,$per,$pageViewMax);
+			return $this->getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$this->pageNumber->getPer());
+		}
+
+		/**
+		 * 取得GET組合的sql
+		 * @return [type] [description]
+		 */
+		function getSqlWhere($searchKey=array("name")){
 			$sql = "";
 			if(isset($_GET["searchKeyWord"])){
 				$sql = "where ";
@@ -268,8 +279,8 @@ namespace MTsung{
 					$temp =  explode(" ",$_GET["searchKeyWord"]);
 					$sql .= " (";
 					foreach ($temp as $key => $value) {
-						if($value!=''){
-							foreach ($searckKey as $key1 => $value1) {
+						if($value!='' && $searchKey){
+							foreach ($searchKey as $key1 => $value1) {
 								$sql .= " ".$value1." LIKE '%".$value."%' or";
 							}
 						}
@@ -310,9 +321,7 @@ namespace MTsung{
 				$temp .= ")";
 				$sql .= " and (stock REGEXP '^".$temp."[|].*' or stock REGEXP '.*[|]".$temp."$' or stock REGEXP '.*[|]".$temp."[|].*' or stock REGEXP '^".$temp."$')";
 			}
-			$whereSql = $sql.$whereSql;
-			$this->pageNumber = new pageNumber($this->console,'select * from '.$this->table." ".$whereSql,$per,$pageViewMax);
-			return $this->getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$this->pageNumber->getPer());
+			return $sql;
 		}
 
 		/**

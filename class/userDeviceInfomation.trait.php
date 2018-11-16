@@ -138,10 +138,11 @@ namespace MTsung{
 		        $referer = "pchome";
 		    }else if(stripos($temp, "wikipedia")){
 		        $referer = "wikipedia";
-		    }else if(stripos($temp, "android-app:")){
-		        $referer = "android";
+		    }else if($temp == ""){
+		        $referer = "";
 		    }else{
-		        $referer = $temp;
+		    	error_log("來源網域:".$temp."\n");
+		        $referer = "other";
 		    }
 		    return $referer;
 		}
