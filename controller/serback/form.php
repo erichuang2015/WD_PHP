@@ -96,6 +96,9 @@ if(isset($console->path[2])){
 		
 			$data["list"][$key]["keyName"] = array_slice($data["list"][$key]["keyName"],0,5);
 			$data["list"][$key]["keyData"] = array_slice($data["list"][$key]["keyData"],0,5);
+			foreach ($data["list"][$key]["keyData"] as $key1 => $value1) {
+				$data["list"][$key]["keyData"][$key1] = mb_substr($value1,0,50);
+			}
 		}
 	}
 
