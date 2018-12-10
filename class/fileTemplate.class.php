@@ -272,6 +272,26 @@ namespace MTsung{
 		 */
 		function getListData($type){
 			$temp = $this->conn->getArray("select * from ".$this->table." where type='".$type."' order by sort ");
+			
+			//自動同步DB與資料庫
+			$nameTemp = array();
+			foreach ($temp as $key => $value) {
+				$nameTemp[] = $value["name"];
+			}
+
+			$dirname = $this->dirPath."/".$type;
+			$dh = opendir($dirname);
+			while ($dave = readdir($dh))
+			{
+				if($dave != "." && $dave != ".." && strpos($dave,".html")!==false && !in_array($dave,$nameTemp)){
+					$data["name"] = $data["detail"] = $dave;
+					$data["type"] = $type;
+					$this->addData($data);
+				} 
+			}
+			closedir ($dh);
+			//自動同步DB與資料庫
+
 			return $temp;
 		}
 		
