@@ -32,7 +32,14 @@ namespace MTsung{
 			if(!strpos($sql,'count(*)')){
 				$sql = str_replace('*','count(*)',$sql);
 			}
-			$this->dataCount = $this->conn->GetRow($sql)[0];
+
+			$temp = $this->conn->GetArray($sql);
+			if(count($temp)>1){
+				$this->dataCount = count($temp);
+			}else{
+				$this->dataCount = $temp[0][0];
+			}
+
 			$this->pageTotal = ceil($this->dataCount/$this->per);
 			
 			// 現在頁碼

@@ -14,7 +14,7 @@
 		$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] = $_SERVER["REQUEST_URI"];
 		$console->linkTo(MEMBER_PATH."login");
 		exit;
-	}else if($member->isLogin() && in_array($type,$noCheck)){
+	}else if($member->isLogin() && $type=="login"){
 		$console->linkTo(MEMBER_PATH."detail");
 		exit;
 	}
