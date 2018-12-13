@@ -23,6 +23,12 @@
 		$dbData = "";
 	}
 
+	//網站資料夾權限判斷
+	if(!is_writeable(APP_PATH)){
+		echo "unable to write file";
+		exit;
+	}
+
 
 	$conn = ADONewConnection("mysqli");
 	$connect_check = $isPConnect ? $conn->PConnect($dbHost,$dbUser,$dbPass,$dbData) : $conn->Connect($dbHost,$dbUser,$dbPass,$dbData);

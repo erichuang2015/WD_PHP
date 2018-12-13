@@ -71,7 +71,7 @@ namespace MTsung{
 			}else{
 				$this->newQuery .= "?".$queryName."=";
 			}
-			$this->newQuery = $_SERVER["REDIRECT_URL"].$this->newQuery;
+			$this->newQuery = explode("?",$_SERVER["REQUEST_URI"])[0].$this->newQuery;
 
 			// 上/下一頁碼
 			$this->pagePrevious = $this->pageNow > 1 ? $this->pageNow - 1 : 1;

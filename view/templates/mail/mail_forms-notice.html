@@ -17,7 +17,7 @@
           ({section name=i loop=$data.keyName})
             <tr>
               <td width="16%" align="center" bgcolor="#010101" style="color: #fff;">({$data.keyName[i]})</td>
-              <td width="84%" style="border-bottom:1px #E7E7E7 solid">({if strpos($data.keyData[i],'upload/form/') !== false })<a href="({$data.webUrl})/({$data.keyData[i]})" target="_black">({$data.webUrl})/({$data.keyData[i]})</a>({else})({$data.keyData[i]})({/if})</td>
+              <td width="84%" style="border-bottom:1px #E7E7E7 solid">({if strpos($data.keyData[i],'upload/form/') !== false })<a href="({$data.webUrl})/({$data.keyData[i]})" target="_black">({$data.webUrl})/({$data.keyData[i]})</a>({else})({$data.keyData[i]|htmlspecialchars})({/if})</td>
             </tr>
           ({/section})
         </tbody>
