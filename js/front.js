@@ -184,3 +184,7 @@ $(window).keydown(function(event) {
       loadingStop();
     }
 });
+
+$(function(){
+    $("img").lazyload();
+});
