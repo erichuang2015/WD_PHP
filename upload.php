@@ -38,107 +38,109 @@
 	}
 	//網站空間限制
 
-	
-	if(isset($_SESSION[FRAME_NAME]["member"]["serback"]) && $_SESSION[FRAME_NAME]["member"]["serback"]){
-		$allowMIME = array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword');
-		$allowExt = array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4');
-		// 取得來源
-		if(isset($_SERVER["HTTP_REFERER"]) && substr($_SERVER["HTTP_REFERER"], -1)=='/'){
-			$_SERVER["HTTP_REFERER"] = substr($_SERVER["HTTP_REFERER"],0,-1);
+	//前台檔案限制
+	$allowMIME = array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword');
+	$allowExt = array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4');
+	$maxSize = 524288;//512KB
+
+
+	//後台登入狀態
+	$isLogin = isset($_SESSION[FRAME_NAME]["member"]["serback"]) && $_SESSION[FRAME_NAME]["member"]["serback"];
+
+	// 取得來源
+	if(isset($_SERVER["HTTP_REFERER"]) && substr($_SERVER["HTTP_REFERER"], -1)=='/'){
+		$_SERVER["HTTP_REFERER"] = substr($_SERVER["HTTP_REFERER"],0,-1);
+	}
+	$temp = explode($_SERVER["HTTP_HOST"].$MT_web["main_path"], $_SERVER["HTTP_REFERER"]);
+
+	if(isset($temp[1])){
+		if(isset($_GET["isTinyMCE"]) && $_GET["isTinyMCE"]==='1' && $isLogin){
+			$temp = 'files';
+			$allowMIME = array();
+			$allowExt = array();
+			$maxSize = 10485760;
+		}else{
+			$temp[1] = str_replace("/serback","",$temp[1]);
+			$temp = explode("/",$temp[1])[1];
 		}
-		$temp = explode($_SERVER["HTTP_HOST"].$MT_web["main_path"], $_SERVER["HTTP_REFERER"]);
-		if(isset($temp[1])){
-			if(isset($_GET["isTinyMCE"]) && $_GET["isTinyMCE"]==='1'){
-				$temp = 'files';
-				$allowMIME = array();
-				$allowExt = array();
-			}else{
-				$temp[1] = str_replace("/serback","",$temp[1]);
-				$temp = explode("/",$temp[1])[1];
-			}
-			$upload = new MTsung\Upload(	$allowMIME,
-											$allowExt,
-											20971520,
-											false,
-											'upload/'.$temp
-										);
-			if($_FILES){
+		$upload = new MTsung\Upload(	$allowMIME,
+										$allowExt,
+										$maxSize,
+										false,
+										'upload/'.$temp
+									);
+		if($_FILES){
 
-				//圖片處理
-				foreach ($_FILES as $key => $value) {
-					if(is_array($value["type"])){
-						foreach ($value["type"] as $key1 => $value1) {
-							$array = array('image/jpeg', 'image/png', 'image/bmp');
-							if(in_array($value1, $array)){
-								$tempFile = $value['tmp_name'][$key1].".".explode("/",$value1)[1];
-								copy($value['tmp_name'][$key1],$tempFile);
-
-								//壓縮
-								// $image = (new MTsung\imgCompress($tempFile,1))->TinyPNG($tempFile);
-								//浮水印
-								if(isset($_GET["watermark"]) && is_numeric($_GET["watermark"]) && $setting->getValue("watermark")){
-									$watermark = new MTsung\watermark();
-									$watermarkFile = str_replace(WEB_PATH,APP_PATH,$setting->getValue("watermark"));
-									$watermark->apply($tempFile, $tempFile, $watermarkFile, $_GET["watermark"]);
-								}
-
-								copy($tempFile,$value['tmp_name'][$key1]);
-								unlink($tempFile);
-							}
-						}
-					}else{
+			//圖片處理
+			foreach ($_FILES as $key => $value) {
+				if(is_array($value["type"])){
+					foreach ($value["type"] as $key1 => $value1) {
 						$array = array('image/jpeg', 'image/png', 'image/bmp');
-						if(in_array($value["type"], $array)){
-							$tempFile = $value['tmp_name'].".".explode("/",$value["type"])[1];
-							copy($value['tmp_name'],$tempFile);
+						if(in_array($value1, $array)){
+							$tempFile = $value['tmp_name'][$key1].".".explode("/",$value1)[1];
+							copy($value['tmp_name'][$key1],$tempFile);
 
 							//壓縮
 							// $image = (new MTsung\imgCompress($tempFile,1))->TinyPNG($tempFile);
-							// 浮水印
+							//浮水印
 							if(isset($_GET["watermark"]) && is_numeric($_GET["watermark"]) && $setting->getValue("watermark")){
 								$watermark = new MTsung\watermark();
 								$watermarkFile = str_replace(WEB_PATH,APP_PATH,$setting->getValue("watermark"));
 								$watermark->apply($tempFile, $tempFile, $watermarkFile, $_GET["watermark"]);
 							}
 
-							copy($tempFile,$value['tmp_name']);
+							copy($tempFile,$value['tmp_name'][$key1]);
 							unlink($tempFile);
 						}
 					}
-				}
-			}
-			
-			$upload->callUploadFile();
-
-			if(!$upload->getDestination()){
-				echo "Upload error.";
-				// echo "upload_max_filesize is ".ini_get('upload_max_filesize');
-				exit;
-			}
-			if(isset($_GET["isTinyMCE"]) && $_GET["isTinyMCE"]==='1'){
-				if($upload->getDestination()[0]){
-					echo json_encode(array('location' => $upload->getDestination()[0]));
 				}else{
-					header("HTTP/1.1 400 Invalid file type.");
-				}
-			}else{
-				$temp = $upload->getDestination();
-				if($temp){
-					foreach ($temp as $key => $value) {
-						$_SESSION[FRAME_NAME]["PICTURE_TEMP"][] = str_replace("upload/","",$value);
+					$array = array('image/jpeg', 'image/png', 'image/bmp');
+					if(in_array($value["type"], $array)){
+						$tempFile = $value['tmp_name'].".".explode("/",$value["type"])[1];
+						copy($value['tmp_name'],$tempFile);
+
+						//壓縮
+						// $image = (new MTsung\imgCompress($tempFile,1))->TinyPNG($tempFile);
+						// 浮水印
+						if(isset($_GET["watermark"]) && is_numeric($_GET["watermark"]) && $setting->getValue("watermark")){
+							$watermark = new MTsung\watermark();
+							$watermarkFile = str_replace(WEB_PATH,APP_PATH,$setting->getValue("watermark"));
+							$watermark->apply($tempFile, $tempFile, $watermarkFile, $_GET["watermark"]);
+						}
+
+						copy($tempFile,$value['tmp_name']);
+						unlink($tempFile);
 					}
-					print_r(json_encode($temp));
 				}
 			}
-			exit;
-		}else{
-			// 來源錯誤
-			echo "來源網域錯誤!!";
+		}
+		
+		$upload->callUploadFile();
+
+		if(!$upload->getDestination()){
+			echo "Upload error.".$upload->res['error'];
+			// echo "upload_max_filesize is ".ini_get('upload_max_filesize');
 			exit;
 		}
+		if(isset($_GET["isTinyMCE"]) && $_GET["isTinyMCE"]==='1'){
+			if($upload->getDestination()[0]){
+				echo json_encode(array('location' => $upload->getDestination()[0]));
+			}else{
+				header("HTTP/1.1 400 Invalid file type.");
+			}
+		}else{
+			$temp = $upload->getDestination();
+			if($temp){
+				foreach ($temp as $key => $value) {
+					// $_SESSION[FRAME_NAME]["PICTURE_TEMP"][] = str_replace("upload/","",$value);
+				}
+				print_r(json_encode($temp));
+			}
+		}
+		exit;
 	}else{
-		// 沒登入
-		echo "無權限";
+		// 來源錯誤
+		echo "來源網域錯誤!!";
 		exit;
 	}
 	exit;

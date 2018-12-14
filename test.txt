@@ -252,3 +252,14 @@ console.log("%c", "padding:50px 300px;line-height:120px;background:url('https://
 
 
 	<div id="google_translate_element"></div><script type="text/javascript">function googleTranslateElementInit() {new google.translate.TranslateElement( {pageLanguage: 'zh-tw', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');}</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+	FB留言外掛
+    <div class="fb-comments" data-href="({$data.thisUrl})" data-width="" data-numposts="5" style="width:100%"></div>
+    崁入FB影片
+    <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/10153231379946729/" data-show-text="false" style="width:100%"></div>
+    讚 分享網址
+    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+    儲存連結
+    <div class="fb-save" data-uri="https://www.instagram.com/facebook/" data-size="large"></div>

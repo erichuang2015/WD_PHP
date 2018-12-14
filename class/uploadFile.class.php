@@ -50,6 +50,7 @@ namespace MTsung{
          */
         public function callUploadFile(){
             $res = '';
+            $this->res = array();  // 清除所有訊息
             
             if($this->fileInfo){
                 foreach ($this->fileInfo as $file) {
@@ -60,7 +61,6 @@ namespace MTsung{
                         $this->uploadFiles[] = $res['dest'];
                     }
          
-                    $this->res = array();  // 清除所有訊息
                 }
             }
         }
