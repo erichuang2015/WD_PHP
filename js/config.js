@@ -69,7 +69,7 @@ $.ajax({
 setTimeout(function(){
     if(location.host.indexOf("localhost") != 0 && location.host.indexOf("127.0.0.1") != 0){
         console.clear();
-        console.log('%c 請勿在此複製/貼上任何東西，已免遭惡意攻擊。','color:#ff0000;font-size:30px;');
+        console.log('%c 請勿在此複製/貼上任何東西，以免遭惡意攻擊。','color:#ff0000;font-size:30px;');
         console.log("%c ", "padding:1px 200px;line-height:60px;background:url('https://www.104portal.com.tw/images/logo.png') no-repeat;");
     }
 
