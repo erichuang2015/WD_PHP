@@ -162,7 +162,7 @@
 			$sql .= " id<>? and";
 		}
 		$data[] = "%".$_GET['keyword']."%";
-		$sql .= " name LIKE ? order by sort";
+		$sql .= " name LIKE ? and status='1' order by sort";
 
 		$output = $conn->GetArray($conn->Prepare($sql),$data);
 		if($output){
@@ -194,7 +194,31 @@
 			$sql .= " id=? and";
 		}
 		$data[] = "%".$_GET['keyword']."%";
-		$sql .= " name LIKE ? order by sort";
+		$sql .= " name LIKE ? and status='1' order by sort";
+		$output = $conn->GetArray($conn->Prepare($sql),$data);
+		echo json_encode($output);
+
+		$conn->SetFetchMode(ADODB_FETCH_DEFAULT);
+		exit;
+	}
+
+	/**
+	 * 後台取得資料
+	 */
+	if(isset($_GET['searckData']) && isset($_GET['keyword'])){
+		if(!$serbackIsLogin){
+			echo false;
+			exit;
+		}
+		$conn->SetFetchMode(ADODB_FETCH_ASSOC);
+		$_GET = array_map("addslashes", $_GET);
+		$sql = "select id,name from ".PREFIX.$_GET['searckData']."__".str_replace("-","_",$_SESSION[FRAME_NAME]["SETTING_LANG"])." where ";
+		if(isset($_GET['id'])){
+			$data[] = $_GET['id'];
+			$sql .= " id=? and";
+		}
+		$data[] = "%".$_GET['keyword']."%";
+		$sql .= " name LIKE ? and status='1' order by sort";
 		$output = $conn->GetArray($conn->Prepare($sql),$data);
 		echo json_encode($output);
 
