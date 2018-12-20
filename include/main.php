@@ -686,14 +686,32 @@ namespace MTsung{
 		 * @return [type]        [description]
 		 */
 		function checkreCAPTCHA($value){
-			$response = file_get_contents(
-		    	'https://www.google.com/recaptcha/api/siteverify?'.http_build_query(
+			// $response = file_get_contents(
+		 //    	'https://www.google.com/recaptcha/api/siteverify?'.http_build_query(
+		 //    		array(
+			//             'secret'   => $this->setting->getValue("reCAPTCHASecretKey"),//Secret key
+			//             'response' => $value
+			//         )
+		 //    	)
+		 //    );
+			$curl = curl_init();
+		    curl_setopt_array($curl, array(
+				CURLOPT_URL => 'https://www.google.com/recaptcha/api/siteverify?'.http_build_query(
 		    		array(
 			            'secret'   => $this->setting->getValue("reCAPTCHASecretKey"),//Secret key
 			            'response' => $value
 			        )
-		    	)
-		    );
+		    	),
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 30,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "GET",
+			));
+
+			$response = curl_exec($curl);
+			curl_close($curl);
 		    $response = json_decode($response, true);
 		    return (isset($response["success"]) && intval($response["success"]) === 1) ? true : false;
 		}

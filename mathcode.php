@@ -10,31 +10,28 @@ header("Cache-Control: no-cache");
 header("Content-type:image/png");
 header("Content-Disposition:filename=math_code.png");
 
+define(COUNT_FILE_NAME, "count.txt");
 
-if (is_file("count.txt")){
-	$count_file = @fopen("count.txt","r");
+$mydata = 0;
+if (is_file(COUNT_FILE_NAME)){
+	$count_file = fopen(COUNT_FILE_NAME,"r");
 	$mydata = fgets($count_file);
 	fclose($count_file);
-	setcookie("cookieTest", "1", time()+3600);//測試cookie是否開啟
-	if(!$_COOKIE["vCount"] && $_COOKIE["cookieTest"]){
-		$count_file = fopen("count.txt","w+");
-		fputs($count_file,($mydata*1+1));
-		fclose($count_file);
-		setcookie("vCount", "1", time()+3600);//3600秒算一次
-	}
-}else{
-	$count_file = fopen("count.txt","a+");
-	fwrite($count_file,'0');
+}
+
+if(!isset($_COOKIE["vCount"])){
+	$count_file = fopen(COUNT_FILE_NAME,is_file(COUNT_FILE_NAME)?"w+":"a+");
+	fputs($count_file,++$mydata);
 	fclose($count_file);
-	$mydata = '0';
+	setcookie("vCount", "1", time()+3600);//3600秒算一次
 }
 
 
 $all_len = '8';									//--字段總長度 (auto則自動)
 if ($all_len!='auto'){
-	$verification__session = str_pad(($mydata*1+1), $all_len*1, "0", STR_PAD_LEFT);
+	$verification__session = str_pad(($mydata*1), $all_len*1, "0", STR_PAD_LEFT);
 }else{
-	$verification__session = ($mydata*1+1).'';
+	$verification__session = ($mydata*1).'';
 }
 $jfont_array = array ('Pixel-lcd-machine.ttf'); //--多自型選擇
 $font_size = 30;

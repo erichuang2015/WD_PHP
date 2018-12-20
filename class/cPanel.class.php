@@ -35,6 +35,9 @@ namespace MTsung{
 		 */
 		function getBandwidth($grouping="domain|year_month",$domains="",$start="",$end=""){
 			$url = "/execute/Bandwidth/query";
+			if(is_array($grouping)){
+				$grouping = implode("|",$grouping);
+			}
 			if(is_array($domains)){
 				$domains = implode("|",$domains);
 			}
