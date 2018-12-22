@@ -499,6 +499,19 @@ namespace MTsung{
 		}
 
 		/**
+		 * 取得label
+		 * @param  string $value 代碼
+		 * @return string        label
+		 */
+		function getLabel($value){
+			if(isset($this->message[$value])){
+				return $this->serbackLabel[$value];
+			}else{
+				return $value;
+			}
+		}
+
+		/**
 		 * 顯示alert
 		 * @param  string $message alert訊息
 		 * @param  string $url     轉跳網址 -1:上一頁  NULL,"":reload  NO:不轉跳 CLOSE:關閉
@@ -686,14 +699,6 @@ namespace MTsung{
 		 * @return [type]        [description]
 		 */
 		function checkreCAPTCHA($value){
-			// $response = file_get_contents(
-		 //    	'https://www.google.com/recaptcha/api/siteverify?'.http_build_query(
-		 //    		array(
-			//             'secret'   => $this->setting->getValue("reCAPTCHASecretKey"),//Secret key
-			//             'response' => $value
-			//         )
-		 //    	)
-		 //    );
 			$curl = curl_init();
 		    curl_setopt_array($curl, array(
 				CURLOPT_URL => 'https://www.google.com/recaptcha/api/siteverify?'.http_build_query(
@@ -703,9 +708,8 @@ namespace MTsung{
 			        )
 		    	),
 				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => "",
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 30,
+				CURLOPT_SSL_VERIFYPEER => false,
+				CURLOPT_SSL_VERIFYHOST => false,
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_CUSTOMREQUEST => "GET",
 			));
