@@ -30,5 +30,5 @@
 	$data["foor"] = (new MTsung\dataList($console,PREFIX."foor",$lang))->getOne();
 
 	//自身網址
-	$data["thisUrl"] = $console->MT_web['ssl'].$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
+	$data["thisUrl"] = HTTP.$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
 ?>

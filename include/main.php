@@ -46,7 +46,6 @@ namespace MTsung{
 		use userDeviceInfomation;
 		var $conn;
 		var $design;
-		var $MT_web;
 		var $setting;
 		var $webSetting;
 
@@ -67,7 +66,6 @@ namespace MTsung{
 		 * @param design 	$design  
 		 */
 		function __construct($conn,$design,$setting){
-			global $MT_web;
 
 			//網址處理
 			$url = str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['REQUEST_URI']);
@@ -91,7 +89,6 @@ namespace MTsung{
 				$this->langSessionName='Serback';
 			}
 
-			$this->MT_web = $MT_web;
 			$this->conn = $conn;
 			$this->setting = $setting;
 			$this->design = $design;
@@ -200,7 +197,7 @@ namespace MTsung{
 		 * @return [type]        [description]
 		 */
 		function readLanguageini($value){
-			$fileName = $this->MT_web['language_path'].$value.'.ini';
+			$fileName = LANGUAGE_PATH.$value.'.ini';
 			if(is_file($fileName) && isset($this->languageArray[$value])){
 				$file = fopen($fileName, "r") or die("Unable to open file!");
 				if(filesize($fileName) > 0){
@@ -221,7 +218,7 @@ namespace MTsung{
 		 * @param  [type] $data  內容
 		 */
 		function writeLanguageini($value,$data){
-			$fileName = $this->MT_web['language_path'].$value.'.ini';
+			$fileName = LANGUAGE_PATH.$value.'.ini';
 			
 			$file = fopen($fileName, "w") or die("Unable to open file!");
 			fwrite($file,$data);
@@ -240,12 +237,12 @@ namespace MTsung{
 					$this->alert($this->getMessage('DEFAULT_LANGUAGE_NO_RENAME'),-1);
 					exit;
 				}
-				$oldFileName = $this->MT_web['language_path'].$oldValue.'.ini';
+				$oldFileName = LANGUAGE_PATH.$oldValue.'.ini';
 				if(!is_file($oldFileName)){
 					$this->alert($this->getMessage('LANGUAGE_NULL'),-1);
 					exit;
 				}else{
-					$newFileName = $this->MT_web['language_path'].$newValue.'.ini';
+					$newFileName = LANGUAGE_PATH.$newValue.'.ini';
 					if(is_file($newFileName)){
 						$this->alert($this->getMessage('LANGUAGE_REPEAT'),-1);
 						exit;
@@ -282,7 +279,7 @@ namespace MTsung{
 				exit;
 			}
 
-			$fileName = $this->MT_web['language_path'].$value.'.ini';
+			$fileName = LANGUAGE_PATH.$value.'.ini';
 			$value = str_replace("-","_",$value);
 			if(!is_file($fileName)){
 				return false;
@@ -308,7 +305,7 @@ namespace MTsung{
 		 * 讀取語言訊息ini
 		 */
 		function loadLanguageini(){
-			$file = $this->MT_web['language_path'].$_SESSION[FRAME_NAME]['language'.$this->langSessionName].'.ini';
+			$file = LANGUAGE_PATH.$_SESSION[FRAME_NAME]['language'.$this->langSessionName].'.ini';
 			if(!is_file($file)){
 				$this->alert($this->getMessage('LANGUAGE_NULL'),-1);
 				exit;
@@ -326,7 +323,7 @@ namespace MTsung{
 				/**
 				 * 找不到就用預設的
 				 */
-				$tmpe = parse_ini_file($this->MT_web['language_path'].LANG.'.ini',true);
+				$tmpe = parse_ini_file(LANGUAGE_PATH.LANG.'.ini',true);
 				foreach ($tmpe['message'] as $key => $value) {
 					if(!isset($this->message[$key])){
 						// $this->serbackLabel[$key] = htmlspecialchars($value);
@@ -353,10 +350,10 @@ namespace MTsung{
 		 * 讀取language有哪些語言 Array ( [zh-tw] => 繁體中文 )
 		 */
 		function setLanguageArray(){
-			$dir = dir($this->MT_web['language_path']);
+			$dir = dir(LANGUAGE_PATH);
 			while($file = $dir->read()) {
 			   	if (!is_dir($file) && strpos($file,'.ini')){
-			   		$temp = parse_ini_file($this->MT_web['language_path'].$file,true);
+			   		$temp = parse_ini_file(LANGUAGE_PATH.$file,true);
 			   		if(isset($temp['value']['LANGUAGE_NAME'])){
 			   			$temp = htmlspecialchars($temp['value']['LANGUAGE_NAME']);
 			   		}else{
@@ -381,7 +378,7 @@ namespace MTsung{
 						$temp .= '/'.$value;
 					}
 					$temp .= ($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '';
-					$temp = '<select id="langSelect" onchange="location.href=\''.$this->MT_web['http_path'].'\'+this.value+\''.$path.$temp.'\'" class="'.$class.'">';
+					$temp = '<select id="langSelect" onchange="location.href=\''.HTTP_PATH.'\'+this.value+\''.$path.$temp.'\'" class="'.$class.'">';
 					foreach ($this->languageArray as $key => $value) {
 						if($_SESSION[FRAME_NAME]['language'.$this->langSessionName] == $key){
 							$temp .= '<option value="'.$key.'" selected>'.$value.'</option>';
@@ -434,7 +431,7 @@ namespace MTsung{
 		 * @param string $value 語言
 		 */
 		function setLanguage($value=LANG){
-			$file = $this->MT_web['language_path'].$value.'.ini';
+			$file = LANGUAGE_PATH.$value.'.ini';
 			if(!is_file($file)){
 				echo $this->getMessage('LANGUAGE_NULL',$value);
 				exit;
@@ -462,15 +459,15 @@ namespace MTsung{
 				$temp .= '/'.$value;
 			}
 			$temp .= ($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '';
-			// $temp = ''.$this->MT_web['http_path'].'\'+this.value+\''.$temp.'\'">';
+			// $temp = ''.HTTP_PATH.'\'+this.value+\''.$temp.'\'">';
 
 			$data = '';
 			$array = $this->getLanguageArray('array');
 			foreach ($array as $key => $value) {
-				$data .= '<link rel="alternate" href="'.$this->MT_web['http_path'].$key.$temp.'" hreflang="'.$key.'" />
+				$data .= '<link rel="alternate" href="'.HTTP_PATH.$key.$temp.'" hreflang="'.$key.'" />
 ';
 			}
-			$data .= '<link rel="alternate" href="'.substr($this->MT_web['http_path'],0,-1).$temp.'" hreflang="x-default" />';//
+			$data .= '<link rel="alternate" href="'.substr(HTTP_PATH,0,-1).$temp.'" hreflang="x-default" />';//
 			return $data;
 		}
 
@@ -538,9 +535,9 @@ namespace MTsung{
 		 */
 		function loadController(){
 			global $console;
-			if (is_file($this->MT_web['controller_path'].$this->controller.'.php')){
-				include_once($this->MT_web['controller_path'].$this->controller.'.php'); 
-				include_once($this->MT_web['include_path'].'foor.php');
+			if (is_file(CONTROLLER_PATH.$this->controller.'.php')){
+				include_once(CONTROLLER_PATH.$this->controller.'.php'); 
+				include_once(INCLUDE_PATH.'foor.php');
 			}else{
 				$this->to404();
 				// echo $this->getMessage('CONTROLLER_NULL',array($this->controller));
@@ -955,7 +952,7 @@ namespace MTsung{
 		 */
 		function to404(){
 			http_response_code(404);
-			$web_set['main_path'] = $this->MT_web['main_path'];
+			$web_set['main_path'] = WEB_PATH;
 			$web_set['lang'] = count($this->getLanguageArray("array"))==1?'':$this->getLanguage();
 			$web_set['main_url'] = $web_set['main_path'].($web_set['lang']?'/'.$web_set['lang']:'');
 			$web_set = array_merge($web_set,$this->webSetting->getValue());

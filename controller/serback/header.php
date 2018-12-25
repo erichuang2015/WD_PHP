@@ -9,7 +9,7 @@ if($_POST){
 $memberSessionName = 'serback';
 $member = new MTsung\member($console,PREFIX.'admin',$memberSessionName);
 
-$loginUrl = $console->MT_web["serback_path"].'/login';
+$loginUrl = SERBACK_PATH.'/login';
 
 /**
  * 判斷有沒有登入
@@ -78,9 +78,9 @@ if($temp){
  * 是否有權限進入此網址
  */
 $url = str_replace($console->getLanguage()."/","",$_SERVER["REQUEST_URI"]);//刪除網址的語言部份
-if(0 === strpos($url,$console->MT_web["serback_path"]) && isset($console->path[0]) && $console->path[0] != "index" && $console->path[0] != "" ){
+if(0 === strpos($url,SERBACK_PATH) && isset($console->path[0]) && $console->path[0] != "index" && $console->path[0] != "" && $member->getInfo("account") != "vipadmin"){
 	$_OK = false;
-	$url = substr($url,strlen($console->MT_web["serback_path"]."/"));
+	$url = substr($url,strlen(SERBACK_PATH."/"));
 	foreach ($menuUrl as $key => $value) {
 		if((0 === strpos($url,$value)) && (!isset($url[strlen($value)]) || (isset($url[strlen($value)]) && ($url[strlen($value)]=="/" || $url[strlen($value)]=="?")))){
 			$_OK = true;
@@ -93,7 +93,7 @@ if(0 === strpos($url,$console->MT_web["serback_path"]) && isset($console->path[0
 		}
 	}
 	if(!$_OK){
-		$console->alert($console->getMessage("NOT_AUTHORITY"),$console->MT_web["serback_path"]);
+		$console->alert($console->getMessage("NOT_AUTHORITY"),SERBACK_PATH);
 	}
 }
 

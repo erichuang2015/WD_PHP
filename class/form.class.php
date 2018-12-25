@@ -44,7 +44,7 @@ namespace MTsung{
 		 */
 		function sendForm($data,$back){
 			$mail = new phpMailer($this->console);
-			$data["webUrl"] = $this->console->MT_web['http_path'];
+			$data["webUrl"] = HTTP_PATH;
 			$data["webName"] = $this->console->webSetting->getValue("webTitle");
 
 			foreach ($_FILES as $key => $value) {

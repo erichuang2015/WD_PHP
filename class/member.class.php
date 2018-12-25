@@ -434,10 +434,10 @@ namespace MTsung{
 			if($temp){
 				if($temp["emailCheck"]==emailCheckType::CHECK_NO){
 					$auth = urlencode(base64_encode(base64_encode($temp["password"])));
-					$url = $this->console->MT_web['http_path'].'member/check?uID='.$temp["id"].'&auth='.$auth;
+					$url = HTTP_PATH.'member/check?uID='.$temp["id"].'&auth='.$auth;
 
 					$data["mailTitle"] = $this->console->webSetting->getValue("webTitle").'-'.$this->console->getMessage('TITLE_USER_LETTER');
-					$data["webUrl"] = $this->console->MT_web['http_path'];
+					$data["webUrl"] = HTTP_PATH;
 					$data["webName"] = $this->console->webSetting->getValue("webTitle");
 					$data["checkUrl"] = $url;
 					$data["webEmail"] = $this->console->setting->getValue("senderEmail");
@@ -579,12 +579,12 @@ namespace MTsung{
 			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->table." where ".$key."=? "),array($value));
 			if($temp){
 				$auth = urlencode(base64_encode(base64_encode($temp["password"])));
-				$url = $this->console->MT_web['http_path'].$url.'?uID='.$temp["id"].'&auth='.$auth;
+				$url = HTTP_PATH.$url.'?uID='.$temp["id"].'&auth='.$auth;
 
 				$this->conn->AutoExecute($this->table,array('update_date' => DATE),"UPDATE",'id='.$temp["id"]);
 
 				$data["mailTitle"] = $this->console->webSetting->getValue("webTitle").'-'.$this->console->getMessage('TITLE_USER_RESET_PASSWORD');
-				$data["webUrl"] = $this->console->MT_web['http_path'];
+				$data["webUrl"] = HTTP_PATH;
 				$data["webName"] = $this->console->webSetting->getValue("webTitle");
 				$data["checkUrl"] = $url;
 				$data["webEmail"] = $this->console->setting->getValue("senderEmail");

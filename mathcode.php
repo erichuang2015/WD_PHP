@@ -14,15 +14,11 @@ define(COUNT_FILE_NAME, "count.txt");
 
 $mydata = 0;
 if (is_file(COUNT_FILE_NAME)){
-	$count_file = fopen(COUNT_FILE_NAME,"r");
-	$mydata = fgets($count_file);
-	fclose($count_file);
+	$mydata = file_get_contents(COUNT_FILE_NAME);
 }
 
 if(!isset($_COOKIE["vCount"])){
-	$count_file = fopen(COUNT_FILE_NAME,is_file(COUNT_FILE_NAME)?"w+":"a+");
-	fputs($count_file,++$mydata);
-	fclose($count_file);
+	file_put_contents(COUNT_FILE_NAME,++$mydata);
 	setcookie("vCount", "1", time()+3600);//3600秒算一次
 }
 

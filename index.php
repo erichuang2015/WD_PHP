@@ -31,11 +31,14 @@
 	include_once(APP_PATH.'class/csv.class.php');					//csv
 	include_once(APP_PATH.'class/analytics.class.php');				//analytics
 	include_once(APP_PATH.'class/cPanel.class.php');				//cPanel
+	include_once(APP_PATH.'class/fcm.class.php');					//fcm 推播
 	include_once(APP_PATH.'include/main.php');						//核心
-	
+
 	$design = new MTsung\design();
 	$console = new MTsung\main($conn,$design,$setting);
 	$webSetting = new MTsung\webSetting($console,PREFIX."web_setting",$_SESSION[FRAME_NAME]['language'.$console->langSessionName]);//前端輸出用
 	$console->setWebSetting($webSetting);
 	$console->loadController();
+
+
 ?>

@@ -44,7 +44,7 @@
 			$_GET['rmSrc'] = str_replace('../',"",$_GET['rmSrc']);
 			$_GET['rmSrc'] = str_replace('..\\',"",$_GET['rmSrc']);
 		}
-		$_GET['rmSrc'] = str_replace($MT_web["main_path"].'/upload/',"",$_GET['rmSrc']);
+		$_GET['rmSrc'] = str_replace(WEB_PATH.'/upload/',"",$_GET['rmSrc']);
 		$_GET['rmSrc'] = str_replace('upload/',"",$_GET['rmSrc']);
 		$path = APP_PATH.'upload/';
 		if(is_file($path.$_GET['rmSrc'])){
@@ -126,10 +126,10 @@
 	 */
 	if(isset($_GET['getLanguageMsg'])){
 		$Lang = isset($_GET['language'])? $_GET['language'] :LANG;
-		$temp = parse_ini_file($MT_web['language_path'].$Lang.'.ini',true);
+		$temp = parse_ini_file(LANGUAGE_PATH.$Lang.'.ini',true);
 		if (isset($temp["jsMessage"])){
 			if($Lang!=LANG){
-				$tmpe1 = parse_ini_file($MT_web['language_path'].LANG.'.ini',true);
+				$tmpe1 = parse_ini_file(LANGUAGE_PATH.LANG.'.ini',true);
 				foreach ($tmpe1['jsMessage'] as $key => $value) {
 					if(!isset($tmpe['jsMessage'][$key])){
 						$tmpe['jsMessage'][$key] = $value;
@@ -332,7 +332,7 @@
 			$_GET['src'] = str_replace('../',"",$_GET['src']);
 			$_GET['src'] = str_replace('..\\',"",$_GET['src']);
 		}
-		$_GET['src'] = str_replace($MT_web["main_path"].'/upload/',"",$_GET['src']);
+		$_GET['src'] = str_replace(WEB_PATH.'/upload/',"",$_GET['src']);
 		$_GET['src'] = $path = APP_PATH.'upload/'.str_replace('upload/',"",$_GET['src']);
 
 		$temp = explode(".",$_GET["src"]);

@@ -75,57 +75,57 @@
                                 </tbody>
                             </table>            
                         </div>
-    <script>
-        function dragoverHandler(evt) {
-            evt.preventDefault();
-        }
+                        <script>
+                            function dragoverHandler(evt) {
+                                evt.preventDefault();
+                            }
 
-        function dropHandler(evt,flag) { //evt 為 DragEvent 物件
-            if(typeof(flag) == "undefined"){
-                flag = 1;
-            }
+                            function dropHandler(evt,flag) { //evt 為 DragEvent 物件
+                                if(typeof(flag) == "undefined"){
+                                    flag = 1;
+                                }
 
-            if(flag==1){
-                evt.preventDefault();
-                var files = evt.dataTransfer.files; //由DataTransfer物件的files屬性取得檔案物件
-            }else{
-                var files = document.getElementById('ff').files;
-            }
+                                if(flag==1){
+                                    evt.preventDefault();
+                                    var files = evt.dataTransfer.files; //由DataTransfer物件的files屬性取得檔案物件
+                                }else{
+                                    var files = document.getElementById('ff').files;
+                                }
 
-            var objForm = new FormData();
-            var xhr = new XMLHttpRequest();
-            var up_progress = document.getElementById('up_progress');
-            xhr.open('POST', '({$smarty.server.REQUEST_URI})');
-            
-            xhr.onload = function() {
-                up_progress.innerHTML = '({$label_back.UPLOAD_IMG_OK})';
-                window.location.reload();
-                document.getElementById('ff').value = '';
-                document.getElementById('dropDIV').style.border = 'dashed 5px gray';
-            };
-            xhr.upload.onprogress = function(evt) {
-                //上傳進度
-                if (evt.lengthComputable) {
-                    var complete = (evt.loaded / evt.total * 100 | 0);
-                    if (100 == complete) {
-                        up_progress.innerHTML = '({$label_back.FILE_PROCESSING})';
-                    }else{
-                        up_progress.innerHTML = complete + ' %';
-                    }
-                }
-            };
-            var errMsg='';
-            for (var i = 0; i < files.length; i++) {
-                objForm.append('images[]', files[i]);
-            }
-            if(errMsg!=''){
-                alert(errMsg);
-            }else{
-                xhr.send(objForm); //開始上傳
-            }
-        }
+                                var objForm = new FormData();
+                                var xhr = new XMLHttpRequest();
+                                var up_progress = document.getElementById('up_progress');
+                                xhr.open('POST', '({$smarty.server.REQUEST_URI})');
+                                
+                                xhr.onload = function() {
+                                    up_progress.innerHTML = '({$label_back.UPLOAD_IMG_OK})';
+                                    window.location.reload();
+                                    document.getElementById('ff').value = '';
+                                    document.getElementById('dropDIV').style.border = 'dashed 5px gray';
+                                };
+                                xhr.upload.onprogress = function(evt) {
+                                    //上傳進度
+                                    if (evt.lengthComputable) {
+                                        var complete = (evt.loaded / evt.total * 100 | 0);
+                                        if (100 == complete) {
+                                            up_progress.innerHTML = '({$label_back.FILE_PROCESSING})';
+                                        }else{
+                                            up_progress.innerHTML = complete + ' %';
+                                        }
+                                    }
+                                };
+                                var errMsg='';
+                                for (var i = 0; i < files.length; i++) {
+                                    objForm.append('images[]', files[i]);
+                                }
+                                if(errMsg!=''){
+                                    alert(errMsg);
+                                }else{
+                                    xhr.send(objForm); //開始上傳
+                                }
+                            }
 
-    </script>
+                        </script>
                     ({/if})
 
                     ({if $switch.editList!=0})

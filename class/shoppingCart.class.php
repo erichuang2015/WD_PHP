@@ -1312,7 +1312,7 @@ namespace MTsung{
 				$paymentSetting = new webSetting($this->console,PREFIX."payment_setting",$this->lang);
 
 				$data["mailTitle"] = $this->console->webSetting->getValue("webTitle").'-'.$title;
-				$data["webUrl"] = $this->console->MT_web['http_path'];
+				$data["webUrl"] = HTTP_PATH;
 				$data["webName"] = $this->console->webSetting->getValue("webTitle");
 				$data["webEmail"] = $this->console->setting->getValue("senderEmail");
 				$data["ATMMemo"] = $paymentSetting->getValue("physicalATMTransferMemo");

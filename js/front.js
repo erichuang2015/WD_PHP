@@ -188,3 +188,39 @@ $(window).keydown(function(event) {
 $(function(){
     $("img").lazyload();
 });
+
+
+//https://console.firebase.google.com
+$(function(){
+    // fcm();
+});
+function fcm(){
+    if (window.location.href.search('https:')>=0 && typeof(firebase)!="undefined"){
+        const messaging = firebase.messaging();
+        //--要求授權
+        messaging.requestPermission()
+        .then(function(){
+            return messaging.getToken();
+        })
+        .then(function(token){ //--取得Token
+            $.ajax( {
+                url : _jsPath+'/ajax.php',
+                data: {push_token:token},
+                type:"GET",
+                dataType:'text',
+                async: true,
+                success: function(msg){
+                }
+            });
+            console.log('Token: '+token);
+        })
+        .catch(function(err){
+            console.log('Have Error: '+err); 
+        });
+        
+        messaging.onMessage(function(payload){ //--接收到通知時
+          console.log('onMessage: ', payload);
+        });
+
+    }
+}

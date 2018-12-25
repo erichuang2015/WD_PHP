@@ -2,9 +2,9 @@
 /**
  * 檔案
  */
-
+$allowUser = array("vipadmin");
 $disallowArray = array("css","js","fonts","upload","output","images",".htaccess","robots.txt","404.html");
-if(!in_array($console->path[1],$disallowArray)){
+if(!in_array($console->path[1],$disallowArray) && !in_array($member->getInfo("account"),$allowUser)){
 	$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
 	exit;
 }
@@ -46,7 +46,17 @@ if($_FILES){
 			if(in_array($MIME, $disallowArray)){
 				continue;
 			}
-			move_uploaded_file($value["tmp_name"][$key1],$dirPath."/".$value1);
+
+			if(!preg_match("/[^a-zA-Z0-9_-~@. ]/",$value1)){
+				move_uploaded_file($value["tmp_name"][$key1],$dirPath."/".$value1);
+			}else{
+                $destination = $dirPath."/".str_replace('.',"",microtime(true)).".".$MIME;
+                $i=0;//避免無窮迴圈
+                while(is_file($destination) && ($i++)<10000){
+                	$destination = $dirPath."/".str_replace('.',"",microtime(true)).".".$MIME;
+                }
+				move_uploaded_file($value["tmp_name"][$key1],$destination);
+			}
 		}
 	}
 	exit;
@@ -81,12 +91,18 @@ if(!is_dir($dirPath)){//編輯
 		$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
 	}
 
+	$extension = explode('.', $dirPath);
+	$extension = end($extension);
+
 	if(function_exists("mime_content_type")){
     	$MIME = explode("/",mime_content_type($dirPath))[0];
     }else{
-		$MIME = explode('.', $dirPath);
-		$MIME = end($MIME);
+		$MIME = $extension;
     }
+
+	if($extension == "php"){
+		$module["aceEditor"]["type"] = "php";
+	}
 
     switch ($MIME) {
     	case 'text':
@@ -95,7 +111,7 @@ if(!is_dir($dirPath)){//編輯
     	case 'js':
     	case 'css':
     	case 'htaccess':
-    		if(in_array(".htaccess",explode("/",$dirPath)) && ($console->path[1]!=".htaccess")){
+    		if(in_array(".htaccess",explode("/",$dirPath)) && ($console->path[1]!=".htaccess") && !in_array($member->getInfo("account"),$allowUser)){
 				$console->alert($console->getMessage("MIME_ERROR"),-1);
     		}
     		if($_POST){

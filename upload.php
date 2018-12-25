@@ -51,7 +51,7 @@
 	if(isset($_SERVER["HTTP_REFERER"]) && substr($_SERVER["HTTP_REFERER"], -1)=='/'){
 		$_SERVER["HTTP_REFERER"] = substr($_SERVER["HTTP_REFERER"],0,-1);
 	}
-	$temp = explode($_SERVER["HTTP_HOST"].$MT_web["main_path"], $_SERVER["HTTP_REFERER"]);
+	$temp = explode($_SERVER["HTTP_HOST"].WEB_PATH, $_SERVER["HTTP_REFERER"]);
 
 	if(isset($temp[1])){
 		if(isset($_GET["isTinyMCE"]) && $_GET["isTinyMCE"]==='1' && $isLogin){

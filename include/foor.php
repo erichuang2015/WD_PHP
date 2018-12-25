@@ -6,16 +6,11 @@
 	//把沒POST的圖片刪除
 	if(isset($_SESSION[FRAME_NAME]["PICTURE_TEMP"])){
 		foreach ($_SESSION[FRAME_NAME]["PICTURE_TEMP"] as $key => $value) {
-			// print_r($value);
-			// $ch = curl_init($_SERVER["HTTP_HOST"].$console->MT_web['main_path']."/ajax.php?rmSrc=".$value);
-			// curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			// curl_exec($ch);
-			// curl_close($ch);
 			while(strpos($value,'../')!==false || strpos($value,'..\\')!==false){
 				$value = str_replace('../',"",$value);
 				$value = str_replace('..\\',"",$value);
 			}
-			$value = str_replace($console->MT_web["main_path"].'/upload/',"",$value);
+			$value = str_replace(WEB_PATH.'/upload/',"",$value);
 			$value = str_replace('upload/',"",$value);
 			$path = APP_PATH.'upload/';
 			if(is_file($path.$value)){
@@ -50,18 +45,20 @@
 
 
 	$message = $console->message;
-	$label = $console->webLabel;
 	$label_back = $console->serbackLabel;
 
 	//多國語標籤
 	$web_set['hreflang'] = $console->getHreflang();
 
 	//css js用
-	$web_set['main_path'] = $console->MT_web['main_path'];
-	$web_set['serback_path'] = $console->MT_web['serback_path'];
+	$web_set['main_path'] = WEB_PATH;
+	$web_set['serback_path'] = SERBACK_PATH;
 
-	//完整網址
-	$web_set['http_path'] = $console->MT_web['http_path'];
+	//完整網址(不含控制器)
+	$web_set['http_path'] = HTTP_PATH;
+
+	//自身網址(不含?以後)
+	$web_set["thisUrl"] = explode('?',HTTP.$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"])[0];
 
 	//管理語系
 	if(isset($_SESSION[FRAME_NAME]["SETTING_LANG"])){
@@ -98,7 +95,6 @@
 	$web_set = array_map("htmlspecialchars_decode",$web_set);
 
 	$console->design->setData("message", @$message);
-	$console->design->setData("label", @$label);
 	$console->design->setData("label_back", @$label_back);
 	$console->design->setData("module", @$module);//模組
 	$console->design->setData("data", @$data);
