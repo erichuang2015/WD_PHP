@@ -501,7 +501,7 @@ namespace MTsung{
 		 * @return string        label
 		 */
 		function getLabel($value){
-			if(isset($this->message[$value])){
+			if(isset($this->serbackLabel[$value])){
 				return $this->serbackLabel[$value];
 			}else{
 				return $value;
