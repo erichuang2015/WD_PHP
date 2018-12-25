@@ -21,7 +21,7 @@
             border-top-width: 0px; 
         }
         .custom-file-input ~ .custom-file-label::after {
-            content: "({$label_back.BROWSER})";
+            content: "({$console->getLabel("BROWSER")})";
         }
 
     </style>
@@ -44,7 +44,7 @@
 
             if(($('#fileDIV({$_I_})>div').length+files.length) > ({(int)$module.uploadFile[$_I_].max})){
                 document.getElementById('ff1({$_I_})').value = '';
-                alert("({$label_back.UPLOAD_MAX_OUT})({(int)$module.uploadFile[$_I_].max})");
+                alert("({$console->getLabel("UPLOAD_MAX_OUT")})({(int)$module.uploadFile[$_I_].max})");
                 return false;
             }
 
@@ -60,10 +60,10 @@
                     for(var key in fileName){
                         openFile1({$_I_})(_jsPath+'/'+fileName[key]);
                     }
-                    up_progress.innerHTML = '({$label_back.UPLOAD_IMG_OK})';
+                    up_progress.innerHTML = '({$console->getLabel("UPLOAD_IMG_OK")})';
                 }catch(e){
-                    up_progress.innerHTML = '({$label_back.UPLOAD_IMG_ERROR})';
-                    alert('({$label_back.UPLOAD_IMG_ERROR})' + this.responseText);
+                    up_progress.innerHTML = '({$console->getLabel("UPLOAD_IMG_ERROR")})';
+                    alert('({$console->getLabel("UPLOAD_IMG_ERROR")})' + this.responseText);
                 }
                 document.getElementById('ff1({$_I_})').value = '';
                 document.getElementById('dropFileDIV({$_I_})').style.border = 'dashed 5px gray';
@@ -73,7 +73,7 @@
                 if (evt.lengthComputable) {
                     var complete = (evt.loaded / evt.total * 100 | 0);
                     if (100 == complete) {
-                        up_progress.innerHTML = '({$label_back.FILE_PROCESSING})';
+                        up_progress.innerHTML = '({$console->getLabel("FILE_PROCESSING")})';
                     }else{
                         up_progress.innerHTML = complete + ' %';
                     }
@@ -86,7 +86,7 @@
                 // var check_file_name = files[i].name.split('.');
                 // check_file_name = check_file_name[check_file_name.length - 1];
                 // if (check_image_type.indexOf(check_file_name.toLowerCase()) >= 0) {
-                //     errMsg += files[i].name+'({$label_back.UPLOAD_IMG_TYPE_ERROR})\n';
+                //     errMsg += files[i].name+'({$console->getLabel("UPLOAD_IMG_TYPE_ERROR")})\n';
                 // } else {
                 //     objForm.append('file[]', files[i]);
                 // }
@@ -102,7 +102,7 @@
         function openFile1({$_I_})(imgSrc) {
             if(($('#fileDIV({$_I_})>div').length)+1 > ({(int)$module.uploadFile[$_I_].max})){
                 document.getElementById('ff1({$_I_})').value = '';
-                alert("({$label_back.UPLOAD_MAX_OUT})({(int)$module.uploadFile[$_I_].max})");
+                alert("({$console->getLabel("UPLOAD_MAX_OUT")})({(int)$module.uploadFile[$_I_].max})");
                 return false;
             }
             var imgDiv = document.createElement('div');
@@ -117,9 +117,9 @@
 
             imgBtn.className = "btn btn-outline-secondary";
             imgBtn.type = "button";
-            imgBtn.value = "({$label_back.DELETE})";
+            imgBtn.value = "({$console->getLabel("DELETE")})";
             imgBtn.onclick = function (){
-                if (confirm("({$label_back.FILE_DELETE_CONFIRM})")) {
+                if (confirm("({$console->getLabel("FILE_DELETE_CONFIRM")})")) {
                     $.ajax({
                         url: _jsPath+"/ajax.php",
                         type: "GET",
@@ -130,9 +130,9 @@
                         async: false,
                         success: function(msg){
                             if(msg){
-                                // alert("({$label_back.DELETE_OK})");
+                                // alert("({$console->getLabel("DELETE_OK")})");
                             }else{
-                                // alert("({$label_back.DELETE_ERROR})");
+                                // alert("({$console->getLabel("DELETE_ERROR")})");
                             }
                             temp = imgSrc.replace(/\./g, "\\.");
                             temp = temp.replace(/\//g, "\\\/");
@@ -292,9 +292,9 @@
     </script>
 
     <div id="dropFileDIV({$_I_})" ondragover="dragoverHandlerFile({$_I_})(event)" ondrop="dropHandlerFile({$_I_})(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" onclick="document.getElementById('ff1({$_I_})').click();" ({if $module.uploadFile[$_I_].max<=1})style="display: none;"({/if})>
-        ({$label_back.FILE_DROP})
+        ({$console->getLabel("FILE_DROP")})
         ({if isset($module.uploadFile[$_I_].suggestText)})
-        <br>({$label_back.SUGGEST_SIZE})({$module.uploadFile[$_I_].suggestText})
+        <br>({$console->getLabel("SUGGEST_SIZE")})({$module.uploadFile[$_I_].suggestText})
         ({/if})
         <div id="up_progressFile({$_I_})"></div>
         ({if $module.uploadFile[$_I_].max>1})
@@ -311,7 +311,7 @@
     ({if $module.uploadFile[$_I_].max<=1})
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="ff1({$_I_})" onchange="dropHandlerFile({$_I_})('',0);">
-            <label class="custom-file-label" for="ff1({$_I_})">({$label_back.CHANGE_FILE})</label>
+            <label class="custom-file-label" for="ff1({$_I_})">({$console->getLabel("CHANGE_FILE")})</label>
         </div>
     ({/if})
 

@@ -5,7 +5,7 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="list" href="#list-detail">({$label_back["DETAIL"]})</a>
+                        <a class="nav-link active" data-toggle="list" href="#list-detail">({$console->getLabel("DETAIL")})</a>
                     </li>
                 </ul>
             </div>
@@ -14,13 +14,13 @@
                 <div class="card-body tab-pane fade show active" id="list-detail">
                     <div class="form-row form-inline">
                             <div class="col-md-12 mb-3">
-                                <!-- <span> ({$label_back['PRODUCT_NAME']})：</span> --><input type="text" class="form-control" id="productKeyword" placeholder="({$label_back["SEARCH_KEYWORD"]})">
-                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['SEARCH']})" onclick="searchProduct();">
+                                <!-- <span> ({$console->getLabel('PRODUCT_NAME')})：</span> --><input type="text" class="form-control" id="productKeyword" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
+                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('SEARCH')})" onclick="searchProduct();">
                             
                                 <select class="form-control" id="productSelect">
                                     <option></option>
                                 </select>
-                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['ADD']})" onclick="addProductF($('#productSelect').val());">
+                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('ADD')})" onclick="addProductF($('#productSelect').val());">
                             </div>
                         </div>
                         <div class="form-row form-inline" id="addProduct_div" >
@@ -70,7 +70,7 @@
                                                         '<input type="hidden" name="detail[]" value="'+id+'">'+
                                                         '<img src="'+temp["picture"]+'?aaa='+temp["update_date"]+'" style="max-width:100px;">'+
                                                         '<span>'+temp["name"]+' </span>'+
-                                                        ' <input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">'+
+                                                        ' <input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                                                     '</div>';
                                                 $("#addProduct_div").append(divHtml);
                                             }
@@ -91,9 +91,9 @@
                             });
                         </script>
                     <small class="text-muted">
-                        ({$label_back['CREATE_DATE']})
+                        ({$console->getLabel('CREATE_DATE')})
                         ({$data.one.create_date})(({$data.one.create_user}));
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                     

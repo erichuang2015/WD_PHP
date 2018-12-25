@@ -5,28 +5,28 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="list" href="#list-setting1">({$label_back["CASH_ON_DELIVERY"]})</a>
+                        <a class="nav-link active" data-toggle="list" href="#list-setting1">({$console->getLabel("CASH_ON_DELIVERY")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting2">({$label_back["PHYSICAL_ATM_TRANSFER"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting2">({$console->getLabel("PHYSICAL_ATM_TRANSFER")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting3">({$label_back["PHYSICAL_ATM_TRANSFER_ECPAY"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting3">({$console->getLabel("PHYSICAL_ATM_TRANSFER_ECPAY")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting4">({$label_back["INTERNET_ATM_TRANSFER_ECPAY"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting4">({$console->getLabel("INTERNET_ATM_TRANSFER_ECPAY")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting5">({$label_back["ONLINE_CARD_ECPAY"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting5">({$console->getLabel("ONLINE_CARD_ECPAY")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting6">({$label_back["CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting6">({$console->getLabel("CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting7">({$label_back["CVS_ECPAY"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting7">({$console->getLabel("CVS_ECPAY")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting8">({$label_back["BARCODE_ECPAY"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting8">({$console->getLabel("BARCODE_ECPAY")})</a>
                     </li>
 
 
@@ -40,7 +40,7 @@
                 <div class="card-body tab-pane fade show active" id="list-setting1">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["CASH_ON_DELIVERY"]})</label>
+                            <label>({$console->getLabel("CASH_ON_DELIVERY")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="cashOnDeliveryCheck" value="0">
                                 <input type="checkbox" name="cashOnDeliveryCheck" class="onoffswitch-checkbox" id="cashOnDeliveryCheck" value="1" ({if $data.one.cashOnDeliveryCheck==1})checked({/if})>
@@ -50,12 +50,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="cashOnDeliveryDetail">({$data.one.cashOnDeliveryDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -64,7 +64,7 @@
                 <div class="card-body tab-pane fade" id="list-setting2">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PHYSICAL_ATM_TRANSFER"]})</label>
+                            <label>({$console->getLabel("PHYSICAL_ATM_TRANSFER")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="physicalATMTransferCheck" value="0">
                                 <input type="checkbox" name="physicalATMTransferCheck" class="onoffswitch-checkbox" id="physicalATMTransferCheck" value="1" ({if $data.one.physicalATMTransferCheck==1})checked({/if})>
@@ -74,18 +74,18 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="physicalATMTransferDetail">({$data.one.physicalATMTransferDetail})</textarea>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DETAILED_INFORMATION"]})</label>
+                            <label>({$console->getLabel("DETAILED_INFORMATION")})</label>
                             <textarea class="form-control" rows="8" name="physicalATMTransferMemo">({$data.one.physicalATMTransferMemo})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -94,7 +94,7 @@
                 <div class="card-body tab-pane fade" id="list-setting3">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PHYSICAL_ATM_TRANSFER_ECPAY"]})</label>
+                            <label>({$console->getLabel("PHYSICAL_ATM_TRANSFER_ECPAY")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="physicalATMTransferECPayCheck" value="0">
                                 <input type="checkbox" name="physicalATMTransferECPayCheck" class="onoffswitch-checkbox" id="physicalATMTransferECPayCheck" value="1" ({if $data.one.physicalATMTransferECPayCheck==1})checked({/if})>
@@ -104,12 +104,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="physicalATMTransferECPayDetail">({$data.one.physicalATMTransferECPayDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -118,7 +118,7 @@
                 <div class="card-body tab-pane fade" id="list-setting4">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["INTERNET_ATM_TRANSFER_ECPAY"]})</label>
+                            <label>({$console->getLabel("INTERNET_ATM_TRANSFER_ECPAY")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="internetATMTransferECPayCheck" value="0">
                                 <input type="checkbox" name="internetATMTransferECPayCheck" class="onoffswitch-checkbox" id="internetATMTransferECPayCheck" value="1" ({if $data.one.internetATMTransferECPayCheck==1})checked({/if})>
@@ -128,12 +128,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="internetATMTransferECPayDetail">({$data.one.internetATMTransferECPayDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -142,7 +142,7 @@
                 <div class="card-body tab-pane fade" id="list-setting5">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["ONLINE_CARD_ECPAY"]})</label>
+                            <label>({$console->getLabel("ONLINE_CARD_ECPAY")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="onlineCardECPayCheck" value="0">
                                 <input type="checkbox" name="onlineCardECPayCheck" class="onoffswitch-checkbox" id="onlineCardECPayCheck" value="1" ({if $data.one.onlineCardECPayCheck==1})checked({/if})>
@@ -152,12 +152,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="onlineCardECPayDetail">({$data.one.onlineCardECPayDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -166,7 +166,7 @@
                 <div class="card-body tab-pane fade" id="list-setting6">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY"]})</label>
+                            <label>({$console->getLabel("CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="convenienceStorePickUpPaymentECPayCheck" value="0">
                                 <input type="checkbox" name="convenienceStorePickUpPaymentECPayCheck" class="onoffswitch-checkbox" id="convenienceStorePickUpPaymentECPayCheck" value="1" ({if $data.one.convenienceStorePickUpPaymentECPayCheck==1})checked({/if})>
@@ -176,12 +176,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="convenienceStorePickUpPaymentECPayDetail">({$data.one.convenienceStorePickUpPaymentECPayDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -190,7 +190,7 @@
                 <div class="card-body tab-pane fade" id="list-setting7">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["CVS_ECPAY"]})</label>
+                            <label>({$console->getLabel("CVS_ECPAY")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="cvsECPayCheck" value="0">
                                 <input type="checkbox" name="cvsECPayCheck" class="onoffswitch-checkbox" id="cvsECPayCheck" value="1" ({if $data.one.cvsECPayCheck==1})checked({/if})>
@@ -200,12 +200,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="cvsECPayDetail">({$data.one.cvsECPayDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -214,7 +214,7 @@
                 <div class="card-body tab-pane fade" id="list-setting8">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["BARCODE_ECPAY"]})</label>
+                            <label>({$console->getLabel("BARCODE_ECPAY")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="barcodeECPayCheck" value="0">
                                 <input type="checkbox" name="barcodeECPayCheck" class="onoffswitch-checkbox" id="barcodeECPayCheck" value="1" ({if $data.one.barcodeECPayCheck==1})checked({/if})>
@@ -224,12 +224,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="barcodeECPayDetail">({$data.one.barcodeECPayDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>

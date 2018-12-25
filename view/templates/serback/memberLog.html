@@ -5,7 +5,7 @@
             <ul class="nav nav-tabs card-header-tabs">
                 ({if $switch.listList!=0})
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                        <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                     </li>
                 ({/if})
             </ul>
@@ -17,11 +17,11 @@
                     <table class="table table-striped">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">({$label_back["ID"]})</th>
-                                <th scope="col">({$label_back["ACCOUNT"]})</th>
-                                <th scope="col">({$label_back["ACTION"]})</th>
-                                <th scope="col">({$label_back["DATE"]})</th>
-                                <th scope="col">({$label_back["IP"]})</th>
+                                <th scope="col">({$console->getLabel("ID")})</th>
+                                <th scope="col">({$console->getLabel("ACCOUNT")})</th>
+                                <th scope="col">({$console->getLabel("ACTION")})</th>
+                                <th scope="col">({$console->getLabel("DATE")})</th>
+                                <th scope="col">({$console->getLabel("IP")})</th>
                             </tr>
                         </thead>
                         <tbody>

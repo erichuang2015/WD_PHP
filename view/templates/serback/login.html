@@ -21,7 +21,7 @@
     <script src="js/serback/bootstrap.bundle.min.js"></script>
     <!-- reCAPTCHA -->
     <script src='//www.google.com/recaptcha/api.js?hl=({$lang})' async defer></script>
-    <title>({$label_back['LOGIN_LOGIN']})</title>
+    <title>({$console->getLabel('LOGIN_LOGIN')})</title>
     
     <link rel="icon" href="({$web.icon})" sizes="16x16" type="image/png">
     <link rel="apple-touch-icon" href="({$web.icon})">
@@ -36,20 +36,20 @@
     <form class="form-signin" action="" method="POST">
         
         <br>
-        <h1 class="h3 mb-4 font-weight-normal"><img class="mb-4" src="({$web.icon})" height="70"> ({$label_back['LOGIN_TITEL']})</h1>
+        <h1 class="h3 mb-4 font-weight-normal"><img class="mb-4" src="({$web.icon})" height="70"> ({$console->getLabel('LOGIN_TITEL')})</h1>
         ({if count($console->getLanguageArray("array"))>1})
             <div class="checkbox mb-3">
-                ({$label_back['LOGIN_LANG']})
+                ({$console->getLabel('LOGIN_LANG')})
                 ({$console->getLanguageArray('html','/serback')})
             </div>
         ({/if})
 
         <div class="input-group mb-3">
-        	<input type="text" name="account" id="account" class="form-control" placeholder="({$label_back['LOGIN_ACCOUNT']})" required autofocus>
+        	<input type="text" name="account" id="account" class="form-control" placeholder="({$console->getLabel('LOGIN_ACCOUNT')})" required autofocus>
         </div>
 
         <div class="input-group mb-2">
-        	<input type="password" name="password" id="password" class="form-control" placeholder="({$label_back['LOGIN_PASSWORD']})"  autocomplete="on" required>
+        	<input type="password" name="password" id="password" class="form-control" placeholder="({$console->getLabel('LOGIN_PASSWORD')})"  autocomplete="on" required>
         </div>
 
         <!-- 一般驗證碼 -->
@@ -57,19 +57,19 @@
             <div class="input-group-prepend">
                 <img src="verifycode.php" onclick="$(this).attr('src',$(this).attr('src'));">
             </div>
-            <input type="text" name="verifycode" id="verifycode" class="form-control" placeholder="({$label_back['VERIFYCODE']})"  autocomplete="on" data-toggle="tooltip" data-placement="top" title="({$label_back['VERIFYCODE_TITLE']})" >
+            <input type="text" name="verifycode" id="verifycode" class="form-control" placeholder="({$console->getLabel('VERIFYCODE')})"  autocomplete="on" data-toggle="tooltip" data-placement="top" title="({$console->getLabel('VERIFYCODE_TITLE')})" >
         </div>
         <!-- 一般驗證碼 -->
 
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" id="remember-me" name="remember-me"> ({$label_back['LOGIN_REMEMBER']})
+                <input type="checkbox" id="remember-me" name="remember-me"> ({$console->getLabel('LOGIN_REMEMBER')})
             </label>
-            <a href="({$web.serback_path})/forget">({$label_back['LOGIN_FORGET_PASSWORD']})</a>
+            <a href="({$web.serback_path})/forget">({$console->getLabel('LOGIN_FORGET_PASSWORD')})</a>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" onclick="return grecaptcha();">({$label_back['LOGIN_LOGIN']})</button><br>
+        <button class="btn btn-lg btn-primary btn-block" onclick="return grecaptcha();">({$console->getLabel('LOGIN_LOGIN')})</button><br>
         
         <!-- reCAPTCHA -->
         <div class="g-recaptcha" data-sitekey="({$console->setting->getValue("reCAPTCHASiteKey")})" data-callback="login" data-size="invisible"></div>

@@ -6,22 +6,22 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                     ({/if})
                     ({if $switch.editList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["EDIT"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("EDIT")})</a>
                         </li>
                     ({/if})
                     ({if $switch.addList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["ADD"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$console->getLabel("ADD")})</a>
                         </li>
                     ({/if})
                     ({if $switch.instructionsList!=0})
                         <li class="nav-item">
-                            <a class="nav-link " data-toggle="list" href="#list-instructions">({$label_back["INSTRUCTIONS"]})</a>
+                            <a class="nav-link " data-toggle="list" href="#list-instructions">({$console->getLabel("INSTRUCTIONS")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -39,8 +39,8 @@
                                                 <label class="custom-control-label" for="checkAll"></label>
                                             </div>
                                         </th>
-                                        <th scope="col">({$label_back["LANGUAGE_NAME"]})</th>
-                                        <th scope="col">({$label_back["LANGUAGE_KEY"]})</th>
+                                        <th scope="col">({$console->getLabel("LANGUAGE_NAME")})</th>
+                                        <th scope="col">({$console->getLabel("LANGUAGE_KEY")})</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,14 +67,14 @@
                         <div class="card-body tab-pane fade show active" id="list-edit">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["LANGUAGE_KEY"]})</label>
+                                    <label>({$console->getLabel("LANGUAGE_KEY")})</label>
                                     <input type="text" name="languageKey" class="form-control" value="({$console->path[2]})" autocomplete="off" required>
-                                    <small class="text-muted">({$label_back["LANGUAGE_KEY_SMALL"]})</small>
+                                    <small class="text-muted">({$console->getLabel("LANGUAGE_KEY_SMALL")})</small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back["DETAIL"]})</label>
+                                    <label>({$console->getLabel("DETAIL")})</label>
                                     ({include file='module.aceEditor.html'})
                                 </div>
                             </div>
@@ -85,15 +85,15 @@
                         <div class="card-body tab-pane fade show active" id="list-add">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["LANGUAGE_KEY"]})</label>
+                                    <label>({$console->getLabel("LANGUAGE_KEY")})</label>
                                     <input type="text" name="languageKey" class="form-control" value="" autocomplete="off" required>
-                                    <small class="text-muted">({$label_back["LANGUAGE_KEY_SMALL"]})</small>
+                                    <small class="text-muted">({$console->getLabel("LANGUAGE_KEY_SMALL")})</small>
 
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back["DETAIL"]})</label>
+                                    <label>({$console->getLabel("DETAIL")})</label>
                                     ({include file='module.aceEditor.html'})
                                 </div>
                             </div>

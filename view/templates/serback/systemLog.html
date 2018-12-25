@@ -6,18 +6,18 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                     ({/if})
                     ({if $switch.detailList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-detail">({$label_back["DETAIL"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-detail">({$console->getLabel("DETAIL")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-old">({$label_back["OLD_DATA"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-old">({$console->getLabel("OLD_DATA")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-new">({$label_back["NEW_DATA"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-new">({$console->getLabel("NEW_DATA")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -29,14 +29,14 @@
                         <table class="table table-striped">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">({$label_back["ID"]})</th>
-                                    <th scope="col">({$label_back["TABLE"]})</th>
-                                    <!-- <th scope="col">({$label_back["LANG"]})</th> -->
-                                    <th scope="col">({$label_back["MODE"]})</th>
-                                    <th scope="col">({$label_back["URL"]})</th>
-                                    <th scope="col">({$label_back["DATE"]})(({$label_back["USER"]}))</th>
-                                    <th scope="col">({$label_back["IP"]})</th>
-                                    <th scope="col">({$label_back["STATUS"]})</th>
+                                    <th scope="col">({$console->getLabel("ID")})</th>
+                                    <th scope="col">({$console->getLabel("TABLE")})</th>
+                                    <!-- <th scope="col">({$console->getLabel("LANG")})</th> -->
+                                    <th scope="col">({$console->getLabel("MODE")})</th>
+                                    <th scope="col">({$console->getLabel("URL")})</th>
+                                    <th scope="col">({$console->getLabel("DATE")})(({$console->getLabel("USER")}))</th>
+                                    <th scope="col">({$console->getLabel("IP")})</th>
+                                    <th scope="col">({$console->getLabel("STATUS")})</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,7 +64,7 @@
                                             ({$data.list[i].IP})
                                         </td>
                                         <td>
-                                            ({if !$data.list[i].status})<font color="green">({$label_back["ALREADY_REDO"]})</font>({else})({$label_back["NOT_REDO"]})({/if})
+                                            ({if !$data.list[i].status})<font color="green">({$console->getLabel("ALREADY_REDO")})</font>({else})({$console->getLabel("NOT_REDO")})({/if})
                                         </td>
                                     </tr>
 
@@ -78,49 +78,49 @@
                 ({if $switch.detailList!=0})
                     <div class="card-body tab-pane fade show active" id="list-detail">
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back['ID']})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel('ID')})</label>
                             <div class="col-sm-11">
                                 <input type="text" readonly class="form-control" value="({$data.one.id})">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back['LANG']})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel('LANG')})</label>
                             <div class="col-sm-11">
                                 <input type="text" readonly class="form-control" value="({$data.one.language})">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back['TABLE']})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel('TABLE')})</label>
                             <div class="col-sm-11">
                                 <input type="text" readonly class="form-control" value="({$data.one.dataTable})">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back['MODE']})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel('MODE')})</label>
                             <div class="col-sm-11">
                                 <input type="text" readonly class="form-control" value="({$data.one.type})">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back['URL']})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel('URL')})</label>
                             <div class="col-sm-11">
                                 <input type="text" readonly class="form-control" value="({$data.one.url})">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back['DATE']})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel('DATE')})</label>
                             <div class="col-sm-11">
                                 <input type="text" readonly class="form-control" value="({$data.one.create_date})">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back['USER']})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel('USER')})</label>
                             <div class="col-sm-11">
                                 <input type="text" readonly class="form-control" value="({$data.one.create_user})">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back['IP']})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel('IP')})</label>
                             <div class="col-sm-11">
                                 <input type="text" readonly class="form-control" value="({$data.one.IP})">
                             </div>

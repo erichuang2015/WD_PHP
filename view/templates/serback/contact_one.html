@@ -5,13 +5,13 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="list" href="#list-detail">({$label_back["BASIC_INFORMATION"]})</a>
+                        <a class="nav-link active" data-toggle="list" href="#list-detail">({$console->getLabel("BASIC_INFORMATION")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-form-data">({$label_back["FORM_DATA"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-form-data">({$console->getLabel("FORM_DATA")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-page-setting">({$label_back["PAGE_SETTING"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-page-setting">({$console->getLabel("PAGE_SETTING")})</a>
                     </li>
                 </ul>
             </div>
@@ -20,15 +20,15 @@
                 <div class="card-body tab-pane fade show active" id="list-detail">
                     <!-- google地圖 -->
                     <div class="form-row">
-                        <label class="mb-3">({$label_back['GOOGLE_MAP']})</label>
+                        <label class="mb-3">({$console->getLabel('GOOGLE_MAP')})</label>
                         <div class="col-md-12 mb-3 form-inline specifications-div">
                             <div class="col-md-12 mb-3" id="google_map_data_div">
-                                <span> ({$label_back['ADDRESS_OR_COORDINATE']})：</span><input type="text" class="form-control">
-                                <span> ({$label_back['WIDTH']})：</span><input type="text" class="form-control" value="100%">
-                                <span> ({$label_back['HEIGHT']})：</span><input type="text" class="form-control" value="500">
-                                <span> ({$label_back['MAP_PROPORTION']})：</span><input type="text" class="form-control" value="16">
-                                <span> ({$label_back['MAP_MODE']})：</span><select type="text" class="form-control"><option value="p">({$label_back['TOPOGRAPHIC_MAP']})</option><option value="h">({$label_back['SATELLITE_IMAGERY']})</option></select>
-                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['SEARCH']})" onclick="getGoogleMap();">
+                                <span> ({$console->getLabel('ADDRESS_OR_COORDINATE')})：</span><input type="text" class="form-control">
+                                <span> ({$console->getLabel('WIDTH')})：</span><input type="text" class="form-control" value="100%">
+                                <span> ({$console->getLabel('HEIGHT')})：</span><input type="text" class="form-control" value="500">
+                                <span> ({$console->getLabel('MAP_PROPORTION')})：</span><input type="text" class="form-control" value="16">
+                                <span> ({$console->getLabel('MAP_MODE')})：</span><select type="text" class="form-control"><option value="p">({$console->getLabel('TOPOGRAPHIC_MAP')})</option><option value="h">({$console->getLabel('SATELLITE_IMAGERY')})</option></select>
+                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('SEARCH')})" onclick="getGoogleMap();">
                             </div>
                             <div class="col-md-12 mb-3" id="google_map_div">
                                 ({$data.one.memo|htmlspecialchars_decode})
@@ -56,7 +56,7 @@
                     </div>        
                    <!--  <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back['STATUS']})</label>
+                            <label>({$console->getLabel('STATUS')})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="status" value="0">
                                 <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" ({if $data.one.status})checked({/if})>
@@ -65,9 +65,9 @@
                         </div>
                     </div> -->
                     <small class="text-muted">
-                        ({$label_back['CREATE_DATE']})
+                        ({$console->getLabel('CREATE_DATE')})
                         ({$data.one.create_date})(({$data.one.create_user}));
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                     
@@ -75,7 +75,7 @@
 
                 <!-- 表單資料 -->
                 <div class="card-body tab-pane fade" id="list-form-data">
-                    <input class="btn btn-outline-secondary mb-3" type="button" value="({$label_back['ADD_DATA']})" onclick="addFormData();">
+                    <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_DATA')})" onclick="addFormData();">
                     <div class="form-row form-inline" id="specifications_div" >
                         <input type="hidden" name="dataName">
                         <input type="hidden" name="dataType">
@@ -83,22 +83,22 @@
                         <input type="hidden" name="dataRequired">
                         ({section name=i loop=$data.one.dataName})
                             <div class="col-md-12 mb-3 specifications-div">
-                                <span> ({$label_back['NAME']})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$label_back['NAME']})" value="({$data.one.dataName[i]})" data-check="Only" required>
-                                <span> ({$label_back['TYPE']})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">
+                                <span> ({$console->getLabel('NAME')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('NAME')})" value="({$data.one.dataName[i]})" data-check="Only" required>
+                                <span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">
                                     ({foreach from=$data.typeOption key=k item=v})
-                                        <option value="({$k})" ({if $k==$data.one.dataType[i]})selected({/if})>({$label_back[$v]})</option>
+                                        <option value="({$k})" ({if $k==$data.one.dataType[i]})selected({/if})>({$console->getLabel($v)})</option>
                                     ({/foreach})
                                 </select>
                                 
                                 <span class="option_div" ({if !($data.one.dataType[i]=="select" || $data.one.dataType[i]=="radio" || $data.one.dataType[i]=="checkbox")})style="display:none"({/if})>
-                                    <span> ({$label_back['OPTION']})：</span><textarea class="form-control" name="dataOption[]" data-text="({$label_back['OPTION']})" placeholder="data1,data2">({$data.one.dataOption[i]})</textarea>
+                                    <span> ({$console->getLabel('OPTION')})：</span><textarea class="form-control" name="dataOption[]" data-text="({$console->getLabel('OPTION')})" placeholder="data1,data2">({$data.one.dataOption[i]})</textarea>
                                 </span> 
                                 
-                                <span> ({$label_back['REQUIRED']})：</span><select type="text" class="form-control" name="dataRequired[]">
-                                    <option value="0" ({if !$data.one.dataRequired[i]})selected({/if})>({$label_back["_NO"]})</option>
-                                    <option value="1" ({if $data.one.dataRequired[i]})selected({/if})>({$label_back["_YES"]})</option>
+                                <span> ({$console->getLabel('REQUIRED')})：</span><select type="text" class="form-control" name="dataRequired[]">
+                                    <option value="0" ({if !$data.one.dataRequired[i]})selected({/if})>({$console->getLabel("_NO")})</option>
+                                    <option value="1" ({if $data.one.dataRequired[i]})selected({/if})>({$console->getLabel("_YES")})</option>
                                 </select>
-                                <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">
+                                <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
                             </div>
                         ({/section})
                     </div>
@@ -108,20 +108,20 @@
                     function addFormData(){
                         $('#specifications_div').append(''+
                         '<div class="col-md-12 mb-3 specifications-div">'+
-                            '<span> ({$label_back['NAME']})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$label_back['NAME']})" value="" data-check="Only" required>'+
-                            '<span> ({$label_back['TYPE']})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">'+
+                            '<span> ({$console->getLabel('NAME')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('NAME')})" value="" data-check="Only" required>'+
+                            '<span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">'+
                                 ({foreach from=$data.typeOption key=k item=v})
-                                    '<option value="({$k})">({$label_back[$v]})</option>'+
+                                    '<option value="({$k})">({$console->getLabel($v)})</option>'+
                                 ({/foreach})
                             '</select>'+
                             '<span class="option_div" style="display:none">'+
-                                '<span> ({$label_back['OPTION']})：</span><textarea class="form-control" name="dataOption[]" data-text="({$label_back['OPTION']})" placeholder="data1,data2"></textarea>'+
+                                '<span> ({$console->getLabel('OPTION')})：</span><textarea class="form-control" name="dataOption[]" data-text="({$console->getLabel('OPTION')})" placeholder="data1,data2"></textarea>'+
                             '</span> '+
-                            '<span> ({$label_back['REQUIRED']})：</span><select type="text" class="form-control" name="dataRequired[]">'+
-                                '<option value="0">({$label_back["_NO"]})</option>'+
-                                '<option value="1">({$label_back["_YES"]})</option>'+
+                            '<span> ({$console->getLabel('REQUIRED')})：</span><select type="text" class="form-control" name="dataRequired[]">'+
+                                '<option value="0">({$console->getLabel("_NO")})</option>'+
+                                '<option value="1">({$console->getLabel("_YES")})</option>'+
                             '</select>'+
-                            '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">'+
+                            '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                         '</div>');
                         checkboxI++;
                     }
@@ -144,23 +144,23 @@
                 <div class="card-body tab-pane fade" id="list-page-setting">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["CUSTOM_PAGE_TITLE"]})</label>
+                            <label>({$console->getLabel("CUSTOM_PAGE_TITLE")})</label>
                             <input type="text" class="form-control" name="pageTitle" value="({$data.one.pageTitle})">
-                            <small class="text-muted">({$label_back["CUSTOM_PAGE_TITLE_TEXT"]})</small>
+                            <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_TITLE_TEXT")})</small>
                         </div>
                     </div>
                     <!-- <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["CUSTOM_URL"]})</label>
+                            <label>({$console->getLabel("CUSTOM_URL")})</label>
                             <input type="text" class="form-control" name="urlKey" value="({$data.one.urlKey})">
-                            <small class="text-muted">({$label_back["CUSTOM_URL_TEXT"]})</small>
+                            <small class="text-muted">({$console->getLabel("CUSTOM_URL_TEXT")})</small>
                         </div>
                     </div> -->
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["CUSTOM_PAGE_META"]})</label>
+                            <label>({$console->getLabel("CUSTOM_PAGE_META")})</label>
                             <textarea class="form-control" rows="8" name="pageMeta">({$data.one.pageMeta})</textarea>
-                            <small class="text-muted">({$label_back["CUSTOM_PAGE_META_TEXT"]})</small>
+                            <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_META_TEXT")})</small>
                         </div>
                     </div>
                 </div>

@@ -78,7 +78,7 @@ if($temp){
  * 是否有權限進入此網址
  */
 $url = str_replace($console->getLanguage()."/","",$_SERVER["REQUEST_URI"]);//刪除網址的語言部份
-if(0 === strpos($url,SERBACK_PATH) && isset($console->path[0]) && $console->path[0] != "index" && $console->path[0] != "" && $member->getInfo("account") != "vipadmin"){
+if(0 === strpos($url,SERBACK_PATH) && isset($console->path[0]) && $console->path[0] != "index" && $console->path[0] != ""){
 	$_OK = false;
 	$url = substr($url,strlen(SERBACK_PATH."/"));
 	foreach ($menuUrl as $key => $value) {
@@ -92,7 +92,7 @@ if(0 === strpos($url,SERBACK_PATH) && isset($console->path[0]) && $console->path
 			break;
 		}
 	}
-	if(!$_OK){
+	if(!$_OK && ($member->getInfo("account") != "vipadmin")){
 		$console->alert($console->getMessage("NOT_AUTHORITY"),SERBACK_PATH);
 	}
 }

@@ -27,7 +27,7 @@
     <script src="include/ace-noconflict/ext-language_tools.js"></script>
     <script src="js/serback/tinymce/tinymce.min.js"></script>
 
-    <title>({if isset($label_back[$breadcru[0].name])})({$label_back[$breadcru[0].name]})-({/if})({$web.title}) ({$label_back['LOGIN_TITEL']})</title>
+    <title>({if isset($console->getLabel($breadcru[0].name))})({$console->getLabel($breadcru[0].name)})-({/if})({$web.title}) ({$console->getLabel('LOGIN_TITEL')})</title>
 
     <link rel="icon" href="({$web.icon})" sizes="16x16" type="image/png">
     <link rel="apple-touch-icon" href="({$web.icon})">
@@ -40,7 +40,7 @@
     <nav class="navbar fixed-top navbar-dark" style="background-color:#192e5b;">
         <div>
             <a href="({$web.serback_url})/index"><img src="({$web.icon})" height="35"></a>
-            <a class="navbar-brand nav-title" href="({$web.serback_url})/index">({$web.title}) ({$label_back['LOGIN_TITEL']})</a>
+            <a class="navbar-brand nav-title" href="({$web.serback_url})/index">({$web.title}) ({$console->getLabel('LOGIN_TITEL')})</a>
         </div>
         <div class="btn-group">
             <a href="({$web.serback_url})/profile"><img src="({$member.picture})" class="rounded-circle " onerror="this.src='images/ProfilePicture.jpg'" height="40"></a>&nbsp;
@@ -48,13 +48,13 @@
                 ({$member.name})
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" target="_blank" href="({$web.main_url})">({$label_back.MENU_VIEW})</a>
+                <a class="dropdown-item" target="_blank" href="({$web.main_url})">({$console->getLabel("MENU_VIEW")})</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="({$web.serback_url})/profile">({$label_back['MENU_PROFILE']})</a>
-                <!-- <a class="dropdown-item" href="({$web.serback_url})/message">({$label_back['MENU_MESSAGE']})</a> -->
-                <!-- <a class="dropdown-item" href="({$web.serback_url})/setting">({$label_back.MENU_SETTING})</a> -->
+                <a class="dropdown-item" href="({$web.serback_url})/profile">({$console->getLabel('MENU_PROFILE')})</a>
+                <!-- <a class="dropdown-item" href="({$web.serback_url})/message">({$console->getLabel('MENU_MESSAGE')})</a> -->
+                <!-- <a class="dropdown-item" href="({$web.serback_url})/setting">({$console->getLabel("MENU_SETTING")})</a> -->
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="({$web.serback_url})/login">({$label_back['MENU_LOGOUT']})</a>
+                <a class="dropdown-item" href="({$web.serback_url})/login">({$console->getLabel('MENU_LOGOUT')})</a>
             </div>
         </div>
     </nav>
@@ -69,34 +69,34 @@
                             <option>一般1</option>
                         </select>
                     </div> -->
-                    <p>({$label_back['VIEW_LANG']})</p>
+                    <p>({$console->getLabel('VIEW_LANG')})</p>
                     ({$console->getLanguageArray('html','/serback','form-control')})
                 </ul>
                 <ul class="list-unstyled components">
 
-                    <p>({$label_back['SETTING_LANG']})</p>
+                    <p>({$console->getLabel('SETTING_LANG')})</p>
                     ({$console->getLanguageArray('serback','','form-control')})
                 </ul>
             ({/if})
 
             <ul class="list-unstyled components">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="({$label_back["SEARCH_KEYWORD"]})" onkeyup="searchMenu(this.value);">
+                    <input type="text" class="form-control" placeholder="({$console->getLabel("SEARCH_KEYWORD")})" onkeyup="searchMenu(this.value);">
                 </div>
             </ul>
             ({section name=i loop=$menu[0]})
                 <ul class="list-unstyled components">
-                    <p>({$label_back[$menu[0][i].name]})</p>
+                    <p>({$console->getLabel($menu[0][i].name)})</p>
 
                     ({section name=j loop=$menu[1]})
                         ({if $menu[0][i].id == $menu[1][j].parent})
                             <li class="active">
-                                <a href="#menu_({$menu[1][j].id})" data-toggle="collapse" aria-expanded="false">({$label_back[$menu[1][j].name]})</a>
+                                <a href="#menu_({$menu[1][j].id})" data-toggle="collapse" aria-expanded="false">({$console->getLabel($menu[1][j].name)})</a>
                                 <ul class="collapse list-unstyled" id="menu_({$menu[1][j].id})">
 
                                     ({section name=k loop=$menu[2]})
                                         ({if $menu[1][j].id == $menu[2][k].parent})
-                                            <li><a href="({$web.serback_url})/({$menu[2][k].url})">({$label_back[$menu[2][k].name]})</a></li>
+                                            <li><a href="({$web.serback_url})/({$menu[2][k].url})">({$console->getLabel($menu[2][k].name)})</a></li>
                                         ({/if})
                                     ({/section})
                                 </ul>
@@ -110,33 +110,33 @@
         <div id="content" class="container-fluid">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="({$web.serback_url})">({$label_back['INDEX']})</a></li>
+                    <li class="breadcrumb-item"><a href="({$web.serback_url})">({$console->getLabel('INDEX')})</a></li>
                     ({section name=i loop=$breadcru})
-                        <li class="breadcrumb-item active" aria-current="page"><a href="({$web.serback_url})/({$breadcru[i].url})">({$label_back[$breadcru[i].name]})</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="({$web.serback_url})/({$breadcru[i].url})">({$console->getLabel($breadcru[i].name)})</a></li>
                     ({/section})
-                    <!-- <li class="breadcrumb-item active" aria-current="page">({$label_back['MEMBER_CENTRE']})</li> -->
+                    <!-- <li class="breadcrumb-item active" aria-current="page">({$console->getLabel('MEMBER_CENTRE')})</li> -->
                 </ol>
             </nav>
             ({if $switch.buttonBox!=0})
                 <div class="text-right mb-3">
                     <div class="btn-group">
                         ({if $switch.redoButton!=0})
-                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="({if $data.redoOnClick})({$data.redoOnClick})({/if})"><span class="glyphicon glyphicon-repeat"></span> ({$label_back['REDO']})</a>
+                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="({if $data.redoOnClick})({$data.redoOnClick})({/if})"><span class="glyphicon glyphicon-repeat"></span> ({$console->getLabel('REDO')})</a>
                         ({/if})
                         ({if $switch.editButton!=0})
-                            <a class="btn btn-outline-secondary" href="javascript:;"><span class="glyphicon glyphicon-pencil"></span> ({$label_back['EDITOR']})</a>
+                            <a class="btn btn-outline-secondary" href="javascript:;"><span class="glyphicon glyphicon-pencil"></span> ({$console->getLabel('EDITOR')})</a>
                         ({/if})
                         ({if $switch.saveButton!=0})
-                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="formSubmit(({$switch.searchBox}));"><span class="glyphicon glyphicon-ok"></span> ({$label_back['SAVE']})</a>
+                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="formSubmit(({$switch.searchBox}));"><span class="glyphicon glyphicon-ok"></span> ({$console->getLabel('SAVE')})</a>
                         ({/if})
                         ({if $switch.addButton!=0})
-                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="({if $data.addOnClick})({$data.addOnClick})({/if})"><span class="glyphicon glyphicon-plus"></span> ({$label_back['ADD']})</a>
+                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="({if $data.addOnClick})({$data.addOnClick})({/if})"><span class="glyphicon glyphicon-plus"></span> ({$console->getLabel('ADD')})</a>
                         ({/if})
                         ({if $switch.deleteButton!=0})
-                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="formSubmitDelete(({$switch.searchBox}));"><span class="glyphicon glyphicon-remove"></span> ({$label_back['DELETE']})</a>
+                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="formSubmitDelete(({$switch.searchBox}));"><span class="glyphicon glyphicon-remove"></span> ({$console->getLabel('DELETE')})</a>
                         ({/if})
                         ({if $switch.backButton!=0})
-                            <a class="btn btn-outline-secondary" href="({if $data.listUrl})({$data.listUrl})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})({/if})"><span class="glyphicon glyphicon-th-list"></span> ({$label_back['BACK']})</a>
+                            <a class="btn btn-outline-secondary" href="({if $data.listUrl})({$data.listUrl})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})({/if})"><span class="glyphicon glyphicon-th-list"></span> ({$console->getLabel('BACK')})</a>
                         ({/if})
                     </div>
                 </div> 
@@ -151,36 +151,36 @@
                     ({/foreach})
                     <div class="input-group text-center mb-3">
                         <div class="input-group-append">
-                            <input type="text" class="form-control" size="50" name="searchKeyWord" value="({if isset($smarty.get.searchKeyWord)})({$smarty.get.searchKeyWord})({/if})" placeholder="({$label_back["SEARCH_KEYWORD"]})">
+                            <input type="text" class="form-control" size="50" name="searchKeyWord" value="({if isset($smarty.get.searchKeyWord)})({$smarty.get.searchKeyWord})({/if})" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
                         </div>
                         <div class="input-group-append">
-                            <span class="input-group-text">({$label_back["FROM"]})</span>
+                            <span class="input-group-text">({$console->getLabel("FROM")})</span>
                         </div>
                         <div class="input-group-append">
                             <input type="date" value="({if isset($smarty.get.startDate)})({$smarty.get.startDate})({/if})" class="form-control" name="startDate">
                         </div>
                         <div class="input-group-append">
-                            <span class="input-group-text">({$label_back["TO"]})</span>
+                            <span class="input-group-text">({$console->getLabel("TO")})</span>
                         </div>
                         <div class="input-group-append">
                             <input type="date" value="({if isset($smarty.get.endDate)})({$smarty.get.endDate})({/if})" class="form-control" name="endDate">
                         </div>
                         <div class="input-group-append">
                             <div class="input-group-append">
-                                <span class="input-group-text">({$label_back["STATUS"]})</span>
+                                <span class="input-group-text">({$console->getLabel("STATUS")})</span>
                             </div>
                             <select name="status"　>
-                                <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
-                                <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$label_back["STATUS_1"]})</option>
-                                <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$label_back["STATUS_0"]})</option>
+                                <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$console->getLabel("STATUS_1")})</option>
+                                <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$console->getLabel("STATUS_0")})</option>
                             </select>
                         </div>
                         <div class="input-group-append">
                             <div class="input-group-append">
-                                <span class="input-group-text">({$label_back["PAGE_DATA_COUNT"]})</span>
+                                <span class="input-group-text">({$console->getLabel("PAGE_DATA_COUNT")})</span>
                             </div>
                             <select name="per">
-                                <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                 <option value="10" ({if isset($smarty.get.per) && $smarty.get.per=='10'})selected({/if})>10</option>
                                 <option value="20" ({if isset($smarty.get.per) && $smarty.get.per=='20'})selected({/if})>20</option>
                                 <option value="30" ({if isset($smarty.get.per) && $smarty.get.per=='30'})selected({/if})>30</option>

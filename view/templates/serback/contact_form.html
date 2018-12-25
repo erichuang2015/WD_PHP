@@ -6,15 +6,15 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                     ({/if})
                     ({if $switch.editList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-basic">({$label_back["DETAIL"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-basic">({$console->getLabel("DETAIL")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-log">({$label_back["LOG"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-log">({$console->getLabel("LOG")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -35,7 +35,7 @@
                                     ({section name=i loop=$data.list[0].keyName})
                                         <th scope="col">({$data.list[0].keyName[i]})</th>
                                     ({/section})
-                                    <th scope="col">({$label_back["CREATE_DATE"]})</th>
+                                    <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,8 +73,8 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="10%">({$label_back["TITLE"]})</th>
-                                    <th scope="col">({$label_back["DETAIL"]})</th>
+                                    <th scope="col" width="10%">({$console->getLabel("TITLE")})</th>
+                                    <th scope="col">({$console->getLabel("DETAIL")})</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,7 +89,7 @@
 
 
                         <small class="text-muted">
-                            ({$label_back['CREATE_DATE']})
+                            ({$console->getLabel('CREATE_DATE')})
                             ({$data.one.create_date})
                         </small>
                         
@@ -99,9 +99,9 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="20%">({$label_back["RECIPIENT_EMAIL"]})</th>
-                                    <th scope="col" width="20%">({$label_back["DATE"]})</th>
-                                    <th scope="col">({$label_back["DETAIL"]})</th>
+                                    <th scope="col" width="20%">({$console->getLabel("RECIPIENT_EMAIL")})</th>
+                                    <th scope="col" width="20%">({$console->getLabel("DATE")})</th>
+                                    <th scope="col">({$console->getLabel("DETAIL")})</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,7 +117,7 @@
 
 
                         <small class="text-muted">
-                            ({$label_back['CREATE_DATE']})
+                            ({$console->getLabel('CREATE_DATE')})
                             ({$data.one.create_date})
                         </small>
                         
@@ -142,7 +142,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">({$label_back['REPLY_MAIL']})</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">({$console->getLabel('REPLY_MAIL')})</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -150,26 +150,26 @@
             <div class="modal-body">
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-                        <label>({$label_back["TITLE"]})</label>
-                        <input type="text" class="form-control" id="mailTitle" value="({$label_back['CONTACT_REPLY']})">
+                        <label>({$console->getLabel("TITLE")})</label>
+                        <input type="text" class="form-control" id="mailTitle" value="({$console->getLabel('CONTACT_REPLY')})">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-                        <label>({$label_back["RECIPIENT_EMAIL"]})</label>
+                        <label>({$console->getLabel("RECIPIENT_EMAIL")})</label>
                         <input type="text" class="form-control" id="mailRecipient" value="({section name=i loop=$data.one.keyName})({if $data.one.dataIsEmail[i]})({$data.one.keyData[i]}),({/if})({/section})">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-                        <label>({$label_back["DETAIL"]})</label>
+                        <label>({$console->getLabel("DETAIL")})</label>
                         <textarea class="form-control" rows="8" id="mailDetail"></textarea>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">({$label_back['CLOSE']})</button>
-                <button type="button" class="btn btn-primary" onclick="sned();">({$label_back['SEND']})</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">({$console->getLabel('CLOSE')})</button>
+                <button type="button" class="btn btn-primary" onclick="sned();">({$console->getLabel('SEND')})</button>
             </div>
         </div>
     </div>
@@ -177,7 +177,7 @@
 <script>
     function sned(){
         if(!$("#mailTitle").val() || !$("#mailRecipient").val() || !$("#mailDetail").val()){
-            alert("({$label_back['PLEASE_KEY_DETAIL']})");
+            alert("({$console->getLabel('PLEASE_KEY_DETAIL')})");
             return false;
         }
         loadingStart();

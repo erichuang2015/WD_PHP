@@ -5,10 +5,10 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link ({if !isset($smarty.get.tab)})active({/if})" data-toggle="list" href="#list-profile">({$label_back['DETAIL']})</a>
+                        <a class="nav-link ({if !isset($smarty.get.tab)})active({/if})" data-toggle="list" href="#list-profile">({$console->getLabel('DETAIL')})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ({if isset($smarty.get.tab) && $smarty.get.tab=='link'})active({/if})" data-toggle="list" href="#list-link">({$label_back['SOCIAL']})</a>
+                        <a class="nav-link ({if isset($smarty.get.tab) && $smarty.get.tab=='link'})active({/if})" data-toggle="list" href="#list-link">({$console->getLabel('SOCIAL')})</a>
                     </li>
                 </ul>
             </div>
@@ -17,51 +17,51 @@
 
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back['ACCOUNT']})</label>
+                                <label>({$console->getLabel('ACCOUNT')})</label>
                                 <input type="text" readonly class="form-control" value="({$member.account})" disabled>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back['GROUP']})</label>
+                                <label>({$console->getLabel('GROUP')})</label>
                                 <input type="text" readonly class="form-control" value="({$member.group.name})" disabled>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back['NEW_PASSWORD']})</label>
-                                <input type="password" name="newPassword" class="form-control" data-check="Password" data-text="({$label_back['NEW_PASSWORD']})" autocomplete="off">
-                                <small class="text-muted">({$label_back['NEW_PASSWORD_MESSAGE']})</small>
+                                <label>({$console->getLabel('NEW_PASSWORD')})</label>
+                                <input type="password" name="newPassword" class="form-control" data-check="Password" data-text="({$console->getLabel('NEW_PASSWORD')})" autocomplete="off">
+                                <small class="text-muted">({$console->getLabel('NEW_PASSWORD_MESSAGE')})</small>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back['CHECK_NEW_PASSWORD']})</label>
-                                <input type="password" name="checkNewPassword" class="form-control" data-check="Password" data-text="({$label_back['CHECK_NEW_PASSWORD']})" autocomplete="off">
+                                <label>({$console->getLabel('CHECK_NEW_PASSWORD')})</label>
+                                <input type="password" name="checkNewPassword" class="form-control" data-check="Password" data-text="({$console->getLabel('CHECK_NEW_PASSWORD')})" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back['FIRST_NAME']})</label>
+                                <label>({$console->getLabel('FIRST_NAME')})</label>
                                 <input type="text" name="name" class="form-control" value="({$member.name})" autocomplete="name" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back['EMAIL']})</label>
-                                <input type="email" name="email" class="form-control" value="({$member.email})" autocomplete="email" data-check="Email" data-text="({$label_back['EMAIL']})">
+                                <label>({$console->getLabel('EMAIL')})</label>
+                                <input type="email" name="email" class="form-control" value="({$member.email})" autocomplete="email" data-check="Email" data-text="({$console->getLabel('EMAIL')})">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back['DOING_TIME']})</label>
-                                <input type="text" name="doingTime" class="form-control" value="({$member.doingTime})" data-check="NumberMin450" data-text="({$label_back['DOING_TIME']})">
-                                <small class="text-muted">({$label_back['ZERO_IS_CLOSE']})</small>
+                                <label>({$console->getLabel('DOING_TIME')})</label>
+                                <input type="text" name="doingTime" class="form-control" value="({$member.doingTime})" data-check="NumberMin450" data-text="({$console->getLabel('DOING_TIME')})">
+                                <small class="text-muted">({$console->getLabel('ZERO_IS_CLOSE')})</small>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back['PICTURE']})</label>
+                                <label>({$console->getLabel('PICTURE')})</label>
                                 <div>
                                     ({assign var=_I_ value=0})
                                     ({include file='module.uploadImg.html'})
@@ -69,12 +69,12 @@
                             </div>
                         </div>
                         <small class="text-muted">
-                            ({$label_back['CREATE_DATE']})
+                            ({$console->getLabel('CREATE_DATE')})
                             ({$member.create_date})(({$member.create_user}));
-                            ({$label_back['UPDATE_DATE']})
+                            ({$console->getLabel('UPDATE_DATE')})
                             ({$member.update_date})(({$member.update_user}))
                         </small>
-                        <!-- <button type="submit" class="btn btn-primary">({$label_back['SAVE']})</button> -->
+                        <!-- <button type="submit" class="btn btn-primary">({$console->getLabel('SAVE')})</button> -->
                     </div>
                     <div class="card-body tab-pane fade ({if isset($smarty.get.tab) && $smarty.get.tab=='link'})show active({/if})" id="list-link">
                     	<div class="card-deck text-center col-xl-5">
@@ -82,27 +82,27 @@
                                 ({if $member.lineID})
         	                        <div class="card text-center">
         	                            <div class="card-header">
-        	                                ({$label_back['SOCIAL_LINE_TITLE']})
+        	                                ({$console->getLabel('SOCIAL_LINE_TITLE')})
         	                            </div>
         	                            <div class="card-body">
                                             <img src="({$member.linePicture})" width="100" height="100" >
         	                                <p class="card-text">({$member.lineName})</p>
                                         </div>
                                         <div class="card-footer">
-        	                                <a href="({$console->addQuery(['unLink'=>'line'])})" class="btn btn-primary">({$label_back['SOCIAL_LINE_UNLINK']})</a>
+        	                                <a href="({$console->addQuery(['unLink'=>'line'])})" class="btn btn-primary">({$console->getLabel('SOCIAL_LINE_UNLINK')})</a>
         	                            </div>
         	                        </div>
                                 ({else})
         	                        <div class="card text-center">
         	                            <div class="card-header">
-        	                                ({$label_back['SOCIAL_LINE_TITLE']})
+        	                                ({$console->getLabel('SOCIAL_LINE_TITLE')})
         	                            </div>
         	                            <div class="card-body">
                                             <img src="images/LINE_LOGO.png" width="100" height="100" >
-        	                                <p class="card-text">({$label_back['SOCIAL_LINE_MESSAGE']})</p>
+        	                                <p class="card-text">({$console->getLabel('SOCIAL_LINE_MESSAGE')})</p>
                                         </div>
                                         <div class="card-footer">
-        	                                <a href="javascript:;" onclick="lineLogin();" class="btn btn-primary">({$label_back['SOCIAL_LINE_LINK']})</a>
+        	                                <a href="javascript:;" onclick="lineLogin();" class="btn btn-primary">({$console->getLabel('SOCIAL_LINE_LINK')})</a>
         	                            </div>
         	                        </div>
                                 ({/if}) 
@@ -112,28 +112,28 @@
                                 ({if $member.fbID})
                                     <div class="card text-center">
                                         <div class="card-header">
-                                            ({$label_back['SOCIAL_FB_TITLE']})
+                                            ({$console->getLabel('SOCIAL_FB_TITLE')})
                                         </div>
                                         <div class="card-body">
                                             <img src="({$member.fbPicture})" width="100" height="100" >
                                             <p class="card-text">({$member.fbName})</p>
                                         </div>
                                         <div class="card-footer">
-                                            <a href="({$console->addQuery(['unLink'=>'fb'])})" class="btn btn-primary">({$label_back['SOCIAL_FB_UNLINK']})</a>
+                                            <a href="({$console->addQuery(['unLink'=>'fb'])})" class="btn btn-primary">({$console->getLabel('SOCIAL_FB_UNLINK')})</a>
                                         </div>
                                     </div>
                                 ({else})
                                     <div class="card text-center">
                                         <div class="card-header">
-                                            ({$label_back['SOCIAL_FB_TITLE']})
+                                            ({$console->getLabel('SOCIAL_FB_TITLE')})
                                         </div>
                                         
                                         <div class="card-body">
                                             <img src="images/FB_LOGO.png" width="100" height="100" >
-                                            <p class="card-text">({$label_back['SOCIAL_FB_MESSAGE']})</p>
+                                            <p class="card-text">({$console->getLabel('SOCIAL_FB_MESSAGE')})</p>
                                         </div>
                                         <div class="card-footer">
-                                            <a href="javascript:;" onclick="fbLogin();" class="btn btn-primary">({$label_back['SOCIAL_FB_LINK']})</a>
+                                            <a href="javascript:;" onclick="fbLogin();" class="btn btn-primary">({$console->getLabel('SOCIAL_FB_LINK')})</a>
                                         </div>
                                     </div>
                                 ({/if}) 
@@ -143,27 +143,27 @@
                                 ({if $member.googleID})
         	                        <div class="card text-center">
         	                            <div class="card-header">
-        	                                ({$label_back['SOCIAL_GOOGLE_TITLE']})
+        	                                ({$console->getLabel('SOCIAL_GOOGLE_TITLE')})
         	                            </div>
         	                            <div class="card-body">
                                             <img src="({$member.googlePicture})" width="100" height="100" >
         	                                <p class="card-text">({$member.googleName})</p>
                                         </div>
                                         <div class="card-footer">
-        	                                <a href="({$console->addQuery(['unLink'=>'google'])})" class="btn btn-primary">({$label_back['SOCIAL_GOOGLE_UNLINK']})</a>
+        	                                <a href="({$console->addQuery(['unLink'=>'google'])})" class="btn btn-primary">({$console->getLabel('SOCIAL_GOOGLE_UNLINK')})</a>
         	                            </div>
         	                        </div>
                                 ({else})
         	                        <div class="card text-center">
         	                            <div class="card-header">
-        	                                ({$label_back['SOCIAL_GOOGLE_TITLE']})
+        	                                ({$console->getLabel('SOCIAL_GOOGLE_TITLE')})
         	                            </div>
         	                            <div class="card-body">
                                             <img src="images/GOOGLE_LOGO.png" width="100" height="100" >
-        	                                <p class="card-text">({$label_back['SOCIAL_GOOGLE_MESSAGE']})</p>
+        	                                <p class="card-text">({$console->getLabel('SOCIAL_GOOGLE_MESSAGE')})</p>
                                         </div>
                                         <div class="card-footer">
-        	                                <a class="btn btn-primary" id="GoogleBtn" style="color: #fff;">({$label_back['SOCIAL_GOOGLE_LINK']})</a>
+        	                                <a class="btn btn-primary" id="GoogleBtn" style="color: #fff;">({$console->getLabel('SOCIAL_GOOGLE_LINK')})</a>
         	                            </div>
         	                        </div>
                                 ({/if}) 

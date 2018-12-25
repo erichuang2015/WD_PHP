@@ -6,44 +6,44 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-advanced-serch">({$label_back["ADVANCED"]})({$label_back["SEARCH"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-advanced-serch">({$console->getLabel("ADVANCED")})({$console->getLabel("SEARCH")})</a>
                         </li>
                     ({/if})
                     ({if $switch.editList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["BASIC_INFORMATION"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("BASIC_INFORMATION")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-specifications">({$label_back["PRODUCT_SPECIFICATIONS"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-specifications">({$console->getLabel("PRODUCT_SPECIFICATIONS")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-price">({$label_back["PRICE_SETTING"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-price">({$console->getLabel("PRICE_SETTING")})</a>
                         </li><!-- 
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-add-product">({$label_back["ADD_PRODUCT"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-add-product">({$console->getLabel("ADD_PRODUCT")})</a>
                         </li> -->
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$label_back["PAGE_SETTING"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$console->getLabel("PAGE_SETTING")})</a>
                         </li>
                     ({/if})
                     ({if $switch.addList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["BASIC_INFORMATION"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$console->getLabel("BASIC_INFORMATION")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-specifications-add">({$label_back["PRODUCT_SPECIFICATIONS"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-specifications-add">({$console->getLabel("PRODUCT_SPECIFICATIONS")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-price-add">({$label_back["PRICE_SETTING"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-price-add">({$console->getLabel("PRICE_SETTING")})</a>
                         </li><!-- 
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-add-product">({$label_back["ADD_PRODUCT"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-add-product">({$console->getLabel("ADD_PRODUCT")})</a>
                         </li> -->
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$label_back["PAGE_SETTING"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$console->getLabel("PAGE_SETTING")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -62,12 +62,12 @@
                                                 <label class="custom-control-label" for="checkAll"></label>
                                             </div>
                                         </th>
-                                        <th scope="col">({$label_back["NAME"]})</th>
-                                        <th scope="col">({$label_back["SORT"]})</th>
-                                        <th scope="col">({$label_back["STATUS"]})</th>
-                                        <th scope="col">({$label_back["CREATE_DATE"]})</th>
-                                        <th scope="col">({$label_back["UPDATE_DATE"]})</th>
-                                        <th scope="col">({$label_back["TOW_SORT"]})</th>
+                                        <th scope="col">({$console->getLabel("NAME")})</th>
+                                        <th scope="col">({$console->getLabel("SORT")})</th>
+                                        <th scope="col">({$console->getLabel("STATUS")})</th>
+                                        <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                        <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
+                                        <th scope="col">({$console->getLabel("TOW_SORT")})</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -125,41 +125,41 @@
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['SEARCH_KEYWORD']})</label>
-                                    <input type="text" name="searchKeyWord" class="form-control" value="({$smarty.get.searchKeyWord})" data-text="({$label_back['NAME']})">
+                                    <label>({$console->getLabel('SEARCH_KEYWORD')})</label>
+                                    <input type="text" name="searchKeyWord" class="form-control" value="({$smarty.get.searchKeyWord})" data-text="({$console->getLabel('NAME')})">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['FROM']})</label>
+                                    <label>({$console->getLabel('FROM')})</label>
                                     <input type="date" value="({if isset($smarty.get.startDate)})({$smarty.get.startDate})({/if})" class="form-control" name="startDate">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['TO']})</label>
+                                    <label>({$console->getLabel('TO')})</label>
                                     <input type="date" value="({if isset($smarty.get.endDate)})({$smarty.get.endDate})({/if})" class="form-control" name="endDate">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['STATUS']})</label>
+                                    <label>({$console->getLabel('STATUS')})</label>
                                     <select name="status" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
-                                        <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$label_back["STATUS_1"]})</option>
-                                        <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$label_back["STATUS_0"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                        <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$console->getLabel("STATUS_1")})</option>
+                                        <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$console->getLabel("STATUS_0")})</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['PAGE_DATA_COUNT']})</label>
+                                    <label>({$console->getLabel('PAGE_DATA_COUNT')})</label>
                                     <select name="per" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                         <option value="10" ({if isset($smarty.get.per) && $smarty.get.per=='10'})selected({/if})>10</option>
                                         <option value="20" ({if isset($smarty.get.per) && $smarty.get.per=='20'})selected({/if})>20</option>
                                         <option value="30" ({if isset($smarty.get.per) && $smarty.get.per=='30'})selected({/if})>30</option>
@@ -171,9 +171,9 @@
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CLASS"]})</label>
+                                    <label>({$console->getLabel("CLASS")})</label>
                                     <select class="form-control" name="class" >
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                         ({if $data.class.list})
                                             ({section name=i loop=$data.class.list})
                                                 <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) ({if $data.class.list[i].id==$smarty.get.class})selected({/if})>({$data.class.list[i].name})</option>
@@ -185,9 +185,9 @@
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['STOCK_BELOW']})</label>
+                                    <label>({$console->getLabel('STOCK_BELOW')})</label>
                                     <select name="stockBelow" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                         <option value="1" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='1'})selected({/if})>1</option>
                                         <option value="5" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='5'})selected({/if})>5</option>
                                         <option value="10" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='10'})selected({/if})>10</option>
@@ -198,8 +198,8 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-secondary glyphicon-search" type="submit"> ({$label_back["SEARCH"]})</button>
-                            <button class="btn btn-link glyphicon" onclick="location.href='({$data.listUrl})';return false;"> ({$label_back["RESET"]})</button>
+                            <button class="btn btn-secondary glyphicon-search" type="submit"> ({$console->getLabel("SEARCH")})</button>
+                            <button class="btn btn-link glyphicon" onclick="location.href='({$data.listUrl})';return false;"> ({$console->getLabel("RESET")})</button>
                         </form>
                     </div>
                 ({/if})
@@ -209,17 +209,17 @@
                         <div class="card-body tab-pane fade show active" id="list-edit">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['NAME']})</label>
-                                    <input type="text" name="name" class="form-control" autocomplete="name" value="({$data.one.name})" data-text="({$label_back['NAME']})" required>
+                                    <label>({$console->getLabel('NAME')})</label>
+                                    <input type="text" name="name" class="form-control" autocomplete="name" value="({$data.one.name})" data-text="({$console->getLabel('NAME')})" required>
                                 </div>
                             </div>
                                   
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CLASS"]})</label>
+                                    <label>({$console->getLabel("CLASS")})</label>
                                     <div class="form-group">
                                         <input type="hidden" name="class">
-                                        <select class="form-control" name="class[]" data-type="chosen" data-text="({$label_back["CLASS"]})" data-placeholder="({$label_back["PLEASE_CHOOSE"]})" required>
+                                        <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required>
                                             ({section name=i loop=$data.class.list})
                                                 <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) ({if in_array($data.class.list[i].id,$data.one.class)})selected({/if})>({$data.class.list[i].name})</option>
                                             ({/section})
@@ -230,7 +230,7 @@
 
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back['PICTURE']})</label>
+                                    <label>({$console->getLabel('PICTURE')})</label>
                                     <div>
                                         ({assign var=_I_ value=0})
                                         ({include file='module.uploadImg.html'})
@@ -241,7 +241,7 @@
 
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back['DETAIL']})</label>
+                                    <label>({$console->getLabel('DETAIL')})</label>
                                     ({assign var=_I_ value=0})
                                     ({include file='module.tinymceEditor.html'})
                                 </div>
@@ -249,7 +249,7 @@
                             
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['STATUS']})</label>
+                                    <label>({$console->getLabel('STATUS')})</label>
                                     <div class="onoffswitch">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" ({if $data.one.status})checked({/if})>
@@ -258,9 +258,9 @@
                                 </div>
                             </div>
                             <small class="text-muted">
-                                ({$label_back['CREATE_DATE']})
+                                ({$console->getLabel('CREATE_DATE')})
                                 ({$data.one.create_date})(({$data.one.create_user}));
-                                ({$label_back['UPDATE_DATE']})
+                                ({$console->getLabel('UPDATE_DATE')})
                                 ({$data.one.update_date})(({$data.one.update_user}))
                             </small>
                             
@@ -268,7 +268,7 @@
 
                         <!-- 商品規格 -->
                         <div class="card-body tab-pane fade" id="list-specifications">
-                            <input class="btn btn-outline-secondary mb-3" type="button" value="({$label_back['ADD_SPECIFICATIONS']})" onclick="addSpecifications();">
+                            <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_SPECIFICATIONS')})" onclick="addSpecifications();">
                             <div class="form-row form-inline" id="specifications_div" >
                                 <input type="hidden" name="specificationsID" value="">
                                 <input type="hidden" name="specifications" value="">
@@ -276,11 +276,11 @@
                                 <input type="hidden" name="maxCount" value="">
                                 ({section name=i loop=$data.one.specifications})
                                     <div class="col-md-12 mb-3 specifications-div">
-                                        <span> ({$label_back['SPECIFICATIONS_ID']})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$label_back['SPECIFICATIONS_ID']})" value="({$data.one.specificationsID[i]})" data-check="Only" onkeyup="this.value=this.value.replace(/\W/g,'');" required>
-                                        <span> ({$label_back['SPECIFICATIONS_NAME']})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$label_back['SPECIFICATIONS_NAME']})" value="({$data.one.specifications[i]})" required>
-                                        <span> ({$label_back['STOCK']})：</span><input type="text" class="form-control" name="stock[]" value="({$data.one.stock[i]})" data-text="({$label_back['STOCK']})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
-                                        <span> ({$label_back['MAX_COUNT']})：</span><input type="text" class="form-control" name="maxCount[]" value="({$data.one.maxCount[i]})" data-text="({$label_back['MAX_COUNT']})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
-                                        <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">
+                                        <span> ({$console->getLabel('SPECIFICATIONS_ID')})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$console->getLabel('SPECIFICATIONS_ID')})" value="({$data.one.specificationsID[i]})" data-check="Only" onkeyup="this.value=this.value.replace(/\W/g,'');" required>
+                                        <span> ({$console->getLabel('SPECIFICATIONS_NAME')})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$console->getLabel('SPECIFICATIONS_NAME')})" value="({$data.one.specifications[i]})" required>
+                                        <span> ({$console->getLabel('STOCK')})：</span><input type="text" class="form-control" name="stock[]" value="({$data.one.stock[i]})" data-text="({$console->getLabel('STOCK')})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
+                                        <span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="maxCount[]" value="({$data.one.maxCount[i]})" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
+                                        <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
                                     </div>
                                 ({/section})
                             </div>
@@ -292,11 +292,11 @@
                                     return false;
                                 }
                                 $('#specifications_div').append('<div class="col-md-12 mb-3 specifications-div">'+
-                                    '<span> ({$label_back['SPECIFICATIONS_ID']})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$label_back['SPECIFICATIONS_ID']})" value="" data-check="Only" required>'+
-                                    '<span> ({$label_back['SPECIFICATIONS_NAME']})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$label_back['SPECIFICATIONS_NAME']})" value="" required>'+
-                                    '<span> ({$label_back['STOCK']})：</span><input type="text" class="form-control" name="stock[]" value="" data-text="({$label_back['STOCK']})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
-                                    '<span> ({$label_back['MAX_COUNT']})：</span><input type="text" class="form-control" name="maxCount[]" value="10" data-text="({$label_back['MAX_COUNT']})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
-                                    '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">'+
+                                    '<span> ({$console->getLabel('SPECIFICATIONS_ID')})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$console->getLabel('SPECIFICATIONS_ID')})" value="" data-check="Only" required>'+
+                                    '<span> ({$console->getLabel('SPECIFICATIONS_NAME')})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$console->getLabel('SPECIFICATIONS_NAME')})" value="" required>'+
+                                    '<span> ({$console->getLabel('STOCK')})：</span><input type="text" class="form-control" name="stock[]" value="" data-text="({$console->getLabel('STOCK')})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
+                                    '<span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="maxCount[]" value="10" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
+                                    '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                                 '</div>');
                             }
                             $(function(){
@@ -310,20 +310,20 @@
                         <div class="card-body tab-pane fade" id="list-price">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['ORIGINAL_PRICE']})</label>
-                                    <input type="text" name="originalPrice" class="form-control" value="({$data.one.originalPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$label_back['ORIGINAL_PRICE']})" data-check="Number" required>
+                                    <label>({$console->getLabel('ORIGINAL_PRICE')})</label>
+                                    <input type="text" name="originalPrice" class="form-control" value="({$data.one.originalPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('ORIGINAL_PRICE')})" data-check="Number" required>
                                 </div>
                             </div>
     <!--                         <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['SPECIAL_PRICE']})</label>
-                                    <input type="text" name="specialPrice" class="form-control" value="({$data.one.specialPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$label_back['SPECIAL_PRICE']})" data-check="Number" required>
+                                    <label>({$console->getLabel('SPECIAL_PRICE')})</label>
+                                    <input type="text" name="specialPrice" class="form-control" value="({$data.one.specialPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('SPECIAL_PRICE')})" data-check="Number" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['MEMBER_PRICE']})</label>
-                                    <input type="text" name="memberPrice" class="form-control" value="({$data.one.memberPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$label_back['MEMBER_PRICE']})" data-check="Number" required>
+                                    <label>({$console->getLabel('MEMBER_PRICE')})</label>
+                                    <input type="text" name="memberPrice" class="form-control" value="({$data.one.memberPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('MEMBER_PRICE')})" data-check="Number" required>
                                 </div>
                             </div> -->
                         </div>
@@ -332,13 +332,13 @@
                         <div class="card-body tab-pane fade" id="list-add-product">
                             <div class="form-row form-inline">
                                 <div class="col-md-12 mb-3">
-                                    <!-- <span> ({$label_back['PRODUCT_NAME']})：</span> --><input type="text" class="form-control" id="addProductKeyword" placeholder="({$label_back["SEARCH_KEYWORD"]})">
-                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['SEARCH']})" onclick="searchProduct();">
+                                    <!-- <span> ({$console->getLabel('PRODUCT_NAME')})：</span> --><input type="text" class="form-control" id="addProductKeyword" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
+                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('SEARCH')})" onclick="searchProduct();">
                                 
                                     <select class="form-control" id="productSelect">
                                         <option></option>
                                     </select>
-                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['ADD']})" onclick="addProductF($('#productSelect').val());">
+                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('ADD')})" onclick="addProductF($('#productSelect').val());">
                                 </div>
                             </div>
                             <div class="form-row form-inline" id="addProduct_div" >
@@ -398,9 +398,9 @@
                                                             '<span>'+temp["name"]+' </span>'+
                                                             '<select class="form-control" name="addProductSpecifications[]">'+optionHtml+
                                                             '</select>'+
-                                                            '<span> ({$label_back['MAX_COUNT']})：</span><input type="text" class="form-control" name="addProductMaxCount[]" value="'+maxCount+'" data-text="({$label_back['MAX_COUNT']})" onkeyup="this.value=this.value.replace(/\D/g,\'\');" data-check="Number" required>'+
-                                                            '<span> ({$label_back['MONEY']})：</span><input type="text" class="form-control" name="addProductMoney[]" value="'+money+'" data-text="({$label_back['MONEY']})" onkeyup="this.value=this.value.replace(/\D/g,\'\');" data-check="Number" required>'+
-                                                            ' <input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">'+
+                                                            '<span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="addProductMaxCount[]" value="'+maxCount+'" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\D/g,\'\');" data-check="Number" required>'+
+                                                            '<span> ({$console->getLabel('MONEY')})：</span><input type="text" class="form-control" name="addProductMoney[]" value="'+money+'" data-text="({$console->getLabel('MONEY')})" onkeyup="this.value=this.value.replace(/\D/g,\'\');" data-check="Number" required>'+
+                                                            ' <input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                                                         '</div>';
                                                     $("#addProduct_div").append(divHtml);
                                                 }
@@ -426,23 +426,23 @@
                         <div class="card-body tab-pane fade" id="list-page-setting">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CUSTOM_PAGE_TITLE"]})</label>
+                                    <label>({$console->getLabel("CUSTOM_PAGE_TITLE")})</label>
                                     <input type="text" class="form-control" name="pageTitle" value="({$data.one.pageTitle})">
-                                    <small class="text-muted">({$label_back["CUSTOM_PAGE_TITLE_TEXT"]})</small>
+                                    <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_TITLE_TEXT")})</small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CUSTOM_URL"]})</label>
+                                    <label>({$console->getLabel("CUSTOM_URL")})</label>
                                     <input type="text" class="form-control" name="urlKey" value="({$data.one.urlKey})">
-                                    <small class="text-muted">({$label_back["CUSTOM_URL_TEXT"]})</small>
+                                    <small class="text-muted">({$console->getLabel("CUSTOM_URL_TEXT")})</small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CUSTOM_PAGE_META"]})</label>
+                                    <label>({$console->getLabel("CUSTOM_PAGE_META")})</label>
                                     <textarea class="form-control" rows="8" name="pageMeta">({$data.one.pageMeta})</textarea>
-                                    <small class="text-muted">({$label_back["CUSTOM_PAGE_META_TEXT"]})</small>
+                                    <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_META_TEXT")})</small>
                                 </div>
                             </div>
                         </div>
@@ -453,17 +453,17 @@
                         <div class="card-body tab-pane fade show active" id="list-add">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['NAME']})</label>
-                                    <input type="text" name="name" class="form-control" autocomplete="name" value="" data-text="({$label_back['NAME']})" required>
+                                    <label>({$console->getLabel('NAME')})</label>
+                                    <input type="text" name="name" class="form-control" autocomplete="name" value="" data-text="({$console->getLabel('NAME')})" required>
                                 </div>
                             </div>
                                   
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CLASS"]})</label>
+                                    <label>({$console->getLabel("CLASS")})</label>
                                     <div class="form-group">
                                         <input type="hidden" name="class">
-                                        <select class="form-control" name="class[]" data-type="chosen" data-text="({$label_back["CLASS"]})" data-placeholder="({$label_back["PLEASE_CHOOSE"]})" required>
+                                        <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required>
                                             ({section name=i loop=$data.class.list})
                                                 <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if})>({$data.class.list[i].name})</option>
                                             ({/section})
@@ -474,7 +474,7 @@
 
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back['PICTURE']})</label>
+                                    <label>({$console->getLabel('PICTURE')})</label>
                                     <div>
                                         ({assign var=_I_ value=0})
                                         ({include file='module.uploadImg.html'})
@@ -484,7 +484,7 @@
                             
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back['DETAIL']})</label>
+                                    <label>({$console->getLabel('DETAIL')})</label>
                                     ({assign var=_I_ value=0})
                                     ({include file='module.tinymceEditor.html'})
                                 </div>
@@ -492,7 +492,7 @@
                             
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['STATUS']})</label>
+                                    <label>({$console->getLabel('STATUS')})</label>
                                     <div class="onoffswitch">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" checked>
@@ -505,18 +505,18 @@
 
                         <!-- 商品規格 -->
                         <div class="card-body tab-pane fade" id="list-specifications-add">
-                            <input class="btn btn-outline-secondary mb-3" type="button" value="({$label_back['ADD_SPECIFICATIONS']})" onclick="addSpecifications();">
+                            <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_SPECIFICATIONS')})" onclick="addSpecifications();">
                             <div class="form-row form-inline" id="specifications_div" >
                                 <input type="hidden" name="specificationsID" value="">
                                 <input type="hidden" name="specifications" value="">
                                 <input type="hidden" name="stock" value="">
                                 <input type="hidden" name="maxCount" value="">
                                 <div class="col-md-12 mb-3 specifications-div">
-                                    <span> ({$label_back['SPECIFICATIONS_ID']})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$label_back['SPECIFICATIONS_ID']})" value="" data-check="Only" required>
-                                    <span> ({$label_back['SPECIFICATIONS_NAME']})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$label_back['SPECIFICATIONS_NAME']})" value="" required>
-                                    <span> ({$label_back['STOCK']})：</span><input type="text" class="form-control" name="stock[]" value="" data-text="({$label_back['STOCK']})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
-                                    <span> ({$label_back['MAX_COUNT']})：</span><input type="text" class="form-control" name="maxCount[]" value="10" data-text="({$label_back['MAX_COUNT']})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
-                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">
+                                    <span> ({$console->getLabel('SPECIFICATIONS_ID')})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$console->getLabel('SPECIFICATIONS_ID')})" value="" data-check="Only" required>
+                                    <span> ({$console->getLabel('SPECIFICATIONS_NAME')})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$console->getLabel('SPECIFICATIONS_NAME')})" value="" required>
+                                    <span> ({$console->getLabel('STOCK')})：</span><input type="text" class="form-control" name="stock[]" value="" data-text="({$console->getLabel('STOCK')})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
+                                    <span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="maxCount[]" value="10" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
+                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
                                 </div>
                             </div>
                         </div>
@@ -527,11 +527,11 @@
                                     return false;
                                 }
                                 $('#specifications_div').append('<div class="col-md-12 mb-3 specifications-div">'+
-                                    '<span> ({$label_back['SPECIFICATIONS_ID']})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$label_back['SPECIFICATIONS_ID']})" value="" data-check="Only" required>'+
-                                    '<span> ({$label_back['SPECIFICATIONS_NAME']})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$label_back['SPECIFICATIONS_NAME']})" value="" required>'+
-                                    '<span> ({$label_back['STOCK']})：</span><input type="text" class="form-control" name="stock[]" value="" data-text="({$label_back['STOCK']})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
-                                    '<span> ({$label_back['MAX_COUNT']})：</span><input type="text" class="form-control" name="maxCount[]" value="10" data-text="({$label_back['MAX_COUNT']})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
-                                    '<span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">'+
+                                    '<span> ({$console->getLabel('SPECIFICATIONS_ID')})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$console->getLabel('SPECIFICATIONS_ID')})" value="" data-check="Only" required>'+
+                                    '<span> ({$console->getLabel('SPECIFICATIONS_NAME')})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$console->getLabel('SPECIFICATIONS_NAME')})" value="" required>'+
+                                    '<span> ({$console->getLabel('STOCK')})：</span><input type="text" class="form-control" name="stock[]" value="" data-text="({$console->getLabel('STOCK')})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
+                                    '<span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="maxCount[]" value="10" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
+                                    '<span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                                 '</div>');
                             }
                             $(function(){
@@ -545,20 +545,20 @@
                         <div class="card-body tab-pane fade" id="list-price-add">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['ORIGINAL_PRICE']})</label>
-                                    <input type="text" name="originalPrice" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$label_back['ORIGINAL_PRICE']})" data-check="Number" required>
+                                    <label>({$console->getLabel('ORIGINAL_PRICE')})</label>
+                                    <input type="text" name="originalPrice" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('ORIGINAL_PRICE')})" data-check="Number" required>
                                 </div>
                             </div>
     <!--                         <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['SPECIAL_PRICE']})</label>
-                                    <input type="text" name="specialPrice" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$label_back['SPECIAL_PRICE']})" data-check="Number" required>
+                                    <label>({$console->getLabel('SPECIAL_PRICE')})</label>
+                                    <input type="text" name="specialPrice" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('SPECIAL_PRICE')})" data-check="Number" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['MEMBER_PRICE']})</label>
-                                    <input type="text" name="memberPrice" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$label_back['MEMBER_PRICE']})" data-check="Number" required>
+                                    <label>({$console->getLabel('MEMBER_PRICE')})</label>
+                                    <input type="text" name="memberPrice" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('MEMBER_PRICE')})" data-check="Number" required>
                                 </div>
                             </div> -->
                         </div>
@@ -567,13 +567,13 @@
                         <div class="card-body tab-pane fade" id="list-add-product">
                             <div class="form-row form-inline">
                                 <div class="col-md-12 mb-3">
-                                    <input type="text" class="form-control" id="addProductKeyword" placeholder="({$label_back["SEARCH_KEYWORD"]})">
-                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['SEARCH']})" onclick="searchProduct();">
+                                    <input type="text" class="form-control" id="addProductKeyword" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
+                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('SEARCH')})" onclick="searchProduct();">
                                 
                                     <select class="form-control" id="productSelect">
                                         <option></option>
                                     </select>
-                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$label_back['ADD']})" onclick="addProductF($('#productSelect').val());">
+                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('ADD')})" onclick="addProductF($('#productSelect').val());">
                                 </div>
                             </div>
                             <div class="form-row form-inline" id="addProduct_div" >
@@ -631,8 +631,8 @@
                                                             '<span>'+temp["name"]+' </span>'+
                                                             '<select class="form-control" name="addProductSpecifications[]">'+optionHtml+
                                                             '</select>'+
-                                                            '<span> ({$label_back['MAX_COUNT']})：</span><input type="text" class="form-control" name="addProductMaxCount[]" value="10" data-text="({$label_back['MAX_COUNT']})" onkeyup="this.value=this.value.replace(/\D/g,\'\');" data-check="Number" required>'+
-                                                            ' <input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$label_back['DELETE']})" onclick="$(this).parent().remove();">'+
+                                                            '<span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="addProductMaxCount[]" value="10" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\D/g,\'\');" data-check="Number" required>'+
+                                                            ' <input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                                                         '</div>';
                                                     $("#addProduct_div").append(divHtml);
                                                 }
@@ -653,23 +653,23 @@
                         <div class="card-body tab-pane fade" id="list-page-setting">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CUSTOM_PAGE_TITLE"]})</label>
+                                    <label>({$console->getLabel("CUSTOM_PAGE_TITLE")})</label>
                                     <input type="text" class="form-control" name="pageTitle" value="">
-                                    <small class="text-muted">({$label_back["CUSTOM_PAGE_TITLE_TEXT"]})</small>
+                                    <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_TITLE_TEXT")})</small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CUSTOM_URL"]})</label>
+                                    <label>({$console->getLabel("CUSTOM_URL")})</label>
                                     <input type="text" class="form-control" name="urlKey" value="">
-                                    <small class="text-muted">({$label_back["CUSTOM_URL_TEXT"]})</small>
+                                    <small class="text-muted">({$console->getLabel("CUSTOM_URL_TEXT")})</small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["CUSTOM_PAGE_META"]})</label>
+                                    <label>({$console->getLabel("CUSTOM_PAGE_META")})</label>
                                     <textarea class="form-control" rows="8" name="pageMeta"></textarea>
-                                    <small class="text-muted">({$label_back["CUSTOM_PAGE_META_TEXT"]})</small>
+                                    <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_META_TEXT")})</small>
                                 </div>
                             </div>
                         </div>

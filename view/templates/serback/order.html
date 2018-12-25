@@ -6,21 +6,21 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-advanced-serch">({$label_back["ADVANCED"]})({$label_back["SEARCH"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-advanced-serch">({$console->getLabel("ADVANCED")})({$console->getLabel("SEARCH")})</a>
                         </li>
                     ({/if})
                     ({if $switch.editList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-basic">({$label_back["BASIC_INFORMATION"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-basic">({$console->getLabel("BASIC_INFORMATION")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-product">({$label_back["PRODUCT"]|cat:$label_back["LIST"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-product">({$console->getLabel("PRODUCT")|cat:$console->getLabel("LIST")})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-ecpay-log">({$label_back["ECPAY_LOGS"]})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-ecpay-log">({$console->getLabel("ECPAY_LOGS")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -39,15 +39,15 @@
                                                 <label class="custom-control-label" for="checkAll"></label>
                                             </div>
                                         </th>
-                                        <th scope="col">({$label_back["ORDER_NUMBER"]})</th>
-                                        <th scope="col">({$label_back["PAYMENT_METHOD"]})</th>
-                                        <th scope="col">({$label_back["SHIPMENT_METHOD"]})</th>
-                                        <th scope="col">({$label_back["PAYMENT_STATUS"]})</th>
-                                        <th scope="col">({$label_back["SHIPMENT_STATUS"]})</th>
-                                        <th scope="col">({$label_back["TOTAL"]})($ ({$data.total}))</th>
-                                        <th scope="col">({$label_back["STATUS"]})</th>
-                                        <!-- <th scope="col">({$label_back["CREATE_DATE"]})</th> -->
-                                        <th scope="col">({$label_back["UPDATE_DATE"]})</th>
+                                        <th scope="col">({$console->getLabel("ORDER_NUMBER")})</th>
+                                        <th scope="col">({$console->getLabel("PAYMENT_METHOD")})</th>
+                                        <th scope="col">({$console->getLabel("SHIPMENT_METHOD")})</th>
+                                        <th scope="col">({$console->getLabel("PAYMENT_STATUS")})</th>
+                                        <th scope="col">({$console->getLabel("SHIPMENT_STATUS")})</th>
+                                        <th scope="col">({$console->getLabel("TOTAL")})($ ({$data.total}))</th>
+                                        <th scope="col">({$console->getLabel("STATUS")})</th>
+                                        <!-- <th scope="col">({$console->getLabel("CREATE_DATE")})</th> -->
+                                        <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -111,41 +111,41 @@
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['SEARCH_KEYWORD']})</label>
-                                    <input type="text" name="searchKeyWord" class="form-control" value="({$smarty.get.searchKeyWord})" data-text="({$label_back['NAME']})">
+                                    <label>({$console->getLabel('SEARCH_KEYWORD')})</label>
+                                    <input type="text" name="searchKeyWord" class="form-control" value="({$smarty.get.searchKeyWord})" data-text="({$console->getLabel('NAME')})">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['FROM']})</label>
+                                    <label>({$console->getLabel('FROM')})</label>
                                     <input type="date" value="({if isset($smarty.get.startDate)})({$smarty.get.startDate})({/if})" class="form-control" name="startDate">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['TO']})</label>
+                                    <label>({$console->getLabel('TO')})</label>
                                     <input type="date" value="({if isset($smarty.get.endDate)})({$smarty.get.endDate})({/if})" class="form-control" name="endDate">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['STATUS']})</label>
+                                    <label>({$console->getLabel('STATUS')})</label>
                                     <select name="status" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
-                                        <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$label_back["STATUS_1"]})</option>
-                                        <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$label_back["STATUS_0"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                        <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$console->getLabel("STATUS_1")})</option>
+                                        <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$console->getLabel("STATUS_0")})</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['PAGE_DATA_COUNT']})</label>
+                                    <label>({$console->getLabel('PAGE_DATA_COUNT')})</label>
                                     <select name="per" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                         <option value="10" ({if isset($smarty.get.per) && $smarty.get.per=='10'})selected({/if})>10</option>
                                         <option value="20" ({if isset($smarty.get.per) && $smarty.get.per=='20'})selected({/if})>20</option>
                                         <option value="30" ({if isset($smarty.get.per) && $smarty.get.per=='30'})selected({/if})>30</option>
@@ -157,9 +157,9 @@
 
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['PAYMENT_METHOD']})</label>
+                                    <label>({$console->getLabel('PAYMENT_METHOD')})</label>
                                     <select name="paymentMethod" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                         ({foreach from=$data["paymentMethod"] key=k item=v})
                                             <option value="({$v["key"]})"  ({if isset($smarty.get.paymentMethod) && $smarty.get.paymentMethod==({$v["key"]})})selected({/if})>({$v["name"]})</option>
                                         ({/foreach})
@@ -168,9 +168,9 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['SHIPMENT_METHOD']})</label>
+                                    <label>({$console->getLabel('SHIPMENT_METHOD')})</label>
                                     <select name="shipmentMethod" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                         ({foreach from=$data["shipmentMethod"] key=k item=v})
                                             <option value="({$v["key"]})"  ({if isset($smarty.get.shipmentMethod) && $smarty.get.shipmentMethod==({$v["key"]})})selected({/if})>({$v["name"]})</option>
                                         ({/foreach})
@@ -179,9 +179,9 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['PAYMENT_STATUS']})</label>
+                                    <label>({$console->getLabel('PAYMENT_STATUS')})</label>
                                     <select name="paymentStatus" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                         ({foreach from=$data["paymentStatus"] key=k item=v})
                                             <option value="({$k})"  ({if isset($smarty.get.paymentStatus) && $smarty.get.paymentStatus==({$k})})selected({/if})>({$v})</option>
                                         ({/foreach})
@@ -190,9 +190,9 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back['SHIPMENT_STATUS']})</label>
+                                    <label>({$console->getLabel('SHIPMENT_STATUS')})</label>
                                     <select name="shipmentStatus" class="form-control">
-                                        <option value="" selected>({$label_back["PLEASE_CHOOSE"]})</option>
+                                        <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                         ({foreach from=$data["shipmentStatus"] key=k item=v})
                                             <option value="({$k})"  ({if isset($smarty.get.shipmentStatus) && $smarty.get.shipmentStatus==({$k})})selected({/if})>({$v})</option>
                                         ({/foreach})
@@ -200,8 +200,8 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-secondary glyphicon-search" type="submit"> ({$label_back["SEARCH"]})</button>
-                            <button class="btn btn-link glyphicon" onclick="location.href='({$data.listUrl})';return false;"> ({$label_back["RESET"]})</button>
+                            <button class="btn btn-secondary glyphicon-search" type="submit"> ({$console->getLabel("SEARCH")})</button>
+                            <button class="btn btn-link glyphicon" onclick="location.href='({$data.listUrl})';return false;"> ({$console->getLabel("RESET")})</button>
                         </form>
                     </div>
                 ({/if})
@@ -210,14 +210,14 @@
                     <div class="card-body tab-pane fade show active" id="list-basic">
                         
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["ORDER_NUMBER"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("ORDER_NUMBER")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.orderNumber})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["BUY_MEMBER"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("BUY_MEMBER")})</label>
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input type="text" readonly class="form-control" value="({$data.order.member.name})(({$data.order.member.account}))">
@@ -230,29 +230,29 @@
 
                         ({if $data.order.deshprice<1})
                             <div class="form-group row">
-                                <label class="col-sm-1 col-form-label">({$label_back["DESHPRICE"]})</label>
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("DESHPRICE")})</label>
                                 <div class="col-sm-5">
-                                    <input type="text" readonly class="form-control" value="({$data.order.deshprice}) ({$label_back["DESHPRICE_UNIT"]})">
+                                    <input type="text" readonly class="form-control" value="({$data.order.deshprice}) ({$console->getLabel("DESHPRICE_UNIT")})">
                                 </div>
                             </div>
                         ({/if})
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["TOTAL"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("TOTAL")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.total})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["FREIGHT"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("FREIGHT")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.freight})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["GET_POINT"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("GET_POINT")})</label>
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input type="text" readonly class="form-control" value="({$data.order.getPoint})">
@@ -265,7 +265,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["USE_POINT"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("USE_POINT")})</label>
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input type="text" readonly class="form-control" value="({$data.order.usePoint})">
@@ -281,7 +281,7 @@
                             function getPoint(type){
                                 switch(type) {
                                     case 0:
-                                        if(confirm("({$label_back["PAY_POINT_CONFIRM"]})")){
+                                        if(confirm("({$console->getLabel("PAY_POINT_CONFIRM")})")){
                                             loadingStart();
                                             $.ajax({
                                                 type: "GET",data: {ajax: 'payPoint'},dataType:'text',
@@ -290,7 +290,7 @@
                                         }
                                         break;
                                     case 1:
-                                        if(confirm("({$label_back["BACK_POINT_CONFIRM"]})")){
+                                        if(confirm("({$console->getLabel("BACK_POINT_CONFIRM")})")){
                                             loadingStart();
                                             $.ajax({
                                                 type: "GET",data: {ajax: 'backPoint'},dataType:'text',
@@ -304,7 +304,7 @@
                             function usePoint(type){
                                 switch(type) {
                                     case 0:
-                                        if(confirm("({$label_back["DEDUCTION_POINT_CONFIRM"]})")){
+                                        if(confirm("({$console->getLabel("DEDUCTION_POINT_CONFIRM")})")){
                                             loadingStart();
                                             $.ajax({
                                                 type: "GET",data: {ajax: 'deductionPoint'},dataType:'text',
@@ -313,7 +313,7 @@
                                         }
                                         break;
                                     case 1:
-                                        if(confirm("({$label_back["REPLACEMENT_POINT_CONFIRM"]})")){
+                                        if(confirm("({$console->getLabel("REPLACEMENT_POINT_CONFIRM")})")){
                                             loadingStart();
                                             $.ajax({
                                                 type: "GET",data: {ajax: 'replacementPoint'},dataType:'text',
@@ -325,7 +325,7 @@
                             }
 
                             function setPayment(type){
-                                if(confirm("({$label_back["SET_PAYMENT_CONFIRM"]})")){
+                                if(confirm("({$console->getLabel("SET_PAYMENT_CONFIRM")})")){
                                     loadingStart();
                                     $.ajax({
                                         type: "GET",data: {ajax: 'setPayment',status: type},dataType:'text',
@@ -335,7 +335,7 @@
                             }
 
                             function setShipment(type){
-                                if(confirm("({$label_back["SET_SHIPMENT_CONFIRM"]})")){
+                                if(confirm("({$console->getLabel("SET_SHIPMENT_CONFIRM")})")){
                                     loadingStart();
                                     $.ajax({
                                         type: "GET",data: {ajax: 'setShipment',status: type},dataType:'text',
@@ -345,7 +345,7 @@
                             }
 
                             function reCreateOrder(){
-                                if(confirm("({$label_back["RE_CREATE_ORDER_CONFIRM"]})")){
+                                if(confirm("({$console->getLabel("RE_CREATE_ORDER_CONFIRM")})")){
                                     loadingStart();
                                     $.ajax({
                                         type: "GET",data: {ajax: 'reCreateOrder'},dataType:'text',
@@ -367,7 +367,7 @@
                         <hr>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["PAYMENT_METHOD"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("PAYMENT_METHOD")})</label>
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input type="text" readonly class="form-control" value="({$data["paymentTitle"][$data.order.paymentMethod]})">
@@ -384,13 +384,13 @@
                                     </div>
                                 </div>
                                 ({if $data.order.paymentStatus==MTsung\paymentStatusType::OK})
-                                    <small class="text-muted">({$label_back['PAYMENT_DATE']}) ({$data.order.payment_date})</small>
+                                    <small class="text-muted">({$console->getLabel('PAYMENT_DATE')}) ({$data.order.payment_date})</small>
                                 ({/if})
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["SHIPMENT_METHOD"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("SHIPMENT_METHOD")})</label>
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input type="text" readonly class="form-control" value="({$data["shipmentTitle"][$data.order.shipmentMethod]})">
@@ -407,45 +407,45 @@
                                     </div>
                                 </div>
                                 ({if $data.order.shipmentStatus==MTsung\shipmentStatusType::OK})
-                                    <small class="text-muted">({$label_back['SHIPMENT_DATE']}) ({$data.order.shipment_date})</small>
+                                    <small class="text-muted">({$console->getLabel('SHIPMENT_DATE')}) ({$data.order.shipment_date})</small>
                                 ({/if})
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["PRINT_BILL"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("PRINT_BILL")})</label>
                             <div class="col-sm-5">
-                                <a target="_blank" class="btn btn-outline-secondary" href="({$smarty.server.REQUEST_URI})?ajax=printBill"><span class="glyphicon glyphicon-print"></span> ({$label_back['PRINT']})</a>
-                                <small class="text-muted">({$label_back['ECPAY_USE']})</small>
+                                <a target="_blank" class="btn btn-outline-secondary" href="({$smarty.server.REQUEST_URI})?ajax=printBill"><span class="glyphicon glyphicon-print"></span> ({$console->getLabel('PRINT')})</a>
+                                <small class="text-muted">({$console->getLabel('ECPAY_USE')})</small>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["RE_CREATE_ORDER"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("RE_CREATE_ORDER")})</label>
                             <div class="col-sm-5">
-                                <a target="_blank" class="btn btn-outline-secondary" href="javascript:;" onclick="reCreateOrder();"><span class="glyphicon glyphicon-refresh"></span> ({$label_back['CREATE']})</a>
-                                <small class="text-muted">({$label_back['RE_CREATE_ORDER_SMALL']})</small>
+                                <a target="_blank" class="btn btn-outline-secondary" href="javascript:;" onclick="reCreateOrder();"><span class="glyphicon glyphicon-refresh"></span> ({$console->getLabel('CREATE')})</a>
+                                <small class="text-muted">({$console->getLabel('RE_CREATE_ORDER_SMALL')})</small>
                             </div>
                         </div>
 
                         <hr>
                         ({if isset($data.order.formData.CVSStoreID)})
                             <div class="form-group row">
-                                <label class="col-sm-1 col-form-label">({$label_back["CVSSTOREID"]})</label>
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("CVSSTOREID")})</label>
                                 <div class="col-sm-5">
                                     <input type="text" readonly class="form-control" value="({$data.order.formData.CVSStoreID})">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-1 col-form-label">({$label_back["CVSSTORENAME"]})</label>
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("CVSSTORENAME")})</label>
                                 <div class="col-sm-5">
                                     <input type="text" readonly class="form-control" value="({$data.order.formData.CVSStoreName})">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-1 col-form-label">({$label_back["CVSADDRESS"]})</label>
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("CVSADDRESS")})</label>
                                 <div class="col-sm-5">
                                     <input type="text" readonly class="form-control" value="({$data.order.formData.CVSAddress})">
                                 </div>
@@ -456,35 +456,35 @@
 
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_NAME"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("RECEIVER_NAME")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverName})">
                             </div>
                         </div>
 
 <!--                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_PHONE"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("RECEIVER_PHONE")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverPhone})">
                             </div>
                         </div> -->
                         
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_CELLPHONE"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("RECEIVER_CELLPHONE")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverCellPhone})">
                             </div>
                         </div>
                         
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_EMAIL"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("RECEIVER_EMAIL")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverEmail})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["RECEIVER_ADDRESS"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("RECEIVER_ADDRESS")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverAddress[0]})({$data.order.formData.ReceiverAddress[1]})({$data.order.formData.ReceiverAddress[2]})({$data.order.formData.ReceiverAddress[3]})">
                             </div>
@@ -493,28 +493,28 @@
                         <hr>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["BUY_NAME"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("BUY_NAME")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.BuyName})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["BUY_CELLPHONE"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("BUY_CELLPHONE")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.BuyPhone})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["BUY_EMAIL"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("BUY_EMAIL")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.BuyEmail})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["BUY_ADDRESS"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("BUY_ADDRESS")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.BuyAddress[0]})({$data.order.formData.BuyAddress[1]})({$data.order.formData.BuyAddress[2]})({$data.order.formData.BuyAddress[3]})">
                             </div>
@@ -523,35 +523,35 @@
                         <hr>
                         
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["REQUEST_FOR_INVOICE"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("REQUEST_FOR_INVOICE")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.invoiceType})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["CARRIAGE_TYPE"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("CARRIAGE_TYPE")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.vehicleType})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["COMPANY_UP"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("COMPANY_UP")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.companyName})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["COMPANY_EDITOR"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("COMPANY_EDITOR")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.companyGUINumber})">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$label_back["MEMO"]})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("MEMO")})</label>
                             <div class="col-sm-5">
                                 <textarea class="form-control" readonly rows="5">({$data.order.formData.memo})</textarea>
                             </div>
@@ -560,9 +560,9 @@
                         <hr>
 
                         <small class="text-muted">
-                            ({$label_back['CREATE_DATE']})
+                            ({$console->getLabel('CREATE_DATE')})
                             ({$data.order.create_date});
-                            ({$label_back['UPDATE_DATE']})
+                            ({$console->getLabel('UPDATE_DATE')})
                             ({$data.order.update_date})(({$data.order.update_user}))
                         </small>
                         
@@ -574,12 +574,12 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">({$label_back["PICTURE"]})</th>
-                                    <th scope="col">({$label_back["NAME"]})</th>
-                                    <th scope="col">({$label_back["SPECIFICATIONS"]})</th>
-                                    <th scope="col">({$label_back["ONE_PRICE"]})</th>
-                                    <th scope="col">({$label_back["COUNT"]})</th>
-                                    <th scope="col">({$label_back["MINOR_TOTAL"]})</th>
+                                    <th scope="col">({$console->getLabel("PICTURE")})</th>
+                                    <th scope="col">({$console->getLabel("NAME")})</th>
+                                    <th scope="col">({$console->getLabel("SPECIFICATIONS")})</th>
+                                    <th scope="col">({$console->getLabel("ONE_PRICE")})</th>
+                                    <th scope="col">({$console->getLabel("COUNT")})</th>
+                                    <th scope="col">({$console->getLabel("MINOR_TOTAL")})</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -611,9 +611,9 @@
                             </tbody>
                         </table>
                         <small class="text-muted">
-                            ({$label_back['CREATE_DATE']})
+                            ({$console->getLabel('CREATE_DATE')})
                             ({$data.order.create_date});
-                            ({$label_back['UPDATE_DATE']})
+                            ({$console->getLabel('UPDATE_DATE')})
                             ({$data.order.update_date})(({$data.order.update_user}))
                         </small>
                     </div>
@@ -624,11 +624,11 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">({$label_back["MERCHANT_TRADE_NO"]})</th>
-                                    <th scope="col">({$label_back["TYPE"]})</th>
-                                    <th scope="col">({$label_back["RTN_CODE"]})</th>
-                                    <th scope="col">({$label_back["RTN_MSG"]})</th>
-                                    <th scope="col">({$label_back["DATE"]})</th>
+                                    <th scope="col">({$console->getLabel("MERCHANT_TRADE_NO")})</th>
+                                    <th scope="col">({$console->getLabel("TYPE")})</th>
+                                    <th scope="col">({$console->getLabel("RTN_CODE")})</th>
+                                    <th scope="col">({$console->getLabel("RTN_MSG")})</th>
+                                    <th scope="col">({$console->getLabel("DATE")})</th>
                                 </tr>
                             </thead>
                                 <tbody>
@@ -636,7 +636,7 @@
                                         <tr>
                                             <th scope="row">({$data.orderECPayLog[i].id})</th>
                                             <td>({$data.orderECPayLog[i].MerchantTradeNo})</td>
-                                            <td>({if $data.orderECPayLog[i].type=="shipment"})({$label_back["SHIPMENT"]})({else if $data.orderECPayLog[i].type=="aio"})({$label_back["AIO"]})({else})({$label_back["OTHER"]})({/if})</td>
+                                            <td>({if $data.orderECPayLog[i].type=="shipment"})({$console->getLabel("SHIPMENT")})({else if $data.orderECPayLog[i].type=="aio"})({$console->getLabel("AIO")})({else})({$console->getLabel("OTHER")})({/if})</td>
                                             <td>({$data.orderECPayLog[i].RtnCode})</td>
                                             <td>({$data.orderECPayLog[i].RtnMsg})</td>
                                             <td>({$data.orderECPayLog[i].create_date})</td>  
@@ -645,9 +645,9 @@
                                 </tbody>
                             </table>
                         <small class="text-muted">
-                            ({$label_back['CREATE_DATE']})
+                            ({$console->getLabel('CREATE_DATE')})
                             ({$data.order.create_date});
-                            ({$label_back['UPDATE_DATE']})
+                            ({$console->getLabel('UPDATE_DATE')})
                             ({$data.order.update_date})(({$data.order.update_user}))
                         </small>
                     </div>

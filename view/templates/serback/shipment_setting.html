@@ -5,31 +5,31 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="list" href="#list-setting1">({$label_back["MAILING"]})</a>
+                        <a class="nav-link active" data-toggle="list" href="#list-setting1">({$console->getLabel("MAILING")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting2">({$label_back["TCAT_BLACK_CAT"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting2">({$console->getLabel("TCAT_BLACK_CAT")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting3">({$label_back["ECAN_HOME_DELIVERY"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting3">({$console->getLabel("ECAN_HOME_DELIVERY")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting4">({$label_back["FAMI"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting4">({$console->getLabel("FAMI")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting5">({$label_back["UNIMART"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting5">({$console->getLabel("UNIMART")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting6">({$label_back["HILIFE"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting6">({$console->getLabel("HILIFE")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting7">({$label_back["FAMIC2C"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting7">({$console->getLabel("FAMIC2C")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting8">({$label_back["UNIMARTC2C"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting8">({$console->getLabel("UNIMARTC2C")})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting9">({$label_back["HILIFEC2C"]})</a>
+                        <a class="nav-link" data-toggle="list" href="#list-setting9">({$console->getLabel("HILIFEC2C")})</a>
                     </li>
 
                 </ul>
@@ -39,7 +39,7 @@
                 <div class="card-body tab-pane fade show active" id="list-setting1">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["MAILING"]})</label>
+                            <label>({$console->getLabel("MAILING")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="mailingCheck" value="0">
                                 <input type="checkbox" name="mailingCheck" class="onoffswitch-checkbox" id="mailingCheck" value="1" ({if $data.one.mailingCheck==1})checked({/if})>
@@ -49,12 +49,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="mailingDetail">({$data.one.mailingDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -63,7 +63,7 @@
                 <div class="card-body tab-pane fade" id="list-setting2">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["TCAT_BLACK_CAT"]})</label>
+                            <label>({$console->getLabel("TCAT_BLACK_CAT")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="tcatBlackCatCheck" value="0">
                                 <input type="checkbox" name="tcatBlackCatCheck" class="onoffswitch-checkbox" id="tcatBlackCatCheck" value="1" ({if $data.one.tcatBlackCatCheck==1})checked({/if})>
@@ -73,12 +73,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="tcatBlackCatDetail">({$data.one.tcatBlackCatDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -87,7 +87,7 @@
                 <div class="card-body tab-pane fade" id="list-setting3">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["ECAN_HOME_DELIVERY"]})</label>
+                            <label>({$console->getLabel("ECAN_HOME_DELIVERY")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="ecanHomeDeliveryCheck" value="0">
                                 <input type="checkbox" name="ecanHomeDeliveryCheck" class="onoffswitch-checkbox" id="ecanHomeDeliveryCheck" value="1" ({if $data.one.ecanHomeDeliveryCheck==1})checked({/if})>
@@ -97,12 +97,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="ecanHomeDeliveryDetail">({$data.one.ecanHomeDeliveryDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -111,7 +111,7 @@
                 <div class="card-body tab-pane fade" id="list-setting4">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["FAMI"]})</label>
+                            <label>({$console->getLabel("FAMI")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="famiCheck" value="0">
                                 <input type="checkbox" name="famiCheck" class="onoffswitch-checkbox" id="famiCheck" value="1" ({if $data.one.famiCheck==1})checked({/if})>
@@ -121,7 +121,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PICK_UP_PAYMENT"]})</label>
+                            <label>({$console->getLabel("PICK_UP_PAYMENT")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="famiPickUpPaymentCheck" value="0">
                                 <input type="checkbox" name="famiPickUpPaymentCheck" class="onoffswitch-checkbox" id="famiPickUpPaymentCheck" value="1" ({if $data.one.famiPickUpPaymentCheck==1})checked({/if})>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PURE_PICKUP"]})</label>
+                            <label>({$console->getLabel("PURE_PICKUP")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="famiPpurePickupCheck" value="0">
                                 <input type="checkbox" name="famiPpurePickupCheck" class="onoffswitch-checkbox" id="famiPpurePickupCheck" value="1" ({if $data.one.famiPpurePickupCheck==1})checked({/if})>
@@ -141,12 +141,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="famiDetail">({$data.one.famiDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -155,7 +155,7 @@
                 <div class="card-body tab-pane fade" id="list-setting5">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["UNIMART"]})</label>
+                            <label>({$console->getLabel("UNIMART")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="unimartCheck" value="0">
                                 <input type="checkbox" name="unimartCheck" class="onoffswitch-checkbox" id="unimartCheck" value="1" ({if $data.one.unimartCheck==1})checked({/if})>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PICK_UP_PAYMENT"]})</label>
+                            <label>({$console->getLabel("PICK_UP_PAYMENT")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="unimartPickUpPaymentCheck" value="0">
                                 <input type="checkbox" name="unimartPickUpPaymentCheck" class="onoffswitch-checkbox" id="unimartPickUpPaymentCheck" value="1" ({if $data.one.unimartPickUpPaymentCheck==1})checked({/if})>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PURE_PICKUP"]})</label>
+                            <label>({$console->getLabel("PURE_PICKUP")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="unimartPpurePickupCheck" value="0">
                                 <input type="checkbox" name="unimartPpurePickupCheck" class="onoffswitch-checkbox" id="unimartPpurePickupCheck" value="1" ({if $data.one.unimartPpurePickupCheck==1})checked({/if})>
@@ -185,12 +185,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="unimartDetail">({$data.one.unimartDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -199,7 +199,7 @@
                 <div class="card-body tab-pane fade" id="list-setting6">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["HILIFE"]})</label>
+                            <label>({$console->getLabel("HILIFE")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="hilifeCheck" value="0">
                                 <input type="checkbox" name="hilifeCheck" class="onoffswitch-checkbox" id="hilifeCheck" value="1" ({if $data.one.hilifeCheck==1})checked({/if})>
@@ -209,7 +209,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PICK_UP_PAYMENT"]})</label>
+                            <label>({$console->getLabel("PICK_UP_PAYMENT")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="hilifePickUpPaymentCheck" value="0">
                                 <input type="checkbox" name="hilifePickUpPaymentCheck" class="onoffswitch-checkbox" id="hilifePickUpPaymentCheck" value="1" ({if $data.one.hilifePickUpPaymentCheck==1})checked({/if})>
@@ -219,7 +219,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PURE_PICKUP"]})</label>
+                            <label>({$console->getLabel("PURE_PICKUP")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="hilifePpurePickupCheck" value="0">
                                 <input type="checkbox" name="hilifePpurePickupCheck" class="onoffswitch-checkbox" id="hilifePpurePickupCheck" value="1" ({if $data.one.hilifePpurePickupCheck==1})checked({/if})>
@@ -229,12 +229,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="hilifeDetail">({$data.one.hilifeDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -243,7 +243,7 @@
                 <div class="card-body tab-pane fade" id="list-setting7">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["FAMIC2C"]})</label>
+                            <label>({$console->getLabel("FAMIC2C")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="famiC2CCheck" value="0">
                                 <input type="checkbox" name="famiC2CCheck" class="onoffswitch-checkbox" id="famiC2CCheck" value="1" ({if $data.one.famiC2CCheck==1})checked({/if})>
@@ -253,7 +253,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PICK_UP_PAYMENT"]})</label>
+                            <label>({$console->getLabel("PICK_UP_PAYMENT")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="famiC2CPickUpPaymentCheck" value="0">
                                 <input type="checkbox" name="famiC2CPickUpPaymentCheck" class="onoffswitch-checkbox" id="famiC2CPickUpPaymentCheck" value="1" ({if $data.one.famiC2CPickUpPaymentCheck==1})checked({/if})>
@@ -263,7 +263,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PURE_PICKUP"]})</label>
+                            <label>({$console->getLabel("PURE_PICKUP")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="famiC2CPpurePickupCheck" value="0">
                                 <input type="checkbox" name="famiC2CPpurePickupCheck" class="onoffswitch-checkbox" id="famiC2CPpurePickupCheck" value="1" ({if $data.one.famiC2CPpurePickupCheck==1})checked({/if})>
@@ -273,12 +273,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="famiC2CDetail">({$data.one.famiC2CDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -287,7 +287,7 @@
                 <div class="card-body tab-pane fade" id="list-setting8">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["UNIMARTC2C"]})</label>
+                            <label>({$console->getLabel("UNIMARTC2C")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="unimartC2CCheck" value="0">
                                 <input type="checkbox" name="unimartC2CCheck" class="onoffswitch-checkbox" id="unimartC2CCheck" value="1" ({if $data.one.unimartC2CCheck==1})checked({/if})>
@@ -297,7 +297,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PICK_UP_PAYMENT"]})</label>
+                            <label>({$console->getLabel("PICK_UP_PAYMENT")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="unimartC2CPickUpPaymentCheck" value="0">
                                 <input type="checkbox" name="unimartC2CPickUpPaymentCheck" class="onoffswitch-checkbox" id="unimartC2CPickUpPaymentCheck" value="1" ({if $data.one.unimartC2CPickUpPaymentCheck==1})checked({/if})>
@@ -307,7 +307,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PURE_PICKUP"]})</label>
+                            <label>({$console->getLabel("PURE_PICKUP")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="unimartC2CPpurePickupCheck" value="0">
                                 <input type="checkbox" name="unimartC2CPpurePickupCheck" class="onoffswitch-checkbox" id="unimartC2CPpurePickupCheck" value="1" ({if $data.one.unimartC2CPpurePickupCheck==1})checked({/if})>
@@ -317,12 +317,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="unimartC2CDetail">({$data.one.unimartC2CDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
@@ -331,7 +331,7 @@
                 <div class="card-body tab-pane fade" id="list-setting9">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["HILIFEC2C"]})</label>
+                            <label>({$console->getLabel("HILIFEC2C")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="hilifeC2CCheck" value="0">
                                 <input type="checkbox" name="hilifeC2CCheck" class="onoffswitch-checkbox" id="hilifeC2CCheck" value="1" ({if $data.one.hilifeC2CCheck==1})checked({/if})>
@@ -341,7 +341,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PICK_UP_PAYMENT"]})</label>
+                            <label>({$console->getLabel("PICK_UP_PAYMENT")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="hilifeC2CPickUpPaymentCheck" value="0">
                                 <input type="checkbox" name="hilifeC2CPickUpPaymentCheck" class="onoffswitch-checkbox" id="hilifeC2CPickUpPaymentCheck" value="1" ({if $data.one.hilifeC2CPickUpPaymentCheck==1})checked({/if})>
@@ -351,7 +351,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label>({$label_back["PURE_PICKUP"]})</label>
+                            <label>({$console->getLabel("PURE_PICKUP")})</label>
                             <div class="onoffswitch">
                                 <input type="hidden" name="hilifeC2CPpurePickupCheck" value="0">
                                 <input type="checkbox" name="hilifeC2CPpurePickupCheck" class="onoffswitch-checkbox" id="hilifeC2CPpurePickupCheck" value="1" ({if $data.one.hilifeC2CPpurePickupCheck==1})checked({/if})>
@@ -361,12 +361,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="hilifeC2CDetail">({$data.one.hilifeC2CDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
-                        ({$label_back['UPDATE_DATE']})
+                        ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>

@@ -20,7 +20,7 @@
     <script src="js/validation.js"></script>
     <!-- reCAPTCHA -->
     <script src='//www.google.com/recaptcha/api.js?hl=({$lang})' async defer></script>
-    <title>({$label_back['LOGIN_FORGET']})</title>
+    <title>({$console->getLabel('LOGIN_FORGET')})</title>
     
     <link rel="icon" href="({$web.icon})" sizes="16x16" type="image/png">
     <link rel="apple-touch-icon" href="({$web.icon})">
@@ -31,23 +31,23 @@
 
     <form class="form-signin" action="" method="POST">
         <img class="mb-4" src="({$web.icon})">
-        <h1 class="h3 mb-3 font-weight-normal">({$label_back['FORGET_TITEL']})</h1>
+        <h1 class="h3 mb-3 font-weight-normal">({$console->getLabel('FORGET_TITEL')})</h1>
         ({if isset($smarty.get.uID)})
-                <input type="password" name="newPassword" class="form-control" placeholder="({$label_back['FORGET_NEW_PASSWORD']})" data-check="Password" data-text="({$label_back['NEW_PASSWORD']})"  required autofocus>
+                <input type="password" name="newPassword" class="form-control" placeholder="({$console->getLabel('FORGET_NEW_PASSWORD')})" data-check="Password" data-text="({$console->getLabel('NEW_PASSWORD')})"  required autofocus>
                 <br>
-                <input type="password" name="checkNewPassword" class="form-control" placeholder="({$label_back['FORGET_CHECK_NEW_PASSWORD']})" data-check="Password" data-text="({$label_back['CHECK_NEW_PASSWORD']})"  required autofocus>
+                <input type="password" name="checkNewPassword" class="form-control" placeholder="({$console->getLabel('FORGET_CHECK_NEW_PASSWORD')})" data-check="Password" data-text="({$console->getLabel('CHECK_NEW_PASSWORD')})"  required autofocus>
                 <br>
                 <div class="checkbox mb-3">
-                    <a href="({$web.serback_path})/login">({$label_back['LOGIN_LOGIN_LABEL']})</a>
+                    <a href="({$web.serback_path})/login">({$console->getLabel('LOGIN_LOGIN_LABEL')})</a>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" onclick="return formSubmit(0);">({$label_back['LOGIN_FORGET_EDIT']})</button><br>
+                <button class="btn btn-lg btn-primary btn-block" onclick="return formSubmit(0);">({$console->getLabel('LOGIN_FORGET_EDIT')})</button><br>
         ({else})
-                <input type="text" name="email" class="form-control" placeholder="({$label_back['FORGET_EMAIL']})" data-check="Email" required autofocus>
+                <input type="text" name="email" class="form-control" placeholder="({$console->getLabel('FORGET_EMAIL')})" data-check="Email" required autofocus>
                 <br>
                 <div class="checkbox mb-3">
-                    <a href="({$web.serback_path})/login">({$label_back['LOGIN_LOGIN_LABEL']})</a>
+                    <a href="({$web.serback_path})/login">({$console->getLabel('LOGIN_LOGIN_LABEL')})</a>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" onclick="return formSubmit(0);">({$label_back['LOGIN_FORGET']})</button><br>
+                <button class="btn btn-lg btn-primary btn-block" onclick="return formSubmit(0);">({$console->getLabel('LOGIN_FORGET')})</button><br>
         ({/if})
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2018 Power by vipcase</p>
         ({$console->getToken()})

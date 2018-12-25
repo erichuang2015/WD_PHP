@@ -6,17 +6,17 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                     ({/if})
                     ({if $switch.editList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["EDIT"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("EDIT")})</a>
                         </li>
                     ({/if})
                     ({if $switch.addList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["ADD"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$console->getLabel("ADD")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -35,7 +35,7 @@
                         }
                     </style>
                         <div class="card-body tab-pane fade show active" id="list-list">
-                            <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" style="border:dashed 5px gray;"  onclick="document.getElementById('ff({$_I_})').click();">({$label_back.FILE_DROP})
+                            <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" style="border:dashed 5px gray;"  onclick="document.getElementById('ff({$_I_})').click();">({$console->getLabel("FILE_DROP")})
                             <div id="up_progress"></div></div>
                             <input type="file" class="form-control-file" id="ff" multiple onchange="dropHandler('',0);" style="display: none;" />
                             <table class="table table-striped">
@@ -47,8 +47,8 @@
                                                 <label class="custom-control-label" for="checkAll"></label>
                                             </div>
                                         </th>
-                                        <th scope="col">({$label_back["NAME"]})</th>
-                                        <th scope="col">({$label_back["FILE_SIZE"]})</th>
+                                        <th scope="col">({$console->getLabel("NAME")})</th>
+                                        <th scope="col">({$console->getLabel("FILE_SIZE")})</th>
                                         <th scope="col" width="5%"></th>
                                     </tr>
                                 </thead>
@@ -98,7 +98,7 @@
                                 xhr.open('POST', '({$smarty.server.REQUEST_URI})');
                                 
                                 xhr.onload = function() {
-                                    up_progress.innerHTML = '({$label_back.UPLOAD_IMG_OK})';
+                                    up_progress.innerHTML = '({$console->getLabel("UPLOAD_IMG_OK")})';
                                     window.location.reload();
                                     document.getElementById('ff').value = '';
                                     document.getElementById('dropDIV').style.border = 'dashed 5px gray';
@@ -108,7 +108,7 @@
                                     if (evt.lengthComputable) {
                                         var complete = (evt.loaded / evt.total * 100 | 0);
                                         if (100 == complete) {
-                                            up_progress.innerHTML = '({$label_back.FILE_PROCESSING})';
+                                            up_progress.innerHTML = '({$console->getLabel("FILE_PROCESSING")})';
                                         }else{
                                             up_progress.innerHTML = complete + ' %';
                                         }
@@ -132,7 +132,7 @@
                         <div class="card-body tab-pane fade show active" id="list-edit">
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back["DETAIL"]})</label>
+                                    <label>({$console->getLabel("DETAIL")})</label>
                                     ({include file='module.aceEditor.html'})
                                 </div>
                             </div>

@@ -6,17 +6,17 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                     ({/if})
                     ({if $switch.editList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["EDIT"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("EDIT")})</a>
                         </li>
                     ({/if})
                     ({if $switch.addList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["ADD"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$console->getLabel("ADD")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -34,13 +34,13 @@
                                                 <label class="custom-control-label" for="checkAll"></label>
                                             </div>
                                         </th>
-                                        <th scope="col">({$label_back["NAME"]})</th>
-                                        <th scope="col">({$label_back["FILE_NAME"]})</th>
-                                        <th scope="col">({$label_back["SORT"]})</th>
-                                        <th scope="col">({$label_back["CREATE_DATE"]})</th>
-                                        <th scope="col">({$label_back["UPDATE_DATE"]})</th>
-                                        <!-- <th scope="col">({$label_back["REFERENCE_METHOD"]})</th> -->
-                                        <th scope="col" width="8%">({$label_back["TOW_SORT"]})</th>
+                                        <th scope="col">({$console->getLabel("NAME")})</th>
+                                        <th scope="col">({$console->getLabel("FILE_NAME")})</th>
+                                        <th scope="col">({$console->getLabel("SORT")})</th>
+                                        <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                        <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
+                                        <!-- <th scope="col">({$console->getLabel("REFERENCE_METHOD")})</th> -->
+                                        <th scope="col" width="8%">({$console->getLabel("TOW_SORT")})</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -84,26 +84,26 @@
                         <div class="card-body tab-pane fade show active" id="list-edit">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["NAME"]})</label>
+                                    <label>({$console->getLabel("NAME")})</label>
                                     <input type="text" name="detail" class="form-control" value="({$data.one.detail})" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["FILE_NAME"]})</label>
+                                    <label>({$console->getLabel("FILE_NAME")})</label>
                                     <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back["DETAIL"]})</label>
+                                    <label>({$console->getLabel("DETAIL")})</label>
                                     ({include file='module.aceEditor.html'})
                                 </div>
                             </div>
                             <small class="text-muted">
-                                ({$label_back['CREATE_DATE']})
+                                ({$console->getLabel('CREATE_DATE')})
                                 ({$data.one.create_date})(({$data.one.create_user}));
-                                ({$label_back['UPDATE_DATE']})
+                                ({$console->getLabel('UPDATE_DATE')})
                                 ({$data.one.update_date})(({$data.one.update_user}))
                             </small>
                         </div>
@@ -113,20 +113,20 @@
                         <div class="card-body tab-pane fade show active" id="list-add">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["NAME"]})</label>
+                                    <label>({$console->getLabel("NAME")})</label>
                                     <input type="text" name="detail" class="form-control" value="" autocomplete="off" required>
 
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
-                                    <label>({$label_back["FILE_NAME"]})</label>
+                                    <label>({$console->getLabel("FILE_NAME")})</label>
                                     <input type="text" name="name" class="form-control" value="" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label>({$label_back["DETAIL"]})</label>
+                                    <label>({$console->getLabel("DETAIL")})</label>
                                     ({include file='module.aceEditor.html'})
                                 </div>
                             </div>

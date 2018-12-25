@@ -6,17 +6,17 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$label_back["LIST"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                     ({/if})
                     ({if $switch.editList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$label_back["EDIT"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("EDIT")})</a>
                         </li>
                     ({/if})
                     ({if $switch.addList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-add">({$label_back["ADD"]})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-add">({$console->getLabel("ADD")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -34,11 +34,11 @@
                                             <label class="custom-control-label" for="checkAll"></label>
                                         </div>
                                     </th>
-                                    <th scope="col">({$label_back["NAME"]})</th>
-                                    <th scope="col">({$label_back["URL"]})</th>
-                                    <th scope="col">({$label_back["SORT"]})</th>
-                                    <th scope="col">({$label_back["STATUS"]})</th>
-                                    <th scope="col" width="8%">({$label_back["TOW_SORT"]})</th>
+                                    <th scope="col">({$console->getLabel("NAME")})</th>
+                                    <th scope="col">({$console->getLabel("URL")})</th>
+                                    <th scope="col">({$console->getLabel("SORT")})</th>
+                                    <th scope="col">({$console->getLabel("STATUS")})</th>
+                                    <th scope="col" width="8%">({$console->getLabel("TOW_SORT")})</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,7 +57,7 @@
                                             ({else})
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                             ({/if})
-                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({if $label_back[$data.list[i].name]})({$label_back[$data.list[i].name]})({else})({$data.list[i].name})({/if})</a>
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({if $console->getLabel($data.list[i].name)})({$console->getLabel($data.list[i].name)})({else})({$data.list[i].name})({/if})</a>
                                         </td>
                                         <td>
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].url})</a>
@@ -90,27 +90,27 @@
                     <div class="card-body tab-pane fade show active" id="list-edit">
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["LANGUAGE_KEY"]})</label>
+                                <label>({$console->getLabel("LANGUAGE_KEY")})</label>
                                 <input type="text" class="form-control" name="name" value="({$data.one.name})" required>
-                                <small class="text-muted">({$label_back[$data.one.name]})</small>
+                                <small class="text-muted">({$console->getLabel($data.one.name)})</small>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["URL"]})</label>
+                                <label>({$console->getLabel("URL")})</label>
                                 <input type="text" class="form-control" name="url" value="({$data.one.url})">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["FLOOR"]})</label>
+                                <label>({$console->getLabel("FLOOR")})</label>
                                 <div class="form-group">
-                                    <select class="form-control" name="parent" data-type="chosen" data-text="({$label_back["FLOOR"]})" required>
-                                        <option value="">({$label_back["PLEASE_CHOOSE"]})</option>
-                                        <option value="0,-1" ({if 0==$data.one.parent})selected({/if})>({$label_back["ROOT_DIRECTORY"]})</option>
+                                    <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
+                                        <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                        <option value="0,-1" ({if 0==$data.one.parent})selected({/if})>({$console->getLabel("ROOT_DIRECTORY")})</option>
                                         ({section name=i loop=$data.list})
                                             ({if $data.list[i].floor < $data.addMaxFloor})
-                                            <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;" ({if $data.list[i].id==$data.one.parent})selected({/if})>({$label_back[$data.list[i].name]})</option>
+                                            <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;" ({if $data.list[i].id==$data.one.parent})selected({/if})>({$console->getLabel($data.list[i].name)})</option>
                                             ({/if})
                                         ({/section})
                                     </select>
@@ -119,13 +119,13 @@
                         </div>
                         <!-- <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["SORT"]})</label>
+                                <label>({$console->getLabel("SORT")})</label>
                                 <input type="text" class="form-control" name="sort" value="({$data.one.sort})" required>
                             </div>
                         </div> -->
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["STATUS"]})</label>
+                                <label>({$console->getLabel("STATUS")})</label>
                                 <div class="onoffswitch">
                                     <input type="hidden" name="status" value="0">
                                     <input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" value="1" ({if $data.one.status})checked({/if})>
@@ -134,9 +134,9 @@
                             </div>
                         </div>
                         <small class="text-muted">
-                            ({$label_back['CREATE_DATE']})
+                            ({$console->getLabel('CREATE_DATE')})
                             ({$data.one.create_date})(({$data.one.create_user}));
-                            ({$label_back['UPDATE_DATE']})
+                            ({$console->getLabel('UPDATE_DATE')})
                             ({$data.one.update_date})(({$data.one.update_user}))
                         </small>
                     </div>
@@ -146,26 +146,26 @@
                     <div class="card-body tab-pane fade show active" id="list-edit">
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["LANGUAGE_KEY"]})</label>
+                                <label>({$console->getLabel("LANGUAGE_KEY")})</label>
                                 <input type="text" class="form-control" name="name" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["URL"]})</label>
+                                <label>({$console->getLabel("URL")})</label>
                                 <input type="text" class="form-control" name="url">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["FLOOR"]})</label>
+                                <label>({$console->getLabel("FLOOR")})</label>
                                 <div class="form-group">
-                                    <select class="form-control" name="parent" data-type="chosen" data-text="({$label_back["FLOOR"]})" required>
-                                        <option value="">({$label_back["PLEASE_CHOOSE"]})</option>
-                                        <option value="0,-1">({$label_back["ROOT_DIRECTORY"]})</option>
+                                    <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
+                                        <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                        <option value="0,-1">({$console->getLabel("ROOT_DIRECTORY")})</option>
                                         ({section name=i loop=$data.list})
                                             ({if $data.list[i].floor < $data.addMaxFloor})
-                                            <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;"> ({$label_back[$data.list[i].name]})</option>
+                                            <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;"> ({$console->getLabel($data.list[i].name)})</option>
                                             ({/if})
                                         ({/section})
                                     </select>
@@ -174,13 +174,13 @@
                         </div>
                         <!-- <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["SORT"]})</label>
+                                <label>({$console->getLabel("SORT")})</label>
                                 <input type="text" class="form-control" name="sort" required>
                             </div>
                         </div> -->
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
-                                <label>({$label_back["STATUS"]})</label>
+                                <label>({$console->getLabel("STATUS")})</label>
                                 <div class="onoffswitch">
                                     <input type="hidden" name="status" value="0">
                                     <input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" value="1" checked>

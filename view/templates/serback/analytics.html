@@ -4,19 +4,19 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="list" href="#list-analytics">({$label_back["USER_ANALYSIS"]})</a>
+                    <a class="nav-link active" data-toggle="list" href="#list-analytics">({$console->getLabel("USER_ANALYSIS")})</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="list" href="#list-analytics-page">({$label_back["ANALYTICS_PAGE"]})</a>
+                    <a class="nav-link " data-toggle="list" href="#list-analytics-page">({$console->getLabel("ANALYTICS_PAGE")})</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="list" href="#list-analytics-page-product">({$label_back["ANALYTICS_PAGE_PRODUCT"]})</a>
+                    <a class="nav-link " data-toggle="list" href="#list-analytics-page-product">({$console->getLabel("ANALYTICS_PAGE_PRODUCT")})</a>
                 </li>
             </ul>
         </div>
             <div class="tab-content">
                 <div class="card-body tab-pane fade show active" id="list-analytics">
-                    <small class="text-muted">({$label_back['ANALYTICS_SMALL']})</small>
+                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})</small>
                     <div class="form-row">
                         <div class="col-xl-6 col-md-12 mb-10">
                             <canvas id="canvasDevice"></canvas>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="card-body tab-pane fade " id="list-analytics-page">
-                    <small class="text-muted">({$label_back['ANALYTICS_SMALL']})</small>
+                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})</small>
                     <div class="form-row">
                         <div class="col-md-8 mb-3">
                             <canvas id="canvasUrlCount"></canvas>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="card-body tab-pane fade " id="list-analytics-page-product">
-                    <small class="text-muted">({$label_back['ANALYTICS_SMALL']})</small>
+                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})</small>
                     <div class="form-row">
                         <div class="col-md-8 mb-3">
                             <canvas id="canvasUrlCountProduct"></canvas>
@@ -87,7 +87,7 @@
                             data: {
                                 labels: [({section name=i loop=$data.analytics.month})'({$data.analytics.month[i]})',({/section})],
                                 datasets: [{
-                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_COUNT")})',
                                     backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analytics.count})'({$data.analytics.count[i]})',({/section})
@@ -95,7 +95,7 @@
                                     fill: false,
                                 },
                                 {
-                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_REPEAT_COUNT")})',
                                     backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analytics.repeatCount})'({$data.analytics.repeatCount[i]})',({/section})
@@ -107,7 +107,7 @@
                                 responsive: true,
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_6_MONTH_COUNT"]})'
+                                    text: '({$console->getLabel("ANALYTICS_6_MONTH_COUNT")})'
                                 },
                                 tooltips: {
                                     mode: 'index',
@@ -133,7 +133,7 @@
                             data: {
                                 labels: [({section name=i loop=$data.analyticsPage.url})'({$data.analyticsPage.url[i].name})',({/section})],
                                 datasets: [{
-                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_COUNT")})',
                                     backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analyticsPage.url})'({$data.analyticsPage.url[i].count})',({/section})
@@ -145,7 +145,7 @@
                                 responsive: true,
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_PAGE_COUNT"]})'
+                                    text: '({$console->getLabel("ANALYTICS_PAGE_COUNT")})'
                                 },
                                 tooltips: {
                                     mode: 'index',
@@ -172,7 +172,7 @@
                                 labels: [({section name=i loop=$data.analyticsPage.repeatUrl})'({$data.analyticsPage.repeatUrl[i].name})',({/section})],
                                 datasets: [
                                 {
-                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_REPEAT_COUNT")})',
                                     backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analyticsPage.repeatUrl})'({$data.analyticsPage.repeatUrl[i].count})',({/section})
@@ -184,7 +184,7 @@
                                 responsive: true,
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_PAGE_COUNT_REPEAT"]})'
+                                    text: '({$console->getLabel("ANALYTICS_PAGE_COUNT_REPEAT")})'
                                 },
                                 tooltips: {
                                     mode: 'index',
@@ -210,7 +210,7 @@
                             data: {
                                 labels: [({section name=i loop=$data.analyticsPage.urlProduct})'({$data.analyticsPage.urlProduct[i].name})',({/section})],
                                 datasets: [{
-                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_COUNT")})',
                                     backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analyticsPage.urlProduct})'({$data.analyticsPage.urlProduct[i].count})',({/section})
@@ -222,7 +222,7 @@
                                 responsive: true,
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_PAGE_COUNT"]})'
+                                    text: '({$console->getLabel("ANALYTICS_PAGE_COUNT")})'
                                 },
                                 tooltips: {
                                     mode: 'index',
@@ -249,7 +249,7 @@
                                 labels: [({section name=i loop=$data.analyticsPage.repeatUrlProduct})'({$data.analyticsPage.repeatUrlProduct[i].name})',({/section})],
                                 datasets: [
                                 {
-                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_REPEAT_COUNT")})',
                                     backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analyticsPage.repeatUrlProduct})'({$data.analyticsPage.repeatUrlProduct[i].count})',({/section})
@@ -261,7 +261,7 @@
                                 responsive: true,
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_PAGE_COUNT_REPEAT"]})'
+                                    text: '({$console->getLabel("ANALYTICS_PAGE_COUNT_REPEAT")})'
                                 },
                                 tooltips: {
                                     mode: 'index',
@@ -287,7 +287,7 @@
                             data: {
                                 labels: [({section name=i loop=$data.analytics.count24H})'({$data.analytics.hour[i]})',({/section})],
                                 datasets: [{
-                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_COUNT")})',
                                     backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analytics.count24H})'({$data.analytics.count24H[i]})',({/section})
@@ -295,7 +295,7 @@
                                     fill: false,
                                 },
                                 {
-                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_REPEAT_COUNT")})',
                                     backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analytics.repeatCount24H})'({$data.analytics.repeatCount24H[i]})',({/section})
@@ -307,7 +307,7 @@
                                 responsive: true,
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_24H_COUNT"]})'
+                                    text: '({$console->getLabel("ANALYTICS_24H_COUNT")})'
                                 },
                                 tooltips: {
                                     mode: 'index',
@@ -333,7 +333,7 @@
                             data: {
                                 labels: [({section name=i loop=$data.analytics.countMonth})'({$data.analytics.day[i]})',({/section})],
                                 datasets: [{
-                                    label: '({$label_back["ANALYTICS_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_COUNT")})',
                                     backgroundColor: color('#0000FF').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analytics.countMonth})'({$data.analytics.countMonth[i]})',({/section})
@@ -341,7 +341,7 @@
                                     fill: false,
                                 },
                                 {
-                                    label: '({$label_back["ANALYTICS_REPEAT_COUNT"]})',
+                                    label: '({$console->getLabel("ANALYTICS_REPEAT_COUNT")})',
                                     backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
                                     data: [
                                         ({section name=i loop=$data.analytics.repeatCountMonth})'({$data.analytics.repeatCountMonth[i]})',({/section})
@@ -353,7 +353,7 @@
                                 responsive: true,
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_MONTH_COUNT"]})'
+                                    text: '({$console->getLabel("ANALYTICS_MONTH_COUNT")})'
                                 },
                                 tooltips: {
                                     mode: 'index',
@@ -398,7 +398,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_DEVICE"]})'
+                                    text: '({$console->getLabel("ANALYTICS_DEVICE")})'
                                 }
                             }
                         });
@@ -427,7 +427,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_SYSTEM"]})'
+                                    text: '({$console->getLabel("ANALYTICS_SYSTEM")})'
                                 }
                             }
                         });
@@ -455,7 +455,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_REFERER"]})'
+                                    text: '({$console->getLabel("ANALYTICS_REFERER")})'
                                 }
                             }
                         });
@@ -484,7 +484,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: '({$label_back["ANALYTICS_LANG"]})'
+                                    text: '({$console->getLabel("ANALYTICS_LANG")})'
                                 }
                             }
                         });
