@@ -1,16 +1,16 @@
 <?php
 $memberLog = new MTsung\center($console,PREFIX.$console->path[1].'_logs');
 
-$array = array(	$console->serbackLabel["SIGN_UP"],
-				$console->serbackLabel["LOGIN"],
-				$console->serbackLabel["SOCIAL_Login"],
-				$console->serbackLabel["LOGOUT"],
-				$console->serbackLabel["MAIL_RECIVE"],
-				$console->serbackLabel["FORGET"],
-				$console->serbackLabel["DELETE"],
-				$console->serbackLabel["ACCOUNT_ERROR"],
-				$console->serbackLabel["PASSWORD_ERROR"],
-				$console->serbackLabel["VERIFCODE_ERROR"]
+$array = array(	$console->getLabel("SIGN_UP"),
+				$console->getLabel("LOGIN"),
+				$console->getLabel("SOCIAL_Login"),
+				$console->getLabel("LOGOUT"),
+				$console->getLabel("MAIL_RECIVE"),
+				$console->getLabel("FORGET"),
+				$console->getLabel("DELETE"),
+				$console->getLabel("ACCOUNT_ERROR"),
+				$console->getLabel("PASSWORD_ERROR"),
+				$console->getLabel("VERIFCODE_ERROR")
 			);
 //搜尋key
 $searchKey = array("id","account","IP");

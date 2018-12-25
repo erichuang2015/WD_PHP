@@ -9,6 +9,7 @@ namespace MTsung{
 
 	class cPanel{
 		var $console;
+		var $message;
 		var $account;
 		var $password;
 		var $auth;
@@ -22,7 +23,7 @@ namespace MTsung{
 			if($serverName){
 				$this->serverName = $serverName;
 			}else{
-				$this->serverName = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) ? "https://" : "http://".$_SERVER['SERVER_NAME'].":2083";
+				$this->serverName = HTTP.$_SERVER['SERVER_NAME'].":2083";
 			}
 		}
 
@@ -48,9 +49,12 @@ namespace MTsung{
 				"start" => $start,
 				"end" => $end
 			);
-			$temp = $this->cCurl($url,"GET",$data);
+			if(!$temp = $this->cCurl($url,"GET",$data)){
+				return false;
+			}
 			if($err = $temp["errors"][0]){
-				$this->console->alert($err,-1);
+				$this->message = $err;
+				return false;
 			}
 			return $temp["data"];
 		}
@@ -70,9 +74,12 @@ namespace MTsung{
 				"newdomain" => $name,
 				"subdomain" => $subDoname
 			);
-			$temp = $this->cCurl($url,"GET",$data);
+			if(!$temp = $this->cCurl($url,"GET",$data)){
+				return false;
+			}
 			if($err = $temp["cpanelresult"]["error"]){
-				$this->console->alert($err,-1);
+				$this->message = $err;
+				return false;
 			}
 			return true;
 		}
@@ -92,9 +99,12 @@ namespace MTsung{
 				"domain" => $name,
 				"rootdomain" => str_replace('www.','',$_SERVER['SERVER_NAME'])
 			);
-			$temp = $this->cCurl($url,"GET",$data);
+			if(!$temp = $this->cCurl($url,"GET",$data)){
+				return false;
+			}
 			if($err = $temp["cpanelresult"]["error"]){
-				$this->console->alert($err,-1);
+				$this->message = $err;
+				return false;
 			}
 			return true;
 		}
@@ -112,9 +122,12 @@ namespace MTsung{
 				"cpanel_jsonapi_func" => "createdb",
 				"db" => PREFIX.$name
 			);
-			$temp = $this->cCurl($url,"GET",$data);
+			if(!$temp = $this->cCurl($url,"GET",$data)){
+				return false;
+			}
 			if($err = $temp["cpanelresult"]["error"]){
-				$this->console->alert($err,-1);
+				$this->message = $err;
+				return false;
 			}
 			return true;
 		}
@@ -154,9 +167,8 @@ namespace MTsung{
 			$response = curl_exec($ch);
 
 			if (!$response) {
-				$this->console->alert(curl_error($ch),-1);
-				error_log(curl_error($ch));
-				exit(curl_error($ch));
+				$this->message = curl_error($ch);
+				return false;
 			}
 
 			return json_decode($response,true);

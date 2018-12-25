@@ -243,13 +243,13 @@
 
 			$data["shipmentTitle"] = $order->getShipmentTitle();
 			$data["shipmentStatus"] = array(
-				MTsung\shipmentStatusType::NO => "<font color='red'>".$console->serbackLabel["SHIPMENT_STATUS_TYPE_NO"]."</font>",
-				MTsung\shipmentStatusType::OK => "<font color='blue'>".$console->serbackLabel["SHIPMENT_STATUS_TYPE_OK"]."</font>",
+				MTsung\shipmentStatusType::NO => "<font color='red'>".$console->getLabel("SHIPMENT_STATUS_TYPE_NO")."</font>",
+				MTsung\shipmentStatusType::OK => "<font color='blue'>".$console->getLabel("SHIPMENT_STATUS_TYPE_OK")."</font>",
 			);
 			$data["paymentTitle"] = $order->getPaymentTitle();
 			$data["paymentStatus"] = array(
-				MTsung\paymentStatusType::NO => "<font color='red'>".$console->serbackLabel["PAYMENT_STATUS_TYPE_NO"]."</font>",
-				MTsung\paymentStatusType::OK => "<font color='blue'>".$console->serbackLabel["PAYMENT_STATUS_TYPE_OK"]."</font>",
+				MTsung\paymentStatusType::NO => "<font color='red'>".$console->getLabel("PAYMENT_STATUS_TYPE_NO")."</font>",
+				MTsung\paymentStatusType::OK => "<font color='blue'>".$console->getLabel("PAYMENT_STATUS_TYPE_OK")."</font>",
 			);
 			if(isset($console->path[2])){
 				$data["order"] = $order->getOne(" and memberId='".$member->getInfo("id")."' and step>1 and id=? and status='1'",array($console->path[2]));

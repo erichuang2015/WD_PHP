@@ -97,33 +97,33 @@ foreach ($shipmentStatus as $key => $value) {
 
 $data["shipmentTitle"] = $order->getShipmentTitle();
 $data["shipmentStatus"] = array(
-	MTsung\shipmentStatusType::NO => "<font color='red'>".$console->serbackLabel["SHIPMENT_STATUS_TYPE_NO"]."</font>",
-	MTsung\shipmentStatusType::OK => "<font color='blue'>".$console->serbackLabel["SHIPMENT_STATUS_TYPE_OK"]."</font>",
+	MTsung\shipmentStatusType::NO => "<font color='red'>".$console->getLabel("SHIPMENT_STATUS_TYPE_NO")."</font>",
+	MTsung\shipmentStatusType::OK => "<font color='blue'>".$console->getLabel("SHIPMENT_STATUS_TYPE_OK")."</font>",
 );
 $data["paymentTitle"] = $order->getPaymentTitle();
 $data["paymentStatus"] = array(
-	MTsung\paymentStatusType::NO => "<font color='red'>".$console->serbackLabel["PAYMENT_STATUS_TYPE_NO"]."</font>",
-	MTsung\paymentStatusType::OK => "<font color='blue'>".$console->serbackLabel["PAYMENT_STATUS_TYPE_OK"]."</font>",
+	MTsung\paymentStatusType::NO => "<font color='red'>".$console->getLabel("PAYMENT_STATUS_TYPE_NO")."</font>",
+	MTsung\paymentStatusType::OK => "<font color='blue'>".$console->getLabel("PAYMENT_STATUS_TYPE_OK")."</font>",
 );
 
 $data["getPointStatus"] = array(
-	0 => $console->serbackLabel["SEND"],
-	1 => $console->serbackLabel["RECYCLING"] 
+	0 => $console->getLabel("SEND"),
+	1 => $console->getLabel("RECYCLING") 
 );
 
 $data["usePointStatus"] = array(
-	0 => $console->serbackLabel["DEDUCTION"],
-	1 => $console->serbackLabel["MAKE_UP"] 
+	0 => $console->getLabel("DEDUCTION"),
+	1 => $console->getLabel("MAKE_UP") 
 );
 
 $data["getPointStatusText"] = array(
-	0 => "<font color='red'>".$console->serbackLabel["UNSENT"]."</font>",
-	1 => "<font color='blue'>".$console->serbackLabel["HAS_BEEN_SENT"]."</font>"
+	0 => "<font color='red'>".$console->getLabel("UNSENT")."</font>",
+	1 => "<font color='blue'>".$console->getLabel("HAS_BEEN_SENT")."</font>"
 );
 
 $data["usePointStatusText"] = array(
-	0 => "<font color='red'>".$console->serbackLabel["UNDEDUCTED"]."</font>",
-	1 => "<font color='blue'>".$console->serbackLabel["DEDUCTED"]."</font>"
+	0 => "<font color='red'>".$console->getLabel("UNDEDUCTED")."</font>",
+	1 => "<font color='blue'>".$console->getLabel("DEDUCTED")."</font>"
 );
 
 if(isset($module["uploadImg"])){

@@ -897,14 +897,14 @@ namespace MTsung{
 			}
 			$paymentSetting = new webSetting($this->console,PREFIX."payment_setting",$this->lang);
 			$array = array(
-				paymentMethodType::CASH_ON_DELIVERY => $this->console->serbackLabel["CASH_ON_DELIVERY"],
-				paymentMethodType::PHYSICAL_ATM_TRANSFER => $this->console->serbackLabel["PHYSICAL_ATM_TRANSFER"],
-				paymentMethodType::PHYSICAL_ATM_TRANSFER_ECPAY => $this->console->serbackLabel["PHYSICAL_ATM_TRANSFER_ECPAY"],
-				paymentMethodType::INTERNET_ATM_TRANSFER_ECPAY => $this->console->serbackLabel["INTERNET_ATM_TRANSFER_ECPAY"],
-				paymentMethodType::ONLINE_CARD_ECPAY => $this->console->serbackLabel["ONLINE_CARD_ECPAY"],
-				paymentMethodType::CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY => $this->console->serbackLabel["CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY"],
-				paymentMethodType::CVS_ECPAY => $this->console->serbackLabel["CVS_ECPAY"],
-				paymentMethodType::BARCODE_ECPAY => $this->console->serbackLabel["BARCODE_ECPAY"]
+				paymentMethodType::CASH_ON_DELIVERY => $this->console->getLabel("CASH_ON_DELIVERY"),
+				paymentMethodType::PHYSICAL_ATM_TRANSFER => $this->console->getLabel("PHYSICAL_ATM_TRANSFER"),
+				paymentMethodType::PHYSICAL_ATM_TRANSFER_ECPAY => $this->console->getLabel("PHYSICAL_ATM_TRANSFER_ECPAY"),
+				paymentMethodType::INTERNET_ATM_TRANSFER_ECPAY => $this->console->getLabel("INTERNET_ATM_TRANSFER_ECPAY"),
+				paymentMethodType::ONLINE_CARD_ECPAY => $this->console->getLabel("ONLINE_CARD_ECPAY"),
+				paymentMethodType::CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY => $this->console->getLabel("CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY"),
+				paymentMethodType::CVS_ECPAY => $this->console->getLabel("CVS_ECPAY"),
+				paymentMethodType::BARCODE_ECPAY => $this->console->getLabel("BARCODE_ECPAY")
 			);
 			if($paymentMethod){
 				return $array[$paymentMethod];
@@ -988,21 +988,21 @@ namespace MTsung{
 				return false;
 			}
 			$array = array(
-				shipmentMethodType::MAILING =>  $this->console->serbackLabel["MAILING"],
-				shipmentMethodType::TCAT_BLACK_CAT =>  $this->console->serbackLabel["TCAT_BLACK_CAT"],
-				shipmentMethodType::ECAN_HOME_DELIVERY =>  $this->console->serbackLabel["ECAN_HOME_DELIVERY"],
-				shipmentMethodType::FAMI =>  $this->console->serbackLabel["FAMI"],
-				shipmentMethodType::UNIMART =>  $this->console->serbackLabel["UNIMART"],
-				shipmentMethodType::HILIFE =>  $this->console->serbackLabel["HILIFE"],
-				shipmentMethodType::FAMIC2C =>  $this->console->serbackLabel["FAMIC2C"],
-				shipmentMethodType::UNIMARTC2C =>  $this->console->serbackLabel["UNIMARTC2C"],
-				shipmentMethodType::HILIFEC2C =>  $this->console->serbackLabel["HILIFEC2C"],
-				shipmentMethodType::FAMI_COLLECTION_Y =>  $this->console->serbackLabel["FAMI_COLLECTION_Y"],
-				shipmentMethodType::UNIMART_COLLECTION_Y =>  $this->console->serbackLabel["UNIMART_COLLECTION_Y"],
-				shipmentMethodType::HILIFE_COLLECTION_Y =>  $this->console->serbackLabel["HILIFE_COLLECTION_Y"],
-				shipmentMethodType::FAMIC2C_COLLECTION_Y =>  $this->console->serbackLabel["FAMIC2C_COLLECTION_Y"],
-				shipmentMethodType::UNIMARTC2C_COLLECTION_Y =>  $this->console->serbackLabel["UNIMARTC2C_COLLECTION_Y"],
-				shipmentMethodType::HILIFEC2C_COLLECTION_Y =>  $this->console->serbackLabel["HILIFEC2C_COLLECTION_Y"]
+				shipmentMethodType::MAILING =>  $this->console->getLabel("MAILING"),
+				shipmentMethodType::TCAT_BLACK_CAT =>  $this->console->getLabel("TCAT_BLACK_CAT"),
+				shipmentMethodType::ECAN_HOME_DELIVERY =>  $this->console->getLabel("ECAN_HOME_DELIVERY"),
+				shipmentMethodType::FAMI =>  $this->console->getLabel("FAMI"),
+				shipmentMethodType::UNIMART =>  $this->console->getLabel("UNIMART"),
+				shipmentMethodType::HILIFE =>  $this->console->getLabel("HILIFE"),
+				shipmentMethodType::FAMIC2C =>  $this->console->getLabel("FAMIC2C"),
+				shipmentMethodType::UNIMARTC2C =>  $this->console->getLabel("UNIMARTC2C"),
+				shipmentMethodType::HILIFEC2C =>  $this->console->getLabel("HILIFEC2C"),
+				shipmentMethodType::FAMI_COLLECTION_Y =>  $this->console->getLabel("FAMI_COLLECTION_Y"),
+				shipmentMethodType::UNIMART_COLLECTION_Y =>  $this->console->getLabel("UNIMART_COLLECTION_Y"),
+				shipmentMethodType::HILIFE_COLLECTION_Y =>  $this->console->getLabel("HILIFE_COLLECTION_Y"),
+				shipmentMethodType::FAMIC2C_COLLECTION_Y =>  $this->console->getLabel("FAMIC2C_COLLECTION_Y"),
+				shipmentMethodType::UNIMARTC2C_COLLECTION_Y =>  $this->console->getLabel("UNIMARTC2C_COLLECTION_Y"),
+				shipmentMethodType::HILIFEC2C_COLLECTION_Y =>  $this->console->getLabel("HILIFEC2C_COLLECTION_Y")
 			);
 			if($shipmentMethod){
 				return $array[$shipmentMethod];

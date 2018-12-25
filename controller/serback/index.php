@@ -11,6 +11,14 @@ if($console->setting->getValue('sizeSwitch')=='1'){
 							);
 }
 
+// cpanel本月頻寬
+// global $dbUser,$dbPass;
+// $cPanel = new MTsung\cPanel($console,$dbUser,$dbPass);
+// $data["bandwidth"] = 0;
+// if($temp = $cPanel->getBandwidth("year_month","",strtotime(date('Y-m-01', strtotime(DATE))))){
+// 	$data["bandwidth"] = $array_shift($temp);
+// }
+
 //最新消息
 $ch = curl_init();
 curl_setopt_array($ch,array(

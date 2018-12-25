@@ -151,7 +151,7 @@
 		}
 		$conn->SetFetchMode(ADODB_FETCH_ASSOC);
 		$_GET = array_map("addslashes", $_GET);
-//id,name,picture,specificationsID,specifications
+
 		$sql = "select * from ".PREFIX."product__".str_replace("-","_",$_SESSION[FRAME_NAME]["SETTING_LANG"])." where ";
 		if(isset($_GET['id'])){
 			$data[] = $_GET['id'];
@@ -212,7 +212,7 @@
 		}
 		$conn->SetFetchMode(ADODB_FETCH_ASSOC);
 		$_GET = array_map("addslashes", $_GET);
-		$sql = "select id,name from ".PREFIX.$_GET['searckData']."__".str_replace("-","_",$_SESSION[FRAME_NAME]["SETTING_LANG"])." where ";
+		$sql = "select * from ".PREFIX.$_GET['searckData']."__".str_replace("-","_",$_SESSION[FRAME_NAME]["SETTING_LANG"])." where ";
 		if(isset($_GET['id'])){
 			$data[] = $_GET['id'];
 			$sql .= " id=? and";

@@ -50,7 +50,6 @@ namespace MTsung{
 		var $webSetting;
 
 		var $message;
-		var $webLabel;
 		var $serbackLabel;
 
 		var $path;
@@ -312,13 +311,8 @@ namespace MTsung{
 			}else{
 				$tmpe = parse_ini_file($file,true);
 
-				// $this->message = array_map("htmlspecialchars", @$tmpe['message']);
-				// $this->webLabel = array_map("htmlspecialchars", @$tmpe['webLabel']);
-				// $this->serbackLabel = array_map("htmlspecialchars", @$tmpe['serbackLabel']);
-
 				$this->message = @$tmpe['message'];
-				$this->webLabel = @$tmpe['webLabel'];
-				$this->serbackLabel = @$tmpe['serbackLabel'];
+				$this->serbackLabel = @$tmpe['label'];
 
 				/**
 				 * 找不到就用預設的
@@ -326,19 +320,11 @@ namespace MTsung{
 				$tmpe = parse_ini_file(LANGUAGE_PATH.LANG.'.ini',true);
 				foreach ($tmpe['message'] as $key => $value) {
 					if(!isset($this->message[$key])){
-						// $this->serbackLabel[$key] = htmlspecialchars($value);
 						$this->message[$key] = $value;
 					}
 				}
-				foreach ($tmpe['webLabel'] as $key => $value) {
-					if(!isset($this->webLabel[$key])){
-						// $this->serbackLabel[$key] = htmlspecialchars($value);
-						$this->webLabel[$key] = $value;
-					}
-				}
-				foreach ($tmpe['serbackLabel'] as $key => $value) {
+				foreach ($tmpe['label'] as $key => $value) {
 					if(!isset($this->serbackLabel[$key])){
-						// $this->serbackLabel[$key] = htmlspecialchars($value);
 						$this->serbackLabel[$key] = $value;
 					}
 				}

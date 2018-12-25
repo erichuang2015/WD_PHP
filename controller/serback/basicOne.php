@@ -61,7 +61,7 @@ switch ($console->path[1]) {
 		$module["uploadImg"][0]["max"] = 10;
 		$module["uploadImg"][0]["suggestText"] = "1920x576";
 		// $module["uploadImg"][0]["textOther"] = array("Alt");
-		// $module["uploadImg"][0]["textOtherText"] = array($console->serbackLabel["ALT"]);
+		// $module["uploadImg"][0]["textOtherText"] = array($console->getLabel("ALT"));
 
 		break;
 	default:
@@ -69,9 +69,9 @@ switch ($console->path[1]) {
 		$module["tinemceEditor"][0]["name"] = 'detail';
 		$module["uploadImg"][0]["name"] = "picture";
 		$module["uploadImg"][0]["max"] = 10;
-		$module["uploadImg"][0]["suggestText"] = $console->serbackLabel["ALL_SIZE"];
+		$module["uploadImg"][0]["suggestText"] = $console->getLabel("ALL_SIZE");
 		$module["uploadImg"][0]["textOther"] = array("Title","Alt","Href");
-		$module["uploadImg"][0]["textOtherText"] = array($console->serbackLabel["TITLE"],$console->serbackLabel["ALT"],$console->serbackLabel["URL"]);
+		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("TITLE"),$console->getLabel("ALT"),$console->getLabel("URL"));
 
 		break;
 }

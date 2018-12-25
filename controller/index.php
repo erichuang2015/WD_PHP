@@ -2,21 +2,8 @@
 <?php 
 	include_once('header.php');
 
-exit;
-	// $cPanel = new MTsung\cPanel($console,"serback","17v_?y9Z24*K","https://serback.com:2083");
-	$cPanel = new MTsung\cPanel($console,"nanmando","p2x6F)!w-C\$R","https://96.44.184.103:2083");
-	//這個月每個子網的頻寬
-	$temp = $cPanel->getBandwidth("domain","",strtotime(date('Y-m-01', strtotime(DATE))));
-	arsort($temp);
-	print_r($temp);
-	//這個月每個子網的頻寬
-
-	//這個月的總頻寬
-	print_r($cPanel->getBandwidth("year_month","",strtotime(date('Y-m-01', strtotime(DATE)))));
-	//這個月的總頻寬
-exit;
-	header("HTTP/1.1 301 Moved Permanently");
-	header("location:https://www.ptt.cc/bbs/Gossiping/M.1544457778.A.8FA.html");
+	// header("HTTP/1.1 301 Moved Permanently");
+	// header("location:https://www.ptt.cc/bbs/Gossiping/M.1544457778.A.8FA.html");
 	// //EDM
 	// $edm = new MTsung\dataList($console,PREFIX."edm",$lang);
 	// $temp = $edm->getOne();
