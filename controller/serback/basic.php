@@ -25,7 +25,7 @@ switch ($console->path[1]) {
 
 	case 'product':
 
-	    if($_POST && isset($_POST["addProduct"]) && is_array($_POST["addProduct"])){
+	    if($_POST && isset($_POST["addProduct"]) && is_array($_POST["addProduct"])){//加價購 刪除同商品同規格
 	    	$temp = array();
         	foreach ($_POST["addProduct"] as $key => $value) {
         		$temp[] = $value."|__|".$_POST["addProductSpecifications"][$key];
@@ -53,7 +53,6 @@ switch ($console->path[1]) {
 /**設定**/
 
 
-
 /**模組**/
 switch ($console->path[1]) {
 	case 'product':
@@ -68,14 +67,35 @@ switch ($console->path[1]) {
 		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("ALT"));
 
 		break;
+	case '範例':
+
+		$module["tinemceEditor"][0]["name"] = 'detail';
+
+
+		$module["uploadImg"][0]["name"] = "picture";//欄位名稱
+		$module["uploadImg"][0]["max"] = 10;//限制數量
+		$module["uploadImg"][0]["watermark"] = '';//浮水印
+		$module["uploadImg"][0]["textOther"] = array("Title","Alt","Href");//欄位名稱
+		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("TITLE"),$console->getLabel("ALT"),$console->getLabel("URL"));//提示字
+		$module["uploadImg"][0]["textareaOther"] = array("Detail");//欄位名稱
+		$module["uploadImg"][0]["textareaOtherText"] = array($console->getLabel("DETAIL"));//提示字
+		$module["uploadImg"][0]["suggestText"] = "1920x576";//建議尺寸
+
+
+		$module["uploadFile"][0]["name"] = "file";//欄位名稱
+		$module["uploadFile"][0]["max"] = 1.5;//限制數量
+		$module["uploadFile"][0]["suggestText"] = "限制";//建議尺寸
+		$module["uploadFile"][0]["extension"] = array("jpg");//限制附檔名
+		// 
+		break;
 	default:
 		
 		$module["tinemceEditor"][0]["name"] = 'detail';
-		$module["uploadImg"][0]["name"] = "picture";
-		$module["uploadImg"][0]["max"] = 10;
-		$module["uploadImg"][0]["watermark"] = '';
-		$module["uploadImg"][0]["textOther"] = array("Title","Alt","Href");
-		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("TITLE"),$console->getLabel("ALT"),$console->getLabel("URL"));
+		$module["uploadImg"][0]["name"] = "picture";//欄位名稱
+		$module["uploadImg"][0]["max"] = 10;//限制數量
+		$module["uploadImg"][0]["watermark"] = '';//浮水印
+		$module["uploadImg"][0]["textOther"] = array("Title","Alt","Href");//欄位名稱
+		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("TITLE"),$console->getLabel("ALT"),$console->getLabel("URL"));//提示字
 
 		break;
 }
@@ -111,37 +131,8 @@ if(isset($console->path[2])){
 						$console->alert($basic->message,-1);
 					}
 				}else{
-					if($temp = $basic->getData("where id='".$console->path[3]."'")){
+					if($temp = $basic->getData("where id='".$console->path[3]."'",array(),$explodeArray,$module)){
 						$data["one"] = $temp[0];
-						if(isset($module["uploadImg"])){
-							foreach ($module["uploadImg"] as $key => $value) {
-								if(isset($data["one"][$value["name"]])){
-									$data["one"][$value["name"]] = explode("|__|", $data["one"][$value["name"]]);
-								}
-
-								if(isset($value["textOther"])){
-									foreach ($value["textOther"] as $key1 => $value1) {
-										if(isset($data["one"][$value["name"].$value1])){
-											$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
-										}
-									}
-								}
-								if(isset($value["textareaOther"])){
-									foreach ($value["textareaOther"] as $key1 => $value1) {
-										if(isset($data["one"][$value["name"].$value1])){
-											$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
-										}
-									}
-								}
-							}
-						}
-						if(isset($explodeArray)){
-							foreach ($explodeArray as $key => $value) {
-								if(($value != "") && !is_array($data["one"][$value])){
-									$data["one"][$value] = explode("|__|", $data["one"][$value]);
-								}
-							}
-						}
 					}else{
 						$console->alert($basic->message,$data["listUrl"]);
 					}
@@ -225,25 +216,6 @@ if(isset($console->path[2])){
 	$switch["saveButton"] = 1;
 	$switch["listList"] = 1;
 	$switch["searchBox"] = 1;
-}
-
-
-
-/**
- * 複製到所有語系
- */
-if(isset($_GET['copyAllLang']) &&  ($_GET['copyAllLang'] === '1')){
-	$basic->copyAllLang();
-	$console->alert($basic->message,$data["listUrl"]);
-}
-
-
-/**
- * 複製語系
- */
-if(isset($_GET['copyLang'])){	
-	$basic->copyLang($_GET['copyLang']);
-	$console->alert($basic->message,$data["listUrl"]);
 }
 
 ?>

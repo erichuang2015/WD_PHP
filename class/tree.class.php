@@ -21,7 +21,7 @@ namespace MTsung{
 		 * @param  array  $sqlArray [description]
 		 * @return [type]           [description]
 		 */
-		function getData($whereSql='',$sqlArray=array()){
+		function getData($whereSql='',$sqlArray=array(),$explodeArray=array(),$module=array()){
 			$temp = parent::getData($whereSql,$sqlArray);
 			if(strstr($whereSql,"status")){
 				return $this->arrange($temp);

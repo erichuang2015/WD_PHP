@@ -326,11 +326,13 @@ namespace MTsung{
 
 		/**
 		 * 搜尋
-		 * @param  string $whereSql while sql
-		 * @param  [type] $sqlArray [description]
-		 * @return [type]           [description]
+		 * @param  string $whereSql     [description]
+		 * @param  array  $sqlArray     [description]
+		 * @param  array  $explodeArray 需要轉陣列的欄位
+		 * @param  array  $module       模組
+		 * @return [type]               [description]
 		 */
-		function getData($whereSql='',$sqlArray=array()){
+		function getData($whereSql='',$sqlArray=array(),$explodeArray=array(),$module=array()){
 			//分類排序
 			if(strpos($whereSql,"limit") && isset(explode(",",explode("limit ",$whereSql)[1])[1])){
 				$tempSql = "limit".explode("limit",$whereSql)[1];
@@ -372,6 +374,60 @@ namespace MTsung{
 			if($temp){
 				foreach ($temp as $key => $value) {
 					$temp[$key] = array_map("htmlspecialchars",$temp[$key]);
+
+					if($explodeArray){//需要轉陣列的欄位
+						foreach ($explodeArray as $valueE) {
+							if(($valueE != "") && !is_array($temp[$valueE])){
+								$temp[$valueE] = explode("|__|", $temp[$valueE]);
+							}
+						}
+					}
+
+					if(isset($module["uploadImg"])){//後台用
+						foreach ($module["uploadImg"] as $valueM) {
+							if(isset($temp[$valueM["name"]])){
+								$temp[$valueM["name"]] = explode("|__|", $temp[$valueM["name"]]);
+							}
+
+							if(isset($valueM["textOther"])){
+								foreach ($valueM["textOther"] as $valueM1) {
+									if(isset($temp[$valueM["name"].$valueM1])){
+										$temp[$valueM["name"].$valueM1] = json_encode(explode("|__|", $temp[$valueM["name"].$valueM1]));
+									}
+								}
+							}
+							if(isset($valueM["textareaOther"])){
+								foreach ($valueM["textareaOther"] as $valueM1) {
+									if(isset($temp[$valueM["name"].$valueM1])){
+										$temp[$valueM["name"].$valueM1] = json_encode(explode("|__|", $temp[$valueM["name"].$valueM1]));
+									}
+								}
+							}
+						}
+					}
+
+					if(isset($module["uploadFile"])){//後台用
+						foreach ($module["uploadFile"] as $valueF) {
+							if(isset($temp[$valueF["name"]])){
+								$temp[$valueF["name"]] = explode("|__|", $temp[$valueF["name"]]);
+							}
+
+							if(isset($valueF["textOther"])){
+								foreach ($valueF["textOther"] as $valueF1) {
+									if(isset($temp[$valueF["name"].$valueF1])){
+										$temp[$valueF["name"].$valueF1] = json_encode(explode("|__|", $temp[$valueF["name"].$valueF1]));
+									}
+								}
+							}
+							if(isset($valueF["textareaOther"])){
+								foreach ($valueF["textareaOther"] as $valueF1) {
+									if(isset($temp[$valueF["name"].$valueF1])){
+										$temp[$valueF["name"].$valueF1] = json_encode(explode("|__|", $temp[$valueF["name"].$valueF1]));
+									}
+								}
+							}
+						}
+					}
 				}
 				return $temp;
 			}else{

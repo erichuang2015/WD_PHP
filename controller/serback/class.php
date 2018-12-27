@@ -80,38 +80,8 @@ if(isset($console->path[2])){
 						$console->alert($dataClass->message,-1);
 					}
 				}else{
-					$temp = $dataClass->getData("where id='".$console->path[3]."'");
-					if($temp){
+					if($temp = $dataClass->getData("where id=?",array($console->path[3]),$explodeArray,$module)){
 						$data["one"] = $temp[0];
-						if(isset($module["uploadImg"])){
-							foreach ($module["uploadImg"] as $key => $value) {
-								if(isset($data["one"][$value["name"]])){
-									$data["one"][$value["name"]] = explode("|__|", $data["one"][$value["name"]]);
-								}
-
-								if(isset($value["textOther"])){
-									foreach ($value["textOther"] as $key1 => $value1) {
-										if(isset($data["one"][$value["name"].$value1])){
-											$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
-										}
-									}
-								}
-								if(isset($value["textareaOther"])){
-									foreach ($value["textareaOther"] as $key1 => $value1) {
-										if(isset($data["one"][$value["name"].$value1])){
-											$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
-										}
-									}
-								}
-							}
-						}
-						if(isset($explodeArray)){
-							foreach ($explodeArray as $key => $value) {
-								if(($value != "") && !is_array($data["one"][$value])){
-									$data["one"][$value] = explode("|__|", $data["one"][$value]);
-								}
-							}
-						}
 					}else{
 						$console->alert($dataClass->message,$data["listUrl"]);
 					}
@@ -187,24 +157,5 @@ if(isset($console->path[2])){
 	$switch["listList"] = 1;
 	$switch["searchBox"] = 1;
 }
-
-
-/**
- * 複製到所有語系
- */
-if(isset($_GET['copyAllLang']) &&  ($_GET['copyAllLang'] === '1')){
-	$dataClass->copyAllLang();
-	$console->alert($dataClass->message,$data["listUrl"]);
-}
-
-
-/**
- * 複製語系
- */
-if(isset($_GET['copyLang'])){	
-	$dataClass->copyLang($_GET['copyLang']);
-	$console->alert($dataClass->message,$data["listUrl"]);
-}
-
 
 ?>

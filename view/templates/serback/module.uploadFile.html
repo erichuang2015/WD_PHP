@@ -1,3 +1,4 @@
+({if $module.uploadFile[$_I_]})
     <!-- 上傳圖片模組 -->
     <style>
         #dropFileDIV({$_I_}) {
@@ -80,17 +81,18 @@
                 }
             };
             var errMsg='';
-            for (var i = 0; i < files.length; i++) {
-                objForm.append('file[]', files[i]);
-                // var check_image_type = ['php'];
-                // var check_file_name = files[i].name.split('.');
-                // check_file_name = check_file_name[check_file_name.length - 1];
-                // if (check_image_type.indexOf(check_file_name.toLowerCase()) >= 0) {
-                //     errMsg += files[i].name+'({$console->getLabel("UPLOAD_IMG_TYPE_ERROR")})\n';
-                // } else {
-                //     objForm.append('file[]', files[i]);
-                // }
-            }
+            ({if $module.uploadFile[$_I_].extension})
+                for (var i = 0; i < files.length; i++) {
+                    var check_image_type = [({section name=i loop=$module.uploadFile[$_I_].extension})'({$module.uploadFile[$_I_].extension[i]})',({/section})];
+                    var check_file_name = files[i].name.split('.');
+                    check_file_name = check_file_name[check_file_name.length - 1];
+                    if (check_image_type.indexOf(check_file_name.toLowerCase()) < 0) {
+                        errMsg += files[i].name+'({$console->getLabel("UPLOAD_FILE_TYPE_ERROR")})\n';
+                    } else {
+                        objForm.append('file[]', files[i]);
+                    }
+                }
+            ({/if})
             if(errMsg!=''){
                 alert(errMsg);
             }else{
@@ -294,7 +296,7 @@
     <div id="dropFileDIV({$_I_})" ondragover="dragoverHandlerFile({$_I_})(event)" ondrop="dropHandlerFile({$_I_})(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" onclick="document.getElementById('ff1({$_I_})').click();" ({if $module.uploadFile[$_I_].max<=1})style="display: none;"({/if})>
         ({$console->getLabel("FILE_DROP")})
         ({if isset($module.uploadFile[$_I_].suggestText)})
-        <br>({$console->getLabel("SUGGEST_SIZE")})({$module.uploadFile[$_I_].suggestText})
+        <br>({$module.uploadFile[$_I_].suggestText})
         ({/if})
         <div id="up_progressFile({$_I_})"></div>
         ({if $module.uploadFile[$_I_].max>1})
@@ -316,4 +318,4 @@
     ({/if})
 
     <!-- 上傳圖片模組 end -->
-    
+({/if})

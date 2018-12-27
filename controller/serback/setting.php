@@ -23,32 +23,7 @@ switch ($console->path[1]) {
 }
 /**模組**/
 
-/**
- * 取得資料
- */
 $data["one"] = $_webSetting->getValue();
-
-/**
- * 複製到所有語系
- */
-if(isset($_GET['copyAllLang']) &&  ($_GET['copyAllLang'] === '1')){	
-	if($_webSetting->copyAllLang()){
-		$console->alert($_webSetting->message,$data["listUrl"]);
-	}else{
-		$console->alert($_webSetting->message,$data["listUrl"]);
-	}
-}
-
-/**
- * 複製語系
- */
-if(isset($_GET['copyLang'])){	
-	if($_webSetting->copyLang($_GET['copyLang'])){
-		$console->alert($_webSetting->message,$data["listUrl"]);
-	}else{
-		$console->alert($_webSetting->message,$data["listUrl"]);
-	}
-}
 
 /**
  * 修改資料

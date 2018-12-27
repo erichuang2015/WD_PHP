@@ -95,7 +95,7 @@ if(isset($module["uploadImg"])){
 }
 
 if($_POST){
-	if($basicOne->getData("where id='1'")[0]){
+	if($basicOne->getData("where id=?",array("1"))[0]){
 		$_POST["id"] = 1;
 	}
 	if($basicOne->setData($_POST,false,$checkArray,$requiredArray)){
@@ -104,56 +104,7 @@ if($_POST){
 		$console->alert($basicOne->message,-1);
 	}
 }else{
-	$data["one"] = $basicOne->getData("where id='1'")[0];
-	if(isset($module["uploadImg"])){
-		foreach ($module["uploadImg"] as $key => $value) {
-			if(isset($data["one"][$value["name"]])){
-				$data["one"][$value["name"]] = explode("|__|", $data["one"][$value["name"]]);
-			}
-
-			if(isset($value["textOther"])){
-				foreach ($value["textOther"] as $key1 => $value1) {
-					if(isset($data["one"][$value["name"].$value1])){
-						$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
-					}
-				}
-			}
-			if(isset($value["textareaOther"])){
-				foreach ($value["textareaOther"] as $key1 => $value1) {
-					if(isset($data["one"][$value["name"].$value1])){
-						$data["one"][$value["name"].$value1] = json_encode(explode("|__|", $data["one"][$value["name"].$value1]));
-					}
-				}
-			}
-		}
-	}
-
-	if(isset($explodeArray)){
-		foreach ($explodeArray as $key => $value) {
-			if(($value != "") && !is_array($data["one"][$value])){
-				$data["one"][$value] = explode("|__|", $data["one"][$value]);
-			}
-		}
-	}
-	
-}
-
-
-/**
- * 複製到所有語系
- */
-if(isset($_GET['copyAllLang']) &&  ($_GET['copyAllLang'] === '1')){
-	$basicOne->copyAllLang();
-	$console->alert($basicOne->message,$data["listUrl"]);
-}
-
-
-/**
- * 複製語系
- */
-if(isset($_GET['copyLang'])){	
-	$basicOne->copyLang($_GET['copyLang']);
-	$console->alert($basicOne->message,$data["listUrl"]);
+	$data["one"] = $basicOne->getData("where id=?",array("1"),$explodeArray,$module)[0];
 }
 
 ?>

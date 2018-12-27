@@ -126,12 +126,6 @@ $data["usePointStatusText"] = array(
 	1 => "<font color='blue'>".$console->getLabel("DEDUCTED")."</font>"
 );
 
-if(isset($module["uploadImg"])){
-	foreach ($module["uploadImg"] as $key => $value) {
-		$order->addPictureName($value["name"]);
-	}
-}
-
 if(isset($console->path[1])){
 //動作
 	switch ($console->path[1]) {
