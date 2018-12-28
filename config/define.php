@@ -34,13 +34,12 @@
 	define('INCLUDE_PATH',APP_PATH.'include/');
 
 	define('DATA_PATH','data/10001/');
+	if(!is_dir(APP_PATH.DATA_PATH)) mkdir(APP_PATH.DATA_PATH);
+	
 	define('UPLOAD_PATH',DATA_PATH.'upload/');
+	if(!is_dir(APP_PATH.UPLOAD_PATH)) mkdir(APP_PATH.UPLOAD_PATH);
+
 	define('OUTPUT_PATH',DATA_PATH.'output/');
-	if(!is_dir(APP_PATH.UPLOAD_PATH)){
-		mkdir(APP_PATH.UPLOAD_PATH);
-	}
-	if(!is_dir(APP_PATH.OUTPUT_PATH)){
-		mkdir(APP_PATH.OUTPUT_PATH);
-	}
+	if(!is_dir(APP_PATH.OUTPUT_PATH)) mkdir(APP_PATH.OUTPUT_PATH);
 
 ?>

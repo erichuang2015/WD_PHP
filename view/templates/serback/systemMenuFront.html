@@ -1,0 +1,263 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.addList!=0 || $switch.editList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("BASIC_INFORMATION")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-form-data" id="item_detail">({$console->getLabel("CUSTOM_FIELD")})</a>
+                        </li>
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                ({if $switch.listList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-list">
+                        <table class="table table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="2%">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                            <label class="custom-control-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                    <th scope="col">({$console->getLabel("NAME")})</th>
+                                    <!-- <th scope="col">({$console->getLabel("URL")})</th> -->
+                                    <th scope="col">({$console->getLabel("SORT")})</th>
+                                    <th scope="col">({$console->getLabel("STATUS")})</th>
+                                    <th scope="col" width="8%">({$console->getLabel("TOW_SORT")})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.list})
+                                    <tr data-parent="({$data.list[i].parent})" data-id="({$data.list[i].id})">
+                                        <td scope="row">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
+                                                <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            ({for $j=2 to $data.list[i].floor})&nbsp;&nbsp;&nbsp;&nbsp;({/for})
+                                            ({if $data.list[i].floor < $data.maxFloor})
+                                                <span class="glyphicon glyphicon-minus" style="color:#6e7892" data-id="({$data.list[i].id})" onclick="treeFoldStar(({$data.list[i].id}))"></span>
+                                            ({else})
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                            ({/if})
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({if $console->getLabel($data.list[i].name)})({$console->getLabel($data.list[i].name)})({else})({$data.list[i].name})({/if})</a>
+                                        </td>
+                                        <!-- <td>
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].url})</a>
+                                        </td> -->
+                                        <td>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control col-md-3" name="sort_({$data.list[i].id})" value="({$data.list[i].sort})">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="onoffswitch">
+                                                <input type="hidden" name="status_({$data.list[i].id})" value="0">
+                                                <input type="checkbox" name="status_({$data.list[i].id})" class="onoffswitch-checkbox" id="myonoffswitch_({$data.list[i].id})" value="1" ({if $data.list[i].status})checked({/if})>
+                                                <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        <th >
+                                            <span class="glyphicon-move" style="font-size: 20px;"></span>
+                                        </th>
+                                    </tr>
+
+                                ({/section})
+                                
+                            </tbody>
+                        </table>          
+                    </div>
+                ({/if})
+
+                ({if $switch.addList!=0 || $switch.editList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-edit">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("LANGUAGE_KEY")})</label>
+                                <input type="text" class="form-control" name="name" value="({$data.one.name})" data-text="({$console->getLabel("LANGUAGE_KEY")})" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("FEATURES")})</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="features" data-type="chosen" data-text="({$console->getLabel("FEATURES")})" onchange="selectFeatures(this);" required>
+                                        <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                        ({foreach from=$data.featuresList key=k item=v})
+                                            <option value="({$k})" ({if $k==$data.one.features})selected({/if})>({$v})</option>
+                                        ({/foreach})
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" id="div_alias">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("ALIAS")})</label>
+                                <input type="text" class="form-control" name="alias" value="({$data.one.alias})" data-text="({$console->getLabel("ALIAS")})" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row" id="div_count">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("FRONT_DATA_COUNT")})</label>
+                                <input type="text" class="form-control" name="count" value="({$data.one.count})" data-text="({$console->getLabel("FRONT_DATA_COUNT")})" data-check="Number" required>
+                            </div>
+                        </div>
+              
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("FLOOR")})</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
+                                        <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                        <option value="0,-1" ({if 0===$data.one.parent})selected({/if})>({$console->getLabel("ROOT_DIRECTORY")})</option>
+                                        ({section name=i loop=$data.list})
+                                            ({if $data.list[i].floor < $data.addMaxFloor})
+                                            <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;" ({if $data.list[i].id==$data.one.parent})selected({/if})>({$console->getLabel($data.list[i].name)})</option>
+                                            ({/if})
+                                        ({/section})
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("STATUS")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="status" value="0">
+                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="status" value="1" ({if $data.one.status|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="status"></label>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- 表單資料 -->
+                        <div class="card-body tab-pane fade" id="list-form-data">
+                            <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_DATA')})" onclick="addFormData();">
+                            <div class="form-row form-inline" id="specifications_div" >
+                                <input type="hidden" name="dataName">
+                                <input type="hidden" name="dataType">
+                                <input type="hidden" name="dataOption">
+                                <input type="hidden" name="dataRequired">
+                                ({section name=i loop=$data.one.dataName})
+                                    <div class="col-md-12 mb-3 specifications-div">
+                                        <span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="({$data.one.dataName[i]})" required>
+                                        <span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="({$data.one.dataKey[i]})" data-check="Only" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');">
+                                        <span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">
+                                            ({foreach from=$data.typeOption key=k item=v})
+                                                <option value="({$k})" ({if $k==$data.one.dataType[i]})selected({/if})>({$v})</option>
+                                            ({/foreach})
+                                        </select>
+                                        
+                                        <span class="count_div" ({if !($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
+                                            <span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="({$data.one.dataCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})required({/if})>
+                                        </span>
+
+                                        <span class="option_div" ({if !($data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
+                                            <span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="extension1,extension2" ({if ($data.one.dataType[i]=="fileModule")})required({/if})>({$data.one.dataExtension[i]})</textarea>
+                                        </span>
+                                        <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
+                                    </div>
+                                ({/section})
+                            </div>
+                            <small class="text-muted">
+                                ({$console->getLabel('CREATE_DATE')})
+                                ({$data.one.create_date})(({$data.one.create_user}));
+                                ({$console->getLabel('UPDATE_DATE')})
+                                ({$data.one.update_date})(({$data.one.update_user}))
+                            </small>
+                        </div>
+                        <script>
+                            var checkboxI=0;
+                            function addFormData(){
+                                $('#specifications_div').append(''+
+                                '<div class="col-md-12 mb-3 specifications-div">'+
+                                    '<span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="" required>'+
+                                    '<span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="" data-check="Only" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,\'\');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,\'\');">'+
+                                    '<span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">'+
+                                        ({foreach from=$data.typeOption key=k item=v})
+                                            '<option value="({$k})">({$v})</option>'+
+                                        ({/foreach})
+                                    '</select>'+
+                                    '<span class="count_div" style="display:none">'+
+                                        '<span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="" data-check="Number">'+
+                                    '</span> '+
+                                    '<span class="option_div" style="display:none">'+
+                                        '<span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="extension1,extension2"></textarea>'+
+                                    '</span> '+
+                                    '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
+                                '</div>');
+                                checkboxI++;
+                            }
+                            $(function(){
+                                $('#specifications_div').sortable({
+                                    items: '.specifications-div'
+                                });
+                                selectFeatures();
+                            });
+                            function selectType(obj){
+                                var temp = ["imageModule","fileModule"];
+                                if(temp.indexOf($(obj).val())>-1){
+                                    $(obj).parent().find(".count_div").show().find("input").prop('required',true);
+                                    if($(obj).val() == "fileModule"){
+                                        $(obj).parent().find(".option_div").show().find("input").prop('required',true);
+                                    }else{
+                                        $(obj).parent().find(".option_div").hide().find("input").prop('required',false).val('');
+                                    }
+                                }else{
+                                    $(obj).parent().find(".count_div").hide().find("input").prop('required',false).val('');
+                                    $(obj).parent().find(".option_div").hide().find("input").prop('required',false).val('');
+                                }
+                            }
+                        
+                            function selectFeatures(obj){
+                                if(!obj) obj = $("[name='features']");
+                                var temp = ["member","order","memberLog/member","setting/web","setting/payment","setting/shipment"];
+                                if(temp.indexOf($(obj).val())>-1){
+                                    $("#item_detail").hide();
+                                    $("#list-form-data .specifications-div").remove();
+                                    $("#div_alias").hide().find("input[type!='button'][type!='hidden']").prop('required',false).val('');
+                                }else{
+                                    $("#item_detail").show();
+                                    $("#div_alias").show().find("input[type!='button'][type!='hidden']").prop('required',true);
+                                }
+                                var temp = ["_other_basicOne","basic/product"];
+                                if(temp.indexOf($(obj).val())>-1){
+                                    $("#div_count").show().find("input").prop('required',true);
+                                }else{
+                                    $("#div_count").hide().find("input").prop('required',false).val('');
+                                }
+                            }
+                        </script>
+
+                ({/if})
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})
