@@ -64,7 +64,7 @@ namespace MTsung{
 			if(!$this->fileName){
 				do{
 					$this->fileName = rand(10000000,19999999).'.pdf';
-				}while(is_file(APP_PATH.'output/PDF/'.$this->fileName));
+				}while(is_file(APP_PATH.OUTPUT_PATH.'PDF/'.$this->fileName));
 			}
 		}
 
@@ -121,7 +121,7 @@ namespace MTsung{
 			if($setting->getValue("sizeSwitch")){
 				if(!(
 						($this->consolesetting->getValue("webMaxSize")-$this->console->getDirSize(APP_PATH)>0) && 
-						($this->consolesetting->getValue("outputMaxSize")-$this->console->getDirSize(APP_PATH.'output/')>0)
+						($this->consolesetting->getValue("outputMaxSize")-$this->console->getDirSize(APP_PATH.OUTPUT_PATH)>0)
 					)){
 					
 					return false;
@@ -133,13 +133,13 @@ namespace MTsung{
 				$this->dompdf->get_canvas()->get_cpdf()->setEncryption($this->passWord);
 			}
 			$output = $this->dompdf->output();
-			if(!is_dir(APP_PATH.'output')){
-				mkdir(APP_PATH.'output');
+			if(!is_dir(APP_PATH.OUTPUT_PATH)){
+				mkdir(APP_PATH.OUTPUT_PATH);
 			}
-			if(!is_dir(APP_PATH.'output/PDF')){
-				mkdir(APP_PATH.'output/PDF');
+			if(!is_dir(APP_PATH.OUTPUT_PATH.'PDF')){
+				mkdir(APP_PATH.OUTPUT_PATH.'PDF');
 			}
-			file_put_contents(APP_PATH.'output/PDF/'.$this->fileName, $output);
+			file_put_contents(APP_PATH.OUTPUT_PATH.'PDF/'.$this->fileName, $output);
 			exit;
 		}
 

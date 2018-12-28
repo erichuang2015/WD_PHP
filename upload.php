@@ -14,7 +14,7 @@
 
 	//網站空間限制
 	$webSize[] = $setting->getValue("webMaxSize")-getDirSize(APP_PATH);
-	$webSize[] = $setting->getValue("uploadMaxSize")-getDirSize(APP_PATH.'upload/');
+	$webSize[] = $setting->getValue("uploadMaxSize")-getDirSize(APP_PATH.UPLOAD_PATH);
 
 	if($setting->getValue("sizeSwitch")){
 		if($_FILES){
@@ -67,7 +67,7 @@
 										$allowExt,
 										$maxSize,
 										false,
-										'upload/'.$temp
+										UPLOAD_PATH.$temp
 									);
 		if($_FILES){
 
@@ -132,7 +132,7 @@
 			$temp = $upload->getDestination();
 			if($temp){
 				foreach ($temp as $key => $value) {
-					$_SESSION[FRAME_NAME]["PICTURE_TEMP"][] = str_replace("upload/","",$value);
+					$_SESSION[FRAME_NAME]["PICTURE_TEMP"][] = str_replace(UPLOAD_PATH,"",$value);
 				}
 				print_r(json_encode($temp));
 			}

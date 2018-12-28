@@ -8,6 +8,8 @@
 !/upload/.htaccess
 /output
 !/output/.htaccess
+/data/*
+!/data/.htaccess
 /sessionTemp/*
 /view/templates_c/*
 backup.txt

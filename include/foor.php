@@ -10,9 +10,9 @@
 				$value = str_replace('../',"",$value);
 				$value = str_replace('..\\',"",$value);
 			}
-			$value = str_replace(WEB_PATH.'/upload/',"",$value);
-			$value = str_replace('upload/',"",$value);
-			$path = APP_PATH.'upload/';
+			$value = str_replace(WEB_PATH.'/'.UPLOAD_PATH,"",$value);
+			$value = str_replace(UPLOAD_PATH,"",$value);
+			$path = APP_PATH.UPLOAD_PATH;
 			if(is_file($path.$value)){
 	            unlink($path.$value);
 	            $minImgPath = $path.str_replace(".".pathinfo($value, PATHINFO_EXTENSION),"_min.".pathinfo($value, PATHINFO_EXTENSION),$value);

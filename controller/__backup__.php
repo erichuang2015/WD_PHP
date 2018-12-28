@@ -32,12 +32,12 @@
 
 	//多少天以上的刪除
 	if($console->setting->getValue("backupDeleteDay")>0){
-		$dir = dir(APP_PATH.'output/databaseBackup/');
+		$dir = dir(APP_PATH.OUTPUT_PATH.'databaseBackup/');
 		while($file = $dir->read()) {
 		   	if (!is_dir($file)){
 		   		$temp = explode("_",explode(".",$file)[0]);
 				if((strtotime(DATE)-strtotime($temp[0]."-".$temp[1]."-".$temp[2]." ".$temp[3].":".$temp[4].":".$temp[5])) > 60*60*24*$console->setting->getValue("backupDeleteDay")){
-					unlink(APP_PATH.'output/databaseBackup/'.$file);
+					unlink(APP_PATH.OUTPUT_PATH.'databaseBackup/'.$file);
 				}
 		   	}
 		}

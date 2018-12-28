@@ -13,11 +13,14 @@ $module["uploadImg"][1]["max"] = 1;
 
 $data = $console->setting->getValue();
 
-$dir = dir(APP_PATH.'output/databaseBackup/');
+if(!is_dir(APP_PATH.OUTPUT_PATH.'databaseBackup/')){
+	mkdir(APP_PATH.OUTPUT_PATH.'databaseBackup/');
+}
+$dir = dir(APP_PATH.OUTPUT_PATH.'databaseBackup/');
 $data["backupFile"] = array();
 while($file = $dir->read()) {
    	if (!is_dir($file) && strpos($file,'.sql')){
-   		$data["backupFile"][] = array('fileName' => $file, 'filePath' =>  'output/databaseBackup/'.$file);
+   		$data["backupFile"][] = array('fileName' => $file, 'filePath' =>  OUTPUT_PATH.'databaseBackup/'.$file);
    	}
 }
 sort($data["backupFile"]);

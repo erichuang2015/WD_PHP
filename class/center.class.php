@@ -100,13 +100,13 @@ namespace MTsung{
 					if(isset($data[$value]) && $data[$value] && $_SESSION[FRAME_NAME]["PICTURE_TEMP"]){
 						if(is_array($data[$value])){
 							foreach ($data[$value] as $key => $value) {
-								$value = str_replace("upload/","",$value);
+								$value = str_replace(UPLOAD_PATH,"",$value);
 								if(is_numeric($key1 = array_search($value,$_SESSION[FRAME_NAME]["PICTURE_TEMP"]))){
 									unset($_SESSION[FRAME_NAME]["PICTURE_TEMP"][$key1]);
 								}
 							}
 						}else{
-							$value = str_replace("upload/","",$data[$value]);
+							$value = str_replace(UPLOAD_PATH,"",$data[$value]);
 							if(is_numeric($key = array_search($value,$_SESSION[FRAME_NAME]["PICTURE_TEMP"]))){
 								unset($_SESSION[FRAME_NAME]["PICTURE_TEMP"][$key]);
 							}
@@ -385,21 +385,21 @@ namespace MTsung{
 
 					if(isset($module["uploadImg"])){//後台用
 						foreach ($module["uploadImg"] as $valueM) {
-							if(isset($temp[$valueM["name"]])){
-								$temp[$valueM["name"]] = explode("|__|", $temp[$valueM["name"]]);
+							if(isset($temp[$key][$valueM["name"]])){
+								$temp[$key][$valueM["name"]] = explode("|__|", $temp[$key][$valueM["name"]]);
 							}
 
 							if(isset($valueM["textOther"])){
 								foreach ($valueM["textOther"] as $valueM1) {
-									if(isset($temp[$valueM["name"].$valueM1])){
-										$temp[$valueM["name"].$valueM1] = json_encode(explode("|__|", $temp[$valueM["name"].$valueM1]));
+									if(isset($temp[$key][$valueM["name"].$valueM1])){
+										$temp[$key][$valueM["name"].$valueM1] = json_encode(explode("|__|", $temp[$key][$valueM["name"].$valueM1]));
 									}
 								}
 							}
 							if(isset($valueM["textareaOther"])){
 								foreach ($valueM["textareaOther"] as $valueM1) {
-									if(isset($temp[$valueM["name"].$valueM1])){
-										$temp[$valueM["name"].$valueM1] = json_encode(explode("|__|", $temp[$valueM["name"].$valueM1]));
+									if(isset($temp[$key][$valueM["name"].$valueM1])){
+										$temp[$key][$valueM["name"].$valueM1] = json_encode(explode("|__|", $temp[$key][$valueM["name"].$valueM1]));
 									}
 								}
 							}
@@ -408,21 +408,21 @@ namespace MTsung{
 
 					if(isset($module["uploadFile"])){//後台用
 						foreach ($module["uploadFile"] as $valueF) {
-							if(isset($temp[$valueF["name"]])){
-								$temp[$valueF["name"]] = explode("|__|", $temp[$valueF["name"]]);
+							if(isset($temp[$key][$valueF["name"]])){
+								$temp[$key][$valueF["name"]] = explode("|__|", $temp[$key][$valueF["name"]]);
 							}
 
 							if(isset($valueF["textOther"])){
 								foreach ($valueF["textOther"] as $valueF1) {
-									if(isset($temp[$valueF["name"].$valueF1])){
-										$temp[$valueF["name"].$valueF1] = json_encode(explode("|__|", $temp[$valueF["name"].$valueF1]));
+									if(isset($temp[$key][$valueF["name"].$valueF1])){
+										$temp[$key][$valueF["name"].$valueF1] = json_encode(explode("|__|", $temp[$key][$valueF["name"].$valueF1]));
 									}
 								}
 							}
 							if(isset($valueF["textareaOther"])){
 								foreach ($valueF["textareaOther"] as $valueF1) {
-									if(isset($temp[$valueF["name"].$valueF1])){
-										$temp[$valueF["name"].$valueF1] = json_encode(explode("|__|", $temp[$valueF["name"].$valueF1]));
+									if(isset($temp[$key][$valueF["name"].$valueF1])){
+										$temp[$key][$valueF["name"].$valueF1] = json_encode(explode("|__|", $temp[$key][$valueF["name"].$valueF1]));
 									}
 								}
 							}

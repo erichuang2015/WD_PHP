@@ -20,8 +20,8 @@ namespace MTsung{
         	$this->tpl = new \Smarty();
     		$this->tpl->left_delimiter = '({';
     		$this->tpl->right_delimiter = '})';
-    		$this->tpl->template_dir = APP_PATH . "view/templates/web";
-    		$this->tpl->compile_dir = APP_PATH . "view/templates_c/web";
+    		$this->tpl->template_dir = APP_PATH.DATA_PATH."view/templates/web";
+    		$this->tpl->compile_dir = APP_PATH.DATA_PATH."view/templates_c/web";
     		$this->tpl->config_dir = APP_PATH . "view/configs/";
     		$this->tpl->cache_dir = APP_PATH . "view/cache/";
         } 

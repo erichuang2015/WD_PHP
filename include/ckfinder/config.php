@@ -69,9 +69,9 @@ if(!isset($_SESSION[FRAME_NAME]["member"]["serback"]) || !$_SESSION[FRAME_NAME][
 $temp_url = explode('include/ckfinder',$_SERVER['PHP_SELF']);
 if (count($temp_url)>1) {
 	$temp_url = $temp_url[0];
-	$baseUrl = $temp_url.'upload/';
+	$baseUrl = $temp_url.UPLOAD_PATH;
 }else{
-	$baseUrl = '/upload/';
+	$baseUrl = '/'.UPLOAD_PATH;
 }
 
 /*

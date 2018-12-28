@@ -24,7 +24,7 @@
 		}
 
 		if(isset($_FILES)){
-			$upload = new MTsung\Upload(array(),array(),20971520,false,'upload/form/'.$console->path[0]);
+			$upload = new MTsung\Upload(array(),array(),20971520,false,UPLOAD_PATH.'form/'.$console->path[0]);
 			$upload->callUploadFile();
 			$temp = $upload->getDestination();
 			if(count($temp)!=count($_FILES)){

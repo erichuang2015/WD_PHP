@@ -5,8 +5,8 @@
 $data['dataSize'] = array();
 if($console->setting->getValue('sizeSwitch')=='1'){
 	$data['dataSize'] = array(	$console->getDataSizeArray(APP_PATH,$console->setting->getValue("webMaxSize")),
-								$console->getDataSizeArray(APP_PATH.'upload/',$console->setting->getValue("uploadMaxSize")),
-								$console->getDataSizeArray(APP_PATH.'output/',$console->setting->getValue("outputMaxSize")),
+								$console->getDataSizeArray(APP_PATH.UPLOAD_PATH,$console->setting->getValue("uploadMaxSize")),
+								$console->getDataSizeArray(APP_PATH.OUTPUT_PATH,$console->setting->getValue("outputMaxSize")),
 								$console->getSqlSizeArray('',$console->setting->getValue("sqlMaxSize"))
 							);
 }

@@ -3,7 +3,7 @@
  * 檔案
  */
 $allowUser = array("vipadmin");
-$disallowArray = array("css","js","fonts","upload","output","images",".htaccess","robots.txt","404.html");
+$disallowArray = array("css","js","fonts","upload","output","images","module",".htaccess","robots.txt","404.html");
 if(!in_array($console->path[1],$disallowArray) && !in_array($member->getInfo("account"),$allowUser)){
 	$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
 	exit;

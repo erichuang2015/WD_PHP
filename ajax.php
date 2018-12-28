@@ -44,9 +44,9 @@
 			$_GET['rmSrc'] = str_replace('../',"",$_GET['rmSrc']);
 			$_GET['rmSrc'] = str_replace('..\\',"",$_GET['rmSrc']);
 		}
-		$_GET['rmSrc'] = str_replace(WEB_PATH.'/upload/',"",$_GET['rmSrc']);
-		$_GET['rmSrc'] = str_replace('upload/',"",$_GET['rmSrc']);
-		$path = APP_PATH.'upload/';
+		$_GET['rmSrc'] = str_replace(WEB_PATH.'/'.UPLOAD_PATH,"",$_GET['rmSrc']);
+		$_GET['rmSrc'] = str_replace(UPLOAD_PATH,"",$_GET['rmSrc']);
+		$path = APP_PATH.UPLOAD_PATH;
 		if(is_file($path.$_GET['rmSrc'])){
             unlink($path.$_GET['rmSrc']);
             //縮圖
@@ -291,7 +291,7 @@
 		if($setting->getValue("sizeSwitch")){
 			if(!(
 					($setting->getValue("webMaxSize")-getDirSize(APP_PATH)>0) && 
-					($setting->getValue("outputMaxSize")-getDirSize(APP_PATH.'output/')>0)
+					($setting->getValue("outputMaxSize")-getDirSize(APP_PATH.OUTPUT_PATH)>0)
 				)){
 				echo false;
 				exit;
@@ -332,8 +332,8 @@
 			$_GET['src'] = str_replace('../',"",$_GET['src']);
 			$_GET['src'] = str_replace('..\\',"",$_GET['src']);
 		}
-		$_GET['src'] = str_replace(WEB_PATH.'/upload/',"",$_GET['src']);
-		$_GET['src'] = $path = APP_PATH.'upload/'.str_replace('upload/',"",$_GET['src']);
+		$_GET['src'] = str_replace(WEB_PATH.'/'.UPLOAD_PATH,"",$_GET['src']);
+		$_GET['src'] = $path = APP_PATH.UPLOAD_PATH.str_replace(UPLOAD_PATH,"",$_GET['src']);
 
 		$temp = explode(".",$_GET["src"]);
 		$type = strtolower(end($temp));

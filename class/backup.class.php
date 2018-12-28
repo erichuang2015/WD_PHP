@@ -12,6 +12,9 @@ namespace MTsung{
 		
 		function __construct($conn){
 			$this->conn = $conn;
+			if(!is_dir(APP_PATH.OUTPUT_PATH.'databaseBackup/')){
+				mkdir(APP_PATH.OUTPUT_PATH.'databaseBackup/');
+			}
 		}
 
 		/**
@@ -24,7 +27,7 @@ namespace MTsung{
 			set_time_limit(0);
 			ini_set("memory_limit",-1);
 			$this->conn->Execute("set global max_allowed_packet=200*1024*1024; ");
-			$fileName = APP_PATH.'output/databaseBackup/'.$fileName;
+			$fileName = APP_PATH.OUTPUT_PATH.'databaseBackup/'.$fileName;
 			if(is_file($fileName)){
 				$file = file($fileName);
 				$sql = "";
@@ -97,14 +100,14 @@ namespace MTsung{
 			}
 			$sql = str_replace("'|MTsung|NULL|MTsung|'","NULL",$sql);
 
-			if(!is_dir(APP_PATH.'output')){
-				mkdir(APP_PATH.'output');
+			if(!is_dir(APP_PATH.OUTPUT_PATH)){
+				mkdir(APP_PATH.OUTPUT_PATH);
 			}
-			if(!is_dir(APP_PATH.'output/databaseBackup')){
-				mkdir(APP_PATH.'output/databaseBackup');
+			if(!is_dir(APP_PATH.OUTPUT_PATH.'databaseBackup')){
+				mkdir(APP_PATH.OUTPUT_PATH.'databaseBackup');
 			}
 
-			$fileName = APP_PATH.'output/databaseBackup/'.date('Y_m_d_H_i_s').".sql";
+			$fileName = APP_PATH.OUTPUT_PATH.'databaseBackup/'.date('Y_m_d_H_i_s').".sql";
 			$fp = fopen($fileName,'w');
 			fwrite($fp,$sql);
 			fclose($fp);
