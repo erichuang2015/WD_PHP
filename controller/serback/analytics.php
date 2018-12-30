@@ -2,13 +2,12 @@
 
 $analytics = new MTsung\analytics($console);
 
-
 //半年內流覽數
 $monthArray = array("","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-for ($i=(DATE_M-5); $i <=DATE_M ; $i++) {
-	$s = DATE_Y."-".$i."-01 ";
-	$e = DATE_Y."-".($i+1)."-01 ";
-	$data["analytics"]["month"][] = $monthArray[$i];
+for ($i = -6; $i <= 0; $i++){
+    $s = date('Y-m-d 00:00:00',strtotime($i." month"));
+    $e = date('Y-m-d 00:00:00',strtotime(($i+1)." month"));
+	$data["analytics"]["month"][] = date('Y-m',strtotime($i." month"));//$monthArray[(int)date('m',strtotime($i." month"))];
 	$data["analytics"]["count"][] = $analytics->getTotalCount(false,$s,$e);
 	$data["analytics"]["repeatCount"][] = $analytics->getTotalCount(true,$s,$e);
 }
@@ -39,24 +38,20 @@ if($data["analytics"]["referer"]){
 
 
 //24小時內的瀏覽數
-for ($i=date('H')+1; $i < date('H')+25 ; $i++) {
-	$s = DATE_Y."-".DATE_M."-".(DATE_D-($i>23?0:1))." ".($i%24).":00:00";
-	$e = DATE_Y."-".DATE_M."-".(DATE_D-(($i+1)>23?0:1))." ".(($i+1)%24).":00:00";
-	$data["analytics"]["hour"][] = ($i%24).":00";
+for ($i = -23; $i <= 0; $i++){
+    $s = date('Y-m-d H:00:00',strtotime($i." hour"));
+    $e = date('Y-m-d H:00:00',strtotime(($i+1)." hour"));
+	$data["analytics"]["hour"][] = date('H:00',strtotime($i." hour"));
 	$data["analytics"]["count24H"][] = $analytics->getTotalCount(false,$s,$e);
 	$data["analytics"]["repeatCount24H"][] = $analytics->getTotalCount(true,$s,$e);
 }
 
 
 //30天內的瀏覽數
-for ($i=29; $i >=-1 ; $i--) { 
-	$month = date("m", strtotime('-'.($i+1).' day'));
-	$month1 = date("m", strtotime('-'.$i.' day'));
-	$day = date("d", strtotime('-'.($i+1).' day'));
-	$day1 = date("d", strtotime('-'.$i.' day'));
-	$s = DATE_Y."-".$month."-".$day." 00:00:00";
-	$e = DATE_Y."-".$month1."-".$day1." 00:00:00";
-	$data["analytics"]["day"][] = $month."/".$day;
+for ($i = -30; $i <= 0; $i++){
+    $s = date('Y-m-d 00:00:00',strtotime($i." day"));
+    $e = date('Y-m-d 00:00:00',strtotime(($i+1)." day"));
+	$data["analytics"]["day"][] = date('m/d',strtotime($i." day"));
 	$data["analytics"]["countMonth"][] = $analytics->getTotalCount(false,$s,$e);
 	$data["analytics"]["repeatCountMonth"][] = $analytics->getTotalCount(true,$s,$e);
 }
