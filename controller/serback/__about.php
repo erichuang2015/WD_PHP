@@ -59,10 +59,10 @@ $data["typeOption"] = array(
 	"radio" => "FORM_RADIO",
 	"checkbox" => "FORM_CHECKBOX",
 );
-$explodeArray[] = "dataName":
-$explodeArray[] = "dataType":
-$explodeArray[] = "dataOption":
-$explodeArray[] = "dataRequired":
+$explodeArray[] = "dataName";
+$explodeArray[] = "dataType";
+$explodeArray[] = "dataOption";
+$explodeArray[] = "dataRequired";
 $explodeArray[] = "class";
 
 
