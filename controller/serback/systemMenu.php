@@ -1,20 +1,6 @@
 <?php
 
-$switch["buttonBox"] = 1;
-$data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
-
-
-$systemMenu = new MTsung\menu($console,PREFIX."menu");
-
-//目前最大層數
-$data["maxFloor"] = $systemMenu->getMaxFloor();
-
-//限制最大層數 (0開始算)
-$data["addMaxFloor"] = 2;
-
-if(isset($_POST["name"])){
-	$_POST["name"] = strtoupper($_POST["name"]);
-}
+include_once(CONTROLLER_PATH.'serback/__menu.php');
 
 if(isset($console->path[1])){
 //動作
@@ -28,6 +14,15 @@ if(isset($console->path[1])){
 					$_POST["id"] = $console->path[2];
 					$_POST["floor"] = explode(",", $_POST["parent"])[1] + 1;
 					$_POST["parent"] = explode(",", $_POST["parent"])[0];
+					if($_POST["features"]){
+						$temp = explode("_other_",$_POST["features"]);
+						if(isset($temp[1])){
+							$_POST["url"] = $temp[1]."/".$_POST["alias"];
+						}else{
+							$_POST["url"] = $_POST["features"];
+						}
+					}
+					
 					if($systemMenu->setData($_POST)){
 						$console->alert($systemMenu->message,$_SERVER["REQUEST_URI"]);
 					}else{
@@ -37,6 +32,16 @@ if(isset($console->path[1])){
 					$temp = $systemMenu->getData("where id='".$console->path[2]."'");
 					if($temp){
 						$data["one"] = $temp[0];
+						if($data["one"]["features"]){
+							$designName = "systemMenuFront";
+						}
+						if(isset($explodeArray)){
+							foreach ($explodeArray as $key => $value) {
+								if(($value != "") && !is_array($data["one"][$value]) && $data["one"][$value]){
+									$data["one"][$value] = explode("|__|", $data["one"][$value]);
+								}
+							}
+						}
 					}else{
 						$console->alert($systemMenu->message,$data["listUrl"]);
 					}
@@ -58,6 +63,7 @@ if(isset($console->path[1])){
 			if($_POST){
 				$_POST["floor"] = explode(",", $_POST["parent"])[1] + 1;
 				$_POST["parent"] = explode(",", $_POST["parent"])[0];
+
 				if($systemMenu->setData($_POST)){
 					$console->alert($systemMenu->message,$data["listUrl"]);
 				}else{

@@ -22,13 +22,13 @@ $checkArray = $requiredArray = $explodeArray = $searchKey = array();
 switch ($console->path[1]) {
 	case 'index_product':
 	case 'index_news':
-
+	
 	    if($_POST && isset($_POST["detail"]) && is_array($_POST["detail"])){
         	$_POST["detail"] = array_unique($_POST["detail"]);
         }
 		$explodeArray = array("detail");
 		break;
-	case 'contact':
+	default:
 		$data["typeOption"] = array(
 			"text" => "FORM_TEXT",
 			"textarea" => "FORM_TEXTAREA",
@@ -41,10 +41,7 @@ switch ($console->path[1]) {
 			"radio" => "FORM_RADIO",
 			"checkbox" => "FORM_CHECKBOX",
 		);
-		$explodeArray = array("dataName","dataType","dataOption","dataRequired");
-		break;
-	default:
-		$explodeArray = array("class");
+		$explodeArray = array("dataName","dataType","dataOption","dataRequired","class");
 		$searchKey = array("name");
 		break;
 }
@@ -54,39 +51,14 @@ switch ($console->path[1]) {
 
 /**模組**/
 switch ($console->path[1]) {
-	case 'edm':
-
-		$module["tinemceEditor"][0]["name"] = 'detail';
-		$module["uploadImg"][0]["name"] = "picture";
-		$module["uploadImg"][0]["max"] = 10;
-		$module["uploadImg"][0]["suggestText"] = "1920x576";
-		// $module["uploadImg"][0]["textOther"] = array("Alt");
-		// $module["uploadImg"][0]["textOtherText"] = array($console->getLabel("ALT"));
-
-		break;
-	default:
-
-		$module["tinemceEditor"][0]["name"] = 'detail';
-		$module["uploadImg"][0]["name"] = "picture";
-		$module["uploadImg"][0]["max"] = 10;
-		$module["uploadImg"][0]["suggestText"] = $console->getLabel("ALL_SIZE");
-		$module["uploadImg"][0]["textOther"] = array("Title","Alt","Href");
-		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("TITLE"),$console->getLabel("ALT"),$console->getLabel("URL"));
-
-		break;
 }
 /**模組**/
 
 
+include_once(CONTROLLER_PATH.'serback/__about.php');
 
 
-
-
-
-
-
-
-
+$switch["editList"] = 1;
 
 if(isset($module["uploadImg"])){
 	foreach ($module["uploadImg"] as $key => $value) {

@@ -90,6 +90,7 @@
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("LANGUAGE_KEY")})</label>
                                 <input type="text" class="form-control" name="name" value="({$data.one.name})" data-text="({$console->getLabel("LANGUAGE_KEY")})" required>
+                                <small class="text-muted">({$console->getLabel($data.one.name)})</small>
                             </div>
                         </div>
 
@@ -137,6 +138,17 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("FORM_DATA")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="formData" value="0">
+                                    <input type="checkbox" name="formData" class="onoffswitch-checkbox" id="formData" value="1" ({if $data.one.formData})checked({/if})>
+                                    <label class="onoffswitch-label" for="formData"></label>
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
@@ -148,7 +160,7 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
+                    </div>
 
                         <!-- 表單資料 -->
                         <div class="card-body tab-pane fade" id="list-form-data">
@@ -170,6 +182,10 @@
                                         
                                         <span class="count_div" ({if !($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
                                             <span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="({$data.one.dataCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})required({/if})>
+                                        </span>
+
+                                        <span class="search_div" ({if !($data.one.dataType[i]=="search")})style="display:none"({/if})>
+                                            <span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value="({$data.one.dataSearch[i]})" ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="search")})required({/if})>
                                         </span>
 
                                         <span class="option_div" ({if !($data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
@@ -201,6 +217,9 @@
                                     '<span class="count_div" style="display:none">'+
                                         '<span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="" data-check="Number">'+
                                     '</span> '+
+                                    '<span class="search_div" style="display:none">'+
+                                        '<span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value="" >'+
+                                    '</span> '+
                                     '<span class="option_div" style="display:none">'+
                                         '<span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="extension1,extension2"></textarea>'+
                                     '</span> '+
@@ -215,32 +234,42 @@
                                 selectFeatures();
                             });
                             function selectType(obj){
+                                if($(obj).val() == "search"){
+                                    $(obj).parent().find(".search_div").show().find("input,textarea").prop('required',true);
+                                }else{
+                                    $(obj).parent().find(".search_div").hide().find("input,textarea").prop('required',false).val('');
+                                }
                                 var temp = ["imageModule","fileModule"];
                                 if(temp.indexOf($(obj).val())>-1){
                                     $(obj).parent().find(".count_div").show().find("input").prop('required',true);
                                     if($(obj).val() == "fileModule"){
-                                        $(obj).parent().find(".option_div").show().find("input").prop('required',true);
+                                        $(obj).parent().find(".option_div").show().find("input,textarea").prop('required',true);
                                     }else{
-                                        $(obj).parent().find(".option_div").hide().find("input").prop('required',false).val('');
+                                        $(obj).parent().find(".option_div").hide().find("input,textarea").prop('required',false).val('');
                                     }
                                 }else{
                                     $(obj).parent().find(".count_div").hide().find("input").prop('required',false).val('');
-                                    $(obj).parent().find(".option_div").hide().find("input").prop('required',false).val('');
+                                    $(obj).parent().find(".option_div").hide().find("input,textarea").prop('required',false).val('');
                                 }
                             }
                         
                             function selectFeatures(obj){
                                 if(!obj) obj = $("[name='features']");
-                                var temp = ["member","order","memberLog/member","setting/web","setting/payment","setting/shipment"];
+                                var temp = ["_null","member","order","memberLog/member","_other_form","setting/web","setting/payment","setting/shipment"];
                                 if(temp.indexOf($(obj).val())>-1){
                                     $("#item_detail").hide();
                                     $("#list-form-data .specifications-div").remove();
-                                    $("#div_alias").hide().find("input[type!='button'][type!='hidden']").prop('required',false).val('');
+                                    if($(obj).val()!="_other_form"){
+                                        $("#div_alias").hide().find("input[type!='button'][type!='hidden']").prop('required',false).val('');
+                                    }
                                 }else{
                                     $("#item_detail").show();
                                     $("#div_alias").show().find("input[type!='button'][type!='hidden']").prop('required',true);
                                 }
-                                var temp = ["_other_basicOne","basic/product"];
+                                if($(obj).val() == "basic/product" || $(obj).val() == "class/product"){
+                                    $("#div_alias").hide().find("input[type!='button'][type!='hidden']").prop('required',false).val('');
+                                }
+                                var temp = ["_other_basic","basic/product"];
                                 if(temp.indexOf($(obj).val())>-1){
                                     $("#div_count").show().find("input").prop('required',true);
                                 }else{

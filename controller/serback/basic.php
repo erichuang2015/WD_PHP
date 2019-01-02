@@ -89,26 +89,11 @@ switch ($console->path[1]) {
 		// 
 		break;
 	default:
-		
-		$module["tinemceEditor"][0]["name"] = 'detail';
-		$module["uploadImg"][0]["name"] = "picture";//欄位名稱
-		$module["uploadImg"][0]["max"] = 10;//限制數量
-		$module["uploadImg"][0]["watermark"] = '';//浮水印
-		$module["uploadImg"][0]["textOther"] = array("Title","Alt","Href");//欄位名稱
-		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("TITLE"),$console->getLabel("ALT"),$console->getLabel("URL"));//提示字
-
 		break;
 }
 /**模組**/
 
-
-
-
-
-
-
-
-
+include_once(CONTROLLER_PATH.'serback/__about.php');
 
 
 if(isset($module["uploadImg"])){

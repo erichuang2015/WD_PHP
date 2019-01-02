@@ -1,0 +1,368 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.editList!=0 || $switch.addList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-detail">({$console->getLabel("DETAIL")})</a>
+                        </li>
+                        ({if $data.system.formData})
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="list" href="#list-form-data">({$console->getLabel("FORM_DATA")})</a>
+                            </li>
+                        ({/if})
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+            ({if $switch.listList!=0})
+                <div class="card-body tab-pane fade show active" id="list-list">
+                    <table class="table table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" width="2%">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                        <label class="custom-control-label" for="checkAll"></label>
+                                    </div>
+                                </th>
+                                <th scope="col">({$console->getLabel("NAME")})</th>
+                                <th scope="col">({$console->getLabel("SORT")})</th>
+                                <th scope="col">({$console->getLabel("STATUS")})</th>
+                                <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
+                                <th scope="col">({$console->getLabel("TOW_SORT")})</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ({section name=i loop=$data.list})
+                                <tr>
+                                    <td scope="row">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
+                                            <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
+                                        </div>
+                                    </td>
+                                    <td >
+                                        <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
+                                        
+                                    </td>
+                                    <td>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control col-md-3" name="sort_({$data.list[i].id})" value="({$data.list[i].sort})">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="onoffswitch">
+                                            <input type="hidden" name="status_({$data.list[i].id})" value="0">
+                                            <input type="checkbox" name="status_({$data.list[i].id})" class="onoffswitch-checkbox" id="myonoffswitch_({$data.list[i].id})" value="1" ({if $data.list[i].status})checked({/if})>
+                                            <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
+                                        </div>
+                                    </td>
+                                    <td >
+                                        ({$data.list[i].create_date})(({$data.list[i].create_user}))
+                                    </td>
+                                    <td >
+                                        ({$data.list[i].update_date})(({$data.list[i].update_user}))
+                                    </td>
+                                    <th >
+                                        <span class="glyphicon-move" style="font-size: 20px;"></span>
+                                    </th>
+                                </tr>
+
+                            ({/section})
+                            
+                        </tbody>
+                    </table>          
+                </div>
+            ({/if})
+
+            ({if $switch.editList!=0 || $switch.addList!=0})
+                <div class="card-body tab-pane fade show active" id="list-detail">
+
+                    ({if $console->path[0]!="basicOne"})
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('NAME')})</label>
+                                <input type="text" name="name" class="form-control" autocomplete="name" value="({$data.one.name})" data-text="({$console->getLabel("NAME")})" required>
+                            </div>
+                        </div>
+                    ({/if})
+
+                    ({assign var="aceI" value=0})
+                    ({assign var="imgI" value=0})
+                    ({assign var="fileI" value=0})
+                    ({assign var="mapI" value=0})
+                    ({assign var="searchI" value=0})
+                    ({section name=i loop=$data.system.dataType})
+
+                        ({if $data.system.dataType[i] == "text"})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel($data.system.dataName[i])})</label>
+                                    <input type="text" name="({$data.system.dataKey[i]})" class="form-control" value="({$data.one[$data.system.dataKey[i]]})" data-text="({$console->getLabel($data.system.dataName[i])})">
+                                </div>
+                            </div>
+                        ({else if $data.system.dataType[i] == "textarea"})
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label>({$console->getLabel($data.system.dataName[i])})</label>
+                                    <textarea class="form-control" rows="8" name="({$data.system.dataKey[i]})">({$data.one[$data.system.dataKey[i]]})</textarea>
+                                </div>
+                            </div>
+                        ({else if $data.system.dataType[i] == "date"})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel($data.system.dataName[i])})</label>
+                                    <input type="date" name="({$data.system.dataKey[i]})" class="form-control" data-text="({$console->getLabel($data.system.dataName[i])})" value="({$data.one[$data.system.dataKey[i]]})" >
+                                </div>
+                            </div>
+                        ({else if $data.system.dataType[i] == "aceEditor"})
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label>({$console->getLabel($data.system.dataName[i])})</label>
+                                    <div>
+                                        ({assign var=_I_ value=$aceI})
+                                        ({include file='module.tinymceEditor.html'})
+                                    </div>
+                                </div>
+                            </div>
+                            ({assign var="aceI" value=$aceI+1})
+                        ({else if $data.system.dataType[i] == "imageModule"})
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label>({$console->getLabel($data.system.dataName[i])})</label>
+                                    <div>
+                                        ({assign var=_I_ value=$imgI})
+                                        ({include file='module.uploadImg.html'})
+                                    </div>
+                                </div>
+                            </div>
+                            ({assign var="imgI" value=$imgI+1})
+                        ({else if $data.system.dataType[i] == "fileModule"})
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label>({$console->getLabel($data.system.dataName[i])})</label>
+                                    <div>
+                                        ({assign var=_I_ value=$fileI})
+                                        ({include file='module.uploadFile.html'})
+                                    </div>
+                                </div>
+                            </div>
+                            ({assign var="fileI" value=$fileI+1})
+                        ({else if $data.system.dataType[i] == "googleMap"})
+                            <div class="form-row">
+                                <label class="mb-3">({$console->getLabel($data.system.dataName[i])})</label>
+                                <div class="col-md-12 mb-3 form-inline specifications-div">
+                                    <div class="col-md-12 mb-3" id="google_map_data_div({$mapI})">
+                                        <span> ({$console->getLabel('ADDRESS_OR_COORDINATE')})：</span><input type="text" class="form-control">
+                                        <span> ({$console->getLabel('WIDTH')})：</span><input type="text" class="form-control" value="100%">
+                                        <span> ({$console->getLabel('HEIGHT')})：</span><input type="text" class="form-control" value="500">
+                                        <span> ({$console->getLabel('MAP_PROPORTION')})：</span><input type="text" class="form-control" value="16">
+                                        <span> ({$console->getLabel('MAP_MODE')})：</span><select type="text" class="form-control"><option value="p">({$console->getLabel('TOPOGRAPHIC_MAP')})</option><option value="h">({$console->getLabel('SATELLITE_IMAGERY')})</option></select>
+                                        <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('SEARCH')})" onclick="getGoogleMap();">
+                                    </div>
+                                    <div class="col-md-12 mb-3" id="google_map_div({$mapI})">
+                                        ({$data.one[$data.system.dataKey[i]]|htmlspecialchars_decode})
+                                    </div>
+                                    <input type="hidden" name="({$data.system.dataKey[i]})" value="({$data.one[$data.system.dataKey[i]]})">
+                                </div>
+                                <script>
+                                    function getGoogleMap(){
+                                        var data = $("#google_map_data_div({$mapI})>input,#google_map_data_div({$mapI})>select");
+                                        if(!data.eq(0).val()){
+                                            alert(_jsMsg["ADDRESS_IS_NULL"]);
+                                            return;
+                                        }
+                                        var address = encodeURI(data.eq(0).val());
+                                        var w = data.eq(1).val()?data.eq(1).val():"100%";
+                                        var h = data.eq(2).val()?data.eq(2).val():"500";
+                                        var z = data.eq(3).val()?data.eq(3).val():"16";
+                                        var t = data.eq(4).val()?data.eq(4).val():"p";
+
+                                        var output = '<iframe width="'+w+'" height="'+h+'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="//maps.google.com.tw/maps?f=q&output=embed&hl='+_lang+'&geocode=&q='+address+'&z='+z+'&t='+t+'"></iframe>';
+                                        $("#google_map_div({$mapI})").html(output);
+                                        $("input[name='({$data.system.dataKey[i]})']").val(output);
+                                    }
+                                </script>
+                            </div>
+                            ({assign var="mapI" value=$mapI+1})
+                        ({else if $data.system.dataType[i] == "search"})
+                            <div class="form-row form-inline">
+                                <div class="col-md-12 mb-3">
+                                    <input type="text" class="form-control" id="sKeyword({$searchI})" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
+                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('SEARCH')})" onclick="searchNews({$searchI})();">
+                                
+                                    <select class="form-control" id="sSelect({$searchI})">
+                                        <option></option>
+                                    </select>
+                                    <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('ADD')})" onclick="addNewsF({$searchI})($('#sSelect({$searchI})').val());">
+                                </div>
+                            </div>
+                            <div class="form-row form-inline" id="s_div({$searchI})" >
+                                <input type="hidden" name="({$data.system.dataKey[i]})" value="">
+                            </div>
+                            <script>
+                                var searchNewsArray=[];
+                                function searchNews({$searchI})(){
+                                    $('#sSelect({$searchI})').html("");
+                                    $.ajax({
+                                        url: _jsPath+"/ajax.php",
+                                        type: "GET",
+                                        data: { searckData: '({$data.system.dataSearch[i]})', keyword: $("#sKeyword({$searchI})").val() },
+                                        dataType:'text',
+                                        success: function(msg){
+                                            temp = JSON.parse(msg);
+                                            if(temp.length>0){
+                                                $(temp).each(function(index,obj){
+                                                    $('#sSelect({$searchI})').append('<option value="'+obj["id"]+'">'+obj["name"]+'</option>');
+                                                    searchNewsArray[obj["id"]] = obj;
+                                                });
+                                            }else{
+                                                $('#sSelect({$searchI})').append('<option>NULL</option>');
+                                            }
+                                        }
+                                    });
+                                }
+
+                                function addNewsF({$searchI})(id){
+                                    // if($(".specifications-div").length>=5){
+                                    //     alert(_jsMsg["SELECT_ACHIEVE_MAX"]+" 5");
+                                    //     return false;
+                                    // }
+                                    if(id){
+                                        $.ajax({
+                                            url: _jsPath+"/ajax.php",
+                                            type: "GET",
+                                            data: { searckData: '({$data.system.dataSearch[i]})', id: id, keyword: '' },
+                                            dataType:'text',
+                                            async: false,
+                                            success: function(msg){
+                                                temp = JSON.parse(msg);
+                                                if(temp.length>0){
+                                                    temp = temp[0];
+                                                    var divHtml = 
+                                                        '<div class="col-md-12 mb-3 specifications-div">'+
+                                                            '<input type="hidden" name="({$data.system.dataKey[i]})[]" value="'+id+'">'+
+                                                            '<span>'+temp["name"]+' </span>'+
+                                                            '<input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
+                                                        '</div>';
+                                                    $("#s_div({$searchI})").append(divHtml);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+
+                                $(function(){
+                                    $('#s_div({$searchI})').sortable({
+                                        items: '.specifications-div'
+                                    });
+                                    ({section name=j loop=$data.one[$data.system.dataKey[i]]})
+                                        ({if $data.one[$data.system.dataKey[i]][j]})
+                                            addNewsF({$searchI})(({$data.one[$data.system.dataKey[i]][j]}));
+                                        ({/if})
+                                    ({/section})
+                                });
+                            </script>
+                            ({assign var="searchI" value=$searchI+1})
+                        ({/if})
+                    ({/section})
+                    <small class="text-muted">
+                        ({$console->getLabel('CREATE_DATE')})
+                        ({$data.one.create_date})(({$data.one.create_user}));
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                    
+                </div>
+
+                ({if $data.system.formData})
+                    <!-- 表單資料 -->
+                    <div class="card-body tab-pane fade" id="list-form-data">
+                        <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_DATA')})" onclick="addFormData();">
+                        <div class="form-row form-inline" id="specifications_div" >
+                            <input type="hidden" name="dataName">
+                            <input type="hidden" name="dataType">
+                            <input type="hidden" name="dataOption">
+                            <input type="hidden" name="dataRequired">
+                            ({section name=i loop=$data.one.dataName})
+                                <div class="col-md-12 mb-3 specifications-div">
+                                    <span> ({$console->getLabel('NAME')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('NAME')})" value="({$data.one.dataName[i]})" data-check="Only" required>
+                                    <span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">
+                                        ({foreach from=$data.typeOption key=k item=v})
+                                            <option value="({$k})" ({if $k==$data.one.dataType[i]})selected({/if})>({$console->getLabel($v)})</option>
+                                        ({/foreach})
+                                    </select>
+                                    
+                                    <span class="option_div" ({if !($data.one.dataType[i]=="select" || $data.one.dataType[i]=="radio" || $data.one.dataType[i]=="checkbox")})style="display:none"({/if})>
+                                        <span> ({$console->getLabel('OPTION')})：</span><textarea class="form-control" name="dataOption[]" data-text="({$console->getLabel('OPTION')})" placeholder="data1,data2">({$data.one.dataOption[i]})</textarea>
+                                    </span> 
+                                    
+                                    <span> ({$console->getLabel('REQUIRED')})：</span><select type="text" class="form-control" name="dataRequired[]">
+                                        <option value="0" ({if !$data.one.dataRequired[i]})selected({/if})>({$console->getLabel("_NO")})</option>
+                                        <option value="1" ({if $data.one.dataRequired[i]})selected({/if})>({$console->getLabel("_YES")})</option>
+                                    </select>
+                                    <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
+                                </div>
+                            ({/section})
+                        </div>
+                    </div>
+                    <script>
+                        var checkboxI=0;
+                        function addFormData(){
+                            $('#specifications_div').append(''+
+                            '<div class="col-md-12 mb-3 specifications-div">'+
+                                '<span> ({$console->getLabel('NAME')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('NAME')})" value="" data-check="Only" required>'+
+                                '<span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">'+
+                                    ({foreach from=$data.typeOption key=k item=v})
+                                        '<option value="({$k})">({$console->getLabel($v)})</option>'+
+                                    ({/foreach})
+                                '</select>'+
+                                '<span class="option_div" style="display:none">'+
+                                    '<span> ({$console->getLabel('OPTION')})：</span><textarea class="form-control" name="dataOption[]" data-text="({$console->getLabel('OPTION')})" placeholder="data1,data2"></textarea>'+
+                                '</span> '+
+                                '<span> ({$console->getLabel('REQUIRED')})：</span><select type="text" class="form-control" name="dataRequired[]">'+
+                                    '<option value="0">({$console->getLabel("_NO")})</option>'+
+                                    '<option value="1">({$console->getLabel("_YES")})</option>'+
+                                '</select>'+
+                                '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
+                            '</div>');
+                            checkboxI++;
+                        }
+                        $(function(){
+                            $('#specifications_div').sortable({
+                                items: '.specifications-div'
+                            });
+                        });
+                        function selectType(data){
+                            var temp = ["select","radio","checkbox"];
+                            if(temp.indexOf($(data).val())>-1){
+                                $(data).parent().find(".option_div").show();
+                            }else{
+                                $(data).parent().find(".option_div").hide();
+                            }
+                        }
+                    </script>
+                ({/if})
+            ({/if})
+
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

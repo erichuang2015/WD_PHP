@@ -44,9 +44,7 @@ switch ($console->path[1]) {
 /**模組**/
 
 
-
-
-
+include_once(CONTROLLER_PATH.'serback/__about.php');
 
 
 

@@ -449,11 +449,13 @@ namespace MTsung{
 
 			$data = '';
 			$array = $this->getLanguageArray('array');
-			foreach ($array as $key => $value) {
-				$data .= '<link rel="alternate" href="'.HTTP_PATH.$key.$temp.'" hreflang="'.$key.'" />
+			if(count($array)>1){
+				foreach ($array as $key => $value) {
+					$data .= '<link rel="alternate" href="'.HTTP_PATH.$key.$temp.'" hreflang="'.$key.'" />
 ';
+				}
+				$data .= '<link rel="alternate" href="'.substr(HTTP_PATH,0,-1).$temp.'" hreflang="x-default" />';//
 			}
-			$data .= '<link rel="alternate" href="'.substr(HTTP_PATH,0,-1).$temp.'" hreflang="x-default" />';//
 			return $data;
 		}
 
