@@ -31,7 +31,7 @@
             border-top-width: 0px; 
         }
         .custom-file-input ~ .custom-file-label::after {
-            content: "({$console->getLabel("BROWSER")})";
+            content: "({$label_back.BROWSER})";
         }
 
     </style>
@@ -54,7 +54,7 @@
 
             if(($('#imgDIV({$_I_})>div').length+files.length) > ({(int)$module.uploadImg[$_I_].max})){
                 document.getElementById('ff({$_I_})').value = '';
-                alert("({$console->getLabel("UPLOAD_MAX_OUT")})({(int)$module.uploadImg[$_I_].max})");
+                alert("({$label_back.UPLOAD_MAX_OUT})({(int)$module.uploadImg[$_I_].max})");
                 return false;
             }
 
@@ -70,10 +70,10 @@
                     for(var key in fileName){
                         openFile({$_I_})(_jsPath+'/'+fileName[key]);
                     }
-                    up_progress.innerHTML = '({$console->getLabel("UPLOAD_IMG_OK")})';
+                    up_progress.innerHTML = '({$label_back.UPLOAD_IMG_OK})';
                 }catch(e){
-                    up_progress.innerHTML = '({$console->getLabel("UPLOAD_IMG_ERROR")})';
-                    alert('({$console->getLabel("UPLOAD_IMG_ERROR")})' + this.responseText);
+                    up_progress.innerHTML = '({$label_back.UPLOAD_IMG_ERROR})';
+                    alert('({$label_back.UPLOAD_IMG_ERROR})' + this.responseText);
                 }
                 document.getElementById('ff({$_I_})').value = '';
                 document.getElementById('dropDIV({$_I_})').style.border = 'dashed 5px gray';
@@ -83,7 +83,7 @@
                 if (evt.lengthComputable) {
                     var complete = (evt.loaded / evt.total * 100 | 0);
                     if (100 == complete) {
-                        up_progress.innerHTML = '({$console->getLabel("FILE_PROCESSING")})';
+                        up_progress.innerHTML = '({$label_back.FILE_PROCESSING})';
                     }else{
                         up_progress.innerHTML = complete + ' %';
                     }
@@ -95,7 +95,7 @@
                 var check_file_name = files[i].name.split('.');
                 check_file_name = check_file_name[check_file_name.length - 1];
                 if (check_image_type.indexOf(check_file_name.toLowerCase()) < 0) {
-                    errMsg += files[i].name+'({$console->getLabel("UPLOAD_IMG_TYPE_ERROR")})\n';
+                    errMsg += files[i].name+'({$label_back.UPLOAD_IMG_TYPE_ERROR})\n';
                 } else {
                     objForm.append('images[]', files[i]);
                 }
@@ -111,7 +111,7 @@
         function openFile({$_I_})(imgSrc) {
             if(($('#imgDIV({$_I_})>div').length)+1 > ({(int)$module.uploadImg[$_I_].max})){
                 document.getElementById('ff({$_I_})').value = '';
-                alert("({$console->getLabel("UPLOAD_MAX_OUT")})({(int)$module.uploadImg[$_I_].max})");
+                alert("({$label_back.UPLOAD_MAX_OUT})({(int)$module.uploadImg[$_I_].max})");
                 return false;
             }
             var imgDiv = document.createElement('div');
@@ -126,9 +126,9 @@
 
             imgBtn.className = "btn btn-outline-secondary";
             imgBtn.type = "button";
-            imgBtn.value = "({$console->getLabel("DELETE")})";
+            imgBtn.value = "({$label_back.DELETE})";
             imgBtn.onclick = function (){
-                if (confirm("({$console->getLabel("IMG_DELETE_CONFIRM")})")) {
+                if (confirm("({$label_back.IMG_DELETE_CONFIRM})")) {
                     $.ajax({
                         url: _jsPath+"/ajax.php",
                         type: "GET",
@@ -139,9 +139,9 @@
                         async: false,
                         success: function(msg){
                             if(msg){
-                                // alert("({$console->getLabel("DELETE_OK")})");
+                                // alert("({$label_back.DELETE_OK})");
                             }else{
-                                // alert("({$console->getLabel("DELETE_ERROR")})");
+                                // alert("({$label_back.DELETE_ERROR})");
                             }
                             temp = imgSrc.replace(/\./g, "\\.");
                             temp = temp.replace(/\//g, "\\\/");
@@ -157,7 +157,7 @@
             imgBtnCropper.dataset.backdrop = "static";
             imgBtnCropper.dataset.src = imgSrc;
             imgBtnCropper.type = "button";
-            imgBtnCropper.value = "({$console->getLabel("CROPPER_IMAGE")})";
+            imgBtnCropper.value = "({$label_back.CROPPER_IMAGE})";
             imgBtnCropper.onclick = function (){
                 openCropper({$_I_})(this);
             };
@@ -215,6 +215,30 @@
             ({/if})
 
 
+            ({if isset($module.uploadImg[$_I_].textareaOther)})
+                ({section name=i loop=$module.uploadImg[$_I_].textareaOther})
+
+                    var imgDiv({$smarty.section.i.index}) = document.createElement('div');
+                    var imgInput({$smarty.section.i.index}) = document.createElement('textarea');
+                    var imgLabel({$smarty.section.i.index}) = document.createElement('label');
+                    imgDiv({$smarty.section.i.index}).className = "form-row";
+
+                    imgLabel({$smarty.section.i.index}).className = " control-label col-sm-1";
+                    imgLabel({$smarty.section.i.index}).innerText = "({$module.uploadImg[$_I_].textareaOtherText[i]})";
+
+                    imgInput({$smarty.section.i.index}).rows = "5";
+                    imgInput({$smarty.section.i.index}).className = " col-sm-11 form-control mb-2";
+                    imgInput({$smarty.section.i.index}).name = "({$module.uploadImg[$_I_].name})({$module.uploadImg[$_I_].textareaOther[i]})({if $module.uploadImg[$_I_].max>1})[]({/if})";
+                    var temp = textareaOther_({$module.uploadImg[$_I_].textareaOther[i]})({$_I_}).shift();
+                    temp = (typeof(temp)=="undefined") ?　"" : temp;
+                    imgInput({$smarty.section.i.index}).value = temp;
+
+                    imgDiv({$smarty.section.i.index}).appendChild(imgLabel({$smarty.section.i.index}));
+                    imgDiv({$smarty.section.i.index}).appendChild(imgInput({$smarty.section.i.index}));
+                    imgDiv.appendChild(imgDiv({$smarty.section.i.index}));
+
+                ({/section})
+            ({/if})
 
             document.getElementById('imgDIV({$_I_})').appendChild(imgDiv);
 
@@ -232,6 +256,24 @@
                     ({else if isset($data["one"][$temp])})
                         ({foreach key=k item=v from=$data["one"][$temp]})
                             textOther_({$module.uploadImg[$_I_].textOther[i]})({$_I_}) = $.parseJSON('({$v|unescape:"html"|addslashes})');
+                        ({/foreach})
+                    ({/if})
+
+                ({/section})
+            ({/if})
+
+            ({if isset($module.uploadImg[$_I_].textareaOther)})
+                ({section name=i loop=$module.uploadImg[$_I_].textareaOther})
+                    textareaOther_({$module.uploadImg[$_I_].textareaOther[i]})({$_I_}) = [];
+
+                    ({assign var="temp" value=$module.uploadImg[$_I_].name|cat:$module.uploadImg[$_I_].textareaOther[i]})
+                    ({if isset($data[$temp])})
+                        ({foreach key=k item=v from=$data[$temp]})
+                            textareaOther_({$module.uploadImg[$_I_].textareaOther[i]})({$_I_}) = $.parseJSON('({$v|unescape:"html"|addslashes})');
+                        ({/foreach})
+                    ({else if isset($data["one"][$temp])})
+                        ({foreach key=k item=v from=$data["one"][$temp]})
+                            textareaOther_({$module.uploadImg[$_I_].textareaOther[i]})({$_I_}) = $.parseJSON('({$v|unescape:"html"|addslashes})');
                         ({/foreach})
                     ({/if})
 
@@ -268,9 +310,9 @@
     </script>
 
     <div id="dropDIV({$_I_})" ondragover="dragoverHandler({$_I_})(event)" ondrop="dropHandler({$_I_})(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" onclick="document.getElementById('ff({$_I_})').click();" ({if $module.uploadImg[$_I_].max<=1})style="display: none;"({/if})>
-        ({$console->getLabel("IMG_DROP")})
+        ({$label_back.IMG_DROP})
         ({if isset($module.uploadImg[$_I_].suggestText)})
-        <br>({$console->getLabel("SUGGEST_SIZE")})({$module.uploadImg[$_I_].suggestText})
+        <br>({$label_back.SUGGEST_SIZE})({$module.uploadImg[$_I_].suggestText})
         ({/if})
         <div id="up_progress({$_I_})"></div>
         ({if $module.uploadImg[$_I_].max>1})
@@ -287,7 +329,7 @@
     ({if $module.uploadImg[$_I_].max<=1})
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="ff({$_I_})" onchange="dropHandler({$_I_})('',0);">
-            <label class="custom-file-label" for="ff({$_I_})">({$console->getLabel("CHANGE_FILE")})</label>
+            <label class="custom-file-label" for="ff({$_I_})">({$label_back.CHANGE_FILE})</label>
         </div>
     ({/if})
 
@@ -296,7 +338,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">({$console->getLabel("CROPPER_IMAGE")})</h5>
+                    <h5 class="modal-title" id="modalLabel">({$label_back.CROPPER_IMAGE})</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -308,8 +350,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="if(cropperImage(cropperData({$_I_}))) $('#modalCropper({$_I_})').modal('hide');">({$console->getLabel("SAVE")})</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">({$console->getLabel("BACK")})</button>
+                    <button type="button" class="btn btn-secondary" onclick="if(cropperImage(cropperData({$_I_}))) $('#modalCropper({$_I_})').modal('hide');">({$label_back.SAVE})</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">({$label_back.BACK})</button>
                 </div>
             </div>
         </div>
@@ -366,4 +408,5 @@
     </script>
 
     <!-- 上傳圖片模組 end -->
+    
 ({/if})

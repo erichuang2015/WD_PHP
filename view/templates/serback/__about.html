@@ -8,6 +8,11 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
+                        ({if $console->path[0]=="basic" && $console->path[1]=="product"})
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="list" href="#list-advanced-serch">({$console->getLabel("ADVANCED")})({$console->getLabel("SEARCH")})</a>
+                            </li>
+                        ({/if})
                     ({/if})
                     ({if $switch.editList!=0 || $switch.addList!=0})
                         <li class="nav-item">
@@ -18,6 +23,20 @@
                                 <a class="nav-link" data-toggle="list" href="#list-form-data">({$console->getLabel("FORM_DATA")})</a>
                             </li>
                         ({/if})
+                        ({if $console->path[0]=="basic" && $console->path[1]=="product"})
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="list" href="#list-specifications">({$console->getLabel("PRODUCT_SPECIFICATIONS")})</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="list" href="#list-price">({$console->getLabel("PRICE_SETTING")})</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="list" href="#list-add-product">({$console->getLabel("ADD_PRODUCT")})</a>
+                            </li>
+                        ({/if})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$console->getLabel("PAGE_SETTING")})</a>
+                        </li>
                     ({/if})
                 </ul>
             </div>
@@ -44,17 +63,28 @@
                         </thead>
                         <tbody>
                             ({section name=i loop=$data.list})
-                                <tr>
+                                <tr data-parent="({$data.list[i].parent})" data-id="({$data.list[i].id})">
                                     <td scope="row">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
                                             <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
                                         </div>
                                     </td>
-                                    <td >
-                                        <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
-                                        
-                                    </td>
+                                    ({if $console->path[0]!="class"})
+                                        <td >
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
+                                        </td>
+                                    ({else})
+                                        <td >
+                                            ({for $j=1 to $data.list[i].floor})&nbsp;&nbsp;&nbsp;&nbsp;({/for})
+                                            ({if $data.list[i].floor < $data.maxFloor})
+                                                <span class="glyphicon glyphicon-minus" style="color:#6e7892" data-id="({$data.list[i].id})" onclick="treeFoldStar(({$data.list[i].id}))"></span>
+                                            ({else})
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                            ({/if})
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
+                                        </td>
+                                    ({/if})
                                     <td>
                                         <div class="input-group input-group-sm">
                                             <input type="text" class="form-control col-md-3" name="sort_({$data.list[i].id})" value="({$data.list[i].sort})">
@@ -83,6 +113,95 @@
                         </tbody>
                     </table>          
                 </div>
+
+                <!-- 進階搜尋 -->
+                <div class="card-body tab-pane fade " id="list-advanced-serch">
+                    <form action="" method="GET" >
+                        ({foreach from=$smarty.get key=k item=v})
+                            ({if $k!="searchKeyWord" && $k!="startDate" && $k!="endDate" && $k!="status" && $k!="per" && $k!="class"})
+                                <input type="hidden" value="({$v})" name="({$k})">
+                            ({/if})
+                        ({/foreach})
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('SEARCH_KEYWORD')})</label>
+                                <input type="text" name="searchKeyWord" class="form-control" value="({$smarty.get.searchKeyWord})" data-text="({$console->getLabel('NAME')})">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('FROM')})</label>
+                                <input type="date" value="({if isset($smarty.get.startDate)})({$smarty.get.startDate})({/if})" class="form-control" name="startDate">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('TO')})</label>
+                                <input type="date" value="({if isset($smarty.get.endDate)})({$smarty.get.endDate})({/if})" class="form-control" name="endDate">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('STATUS')})</label>
+                                <select name="status" class="form-control">
+                                    <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                    <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$console->getLabel("STATUS_1")})</option>
+                                    <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$console->getLabel("STATUS_0")})</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('PAGE_DATA_COUNT')})</label>
+                                <select name="per" class="form-control">
+                                    <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                    <option value="10" ({if isset($smarty.get.per) && $smarty.get.per=='10'})selected({/if})>10</option>
+                                    <option value="20" ({if isset($smarty.get.per) && $smarty.get.per=='20'})selected({/if})>20</option>
+                                    <option value="30" ({if isset($smarty.get.per) && $smarty.get.per=='30'})selected({/if})>30</option>
+                                    <option value="40" ({if isset($smarty.get.per) && $smarty.get.per=='40'})selected({/if})>40</option>
+                                    <option value="50" ({if isset($smarty.get.per) && $smarty.get.per=='50'})selected({/if})>50</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("CLASS")})</label>
+                                <select class="form-control" name="class" >
+                                    <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                    ({if $data.class.list})
+                                        ({section name=i loop=$data.class.list})
+                                            <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) ({if $data.class.list[i].id==$smarty.get.class})selected({/if})>({$data.class.list[i].name})</option>
+                                        ({/section})
+                                    ({/if})
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('STOCK_BELOW')})</label>
+                                <select name="stockBelow" class="form-control">
+                                    <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                    <option value="1" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='1'})selected({/if})>1</option>
+                                    <option value="5" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='5'})selected({/if})>5</option>
+                                    <option value="10" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='10'})selected({/if})>10</option>
+                                    <option value="20" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='20'})selected({/if})>20</option>
+                                    <option value="50" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='50'})selected({/if})>50</option>
+                                    <option value="100" ({if isset($smarty.get.stockBelow) && $smarty.get.stockBelow=='100'})selected({/if})>100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-secondary glyphicon-search" type="submit"> ({$console->getLabel("SEARCH")})</button>
+                        <button class="btn btn-link glyphicon" onclick="location.href='({$data.listUrl})';return false;"> ({$console->getLabel("RESET")})</button>
+                    </form>
+                </div>
             ({/if})
 
             ({if $switch.editList!=0 || $switch.addList!=0})
@@ -95,6 +214,76 @@
                                 <input type="text" name="name" class="form-control" autocomplete="name" value="({$data.one.name})" data-text="({$console->getLabel("NAME")})" required>
                             </div>
                         </div>
+                    ({/if})
+
+                    ({if $console->path[0]=="class"})
+                        ({if $switch.editList!=0})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel("FLOOR")})</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
+                                            <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                            <option value="0,-1" ({if 0==$data.one.parent})selected({/if})>({$console->getLabel("ROOT_DIRECTORY")})</option>
+                                            ({section name=i loop=$data.list})
+                                                ({if $data.list[i].floor < $data.addMaxFloor})
+                                                <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;" ({if $data.list[i].id==$data.one.parent})selected({/if})> ({$data.list[i].name})</option>
+                                                ({/if})
+                                            ({/section})
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        ({else})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel("FLOOR")})</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
+                                            <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                            <option value="0,-1">({$console->getLabel("ROOT_DIRECTORY")})</option>
+                                            ({section name=i loop=$data.list})
+                                                ({if $data.list[i].floor < $data.addMaxFloor})
+                                                <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;">({$data.list[i].name})</option>
+                                                ({/if})
+                                            ({/section})
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        ({/if})
+                    ({/if})
+
+                    ({if $data.class})
+                        ({if $switch.editList!=0})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel("CLASS")})</label>
+                                    <div class="form-group">
+                                        <input type="hidden" name="class">
+                                        <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required multiple>
+                                            ({section name=i loop=$data.class.list})
+                                                <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) ({if in_array($data.class.list[i].id,$data.one.class)})selected({/if})>({$data.class.list[i].name})</option>
+                                            ({/section})
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        ({else})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel("CLASS")})</label>
+                                    <div class="form-group">
+                                        <input type="hidden" name="class">
+                                        <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required multiple>
+                                            ({section name=i loop=$data.class.list})
+                                                <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if})>({$data.class.list[i].name})</option>
+                                            ({/section})
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        ({/if})
                     ({/if})
 
                     ({assign var="aceI" value=0})
@@ -197,6 +386,7 @@
                             ({assign var="mapI" value=$mapI+1})
                         ({else if $data.system.dataType[i] == "search"})
                             <div class="form-row form-inline">
+                                <label class="mb-3">({$console->getLabel($data.system.dataName[i])})</label>
                                 <div class="col-md-12 mb-3">
                                     <input type="text" class="form-control" id="sKeyword({$searchI})" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
                                     <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('SEARCH')})" onclick="searchNews({$searchI})();">
@@ -234,10 +424,10 @@
                                 }
 
                                 function addNewsF({$searchI})(id){
-                                    // if($(".specifications-div").length>=5){
-                                    //     alert(_jsMsg["SELECT_ACHIEVE_MAX"]+" 5");
-                                    //     return false;
-                                    // }
+                                    if($("#s_div({$searchI}) .specifications-div").length>=({$data.system.dataSearchCount[i]})){
+                                        alert(_jsMsg["SELECT_ACHIEVE_MAX"]+" ({(int)$data.system.dataSearchCount[i]})");
+                                        return false;
+                                    }
                                     if(id){
                                         $.ajax({
                                             url: _jsPath+"/ajax.php",
@@ -352,6 +542,188 @@
                             }
                         }
                     </script>
+                ({/if})
+
+                <div class="card-body tab-pane fade" id="list-page-setting">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("CUSTOM_PAGE_TITLE")})</label>
+                            <input type="text" class="form-control" name="pageTitle" value="">
+                            <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_TITLE_TEXT")})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("CUSTOM_URL")})</label>
+                            <input type="text" class="form-control" name="urlKey" value="">
+                            <small class="text-muted">({$console->getLabel("CUSTOM_URL_TEXT")})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("CUSTOM_PAGE_META")})</label>
+                            <textarea class="form-control" rows="8" name="pageMeta"></textarea>
+                            <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_META_TEXT")})</small>
+                        </div>
+                    </div>
+                </div>
+
+                ({if $console->path[0]=="basic" && $console->path[1]=="product"})
+                    <!-- 商品規格 -->
+                    <div class="card-body tab-pane fade" id="list-specifications">
+                        <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_SPECIFICATIONS')})" onclick="addSpecifications();">
+                        <div class="form-row form-inline" id="specifications_div" >
+                            <input type="hidden" name="specificationsID" value="default">
+                            <input type="hidden" name="specifications" value="default">
+                            <input type="hidden" name="stock" value="0">
+                            <input type="hidden" name="maxCount" value="0">
+                            ({section name=i loop=$data.one.specifications})
+                                <div class="col-md-12 mb-3 specifications-div">
+                                    <span> ({$console->getLabel('SPECIFICATIONS_ID')})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$console->getLabel('SPECIFICATIONS_ID')})" value="({$data.one.specificationsID[i]})" data-check="Only" onkeyup="this.value=this.value.replace(/\W/g,'');" required>
+                                    <span> ({$console->getLabel('SPECIFICATIONS_NAME')})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$console->getLabel('SPECIFICATIONS_NAME')})" value="({$data.one.specifications[i]})" required>
+                                    <span> ({$console->getLabel('STOCK')})：</span><input type="text" class="form-control" name="stock[]" value="({$data.one.stock[i]})" data-text="({$console->getLabel('STOCK')})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
+                                    <span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="maxCount[]" value="({$data.one.maxCount[i]})" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-check="Number" required>
+                                    <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
+                                </div>
+                            ({/section})
+                        </div>
+                    </div>
+                    <script>
+                        function addSpecifications(){
+                            if($("#list-specifications .specifications-div").length>=1){
+                                alert(_jsMsg["SELECT_ACHIEVE_MAX"]+" 1");
+                                return false;
+                            }
+                            $('#specifications_div').append('<div class="col-md-12 mb-3 specifications-div">'+
+                                '<span> ({$console->getLabel('SPECIFICATIONS_ID')})：</span><input type="text" class="form-control" name="specificationsID[]" data-text="({$console->getLabel('SPECIFICATIONS_ID')})" value="" data-check="Only" required>'+
+                                '<span> ({$console->getLabel('SPECIFICATIONS_NAME')})：</span><input type="text" class="form-control" name="specifications[]" data-text="({$console->getLabel('SPECIFICATIONS_NAME')})" value="" required>'+
+                                '<span> ({$console->getLabel('STOCK')})：</span><input type="text" class="form-control" name="stock[]" value="" data-text="({$console->getLabel('STOCK')})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
+                                '<span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="maxCount[]" value="10" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\\D/g,\'\');" data-check="Number" required>'+
+                                '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
+                            '</div>');
+                        }
+                        $(function(){
+                            $('#specifications_div').sortable({
+                                items: '.specifications-div'
+                            });
+                        });
+                    </script>
+
+                    <!-- 售價設定 -->
+                    <div class="card-body tab-pane fade" id="list-price">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('ORIGINAL_PRICE')})</label>
+                                <input type="text" name="originalPrice" class="form-control" value="({$data.one.originalPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('ORIGINAL_PRICE')})" data-check="Number" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('SPECIAL_PRICE')})</label>
+                                <input type="text" name="specialPrice" class="form-control" value="({$data.one.specialPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('SPECIAL_PRICE')})" data-check="Number" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('MEMBER_PRICE')})</label>
+                                <input type="text" name="memberPrice" class="form-control" value="({$data.one.memberPrice})" onkeyup="this.value=this.value.replace(/\D/g,'');" data-text="({$console->getLabel('MEMBER_PRICE')})" data-check="Number" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 加價購商品 -->
+                    <div class="card-body tab-pane fade" id="list-add-product">
+                        <div class="form-row form-inline">
+                            <div class="col-md-12 mb-3">
+                                <!-- <span> ({$console->getLabel('PRODUCT_NAME')})：</span> --><input type="text" class="form-control" id="addProductKeyword" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
+                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('SEARCH')})" onclick="searchProduct();">
+                            
+                                <select class="form-control" id="productSelect">
+                                    <option></option>
+                                </select>
+                                <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('ADD')})" onclick="addProductF($('#productSelect').val());">
+                            </div>
+                        </div>
+                        <div class="form-row form-inline" id="addProduct_div" >
+                            <input type="hidden" name="addProduct" value="">
+                            <input type="hidden" name="addProductSpecifications" value="">
+                            <input type="hidden" name="addProductMaxCount" value="">
+                        </div>
+                        <script>
+                            var searchProductArray=[];
+                            function searchProduct(){
+                                $('#productSelect').html("");
+                                $.ajax({
+                                    url: _jsPath+"/ajax.php",
+                                    type: "GET",
+                                    data: { searckProduct: 1, ({if $data.one.id})noSearchID: ({$data.one.id}),({/if}) keyword: $("#addProductKeyword").val() },
+                                    dataType:'text',
+                                    success: function(msg){
+                                        temp = JSON.parse(msg);
+                                        if(temp.length>0){
+                                            $(temp).each(function(index,obj){
+                                                $('#productSelect').append('<option value="'+obj["id"]+'">'+obj["name"]+'</option>');
+                                                searchProductArray[obj["id"]] = obj;
+                                            });
+                                        }else{
+                                            $('#productSelect').append('<option>NULL</option>');
+                                        }
+                                    }
+                                });
+                            }
+
+                            function addProductF(id,selected,maxCount,money){
+                                if(id){
+                                    $.ajax({
+                                        url: _jsPath+"/ajax.php",
+                                        type: "GET",
+                                        data: { searckProduct: 1, id: id, keyword: '' },
+                                        dataType:'text',
+                                        async: false,
+                                        success: function(msg){
+                                            temp = JSON.parse(msg);
+                                            if(temp.length>0){
+                                                temp = temp[0];
+                                                var optionHtml = "";
+                                                for (var i = 0; i < temp["specificationsID"].length; i++) {
+                                                    if(temp["specificationsID"][i] == selected){
+                                                        optionHtml += '<option value="'+temp["specificationsID"][i]+'" selected>'+temp["specifications"][i]+'</option>';
+                                                    }else{
+                                                        optionHtml += '<option value="'+temp["specificationsID"][i]+'">'+temp["specifications"][i]+'</option>';
+                                                    }
+                                                }
+                                                maxCount = typeof(maxCount)=="undefined"?10:maxCount;
+                                                money = typeof(money)=="undefined"?temp["originalPrice"]:money;
+                                                var divHtml = 
+                                                    '<div class="col-md-12 mb-3 specifications-div">'+
+                                                        '<input type="hidden" name="addProduct[]" value="'+id+'">'+
+                                                        '<img src="'+temp["picture"]+'?aaa='+temp["update_date"]+'" style="max-width:100px;">'+
+                                                        '<span>'+temp["name"]+' </span>'+
+                                                        '<select class="form-control" name="addProductSpecifications[]">'+optionHtml+
+                                                        '</select>'+
+                                                        '<span> ({$console->getLabel('MAX_COUNT')})：</span><input type="text" class="form-control" name="addProductMaxCount[]" value="'+maxCount+'" data-text="({$console->getLabel('MAX_COUNT')})" onkeyup="this.value=this.value.replace(/\D/g,\'\');" data-check="Number" required>'+
+                                                        '<span> ({$console->getLabel('MONEY')})：</span><input type="text" class="form-control" name="addProductMoney[]" value="'+money+'" data-text="({$console->getLabel('MONEY')})" onkeyup="this.value=this.value.replace(/\D/g,\'\');" data-check="Number" required>'+
+                                                        ' <input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
+                                                    '</div>';
+                                                $("#addProduct_div").append(divHtml);
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                            $(function(){
+                                $('#addProduct_div').sortable({
+                                    items: '.specifications-div'
+                                });
+                                ({section name=i loop=$data.one.addProduct})
+                                    ({if $data.one.addProduct[i]})
+                                        addProductF(({$data.one.addProduct[i]}),'({$data.one.addProductSpecifications[i]})','({$data.one.addProductMaxCount[i]})','({$data.one.addProductMoney[i]})');
+                                    ({/if})
+                                ({/section})
+                            });
+                        </script>
+                    </div>
                 ({/if})
             ({/if})
 

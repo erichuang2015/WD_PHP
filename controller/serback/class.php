@@ -8,6 +8,9 @@ $dataClass = new MTsung\dataClass($console,PREFIX.$console->path[1]."_class",$se
 //目前最大層數
 $data["maxFloor"] = $dataClass->getMaxFloor();
 
+//限制最大層數 (0開始算)
+$data["addMaxFloor"] = 0;
+
 $designName = $console->path[1]."_class";
 
 //欄位白名單 = 需要必填的欄位 = 需要轉陣列的欄位 = 搜尋key
@@ -16,15 +19,6 @@ $searchKey = array("name");
 
 /**設定**/
 switch ($console->path[1]) {
-	case 'news':
-
-		$data["addMaxFloor"] = 0;
-		break;
-	default:
-
-		//限制最大層數 (0開始算)
-		$data["addMaxFloor"] = 0;
-		break;
 }
 /**設定**/
 
@@ -32,14 +26,6 @@ switch ($console->path[1]) {
 
 /**模組**/
 switch ($console->path[1]) {
-	default:
-
-		$module["tinemceEditor"][0]["name"] = 'detail';
-		$module["uploadImg"][0]["name"] = "picture";
-		$module["uploadImg"][0]["max"] = 10;
-		$module["uploadImg"][0]["textOther"] = array("Title","Alt","Href");
-		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("TITLE"),$console->getLabel("ALT"),$console->getLabel("URL"));
-		break;
 }
 /**模組**/
 

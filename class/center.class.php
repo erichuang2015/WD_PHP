@@ -377,7 +377,7 @@ namespace MTsung{
 
 					if($explodeArray){//需要轉陣列的欄位
 						foreach ($explodeArray as $valueE) {
-							if(($valueE != "") && !is_array($temp[$key][$valueE])){
+							if(($valueE != "") && !is_array($temp[$key][$valueE]) && $temp[$key][$valueE]){
 								$temp[$key][$valueE] = explode("|__|", $temp[$key][$valueE]);
 							}
 						}
@@ -612,7 +612,7 @@ namespace MTsung{
 			$temp = array();
 			if(is_array($array)){
 				foreach ($array as $key => $value) {
-					if(!isset($data[$value]) || !$data[$value]){
+					if(!isset($data[$value]) || ""==$data[$value]){
 						array_push($temp,$value);
 					}
 				}

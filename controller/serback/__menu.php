@@ -6,7 +6,22 @@ $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
 $systemMenu = new MTsung\menu($console,PREFIX."menu");
 
-$explodeArray = array("dataName","dataType","dataOption","dataRequired","dataKey","dataCount","dataExtension","dataSearch");
+$explodeArray = array(
+	"dataName",
+	"dataType",
+	"dataOption",
+	"dataRequired",
+	"dataKey",
+	"dataCount",
+	"dataExtension",
+	"dataSearch",
+	"dataSuggestText",
+	"dataTextOther",
+	"dataTextOtherText",
+	"dataTextareaOther",
+	"dataTextareaOtherText",
+	"dataSearchCount",
+);
 
 //目前最大層數
 $data["maxFloor"] = $systemMenu->getMaxFloor();

@@ -115,6 +115,13 @@
                             </div>
                         </div>
 
+                        <div class="form-row" id="div_floor">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("MAX_FLOOR")})</label>
+                                <input type="text" class="form-control" name="addMaxFloor" value="({$data.one.addMaxFloor})" data-text="({$console->getLabel("MAX_FLOOR")})" data-check="Number" required>
+                            </div>
+                        </div>
+
                         <div class="form-row" id="div_count">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("FRONT_DATA_COUNT")})</label>
@@ -173,7 +180,9 @@
                                 ({section name=i loop=$data.one.dataName})
                                     <div class="col-md-12 mb-3 specifications-div">
                                         <span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="({$data.one.dataName[i]})" required>
+
                                         <span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="({$data.one.dataKey[i]})" data-check="Only" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');">
+
                                         <span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">
                                             ({foreach from=$data.typeOption key=k item=v})
                                                 <option value="({$k})" ({if $k==$data.one.dataType[i]})selected({/if})>({$v})</option>
@@ -181,16 +190,27 @@
                                         </select>
                                         
                                         <span class="count_div" ({if !($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
-                                            <span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="({$data.one.dataCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})required({/if})>
+                                            <span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="({$data.one.dataCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})required({/if}) size="4">
                                         </span>
 
                                         <span class="search_div" ({if !($data.one.dataType[i]=="search")})style="display:none"({/if})>
-                                            <span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value="({$data.one.dataSearch[i]})" ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="search")})required({/if})>
+                                            <span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value="({$data.one.dataSearch[i]})" ({if ($data.one.dataType[i]=="search")})required({/if})>
+                                            <span> ({$console->getLabel('SEARCH_COUNT')})：</span><input type="text" class="form-control" name="dataSearchCount[]" data-text="({$console->getLabel('SEARCH_COUNT')})" value="({$data.one.dataSearchCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="search")})required({/if}) size="4">
                                         </span>
 
                                         <span class="option_div" ({if !($data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
-                                            <span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="extension1,extension2" ({if ($data.one.dataType[i]=="fileModule")})required({/if})>({$data.one.dataExtension[i]})</textarea>
+                                            <span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="mp3,pdf" ({if ($data.one.dataType[i]=="fileModule")})required({/if})>({$data.one.dataExtension[i]})</textarea>
                                         </span>
+
+                                        <span class="count_div" ({if !($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
+                                            <span> ({$console->getLabel('SUGGEST_TEXT')})：</span><input type="text" class="form-control" name="dataSuggestText[]" data-text="({$console->getLabel('SUGGEST_TEXT')})" value="({$data.one.dataSuggestText[i]})"  ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})required({/if})>
+
+                                            <br><br><span> ({$console->getLabel('TEXT_OTHER')})：</span><textarea class="form-control" name="dataTextOther[]" data-text="({$console->getLabel('TEXT_OTHER')})" placeholder="Href,Alt">({$data.one.dataTextOther[i]})</textarea>
+                                            <span> ({$console->getLabel('TEXT_OTHER_TEXT')})：</span><textarea class="form-control" name="dataTextOtherText[]" data-text="({$console->getLabel('TEXT_OTHER_TEXT')})" placeholder="TEXT,文字">({$data.one.dataTextOtherText[i]})</textarea>
+                                            <span> ({$console->getLabel('TEXT_AREAOTHER')})：</span><textarea class="form-control" name="dataTextareaOther[]" data-text="({$console->getLabel('TEXT_AREAOTHER')})" placeholder="Href,Alt">({$data.one.dataTextareaOther[i]})</textarea>
+                                            <span> ({$console->getLabel('TEXT_AREAOTHER_TEXT')})：</span><textarea class="form-control" name="dataTextareaOtherText[]" data-text="({$console->getLabel('TEXT_AREAOTHER_TEXT')})" placeholder="TEXT,文字">({$data.one.dataTextareaOtherText[i]})</textarea>
+                                        </span>
+
                                         <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
                                     </div>
                                 ({/section})
@@ -215,13 +235,21 @@
                                         ({/foreach})
                                     '</select>'+
                                     '<span class="count_div" style="display:none">'+
-                                        '<span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="" data-check="Number">'+
+                                        '<span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="" data-check="Number" size="4">'+
                                     '</span> '+
                                     '<span class="search_div" style="display:none">'+
                                         '<span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value="" >'+
+                                        '<span> ({$console->getLabel('SEARCH_COUNT')})：</span><input type="text" class="form-control" name="dataSearchCount[]" data-text="({$console->getLabel('SEARCH_COUNT')})" value="" data-check="Number" size="4">'+
                                     '</span> '+
                                     '<span class="option_div" style="display:none">'+
-                                        '<span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="extension1,extension2"></textarea>'+
+                                        '<span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="mp3,pdf"></textarea>'+
+                                    '</span> '+
+                                    '<span class="count_div" style="display:none">'+
+                                        '<span> ({$console->getLabel('SUGGEST_TEXT')})：</span><input type="text" class="form-control" name="dataSuggestText[]" data-text="({$console->getLabel('SUGGEST_TEXT')})" value="" >'+
+                                        '<br><br><span> ({$console->getLabel('TEXT_OTHER')})：</span><textarea class="form-control" name="dataTextOther[]" data-text="({$console->getLabel('TEXT_OTHER')})" placeholder="Href,Alt"></textarea>'+
+                                        '<span> ({$console->getLabel('TEXT_OTHER_TEXT')})：</span><textarea class="form-control" name="dataTextOtherText[]" data-text="({$console->getLabel('TEXT_OTHER_TEXT')})" placeholder="TEXT,文字"></textarea>'+
+                                        '<span> ({$console->getLabel('TEXT_AREAOTHER')})：</span><textarea class="form-control" name="dataTextareaOther[]" data-text="({$console->getLabel('TEXT_AREAOTHER')})" placeholder="Href,Alt"></textarea>'+
+                                        '<span> ({$console->getLabel('TEXT_AREAOTHER_TEXT')})：</span><textarea class="form-control" name="dataTextareaOtherText[]" data-text="({$console->getLabel('TEXT_AREAOTHER_TEXT')})" placeholder="TEXT,文字"></textarea>'+
                                     '</span> '+
                                     '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                                 '</div>');
@@ -274,6 +302,11 @@
                                     $("#div_count").show().find("input").prop('required',true);
                                 }else{
                                     $("#div_count").hide().find("input").prop('required',false).val('');
+                                }
+                                if($(obj).val()=="_other_class" || $(obj).val()=="class/product"){
+                                    $("#div_floor").show().find("input").prop('required',true);
+                                }else{
+                                    $("#div_floor").hide().find("input").prop('required',false).val('');
                                 }
                             }
                         </script>

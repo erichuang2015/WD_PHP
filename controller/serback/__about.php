@@ -4,12 +4,23 @@
 if($temp = $menu->getData("where url='".$console->path[0]."/".$console->path[1]."' and (features!='' or features IS NOT NULL)")){
 	$temp = $temp[0];
 	$designName = "__about";
-	$temp["dataName"] = explode("|__|", $temp["dataName"]);
-	$temp["dataType"] = explode("|__|", $temp["dataType"]);
-	$temp["dataKey"] = explode("|__|", $temp["dataKey"]);
-	$temp["dataCount"] = explode("|__|", $temp["dataCount"]);
-	$temp["dataExtension"] = explode("|__|", $temp["dataExtension"]);
-	$temp["dataSearch"] = explode("|__|", $temp["dataSearch"]);
+	foreach (array(
+					"dataName",
+					"dataType",
+					"dataKey",
+					"dataCount",
+					"dataExtension",
+					"dataSearch",
+					"dataSuggestText",
+					"dataTextOther",
+					"dataTextOtherText",
+					"dataTextareaOther",
+					"dataTextareaOtherText",
+					"dataSearchCount",
+				) as $key => $value) {
+			$temp[$value] = explode("|__|", $temp[$value]);
+	}
+	
 
 	$imgI = $fileI = $aceI = 0;
 	foreach ($temp["dataType"] as $key => $value) {
@@ -21,17 +32,35 @@ if($temp = $menu->getData("where url='".$console->path[0]."/".$console->path[1].
 			case 'imageModule':
 				$module["uploadImg"][$imgI]["name"] = $temp["dataKey"][$key];//欄位名稱
 				$module["uploadImg"][$imgI]["max"] = $temp["dataCount"][$key];//限制數量
-				// $module["uploadImg"][$imgI]["textOther"] = array("Title","Alt","Href");//欄位名稱
-				// $module["uploadImg"][$imgI]["textOtherText"] = array($console->getLabel("TITLE"),$console->getLabel("ALT"),$console->getLabel("URL"));//提示字
-				// $module["uploadImg"][$imgI]["textareaOther"] = array("Detail");//欄位名稱
-				// $module["uploadImg"][$imgI]["textareaOtherText"] = array($console->getLabel("DETAIL"));//提示字
-				// $module["uploadImg"][$imgI]["suggestText"] = "1920x576";//建議尺寸
+
+				if($temp["dataTextOther"][$key]){
+					$module["uploadImg"][$imgI]["textOther"] = explode(",",$temp["dataTextOther"][$key]);//欄位名稱
+					$module["uploadImg"][$imgI]["textOtherText"] = array_map("getLabel_",explode(",",$temp["dataTextOtherText"][$key]));//提示字
+				}
+				
+				if($temp["dataTextareaOther"][$key]){
+					$module["uploadImg"][$imgI]["textareaOther"] = explode(",",$temp["dataTextareaOther"][$key]);//欄位名稱
+					$module["uploadImg"][$imgI]["textareaOtherText"] = array_map("getLabel_",explode(",",$temp["dataTextareaOtherText"][$key]));//提示字
+				}
+
+				$module["uploadImg"][$imgI]["suggestText"] = $console->getLabel($temp["dataSuggestText"][$key]);//提示文字
 				$imgI++;
 				break;
 			case 'fileModule':
 				$module["uploadFile"][$fileI]["name"] = $temp["dataKey"][$key];//欄位名稱
 				$module["uploadFile"][$fileI]["max"] = $temp["dataCount"][$key];//限制數量
-				// $module["uploadFile"][$fileI]["suggestText"] = "限制";//建議尺寸
+
+				if($temp["dataTextOther"][$key]){
+					$module["uploadFile"][$fileI]["textOther"] = explode(",",$temp["dataTextOther"][$key]);//欄位名稱
+					$module["uploadFile"][$fileI]["textOtherText"] = array_map("getLabel_",explode(",",$temp["dataTextOtherText"][$key]));//提示字
+				}
+
+				if($temp["dataTextareaOther"][$key]){
+					$module["uploadFile"][$fileI]["textareaOther"] = explode(",",$temp["dataTextareaOther"][$key]);//欄位名稱
+					$module["uploadFile"][$fileI]["textareaOtherText"] = array_map("getLabel_",explode(",",$temp["dataTextareaOtherText"][$key]));//提示字
+				}
+
+				$module["uploadFile"][$fileI]["suggestText"] = $console->getLabel($temp["dataSuggestText"][$key]);//提示文字
 				$module["uploadFile"][$fileI]["extension"] = explode(",",$temp["dataExtension"][$key]);//限制附檔名
 				$fileI++;
 				break;
@@ -64,6 +93,18 @@ $explodeArray[] = "dataType";
 $explodeArray[] = "dataOption";
 $explodeArray[] = "dataRequired";
 $explodeArray[] = "class";
+$explodeArray[] = "specificationsID";
+$explodeArray[] = "specifications";
+$explodeArray[] = "stock";
+$explodeArray[] = "addProduct";
+$explodeArray[] = "addProductSpecifications";
+$explodeArray[] = "maxCount";
+$explodeArray[] = "addProductMaxCount";
+$explodeArray[] = "addProductMoney";
+$searchKey[] = "name";
 
-
+function getLabel_($v){
+	global $console;
+	return $console->getLabel($v);
+}
 /**後台開出**/

@@ -20,30 +20,6 @@ $checkArray = $requiredArray = $explodeArray = $searchKey = array();
 
 /**設定**/
 switch ($console->path[1]) {
-	case 'index_product':
-	case 'index_news':
-	
-	    if($_POST && isset($_POST["detail"]) && is_array($_POST["detail"])){
-        	$_POST["detail"] = array_unique($_POST["detail"]);
-        }
-		$explodeArray = array("detail");
-		break;
-	default:
-		$data["typeOption"] = array(
-			"text" => "FORM_TEXT",
-			"textarea" => "FORM_TEXTAREA",
-			"email" => "FORM_EMAIL",
-			"password" => "FORM_PASSWORD",
-			"address" => "FORM_ADDRESS",
-			"date" => "FORM_DATE",
-			"file" => "FORM_FILE",
-			"select" => "FORM_SELECT",
-			"radio" => "FORM_RADIO",
-			"checkbox" => "FORM_CHECKBOX",
-		);
-		$explodeArray = array("dataName","dataType","dataOption","dataRequired","class");
-		$searchKey = array("name");
-		break;
 }
 /**設定**/
 

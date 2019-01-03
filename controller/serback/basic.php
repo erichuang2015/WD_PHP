@@ -42,35 +42,14 @@ switch ($console->path[1]) {
         }
 
 		$requiredArray = array("name","class","specificationsID","specifications","stock","maxCount");
-		$explodeArray = array("class","specificationsID","specifications","stock","addProduct","addProductSpecifications","maxCount","addProductMaxCount","addProductMoney");
-		$searchKey = array("name");
-		break;
-	default:
-		$explodeArray = array("class");
-		$searchKey = array("name");
-		break;
 }
 /**設定**/
 
 
 /**模組**/
 switch ($console->path[1]) {
-	case 'product':
-		
-		$module["tinemceEditor"][0]["name"] = 'detail';
-		$module["tinemceEditor"][0]["watermark"] = 0; //中間
-		$module["tinemceEditor"][1]["name"] = 'memo';
-		$module["uploadImg"][0]["name"] = "picture";
-		$module["uploadImg"][0]["max"] = 1.5;
-		$module["uploadImg"][0]["watermark"] = 0; //中間
-		$module["uploadImg"][0]["textOther"] = array("Alt");
-		$module["uploadImg"][0]["textOtherText"] = array($console->getLabel("ALT"));
-
-		break;
 	case '範例':
-
 		$module["tinemceEditor"][0]["name"] = 'detail';
-
 
 		$module["uploadImg"][0]["name"] = "picture";//欄位名稱
 		$module["uploadImg"][0]["max"] = 10;//限制數量
@@ -86,10 +65,6 @@ switch ($console->path[1]) {
 		$module["uploadFile"][0]["max"] = 1.5;//限制數量
 		$module["uploadFile"][0]["suggestText"] = "限制";//建議尺寸
 		$module["uploadFile"][0]["extension"] = array("jpg");//限制附檔名
-		// 
-		break;
-	default:
-		break;
 }
 /**模組**/
 
