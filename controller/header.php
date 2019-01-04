@@ -1,12 +1,14 @@
 <?php 
 	//建構中 需要有登入後台才能看內頁
-	if($console->setting->getValue("indexPATH")=="demo" && !(isset($_SESSION[FRAME_NAME]["member"]["serback"])&&$_SESSION[FRAME_NAME]["member"]["serback"])){
+	if($console->setting->getValue("indexPATH")=="demo" && !(isset($_SESSION[FRAME_NAME]["member"]["serback"]) && $_SESSION[FRAME_NAME]["member"]["serback"])){
 		$console->linkTo(HTTP_PATH);
 		exit;
 	}
 
-	$analytics = new MTsung\analytics($console);
-	$analytics->addLog();
+	if($console->setting->getValue("analyticsCheck")){
+		$analytics = new MTsung\analytics($console);
+		$analytics->addLog();
+	}
 	
 
 	$lang = $console->getLanguage();
@@ -15,12 +17,16 @@
 	$order = new MTsung\shoppingCart($console,$member,$product,PREFIX."shopping_cart",$lang);
 	$order->reloadCart();
 	$order->setDeshprice(1);//設定折數 0~1
-	$order->setPoint(//設定點數
-		$console->webSetting->getValue("bonusMoney"),
-		$console->webSetting->getValue("bonusPoint"),
-		$console->webSetting->getValue("bonusDiscountMoney"),
-		$console->webSetting->getValue("bonusDiscountPoint")
-	);
+	if($console->setting->getValue("pointCheck")){//設定點數
+		$order->setPoint(
+			$console->webSetting->getValue("bonusMoney"),
+			$console->webSetting->getValue("bonusPoint"),
+			$console->webSetting->getValue("bonusDiscountMoney"),
+			$console->webSetting->getValue("bonusDiscountPoint")
+		);
+	}else{
+		$order->setPoint(0,0,0,0);
+	}
 
 	$web_set['lang'] = count($console->getLanguageArray("array"))==1?'':$console->getLanguage();
 	$lang_url = ($web_set['lang']?'/'.$web_set['lang']:'');
@@ -29,6 +35,4 @@
 	$data["orderCount"] = count($order->getShoppingCartList());
 	$data["foor"] = (new MTsung\dataList($console,PREFIX."foor",$lang))->getOne();
 
-	//自身網址
-	$data["thisUrl"] = HTTP.$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
 ?>

@@ -5,7 +5,7 @@ $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0].'/'.$console->p
 
 $form = new MTsung\form($console,PREFIX.$console->path[1]."_form",$settingLang);
 
-$designName = $console->path[1]."_form";
+$designName = "__form";
 
 if(isset($_GET["ajax"]) && $_GET["ajax"]){
 	$mail = new MTsung\phpMailer($console);

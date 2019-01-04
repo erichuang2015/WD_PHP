@@ -146,13 +146,166 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
+                        <div class="form-row" id="div_page">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("PAGE_SETTING")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="pageSetting" value="0">
+                                    <input type="checkbox" name="pageSetting" class="onoffswitch-checkbox" id="pageSetting" value="1" ({if $data.one.pageSetting})checked({/if})>
+                                    <label class="onoffswitch-label" for="pageSetting"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" id="div_form">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("FORM_DATA")})</label>
                                 <div class="onoffswitch">
                                     <input type="hidden" name="formData" value="0">
                                     <input type="checkbox" name="formData" class="onoffswitch-checkbox" id="formData" value="1" ({if $data.one.formData})checked({/if})>
                                     <label class="onoffswitch-label" for="formData"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" id="div_shipment">
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("MAILING")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="mailingCheck" value="0">
+                                    <input type="checkbox" name="mailingCheck" class="onoffswitch-checkbox" id="mailingCheck" value="1" ({if $data.one.mailingCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="mailingCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("TCAT_BLACK_CAT")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="tcatBlackCatCheck" value="0">
+                                    <input type="checkbox" name="tcatBlackCatCheck" class="onoffswitch-checkbox" id="tcatBlackCatCheck" value="1" ({if $data.one.tcatBlackCatCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="tcatBlackCatCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("ECAN_HOME_DELIVERY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="ecanHomeDeliveryCheck" value="0">
+                                    <input type="checkbox" name="ecanHomeDeliveryCheck" class="onoffswitch-checkbox" id="ecanHomeDeliveryCheck" value="1" ({if $data.one.ecanHomeDeliveryCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="ecanHomeDeliveryCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("FAMI")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="famiCheck" value="0">
+                                    <input type="checkbox" name="famiCheck" class="onoffswitch-checkbox" id="famiCheck" value="1" ({if $data.one.famiCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="famiCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("UNIMART")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="unimartCheck" value="0">
+                                    <input type="checkbox" name="unimartCheck" class="onoffswitch-checkbox" id="unimartCheck" value="1" ({if $data.one.unimartCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="unimartCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("HILIFE")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="hilifeCheck" value="0">
+                                    <input type="checkbox" name="hilifeCheck" class="onoffswitch-checkbox" id="hilifeCheck" value="1" ({if $data.one.hilifeCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="hilifeCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("FAMIC2C")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="famiC2CCheck" value="0">
+                                    <input type="checkbox" name="famiC2CCheck" class="onoffswitch-checkbox" id="famiC2CCheck" value="1" ({if $data.one.famiC2CCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="famiC2CCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("UNIMARTC2C")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="unimartC2CCheck" value="0">
+                                    <input type="checkbox" name="unimartC2CCheck" class="onoffswitch-checkbox" id="unimartC2CCheck" value="1" ({if $data.one.unimartC2CCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="unimartC2CCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("HILIFEC2C")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="hilifeC2CCheck" value="0">
+                                    <input type="checkbox" name="hilifeC2CCheck" class="onoffswitch-checkbox" id="hilifeC2CCheck" value="1" ({if $data.one.hilifeC2CCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="hilifeC2CCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" id="div_payment">
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("CASH_ON_DELIVERY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="cashOnDeliveryCheck" value="0">
+                                    <input type="checkbox" name="cashOnDeliveryCheck" class="onoffswitch-checkbox" id="cashOnDeliveryCheck" value="1" ({if $data.one.cashOnDeliveryCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="cashOnDeliveryCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("PHYSICAL_ATM_TRANSFER")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="physicalATMTransferCheck" value="0">
+                                    <input type="checkbox" name="physicalATMTransferCheck" class="onoffswitch-checkbox" id="physicalATMTransferCheck" value="1" ({if $data.one.physicalATMTransferCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="physicalATMTransferCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("PHYSICAL_ATM_TRANSFER_ECPAY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="physicalATMTransferECPayCheck" value="0">
+                                    <input type="checkbox" name="physicalATMTransferECPayCheck" class="onoffswitch-checkbox" id="physicalATMTransferECPayCheck" value="1" ({if $data.one.physicalATMTransferECPayCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="physicalATMTransferECPayCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("INTERNET_ATM_TRANSFER_ECPAY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="internetATMTransferECPayCheck" value="0">
+                                    <input type="checkbox" name="internetATMTransferECPayCheck" class="onoffswitch-checkbox" id="internetATMTransferECPayCheck" value="1" ({if $data.one.internetATMTransferECPayCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="internetATMTransferECPayCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("ONLINE_CARD_ECPAY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="onlineCardECPayCheck" value="0">
+                                    <input type="checkbox" name="onlineCardECPayCheck" class="onoffswitch-checkbox" id="onlineCardECPayCheck" value="1" ({if $data.one.onlineCardECPayCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="onlineCardECPayCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="convenienceStorePickUpPaymentECPayCheck" value="0">
+                                    <input type="checkbox" name="convenienceStorePickUpPaymentECPayCheck" class="onoffswitch-checkbox" id="convenienceStorePickUpPaymentECPayCheck" value="1" ({if $data.one.convenienceStorePickUpPaymentECPayCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="convenienceStorePickUpPaymentECPayCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("CVS_ECPAY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="cvsECPayCheck" value="0">
+                                    <input type="checkbox" name="cvsECPayCheck" class="onoffswitch-checkbox" id="cvsECPayCheck" value="1" ({if $data.one.cvsECPayCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="cvsECPayCheck"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("BARCODE_ECPAY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="barcodeECPayCheck" value="0">
+                                    <input type="checkbox" name="barcodeECPayCheck" class="onoffswitch-checkbox" id="barcodeECPayCheck" value="1" ({if $data.one.barcodeECPayCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="barcodeECPayCheck"></label>
                                 </div>
                             </div>
                         </div>
@@ -283,7 +436,7 @@
                         
                             function selectFeatures(obj){
                                 if(!obj) obj = $("[name='features']");
-                                var temp = ["_null","member","order","memberLog/member","_other_form","setting/web","setting/payment","setting/shipment"];
+                                var temp = ["_null","member","order","memberLog/member","_other_form","setting/payment","setting/shipment"];
                                 if(temp.indexOf($(obj).val())>-1){
                                     $("#item_detail").hide();
                                     $("#list-form-data .specifications-div").remove();
@@ -294,7 +447,7 @@
                                     $("#item_detail").show();
                                     $("#div_alias").show().find("input[type!='button'][type!='hidden']").prop('required',true);
                                 }
-                                if($(obj).val() == "basic/product" || $(obj).val() == "class/product"){
+                                if($(obj).val() == "basic/product" || $(obj).val() == "class/product" || $(obj).val() == "setting/web"){
                                     $("#div_alias").hide().find("input[type!='button'][type!='hidden']").prop('required',false).val('');
                                 }
                                 var temp = ["_other_basic","basic/product"];
@@ -308,6 +461,31 @@
                                 }else{
                                     $("#div_floor").hide().find("input").prop('required',false).val('');
                                 }
+                                var temp = ["_other_basic","_other_basicOne","_other_class","class/product","basic/product"];
+                                if(temp.indexOf($(obj).val())>-1){
+                                    $("#div_page").show();
+                                }else{
+                                    $("#div_page").hide();
+                                }
+                                var temp = ["_other_basic","_other_basicOne","_other_class","class/product","basic/product"];
+                                if(temp.indexOf($(obj).val())>-1){
+                                    $("#div_form").show();
+                                }else{
+                                    $("#div_form").hide();
+                                }
+                                var temp = ["setting/shipment"];
+                                if(temp.indexOf($(obj).val())>-1){
+                                    $("#div_shipment").show();
+                                }else{
+                                    $("#div_shipment").hide();
+                                }
+                                var temp = ["setting/payment"];
+                                if(temp.indexOf($(obj).val())>-1){
+                                    $("#div_payment").show();
+                                }else{
+                                    $("#div_payment").hide();
+                                }
+
                             }
                         </script>
 

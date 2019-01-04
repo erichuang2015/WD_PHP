@@ -24,6 +24,7 @@ namespace MTsung{
 
 		function __construct($console,$member,$product,$table=PREFIX."shopping_cart",$lang=LANG){
 			parent::__construct($console,$table,$lang);
+			$this->isStockMode = $this->console->setting->getValue("stockMode");
 			$this->member = $member;
 			$this->memberInfo = $member->getInfo();
 			$this->product = $product;

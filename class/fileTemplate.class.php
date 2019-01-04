@@ -11,7 +11,7 @@ namespace MTsung{
 		var $console;
 		var $conn;
 		var $table = PREFIX."template";//資料表
-		var $dirPath = APP_PATH."view/templates";//資料夾
+		var $dirPath = APP_PATH.DATA_PATH."view/templates";//資料夾
 		var $message;
 
 		/**
@@ -21,6 +21,8 @@ namespace MTsung{
 			$this->setConsole($console);
 			$this->conn = $console->conn;
 			$this->checkTable();
+			if(!is_dir(APP_PATH.DATA_PATH."view/")) mkdir(APP_PATH.DATA_PATH."view/");
+			if(!is_dir($this->dirPath)) mkdir($this->dirPath);
 				
 		}
 
@@ -280,6 +282,7 @@ namespace MTsung{
 			}
 
 			$dirname = $this->dirPath."/".$type;
+			if(!is_dir($dirname)) mkdir($dirname);
 			$dh = opendir($dirname);
 			while ($dave = readdir($dh))
 			{

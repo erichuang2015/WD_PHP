@@ -6,6 +6,7 @@ $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0].'/'.$console->p
 
 $_webSetting = new MTsung\webSetting($console,PREFIX.$console->path[1]."_setting",$settingLang);
 
+include_once(CONTROLLER_PATH.'serback/__about.php');
 $designName = $console->path[1]."_setting";
 
 $switch["buttonBox"] = 1;

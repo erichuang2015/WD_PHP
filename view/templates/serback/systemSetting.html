@@ -18,6 +18,12 @@
                             <a class="nav-link" data-toggle="list" href="#list-backup">({$console->getLabel('WEB_BACKUP')})</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-order-setting">({$console->getLabel('ORDER_SETTING')})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-other-setting">({$console->getLabel('OTHER_SETTING')})</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="list" href="#list-data-size">({$console->getLabel('WEB_DATA_SIZE')})</a>
                         </li>
                         <li class="nav-item">
@@ -149,6 +155,92 @@
                     </small>
                 </div>
                 ({if $member.groupID==1})
+
+                    <!-- 其他設定 -->
+                    <div class="card-body tab-pane fade" id="list-other-setting">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("ANALYSIS_CHECK")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="analyticsCheck" value="0">
+                                    <input type="checkbox" name="analyticsCheck" class="onoffswitch-checkbox" id="analyticsCheck" value="1" ({if $data.analyticsCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="analyticsCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-muted">
+                            ({$console->getLabel('UPDATE_DATE')})
+                            ({$data.update_date})(({$data.update_user}))
+                        </small>
+                    </div>
+
+                    <!-- 購物設定 -->
+                    <div class="card-body tab-pane fade" id="list-order-setting">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("STOCK_MODE")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="stockMode" value="0">
+                                    <input type="checkbox" name="stockMode" class="onoffswitch-checkbox" id="stockMode" value="1" ({if $data.stockMode})checked({/if})>
+                                    <label class="onoffswitch-label" for="stockMode"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("ORIGINAL_PRICE")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="originalPriceCheck" value="0">
+                                    <input type="checkbox" name="originalPriceCheck" class="onoffswitch-checkbox" id="originalPriceCheck" value="1" ({if $data.originalPriceCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="originalPriceCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("SPECIAL_PRICE")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="specialPriceCheck" value="0">
+                                    <input type="checkbox" name="specialPriceCheck" class="onoffswitch-checkbox" id="specialPriceCheck" value="1" ({if $data.specialPriceCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="specialPriceCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("MEMBER_PRICE")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="memberPriceCheck" value="0">
+                                    <input type="checkbox" name="memberPriceCheck" class="onoffswitch-checkbox" id="memberPriceCheck" value="1" ({if $data.memberPriceCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="memberPriceCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("ADD_PRODUCT")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="addProductCheck" value="0">
+                                    <input type="checkbox" name="addProductCheck" class="onoffswitch-checkbox" id="addProductCheck" value="1" ({if $data.addProductCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="addProductCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("POINT_CHECK")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="pointCheck" value="0">
+                                    <input type="checkbox" name="pointCheck" class="onoffswitch-checkbox" id="pointCheck" value="1" ({if $data.pointCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="pointCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-muted">
+                            ({$console->getLabel('UPDATE_DATE')})
+                            ({$data.update_date})(({$data.update_user}))
+                        </small>
+                    </div>
 
                     <!-- 網站備份 -->
                     <div class="card-body tab-pane fade" id="list-backup">

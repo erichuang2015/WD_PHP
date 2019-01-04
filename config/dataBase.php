@@ -14,7 +14,7 @@
 		$dbHost = "localhost";
 		$dbUser = "root";
 		$dbPass = "74512345";
-		$dbData = "MT_test";
+		$dbData = "test2";
 	}else{
 		//線上
 		$dbHost = "localhost";

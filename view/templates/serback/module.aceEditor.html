@@ -60,11 +60,12 @@
                                 $('#aceEditorDiv').css('height','calc(100% - 56px)');
                                 $('#aceEditorDiv').css('left','0');
                                 $('#aceEditorDiv').css('top','56px');
-                                $('#aceEditorDiv').css('z-index','99999999');
+                                $('#sidebarCollapse').hide();
                             }else{
                                 $('#aceEditorDiv').css('position','relative');
                                 $('#aceEditorDiv').css('height','500px');
                                 $('#aceEditorDiv').css('top','0');
+                                $('#sidebarCollapse').show();
                             }
                             editor.resize();
                         });

@@ -40,8 +40,14 @@ if($_POST){
 				$_POST["backupDay"],
 				$_POST["backupDeleteDay"],
 				$_POST["backupMailSwitch"],
-				$_POST["backupMailUser"]
-
+				$_POST["backupMailUser"],
+				$_POST["analyticsCheck"],
+				$_POST["stockMode"],
+				$_POST["originalPriceCheck"],
+				$_POST["specialPriceCheck"],
+				$_POST["memberPriceCheck"],
+				$_POST["addProductCheck"],
+				$_POST["pointCheck"]
 			);
 	}
 	if($console->setting->setData($_POST)){

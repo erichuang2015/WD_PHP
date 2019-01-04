@@ -2,6 +2,10 @@
 
 include_once(CONTROLLER_PATH.'serback/__menu.php');
 
+if($member->getInfo("account") != "vipadmin"){
+	$console->alert($console->getMessage("NOT_AUTHORITY").",工程師帳號限定功能",SERBACK_PATH);
+}
+
 if(isset($console->path[1])){
 //動作
 	switch ($console->path[1]) {

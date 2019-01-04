@@ -13,9 +13,9 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="list" href="#list-order-setting">({$console->getLabel("ORDER_SETTING")})</a>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="list" href="#list-ECPay-setting">({$console->getLabel("ECPAY_SETTING")})</a>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="list" href="#list-FB-msg-bot-setting">({$console->getLabel("FB_MESSAGE_BOT")})</a>
                     </li>
@@ -31,40 +31,15 @@
                             <input type="text" class="form-control" name="webTitle" value="({$data.one.webTitle})">
                         </div>
                     </div>
-                   <!--  <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label>({$console->getLabel("MEMBER_EMAIL_CHECK")})</label>
-                            <div class="onoffswitch">
-                                <input type="hidden" name="emailCheck" value="0">
-                                <input type="checkbox" name="emailCheck" class="onoffswitch-checkbox" id="emailCheck" value="1" ({if $data.emailCheck==1})checked({/if})>
-                                <label class="onoffswitch-label" for="emailCheck"></label>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel("WEB_META")})</label>
                             <textarea class="form-control" rows="8" name="webMeta">({$data.one.webMeta})</textarea>
                         </div>
                     </div>
-                    <!-- <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$console->getLabel("COMPANY_PHONE")})</label>
-                            <input type="text" class="form-control" name="companyPhone" value="({$data.one.companyPhone})">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$console->getLabel("COMPANY_EMAIL")})</label>
-                            <input type="text" class="form-control" name="companyEmail" value="({$data.one.companyEmail})">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$console->getLabel("COMPANY_ADDRESS")})</label>
-                            <input type="text" class="form-control" name="companyAddress" value="({$data.one.companyAddress})">
-                        </div>
-                    </div> -->
+
+                    ({include "__field.html"})
+
                     <small class="text-muted">
                         ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
@@ -102,44 +77,46 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <hr>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$console->getLabel('BONUS_POINT')})</label>
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">({$console->getLabel('EACH')})</span>
-                                </div>
-                                <input type="text" class="form-control" name="bonusMoney" value="({$data.one.bonusMoney})" data-check="Number" data-text="({$console->getLabel('BONUS_POINT')})-({$console->getLabel('PRICE_DOLLAR')})">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">({$console->getLabel('PRICE_DOLLAR')})</span>
-                                </div>
-                                <input type="text" class="form-control" name="bonusPoint" value="({$data.one.bonusPoint})" data-check="Number" data-text="({$console->getLabel('BONUS_POINT')})-({$console->getLabel('POINT')})">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">({$console->getLabel('POINT')})</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label>({$console->getLabel('BONUS_DISCOUNT')})</label>
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">({$console->getLabel('EACH')})</span>
-                                </div>
-                                <input type="text" class="form-control" name="bonusDiscountMoney" value="({$data.one.bonusDiscountMoney})" data-check="Number" data-text="({$console->getLabel('BONUS_DISCOUNT')})-({$console->getLabel('POINT')})">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">({$console->getLabel('POINT')})</span>
-                                </div>
-                                <input type="text" class="form-control" name="bonusDiscountPoint" value="({$data.one.bonusDiscountPoint})" data-check="Number" data-text="({$console->getLabel('BONUS_DISCOUNT')})-({$console->getLabel('PRICE_DOLLAR')})">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">({$console->getLabel('PRICE_DOLLAR')})</span>
+                    ({if $web.pointCheck})
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$console->getLabel('BONUS_POINT')})</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$console->getLabel('EACH')})</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="bonusMoney" value="({$data.one.bonusMoney})" data-check="Number" data-text="({$console->getLabel('BONUS_POINT')})-({$console->getLabel('PRICE_DOLLAR')})">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$console->getLabel('PRICE_DOLLAR')})</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="bonusPoint" value="({$data.one.bonusPoint})" data-check="Number" data-text="({$console->getLabel('BONUS_POINT')})-({$console->getLabel('POINT')})">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$console->getLabel('POINT')})</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <hr> -->
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$console->getLabel('BONUS_DISCOUNT')})</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$console->getLabel('EACH')})</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="bonusDiscountMoney" value="({$data.one.bonusDiscountMoney})" data-check="Number" data-text="({$console->getLabel('BONUS_DISCOUNT')})-({$console->getLabel('POINT')})">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$console->getLabel('POINT')})</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="bonusDiscountPoint" value="({$data.one.bonusDiscountPoint})" data-check="Number" data-text="({$console->getLabel('BONUS_DISCOUNT')})-({$console->getLabel('PRICE_DOLLAR')})">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">({$console->getLabel('PRICE_DOLLAR')})</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    ({/if})
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel('FREIGHT')})</label>
@@ -159,46 +136,46 @@
                 </div>
 
                 <!-- 綠界寄件資料設定 -->
-                <!-- <div class="card-body tab-pane fade" id="list-ECPay-setting">
+                <div class="card-body tab-pane fade" id="list-ECPay-setting">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel('SENDER_NAME')})</label>
-                            <input type="text" class="form-control" name="senderName" value="({$data.one.senderName})" data-check="SenderName" data-text="({$console->getLabel('SENDER_NAME')})" required>
+                            <input type="text" class="form-control" name="senderName" value="({$data.one.senderName})" data-check="SenderName" data-text="({$console->getLabel('SENDER_NAME')})">
                             <small class="text-muted">({$console->getLabel('SENDER_NAME_SMALL')})</small>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel('SENDER_PHONE')})</label>
-                            <input type="text" class="form-control" name="senderPhone" value="({$data.one.senderPhone})" data-check="SenderPhone" data-text="({$console->getLabel('SENDER_PHONE')})" required>
+                            <input type="text" class="form-control" name="senderPhone" value="({$data.one.senderPhone})" data-check="SenderPhone" data-text="({$console->getLabel('SENDER_PHONE')})">
                             <small class="text-muted">({$console->getLabel('SENDER_PHONE_SMALL')})</small>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel('SENDER_CELL_PHONE')})</label>
-                            <input type="text" class="form-control" name="senderCellPhone" value="({$data.one.senderCellPhone})" data-check="SenderCellPhone" data-text="({$console->getLabel('SENDER_CELL_PHONE')})" required>
+                            <input type="text" class="form-control" name="senderCellPhone" value="({$data.one.senderCellPhone})" data-check="SenderCellPhone" data-text="({$console->getLabel('SENDER_CELL_PHONE')})">
                             <small class="text-muted">({$console->getLabel('SENDER_CELL_PHONE_SMALL')})</small>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel('SENDER_ZIP_CODE')})</label>
-                            <input type="text" class="form-control" name="senderZipCode" value="({$data.one.senderZipCode})" data-check="SenderZipCode" data-text="({$console->getLabel('SENDER_ZIP_CODE')})" required>
+                            <input type="text" class="form-control" name="senderZipCode" value="({$data.one.senderZipCode})" data-check="SenderZipCode" data-text="({$console->getLabel('SENDER_ZIP_CODE')})">
                             <small class="text-muted">({$console->getLabel('SENDER_ZIP_CODE_SMALL')})</small>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel('SENDER_ADDRESS')})</label>
-                            <input type="text" class="form-control" name="senderAddress" value="({$data.one.senderAddress})" data-check="SenderAddress" data-text="({$console->getLabel('SENDER_ADDRESS')})" required>
+                            <input type="text" class="form-control" name="senderAddress" value="({$data.one.senderAddress})" data-check="SenderAddress" data-text="({$console->getLabel('SENDER_ADDRESS')})">
                         </div>
                     </div>
                     <small class="text-muted">
                         ({$console->getLabel('UPDATE_DATE')})
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
-                </div> -->
+                </div>
 
                 <!-- FB MSG BOT -->
                 <div class="card-body tab-pane fade" id="list-FB-msg-bot-setting">

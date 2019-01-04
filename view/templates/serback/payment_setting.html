@@ -4,30 +4,46 @@
         <div class="card">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="list" href="#list-setting1">({$console->getLabel("CASH_ON_DELIVERY")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting2">({$console->getLabel("PHYSICAL_ATM_TRANSFER")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting3">({$console->getLabel("PHYSICAL_ATM_TRANSFER_ECPAY")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting4">({$console->getLabel("INTERNET_ATM_TRANSFER_ECPAY")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting5">({$console->getLabel("ONLINE_CARD_ECPAY")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting6">({$console->getLabel("CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting7">({$console->getLabel("CVS_ECPAY")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting8">({$console->getLabel("BARCODE_ECPAY")})</a>
-                    </li>
+                    ({if $data.system.cashOnDeliveryCheck})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-setting1">({$console->getLabel("CASH_ON_DELIVERY")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.physicalATMTransferCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting2">({$console->getLabel("PHYSICAL_ATM_TRANSFER")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.physicalATMTransferECPayCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting3">({$console->getLabel("PHYSICAL_ATM_TRANSFER_ECPAY")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.internetATMTransferECPayCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting4">({$console->getLabel("INTERNET_ATM_TRANSFER_ECPAY")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.onlineCardECPayCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting5">({$console->getLabel("ONLINE_CARD_ECPAY")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.convenienceStorePickUpPaymentECPayCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting6">({$console->getLabel("CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.cvsECPayCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting7">({$console->getLabel("CVS_ECPAY")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.barcodeECPayCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting8">({$console->getLabel("BARCODE_ECPAY")})</a>
+                        </li>
+                    ({/if})
 
 
 
@@ -36,6 +52,8 @@
                 </ul>
             </div>
             <div class="tab-content">
+                
+                ({if $data.system.cashOnDeliveryCheck})
                 <!-- 貨到付款 -->
                 <div class="card-body tab-pane fade show active" id="list-setting1">
                     <div class="form-row">
@@ -59,7 +77,8 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
-
+                ({/if})
+                ({if $data.system.physicalATMTransferCheck})
                 <!-- 實體ATM轉帳 -->
                 <div class="card-body tab-pane fade" id="list-setting2">
                     <div class="form-row">
@@ -89,7 +108,8 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
-
+                ({/if})
+                ({if $data.system.physicalATMTransferECPayCheck})
                 <!-- 實體ATM轉帳(綠界) -->
                 <div class="card-body tab-pane fade" id="list-setting3">
                     <div class="form-row">
@@ -113,7 +133,8 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
-
+                ({/if})
+                ({if $data.system.internetATMTransferECPayCheck})
                 <!-- 網路ATM轉帳(綠界) -->
                 <div class="card-body tab-pane fade" id="list-setting4">
                     <div class="form-row">
@@ -137,7 +158,8 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
-
+                ({/if})
+                ({if $data.system.onlineCardECPayCheck})
                 <!-- 線上刷卡(綠界) -->
                 <div class="card-body tab-pane fade" id="list-setting5">
                     <div class="form-row">
@@ -161,7 +183,8 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
-
+                ({/if})
+                ({if $data.system.convenienceStorePickUpPaymentECPayCheck})
                 <!-- 超商取貨付款(綠界) -->
                 <div class="card-body tab-pane fade" id="list-setting6">
                     <div class="form-row">
@@ -185,7 +208,8 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
-                
+                ({/if})
+                ({if $data.system.cvsECPayCheck})
                 <!-- 超商代碼(綠界) -->
                 <div class="card-body tab-pane fade" id="list-setting7">
                     <div class="form-row">
@@ -209,7 +233,8 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
-                
+                ({/if})
+                ({if $data.system.barcodeECPayCheck})
                 <!-- 超商條碼(綠界) -->
                 <div class="card-body tab-pane fade" id="list-setting8">
                     <div class="form-row">
@@ -233,6 +258,7 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
             </div>
         </div>

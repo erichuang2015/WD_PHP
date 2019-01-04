@@ -4,37 +4,56 @@
         <div class="card">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="list" href="#list-setting1">({$console->getLabel("MAILING")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting2">({$console->getLabel("TCAT_BLACK_CAT")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting3">({$console->getLabel("ECAN_HOME_DELIVERY")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting4">({$console->getLabel("FAMI")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting5">({$console->getLabel("UNIMART")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting6">({$console->getLabel("HILIFE")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting7">({$console->getLabel("FAMIC2C")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting8">({$console->getLabel("UNIMARTC2C")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-setting9">({$console->getLabel("HILIFEC2C")})</a>
-                    </li>
+                    ({if $data.system.mailingCheck})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-setting1">({$console->getLabel("MAILING")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.tcatBlackCatCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting2">({$console->getLabel("TCAT_BLACK_CAT")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.ecanHomeDeliveryCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting3">({$console->getLabel("ECAN_HOME_DELIVERY")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.famiCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting4">({$console->getLabel("FAMI")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.unimartCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting5">({$console->getLabel("UNIMART")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.hilifeCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting6">({$console->getLabel("HILIFE")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.famiC2CCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting7">({$console->getLabel("FAMIC2C")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.unimartC2CCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting8">({$console->getLabel("UNIMARTC2C")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.hilifeC2CCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting9">({$console->getLabel("HILIFEC2C")})</a>
+                        </li>
+                    ({/if})
 
                 </ul>
             </div>
             <div class="tab-content">
+                ({if $data.system.mailingCheck})
                 <!-- 宅配 -->
                 <div class="card-body tab-pane fade show active" id="list-setting1">
                     <div class="form-row">
@@ -58,7 +77,9 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
+                ({if $data.system.tcatBlackCatCheck})
                 <!-- 黑貓宅配(綠界) -->
                 <div class="card-body tab-pane fade" id="list-setting2">
                     <div class="form-row">
@@ -82,7 +103,9 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
+                ({if $data.system.ecanHomeDeliveryCheck})
                 <!-- 宅配通宅配(綠界) -->
                 <div class="card-body tab-pane fade" id="list-setting3">
                     <div class="form-row">
@@ -106,7 +129,9 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
+                ({if $data.system.famiCheck})
                 <!-- 全家取貨(綠界)(B2C) -->
                 <div class="card-body tab-pane fade" id="list-setting4">
                     <div class="form-row">
@@ -150,7 +175,9 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
+                ({if $data.system.unimartCheck})
                 <!-- 統一超商取貨(綠界)(B2C) -->
                 <div class="card-body tab-pane fade" id="list-setting5">
                     <div class="form-row">
@@ -194,7 +221,9 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
+                ({if $data.system.hilifeCheck})
                 <!-- 萊爾富取貨(綠界)(B2C) -->
                 <div class="card-body tab-pane fade" id="list-setting6">
                     <div class="form-row">
@@ -238,7 +267,9 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
+                ({if $data.system.famiC2CCheck})
                 <!-- 全家取貨(綠界)(C2C) -->
                 <div class="card-body tab-pane fade" id="list-setting7">
                     <div class="form-row">
@@ -282,7 +313,9 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
+                ({if $data.system.unimartC2CCheck})
                 <!-- 統一超商取貨(綠界)(C2C) -->
                 <div class="card-body tab-pane fade" id="list-setting8">
                     <div class="form-row">
@@ -326,7 +359,9 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
+                ({if $data.system.hilifeC2CCheck})
                 <!-- 萊爾富取貨(綠界)(C2C) -->
                 <div class="card-body tab-pane fade" id="list-setting9">
                     <div class="form-row">
@@ -370,6 +405,7 @@
                         ({$data.one.update_date})(({$data.one.update_user}))
                     </small>
                 </div>
+                ({/if})
 
             </div>
         </div>

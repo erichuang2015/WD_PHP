@@ -45,7 +45,7 @@ if($data["allow"]){
 }
 
 //保留字
-$ReservedWord= array("id","urlKey","originalPrice","specialPrice","memberPrice","specificationsID","specifications","stock","maxCount","addProduct","addProductSpecifications","addProductMaxCount","addProductMoney","suggestProduct","sort","status","create_date","update_date","create_user","update_user","pictureAlt","pageTitle","pageMeta");
+$ReservedWord= array("id","name","urlKey","originalPrice","specialPrice","memberPrice","specificationsID","specifications","stock","maxCount","addProduct","addProductSpecifications","addProductMaxCount","addProductMoney","suggestProduct","sort","status","create_date","update_date","create_user","update_user","pictureAlt","pageTitle","pageMeta");
 if(isset($_POST["dataKey"])){
 	foreach ($_POST["dataKey"] as $key => $value) {
 		if(in_array($value,$ReservedWord)){
