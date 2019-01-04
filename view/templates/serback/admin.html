@@ -136,7 +136,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel('FIRST_NAME')})</label>
-                                <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="name" required>
+                                <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="name" data-text="({$console->getLabel("FIRST_NAME")})" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -192,7 +192,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel('GROUP')})</label>
-                                <select class="form-control" name="groupID" data-text="({$console->getLabel("GROUP")})">
+                                <select class="form-control" name="groupID" data-type="chosen" data-text="({$console->getLabel("GROUP")})">
                                     ({section name=i loop=$data.group})
                                         <option value="({$data.group[i].id})">({$data.group[i].name})</option>
                                     ({/section})
@@ -214,7 +214,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel('FIRST_NAME')})</label>
-                                <input type="text" name="name" class="form-control" value="" autocomplete="name" required>
+                                <input type="text" name="name" class="form-control" value="" autocomplete="name" data-text="({$console->getLabel("FIRST_NAME")})" required>
                             </div>
                         </div>
                         <div class="form-row">

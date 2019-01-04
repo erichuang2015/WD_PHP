@@ -6,7 +6,7 @@ $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 $memberList = new MTsung\member($console,PREFIX.'admin',$memberSessionName);
 $memberGroupList = new MTsung\memberGroup($console,PREFIX.'admin_group');
 
-if($memberInfo["group"]["id"]!=1){
+if($memberInfo["id"]!=1){
 	$data["group"] = $memberGroupList->getData("where control>".$memberInfo["group"]["control"]." order by create_date desc");
 }else{
 	$data["group"] = $memberGroupList->getData("order by create_date desc");
@@ -32,6 +32,9 @@ if(isset($console->path[1])){
 	switch ($console->path[1]) {
 		case 'edit':
 			//修改
+			if($console->path[2] == 1){
+				$console->alert($console->getMessage("NOT_AUTHORITY"),$data["listUrl"]);
+			}
 			if(isset($console->path[2]) && is_numeric($console->path[2])){
 				if($_POST){
 					if(!in_array($_POST["groupID"], $groupIDs)){
@@ -99,7 +102,7 @@ if(isset($console->path[1])){
 
 				foreach ($_POST["checkElement"] as $key => $value) {
 					//自己以外&&比自己權限小的
-					if($value!=$member->getInfo("id") && in_array($value,$temp1)){
+					if($value!=$member->getInfo("id") && in_array($value,$temp1) && ($value!="1")){
 						$memberList->rmUser($value);
 					}
 				}
@@ -130,7 +133,7 @@ if(isset($console->path[1])){
 						"name",
 						"account"
 						);
-	$data["list"] = $memberList->getListData("and groupID in ('".implode("','", $groupIDs)."') order by create_date desc",$searchKey);
+	$data["list"] = $memberList->getListData("and groupID in ('".implode("','", $groupIDs)."') and id!='1' order by create_date desc",$searchKey);
 
 
 
