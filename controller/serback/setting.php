@@ -25,11 +25,73 @@ switch ($console->path[1]) {
 /**模組**/
 
 $data["one"] = $_webSetting->getValue();
+if($explodeArray){//需要轉陣列的欄位
+	foreach ($explodeArray as $valueE) {
+		if(($valueE != "") && !is_array($data["one"][$valueE]) && $data["one"][$valueE]){
+			$data["one"][$valueE] = explode("|__|", $data["one"][$valueE]);
+		}
+	}
+}
+if(isset($module["uploadImg"])){//後台用
+	foreach ($module["uploadImg"] as $valueM) {
+		if(isset($data["one"][$valueM["name"]])){
+			$data["one"][$valueM["name"]] = explode("|__|", $data["one"][$valueM["name"]]);
+		}
 
+		if(isset($valueM["textOther"])){
+			foreach ($valueM["textOther"] as $valueM1) {
+				if(isset($data["one"][$valueM["name"].$valueM1])){
+					$data["one"][$valueM["name"].$valueM1] = json_encode(explode("|__|", $data["one"][$valueM["name"].$valueM1]));
+				}
+			}
+		}
+		if(isset($valueM["textareaOther"])){
+			foreach ($valueM["textareaOther"] as $valueM1) {
+				if(isset($data["one"][$valueM["name"].$valueM1])){
+					$data["one"][$valueM["name"].$valueM1] = json_encode(explode("|__|", $data["one"][$valueM["name"].$valueM1]));
+				}
+			}
+		}
+	}
+}
+
+if(isset($module["uploadFile"])){//後台用
+	foreach ($module["uploadFile"] as $valueF) {
+		if(isset($data["one"][$valueF["name"]])){
+			$data["one"][$valueF["name"]] = explode("|__|", $data["one"][$valueF["name"]]);
+		}
+
+		if(isset($valueF["textOther"])){
+			foreach ($valueF["textOther"] as $valueF1) {
+				if(isset($data["one"][$valueF["name"].$valueF1])){
+					$data["one"][$valueF["name"].$valueF1] = json_encode(explode("|__|", $data["one"][$valueF["name"].$valueF1]));
+				}
+			}
+		}
+		if(isset($valueF["textareaOther"])){
+			foreach ($valueF["textareaOther"] as $valueF1) {
+				if(isset($data["one"][$valueF["name"].$valueF1])){
+					$data["one"][$valueF["name"].$valueF1] = json_encode(explode("|__|", $data["one"][$valueF["name"].$valueF1]));
+				}
+			}
+		}
+	}
+}
+
+if(isset($module["uploadImg"])){
+	foreach ($module["uploadImg"] as $key => $value) {
+		$_webSetting->addPictureName($value["name"]);
+	}
+}
 /**
  * 修改資料
  */
 if($_POST){
+	foreach ($_POST as $key => $value) {
+		if(is_array($value)){
+			$_POST[$key] = implode("|__|",$value);
+		}
+	}
 	if(isset($_POST["emailCheck"])){
 		$temp = new MTsung\member($console,PREFIX.'member','member');
 		$temp->emailCheck($_POST["emailCheck"]);
