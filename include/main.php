@@ -947,7 +947,7 @@ namespace MTsung{
 			$web_set = array_merge($web_set,$this->setting->getValue());
 			$web_set = array_map("htmlspecialchars_decode",$web_set);
 			$this->design->setData("web", @$web_set);
-			$this->design->loadDisplay('../../../404.html');
+			$this->design->loadDisplay('404.html');
 			exit;
 		}
 
@@ -984,6 +984,16 @@ namespace MTsung{
 				"data" => $data
 			));
 			exit;
+		}
+
+		/**
+		 * 是否有資料表
+		 * @param  string  $value [description]
+		 * @return boolean        [description]
+		 */
+		public function isTables($value=''){
+			$value = preg_replace("/[^A-Za-z0-9_ ]/", "", $value);
+			return (boolean)$this->conn->GetArray("desc ".PREFIX.$value."__".str_replace("-","_",$this->getLanguage()));
 		}
 	}
 }

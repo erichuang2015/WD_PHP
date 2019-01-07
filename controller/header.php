@@ -33,6 +33,5 @@
 
 	//購物內容數量
 	$data["orderCount"] = count($order->getShoppingCartList());
-	$data["foor"] = (new MTsung\dataList($console,PREFIX."foor",$lang))->getOne();
 
 ?>

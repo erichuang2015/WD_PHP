@@ -34,7 +34,8 @@ while(strpos($dir,'../')!==false || strpos($dir,'..\\')!==false){
 	$dir = str_replace('..\\',"",$dir);
 }
 
-$dirPath = iconv("BIG5", "UTF-8",APP_PATH.$dir);
+// $dirPath = iconv("BIG5", "UTF-8",APP_PATH.$dir);
+$dirPath = APP_PATH.$dir;
 
 
 if($_FILES){
@@ -138,9 +139,11 @@ if(!is_dir($dirPath)){//編輯
     		if(!isset($console->path[2]) && $filename==".."){
     			continue;
     		}
-    		$allPath = iconv("BIG5", "UTF-8", $dirPath."/".$filename);//完整路徑名稱
+    		// $allPath = iconv("BIG5", "UTF-8", $dirPath."/".$filename);//完整路徑名稱
+    		$allPath = $dirPath."/".$filename;//完整路徑名稱
     		$temp = array();
-    		$temp["name"] = iconv("BIG5", "UTF-8", $filename);
+    		// $temp["name"] = iconv("BIG5", "UTF-8", $filename);
+    		$temp["name"] = $filename;
     		if($temp["isDir"] = (int)is_dir($allPath)){
     			$temp["name"] .= "/";
     			$temp["size"] = $console->formatSize($console->getDirSize($allPath."/"));
