@@ -1,5 +1,4 @@
 <?php
-
 	include_once(APP_PATH.'include/adodb5/adodb.inc.php');// 文件 http://adodb.org/dokuwiki/doku.php
 	
 	//資料表前墜
@@ -14,7 +13,7 @@
 		$dbHost = "localhost";
 		$dbUser = "root";
 		$dbPass = "74512345";
-		$dbData = "test2";
+		$dbData = "style07_andy";
 	}else{
 		//線上
 		$dbHost = "localhost";

@@ -83,15 +83,30 @@
                     ({if $switch.editList!=0})
                         <div class="card-body tab-pane fade show active" id="list-edit">
                             <div class="form-row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label>({$console->getLabel("NAME")})</label>
                                     <input type="text" name="detail" class="form-control" value="({$data.one.detail})" autocomplete="off" required>
                                 </div>
                             </div>
+
                             <div class="form-row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label>({$console->getLabel("FILE_NAME")})</label>
                                     <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label>({$console->getLabel("USE_DATA")})</label>
+                                    <div class="form-group">
+                                        <input type="hidden" name="useTables">
+                                        <select class="form-control" name="useTables[]" data-type="chosen" data-text="({$console->getLabel("USE_DATA")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" multiple>
+                                            ({section name=i loop=$data.tables})
+                                                <option value="({$data.tables[i]})" ({if $data.one.useTables && in_array($data.tables[i],$data.one.useTables)})selected({/if})>({$data.tables[i]})</option>
+                                            ({/section})
+                                        </select>
+                                        <small class="text-muted">({$console->getLabel('USE_DATA_SMALL')})</small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -112,16 +127,30 @@
                     ({if $switch.addList!=0})
                         <div class="card-body tab-pane fade show active" id="list-add">
                             <div class="form-row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label>({$console->getLabel("NAME")})</label>
                                     <input type="text" name="detail" class="form-control" value="" autocomplete="off" required>
 
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label>({$console->getLabel("FILE_NAME")})</label>
                                     <input type="text" name="name" class="form-control" value="" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label>({$console->getLabel("USE_DATA")})</label>
+                                    <div class="form-group">
+                                        <input type="hidden" name="useTables">
+                                        <select class="form-control" name="useTables[]" data-type="chosen" data-text="({$console->getLabel("USE_DATA")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" multiple>
+                                            ({section name=i loop=$data.tables})
+                                                <option value="({$data.tables[i]})">({$data.tables[i]})</option>
+                                            ({/section})
+                                        </select>
+                                        <small class="text-muted">({$console->getLabel('USE_DATA_SMALL')})</small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-row">

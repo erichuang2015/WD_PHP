@@ -10,6 +10,23 @@ $fileTemplate = new MTsung\fileTemplate($console);
 
 $module["aceEditor"]["name"] = '_aceEditor';//POST欄位名稱，不可使用"aceEditor"
 
+
+$tables = $this->conn->GetArray("SHOW TABLES");
+foreach ($tables as $key => $value) {
+	if(isset(explode("__",$value[0])[1]) && explode("__",$value[0])[1]==str_replace("-","_",$settingLang)){
+		$tables[$key] = explode(PREFIX,explode("__",$value[0])[0])[1];
+	}else{
+		unset($tables[$key]);
+	}
+}
+$data["tables"] = array_values($tables);
+$settingTablesArray = array("shopping_cart","shopping_cart_list","web_setting","member","shipment_setting","payment_setting");
+foreach ($data["tables"] as $key => $value) {
+	if(in_array($value, $settingTablesArray)){
+		unset($data["tables"][$key]);
+	}
+}
+
 if(isset($console->path[2])){
 	switch ($console->path[2]) {
 		case 'edit':
@@ -20,6 +37,9 @@ if(isset($console->path[2])){
 						$console->alert($fileTemplate->message,-1);
 					}
 					unset($_POST[$module["aceEditor"]["name"]]);
+					if($_POST["useTables"]){
+						$_POST["useTables"] = implode("|__|",$_POST["useTables"]);
+					}
 					if($fileTemplate->setData($console->path[3],$_POST)){
 						$console->alert($fileTemplate->message,$_SERVER["REQUEST_URI"]);
 					}else{
@@ -30,6 +50,7 @@ if(isset($console->path[2])){
 						$console->alert($fileTemplate->message,-1);
 					}
 					$data[$module["aceEditor"]["name"]] = $fileTemplate->getFile($console->path[3]);
+					$data["one"]["useTables"] = explode("|__|",$data["one"]["useTables"]);
 				}
 			}else{	
 				//網址參數錯誤

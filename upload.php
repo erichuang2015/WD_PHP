@@ -41,7 +41,7 @@
 	//前台檔案限制
 	$allowMIME = array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword');
 	$allowExt = array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4');
-	$maxSize = 524288;//512KB
+	$maxSize = 1048576;//1MB
 
 
 	//後台登入狀態

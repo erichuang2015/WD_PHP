@@ -135,7 +135,7 @@
                                 <div class="form-group">
                                     <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
                                         <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
-                                        <option value="0,-1" ({if 0===$data.one.parent})selected({/if})>({$console->getLabel("ROOT_DIRECTORY")})</option>
+                                        <!-- <option value="0,-1" ({if 0===$data.one.parent})selected({/if})>({$console->getLabel("ROOT_DIRECTORY")})</option> -->
                                         ({section name=i loop=$data.list})
                                             ({if $data.list[i].floor < $data.addMaxFloor})
                                             <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;" ({if $data.list[i].id==$data.one.parent})selected({/if})>({$console->getLabel($data.list[i].name)})</option>
