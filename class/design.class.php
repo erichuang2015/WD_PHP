@@ -23,7 +23,8 @@ namespace MTsung{
             $this->tpl->setTemplateDir(
                 array(
                     'one' => APP_PATH.DATA_PATH."view/templates/web",
-                    'two' => APP_PATH
+                    'two' => APP_PATH."modeule",
+                    'three' => APP_PATH
                 )
             );
     		$this->tpl->compile_dir = APP_PATH.DATA_PATH."view/templates_c/web";
@@ -36,7 +37,15 @@ namespace MTsung{
          * @param  String $value 樣板檔名 e.g.,index.html
          */
         public function loadDisplay($value){
-        	if(is_file($this->tpl->getTemplateDir(0).$value)){
+            $isFile = 0;
+            $temp = $this->tpl->getTemplateDir();
+            foreach ($temp as $path) {
+                if(is_file($path.$value)){
+                    $isFile++;
+                    break;
+                }
+            }
+        	if($isFile){
                 $this->tpl->loadFilter('output','trimwhitespace');
         		$this->tpl->display($value);
         	}else{

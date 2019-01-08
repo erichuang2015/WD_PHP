@@ -22,7 +22,7 @@ namespace MTsung{
 		 * @return [type]           [description]
 		 */
 		function getData($whereSql='',$sqlArray=array(),$explodeArray=array(),$module=array()){
-			$temp = parent::getData($whereSql,$sqlArray);
+			$temp = parent::getData($whereSql,$sqlArray,$explodeArray,$module);
 			if(strstr($whereSql,"status")){
 				return $this->arrange($temp);
 			}else{

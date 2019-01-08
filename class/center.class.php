@@ -440,8 +440,8 @@ namespace MTsung{
 		 * 前台取得資料
 		 * @return [type] [description]
 		 */
-		function getOne($whereSql="",$sqlArray=array()){
-			$temp = $this->getData("where status='1' ".$whereSql,$sqlArray);
+		function getOne($whereSql="",$sqlArray=array(),$explodeArray=array(),$module=array()){
+			$temp = $this->getData("where status='1' ".$whereSql,$sqlArray,$explodeArray,$module);
 			if($temp){
 				foreach ($temp as $key => $value) {
 					$temp[$key] = array_map("htmlspecialchars_decode",$temp[$key]);

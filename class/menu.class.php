@@ -44,5 +44,22 @@ namespace MTsung{
 			return true;
 		}
 
+		function setData($data,$isSetAll=false,$checkArray=array(),$requiredArray=array()){
+			if(!$isSetAll && $data["features"]){
+				$temp = explode("_other_",$data["features"]);
+				if(isset($temp[1])){
+					if($temp[1]=="class" || $temp[1]=="form"){
+						$data["tablesName"] = $data["alias"]."_".$temp[1];
+					}else{
+						$data["tablesName"] = $data["alias"];
+					}
+					$data["url"] = $temp[1]."/".$data["alias"];
+				}else{
+					$data["url"] = $data["features"];
+				}
+			}
+			return parent::setData($data,$isSetAll,$checkArray=array(),$requiredArray=array());
+		}
+
 	}
 }

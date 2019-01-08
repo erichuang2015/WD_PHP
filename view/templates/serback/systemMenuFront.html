@@ -111,7 +111,7 @@
                         <div class="form-row" id="div_alias">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("ALIAS")})</label>
-                                <input type="text" class="form-control" name="alias" value="({$data.one.alias})" data-text="({$console->getLabel("ALIAS")})" required>
+                                <input type="text" class="form-control" name="alias" value="({$data.one.alias})" data-text="({$console->getLabel("ALIAS")})" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'');">
                             </div>
                         </div>
 
@@ -320,6 +320,12 @@
                                 </div>
                             </div>
                         </div>
+                        <small class="text-muted">
+                            ({$console->getLabel('CREATE_DATE')})
+                            ({$data.one.create_date})(({$data.one.create_user}));
+                            ({$console->getLabel('UPDATE_DATE')})
+                            ({$data.one.update_date})(({$data.one.update_user}))
+                        </small>
                     </div>
 
                         <!-- 表單資料 -->

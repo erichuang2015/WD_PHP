@@ -18,33 +18,18 @@ if(isset($console->path[1])){
 					$_POST["id"] = $console->path[2];
 					$_POST["floor"] = explode(",", $_POST["parent"])[1] + 1;
 					$_POST["parent"] = explode(",", $_POST["parent"])[0];
-					if($_POST["features"]){
-						$temp = explode("_other_",$_POST["features"]);
-						if(isset($temp[1])){
-							$_POST["url"] = $temp[1]."/".$_POST["alias"];
-						}else{
-							$_POST["url"] = $_POST["features"];
-						}
-					}
-					
+
 					if($systemMenu->setData($_POST)){
 						$console->alert($systemMenu->message,$_SERVER["REQUEST_URI"]);
 					}else{
 						$console->alert($systemMenu->message,-1);
 					}
 				}else{
-					$temp = $systemMenu->getData("where id='".$console->path[2]."'");
+					$temp = $systemMenu->getData("where id='".$console->path[2]."'",array(),$explodeArray);
 					if($temp){
 						$data["one"] = $temp[0];
 						if($data["one"]["features"]){
 							$designName = "systemMenuFront";
-						}
-						if(isset($explodeArray)){
-							foreach ($explodeArray as $key => $value) {
-								if(($value != "") && !is_array($data["one"][$value]) && $data["one"][$value]){
-									$data["one"][$value] = explode("|__|", $data["one"][$value]);
-								}
-							}
 						}
 					}else{
 						$console->alert($systemMenu->message,$data["listUrl"]);

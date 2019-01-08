@@ -20,32 +20,17 @@ if(isset($console->path[1])){
 						$console->alert($console->getMessage("NOT_AUTHORITY"),$data["listUrl"]);
 					}
 					
-					$temp = explode("_other_",$_POST["features"]);
-
-					if(isset($temp[1])){
-						$_POST["url"] = $temp[1]."/".$_POST["alias"];
-					}else{
-						$_POST["url"] = $_POST["features"];
-					}
-
 					if($systemMenu->setData($_POST)){
 						$console->alert($systemMenu->message,$_SERVER["REQUEST_URI"]);
 					}else{
 						$console->alert($systemMenu->message,-1);
 					}
 				}else{
-					$temp = $systemMenu->getData("where id='".$console->path[2]."'");
+					$temp = $systemMenu->getData("where id='".$console->path[2]."'",array(),$explodeArray);
 					if($temp){
 						$data["one"] = $temp[0];
 					}else{
 						$console->alert($systemMenu->message,$data["listUrl"]);
-					}
-					if(isset($explodeArray)){
-						foreach ($explodeArray as $key => $value) {
-							if(($value != "") && !is_array($data["one"][$value]) && $data["one"][$value]){
-								$data["one"][$value] = explode("|__|", $data["one"][$value]);
-							}
-						}
 					}
 					unset($temp);
 				}
@@ -68,13 +53,6 @@ if(isset($console->path[1])){
 
 				if(!in_array($_POST["parent"],$allowIDs,true)){
 					$console->alert($console->getMessage("NOT_AUTHORITY"),$data["listUrl"]);
-				}
-				$temp = explode("_other_",$_POST["features"]);
-
-				if(isset($temp[1])){
-					$_POST["url"] = $temp[1]."/".$_POST["alias"];
-				}else{
-					$_POST["url"] = $_POST["features"];
 				}
 
 				if($systemMenu->setData($_POST)){

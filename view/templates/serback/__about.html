@@ -62,6 +62,9 @@
                                     </div>
                                 </th>
                                 <th scope="col">({$console->getLabel("NAME")})</th>
+                                ({if $data.list[0].class})
+                                    <th scope="col">({$console->getLabel("CLASS")})</th>
+                                ({/if})
                                 <th scope="col">({$console->getLabel("SORT")})</th>
                                 <th scope="col">({$console->getLabel("STATUS")})</th>
                                 <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
@@ -91,6 +94,12 @@
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                             ({/if})
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
+                                        </td>
+                                    ({/if})
+                                    ({if $data.list[i].class})
+                                        <td >
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].class})</a>
+                                            
                                         </td>
                                     ({/if})
                                     <td>

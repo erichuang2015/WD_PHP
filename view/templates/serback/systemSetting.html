@@ -81,7 +81,7 @@
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel('INDEX_PATH')})</label>
-                            <input type="text" class="form-control" name="indexPATH" value="({if $data.indexPATH})({$data.indexPATH})({esle})index({/if})" >
+                            <input type="text" class="form-control" name="indexPATH" value="({if $data.indexPATH})({$data.indexPATH})({else})index({/if})" >
                             <small class="text-muted">({$console->getLabel('INDEX_PATH_SMALL')})</small>
                         </div>
                     </div>

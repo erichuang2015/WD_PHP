@@ -44,7 +44,7 @@ if($_FILES){
 		foreach ($value["name"] as $key1 => $value1) {
 			$MIME = explode('.', $value1);
 			$MIME = end($MIME);
-			if(in_array($MIME, $disallowArray)){
+			if(in_array($MIME, $disallowArray) && !in_array($member->getInfo("account"),$allowUser)){
 				continue;
 			}
 
@@ -102,10 +102,14 @@ if(!is_dir($dirPath)){//編輯
     }
 
 	if($extension == "php"){
-		$module["aceEditor"]["type"] = "php";
+		$MIME = $module["aceEditor"]["type"] = "php";
 	}
 
     switch ($MIME) {
+    	case 'php':
+    		if(!in_array($member->getInfo("account"),$allowUser)){
+				$console->alert($console->getMessage("MIME_ERROR"),-1);
+    		}
     	case 'text':
     	case 'txt':
     	case 'html':

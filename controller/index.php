@@ -6,12 +6,18 @@
 
 	if($temp = $menu->getData("where alias=?",array($console->path[0]))){
 		foreach ($temp as $key => $value) {
+			if(!$web_set["titlePrefix"] || ($web_set["titlePrefix"] && $value["features"]!="_other_calss")){
+				$web_set["titlePrefix"] = $console->getLabel($value["name"]);
+			}
+
+			$explodeArray = getExplode($value);
+
 			switch ($value["features"]) {
 				case '_other_basicOne':
-					# code...
+					$temp = new MTsung\dataList($console,PREFIX.$console->path[0],$lang);
+					$data["one"] = $temp->getOne("",array(),$explodeArray);
 					break;
 				case '_other_basic':
-					# code...
 					break;
 				case '_other_calss':
 					# code...
@@ -95,17 +101,81 @@
 	$temp = $console->conn->getRow($console->conn->Prepare("select * from ".$fileTemplate->table." where name=? and type='web'"),array($console->path[0].".html"));
 	if($temp["useTables"] = explode("|__|", $temp["useTables"])){
 		foreach ($temp["useTables"] as $key => $value) {
+			if($features = $menu->getData("where tablesName=?",array($value))){
+				$explodeArray = getExplode($features[0]);
+			}
+
 			if($console->isTables($value)){
 				$$value = new MTsung\dataList($console,PREFIX.$value,$lang);
-				if($data[$value] = $$value->getData("where status=1 order by sort")){
+				if($data[$value] = $$value->getData("where status=1 order by sort",array(),$explodeArray)){
 					foreach ($data[$value] as $key1 => $value1) {
-						$data[$value][$key1] = array_map("htmlspecialchars_decode",$value1);
+						$data[$value][$key1] = array_map(function($v){
+							if(!is_array($v)){
+								return htmlspecialchars_decode($v);
+							}
+							return $v;
+						},$value1);
 					}
 				}
+				$data[$value] = $console->urlKey($data[$value]);
 			}
 		}
 	}
 	print_r($data);
 	exit;
 
-?>
+	/**
+	 * 取得需要轉為陣列的字串key
+	 * @param  [type] $temp [description]
+	 * @return [type]       [description]
+	 */
+	function getExplode($temp){
+		$explodeArray = array();
+
+		foreach (array(
+						"dataName",
+						"dataType",
+						"dataKey",
+						"dataCount",
+						"dataExtension",
+						"dataSearch",
+						"dataSuggestText",
+						"dataTextOther",
+						"dataTextOtherText",
+						"dataTextareaOther",
+						"dataTextareaOtherText",
+						"dataSearchCount",
+					) as $key => $value) {
+				$temp[$value] = explode("|__|", $temp[$value]);
+		}
+
+		foreach ($temp["dataType"] as $key => $value) {
+			switch ($value) {
+				case 'imageModule':
+				case 'fileModule':
+				case 'search':
+					$explodeArray[] = $temp["dataKey"][$key];
+
+					if($textOther = explode(",",$temp["dataTextOther"][$key])){
+						foreach ($textOther as $value1) {
+							$explodeArray[] = $value1;
+						}
+					}
+
+					if($textareaOther = explode(",",$temp["dataTextareaOther"][$key])){
+						foreach ($textareaOther as $value1) {
+							$explodeArray[] = $value1;
+						}
+					}
+			}
+		}
+
+		if($temp["formData"]){
+			$explodeArray[] = "dataName";
+			$explodeArray[] = "dataType";
+			$explodeArray[] = "dataOption";
+			$explodeArray[] = "dataRequired";
+		}
+		return $explodeArray;
+	}
+	

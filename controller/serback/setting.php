@@ -77,7 +77,6 @@ if(isset($module["uploadFile"])){//後台用
 		}
 	}
 }
-
 if(isset($module["uploadImg"])){
 	foreach ($module["uploadImg"] as $key => $value) {
 		$_webSetting->addPictureName($value["name"]);
@@ -87,11 +86,6 @@ if(isset($module["uploadImg"])){
  * 修改資料
  */
 if($_POST){
-	foreach ($_POST as $key => $value) {
-		if(is_array($value)){
-			$_POST[$key] = implode("|__|",$value);
-		}
-	}
 	if(isset($_POST["emailCheck"])){
 		$temp = new MTsung\member($console,PREFIX.'member','member');
 		$temp->emailCheck($_POST["emailCheck"]);

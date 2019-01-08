@@ -113,8 +113,12 @@ namespace MTsung{
 				}
 			}
 
+
 			if(is_array($data)){
 				foreach ($data as $key => $value) {
+					if(is_array($value)){
+						$value = implode("|__|",$value);
+					}
 					if($temp = $this->conn->GetRow("select * from ".$this->table." where name='".$key."'")){
 						if($temp["detail"]!=$value){
 							$this->conn->AutoExecute($this->table,array('detail' => $value),"UPDATE","name='".$key."'");
