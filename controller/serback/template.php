@@ -20,9 +20,8 @@ foreach ($tables as $key => $value) {
 	}
 }
 $data["tables"] = array_values($tables);
-$settingTablesArray = array("shopping_cart","shopping_cart_list","web_setting","member","shipment_setting","payment_setting");
 foreach ($data["tables"] as $key => $value) {
-	if(in_array($value, $settingTablesArray)){
+	if(!$menu->getData("where tablesName=? and status=1",array($value))){
 		unset($data["tables"][$key]);
 	}
 }

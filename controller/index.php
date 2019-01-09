@@ -2,18 +2,6 @@
 <?php 
 	include_once('header.php');
 
-	//404檔案路徑轉換
-	$dirArray = array("css","js","images","fonts","svg");
-	if(in_array($console->path[0], $dirArray)){
-		$fileName = DATA_PATH.substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI']));
-		if(is_file($fileName)){
-			$console->HTTPStatusCode("301",HTTP_PATH.$fileName);
-		}else{
-			$console->to404();
-		}
-		exit;
-	}
-
 	//該頁資料載入
 	$menu = new MTsung\menu($console,PREFIX."menu");
 
@@ -23,7 +11,7 @@
 			return 0;
 		});
 		foreach ($temp as $key => $value) {
-			if(!$web_set["titlePrefix"] || ($web_set["titlePrefix"] && $value["features"]!="_other_calss")){
+			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && (!$web_set["titlePrefix"] || ($web_set["titlePrefix"] && $value["features"]!="_other_calss"))){
 				$web_set["titlePrefix"] = $console->getLabel($value["name"]);
 			}
 
@@ -122,18 +110,22 @@
 					}
 
 					if(isset($_FILES)){
-						$upload = new MTsung\Upload(array(),array(),1048576,false,UPLOAD_PATH.'form/'.$console->path[0]);
+						$allowMIME = array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword');
+						$allowExt = array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4');
+						$maxSize = 1048576;//1MB
+						$upload = new MTsung\Upload($allowMIME,$allowExt,$maxSize,false,UPLOAD_PATH.'form/'.$console->path[0]);
 						$upload->callUploadFile();
 						$temp = $upload->getDestination();
-						if(count($temp)!=count($_FILES)){
-							$console->alert("ERROR",-1);
+						if((!$temp = $upload->getDestination()) && $upload->res['error']){
+							$console->alert("Upload error.".$upload->res['error'],-1);
+							exit;
 						}
 						$i = 0;
 						foreach ($_FILES as $key => $value) {
 							$_POST[$key] = $temp[$i++];
 							$_FILES[$key]["tmp_name"] = APP_PATH.$_POST[$key];
 						}
-						ksort($_POST);
+						ksort($_POST, SORT_NATURAL);
 
 					}
 
@@ -141,7 +133,7 @@
 					$form = new MTsung\form($console,PREFIX.$console->path[0]."_form",$lang);
 					if($form->setData($input)){
 						$form->sendForm(array(
-							"keyName" => explode("|__|", $data["one"]["dataName"]),
+							"keyName" => $data["one"]["dataName"],
 							"keyData" => explode("|__|", $input["keyData"])
 						),WEB_PATH."/".$console->path[0]);
 					}else{
@@ -149,13 +141,9 @@
 					}
 				}
 
-				$data["one"]["dataName"] = explode("|__|", $data["one"]["dataName"]);
-				$data["one"]["dataType"] = explode("|__|", $data["one"]["dataType"]);
-				$data["one"]["dataOption"] = explode("|__|", $data["one"]["dataOption"]);
 				foreach ($data["one"]["dataOption"] as $key => $value) {
 					$data["one"]["dataOption"][$key] = explode(",", $value);
 				}
-				$data["one"]["dataRequired"] = explode("|__|", $data["one"]["dataRequired"]);
 			}
 		}
 	}
@@ -163,7 +151,13 @@
 	//其他資料
 	$fileTemplate = new MTsung\fileTemplate($console);
 	$temp = $console->conn->getRow($console->conn->Prepare("select * from ".$fileTemplate->table." where name=? and type='web'"),array($console->path[0].".html"));
-	if($temp["useTables"] = explode("|__|", $temp["useTables"])){
+	$temp["useTables"] = explode("|__|", $temp["useTables"]);
+	//全域其他資料
+	$temp1 = $console->conn->getRow("select * from ".$fileTemplate->table." where name='top.html' and type='web'");
+	if($temp1["useTables"] = explode("|__|", $temp1["useTables"])){
+		$temp["useTables"] = array_merge($temp["useTables"],$temp1["useTables"]);
+	}
+	if($temp["useTables"]){
 		foreach ($temp["useTables"] as $key => $value) {
 			if(!$value) continue;
 

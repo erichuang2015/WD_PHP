@@ -101,8 +101,8 @@ namespace MTsung{
                         $i++;
                     }
                 }
-                return $files;
             }
+            return $files;
         }
      
         /**
@@ -185,7 +185,7 @@ namespace MTsung{
                         $this->res['error'] = $file['name'] . ' 檔案只有部分被上傳';
                         break;
                     case 4:
-                        $this->res['error'] = $file['name'] . ' 沒有檔案被上傳（沒有選擇上傳檔案就送出表單）';
+                        // $this->res['error'] = $file['name'] . ' 沒有檔案被上傳（沒有選擇上傳檔案就送出表單）';
                         break;
                     case 6:
                         $this->res['error'] = $file['name'] . ' 找不到臨時目錄';
@@ -210,7 +210,7 @@ namespace MTsung{
          */
         private function checkHttpPost($file){
             if (!is_uploaded_file($file['tmp_name'])) {
-                $this->res['error'] = $file['name'] . '檔案不是通過 HTTP POST 方式上傳的';
+                // $this->res['error'] = $file['name'] . '檔案不是通過 HTTP POST 方式上傳的';
                 return false;
             }
             return true;

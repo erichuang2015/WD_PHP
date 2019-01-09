@@ -53,6 +53,7 @@
 	//css js用
 	$web_set['main_path'] = WEB_PATH;
 	$web_set['serback_path'] = SERBACK_PATH;
+	$web_set['data_path'] = DATA_PATH;
 
 	//完整網址(不含控制器)
 	$web_set['http_path'] = HTTP_PATH;

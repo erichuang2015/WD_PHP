@@ -115,10 +115,10 @@ namespace MTsung{
 			$tpl = new \Smarty();
 			$tpl->left_delimiter = '({';
 			$tpl->right_delimiter = '})';
-			$tpl->template_dir = APP_PATH . "view/templates/mail";
-			$tpl->compile_dir = APP_PATH . "view/templates_c/mail";
-			$tpl->config_dir = APP_PATH . "view/configs/";
-			$tpl->cache_dir = APP_PATH . "view/cache/";
+			$tpl->template_dir = APP_PATH.DATA_PATH."view/templates/mail";
+			$tpl->compile_dir = APP_PATH.DATA_PATH."view/templates_c/mail";
+			$tpl->config_dir = APP_PATH."view/configs/";
+			$tpl->cache_dir = APP_PATH."view/cache/";
 
 			if(is_array($data)){
 				foreach ($data as $k => $v) {

@@ -1,44 +1,7 @@
 <?php
 
 /** 
- *  __   __  _______  _______  __   __  __    _  _______ 
- * |  |_|  ||       ||       ||  | |  ||  |  | ||       |
- * |       ||_     _||  _____||  | |  ||   |_| ||    ___|
- * |       |  |   |  | |_____ |  |_|  ||       ||   | __ 
- * |       |  |   |  |_____  ||       ||  _    ||   ||  |
- * | ||_|| |  |   |   _____| ||       || | |   ||   |_| |
- * |_|   |_|  |___|  |_______||_______||_|  |__||_______|
  * MTsung by 20180510
- *
- * function{
- * setLanguageArray
- * getLanguageArray
- * setLanguage
- * getLanguage
- * getHreflang
- * getMessage
- * alert
- * loadController
- * POSTVerifty
- * XSSVerifty
- * XXSDataVerifty
- * CSRFVerifty
- * getToken
- * getTokenName
- * rmBadToken
- * getQRCodeInGoogle
- * checkreCAPTCHA
- * checkVerifyCode
- * getSqlSize
- * getDirSize
- * formatSize
- * getDataSizeArray
- * getSqlSizeArray
- * linkTo
- * HTTPStatusCode
- * addQuery
- * setWebSetting
- * }
  */
 namespace MTsung{
 

@@ -4,6 +4,18 @@
 		$console->linkTo(HTTP_PATH);
 		exit;
 	}
+	
+	//404檔案路徑轉換
+	$dirArray = array("css","js","images","fonts","svg");
+	if(in_array($console->path[0], $dirArray)){
+		$fileName = DATA_PATH.substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI']));
+		if(is_file($fileName)){
+			$console->HTTPStatusCode("301",HTTP_PATH.$fileName);
+		}else{
+			$console->to404();
+		}
+		exit;
+	}
 
 	if($console->setting->getValue("analyticsCheck")){
 		$analytics = new MTsung\analytics($console);

@@ -95,6 +95,7 @@
                                     <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="off" required>
                                 </div>
                             </div>
+                            ({if $console->path[1]=="web"})
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label>({$console->getLabel("USE_DATA")})</label>
@@ -109,6 +110,7 @@
                                     </div>
                                 </div>
                             </div>
+                            ({/if})
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label>({$console->getLabel("DETAIL")})</label>

@@ -256,7 +256,7 @@ console.log("%c", "padding:50px 300px;line-height:120px;background:url('https://
 
 
 	FB留言外掛
-    <div class="fb-comments" data-href="({$data.thisUrl})" data-width="" data-numposts="5" style="width:100%"></div>
+    <div class="fb-comments" data-href="({$web.thisUrl})" data-width="" data-numposts="5" style="width:100%"></div>
     崁入FB影片
     <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/10153231379946729/" data-show-text="false" style="width:100%"></div>
     讚 分享網址
