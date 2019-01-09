@@ -54,7 +54,7 @@ CREATE TABLE `database_admin` (
 INSERT INTO `database_admin` (`id`,`account`,`password`,`groupID`,`name`,`email`,`sex`,`picture`,`country`,`county`,`city`,`zipcode`,`address`,`company`,`landline`,`landline2`,`phone`,`phone2`,`fax`,`fax2`,`emailCheck`,`status`,`create_date`,`update_date`,`create_user`,`update_user`,`fbID`,`fbName`,`fbEmail`,`fbPicture`,`googleID`,`googleName`,`googleEmail`,`googlePicture`,`lineID`,`lineName`,`lineEmail`,`linePicture`,`memo`,`point`,`doingTime`) VALUES
 ('1','vipadmin','$2y$10$vdcAEXgjaN2oCoElBmIOru6J9WB.hIkwGRg1G6lkEB9RhhpGXhxye','1','vipadmin','toby@vipcase.net','','','','','','0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'0'),
 ('2','service','$2y$10$0e14rlQE82WLN62PaOBgX.K3Q96hbmioOkO5ksWbkscVbBGoamJYy','2','客戶管理者','','','','','','','0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'3600'),
-('3','admin','$2y$10$40GaEV/xy0vgHTte66pkle6aZ6DEQKNZgwzDDnut6VOPwY5jjctN.','3','設計師','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600'),
+-- ('3','admin','$2y$10$40GaEV/xy0vgHTte66pkle6aZ6DEQKNZgwzDDnut6VOPwY5jjctN.','3','設計師','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600'),
 ('4','wdadmin','$2y$10$5LUQOkppr.KvWTrSA/pqwO2N/aWCvWwbNWjgAH08E86RRM/LEZvTK','1','網動','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600');
 
 DROP TABLE IF EXISTS `database_admin_group`;
@@ -76,7 +76,7 @@ CREATE TABLE `database_admin_group` (
 INSERT INTO `database_admin_group` (`id`,`name`,`control`,`auth`,`status`,`create_date`,`update_date`,`create_user`,`update_user`) VALUES
 ('1','系統管理員','-999','79,80,81,1,3,17,71,72,2,18,19,38,39,40,64,4,92,5,6,7,70,8,89,88,21,36,93,22,87,91,85,83,84,86,90,95,94','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin'),
 ('2','客戶管理者','0','1,3,17,71,72,2,18,19,38,39,40,4,6','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin'),
-('3','設計師','0','1,3,17,71,72,2,18,19,21,36,93,22,87,91,85,83,84,94,95','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin');
+-- ('3','設計師','0','1,3,17,71,72,2,18,19,21,36,93,22,87,91,85,83,84,94,95','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin');
 
 DROP TABLE IF EXISTS `database_admin_logs`;
 
