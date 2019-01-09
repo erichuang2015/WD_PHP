@@ -67,7 +67,10 @@ namespace MTsung{
 		function __construct($conn,$design,$setting){
 
 			//網址處理
-			$url = str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['REQUEST_URI']);
+			$url = "";
+			if($_SERVER['REQUEST_URI']!=$_SERVER['SCRIPT_NAME']){
+				$url = $_SERVER['REQUEST_URI'];
+			}
 			$url = str_replace('?'.$_SERVER['QUERY_STRING'], '', $url);
 			$url = substr($url, strlen(WEB_PATH)+1,strlen($url)); ///AAA/BBB
 
@@ -527,7 +530,9 @@ namespace MTsung{
 				include_once(CONTROLLER_PATH.$this->controller.'.php'); 
 				include_once(INCLUDE_PATH.'foor.php');
 			}else{
-				$this->to404();
+				include_once(CONTROLLER_PATH.'index.php'); 
+				include_once(INCLUDE_PATH.'foor.php');
+				// $this->to404();
 				// echo $this->getMessage('CONTROLLER_NULL',array($this->controller));
 				exit;
 			}

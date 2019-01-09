@@ -19,7 +19,8 @@ if (is_file(CONTROLLER_PATH.'serback/'.$console->controller.'.php')){
 	}
 	include_once(CONTROLLER_PATH.'serback/'.$console->controller.'.php'); 
 }else{
-	$console->to404();
+	$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
+	// $console->to404();
 	// echo $console->getMessage('CONTROLLER_NULL',array($console->controller));
 	exit;
 }

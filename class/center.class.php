@@ -444,7 +444,12 @@ namespace MTsung{
 			$temp = $this->getData("where status='1' ".$whereSql,$sqlArray,$explodeArray,$module);
 			if($temp){
 				foreach ($temp as $key => $value) {
-					$temp[$key] = array_map("htmlspecialchars_decode",$temp[$key]);
+					$temp[$key] = array_map(function($v){
+						if(!is_array($v)){
+							return htmlspecialchars_decode($v);
+						}
+						return $v;
+					},$temp[$key]);
 				}
 				return $temp[0];
 			}

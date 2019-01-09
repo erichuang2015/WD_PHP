@@ -26,6 +26,7 @@ foreach ($data["tables"] as $key => $value) {
 		unset($data["tables"][$key]);
 	}
 }
+$data["tables"] = array_values($data["tables"]);
 
 if(isset($console->path[2])){
 	switch ($console->path[2]) {

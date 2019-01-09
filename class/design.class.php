@@ -49,7 +49,8 @@ namespace MTsung{
                 $this->tpl->loadFilter('output','trimwhitespace');
         		$this->tpl->display($value);
         	}else{
-        		echo $this->console->getMessage('DISPLAY_NULL',array($value));
+                $this->console->to404();
+        		// echo $this->console->getMessage('DISPLAY_NULL',array($value));
         		exit;
         	}
         }

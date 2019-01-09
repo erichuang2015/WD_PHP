@@ -21,11 +21,6 @@
 	
 
 	switch ($type) {
-		case 'terms':
-
-			$data["one"] = (new MTsung\dataList($console,PREFIX."terms",$lang))->getOne()["detail"];
-
-			break;
 
 		case 'join':
 
