@@ -115,6 +115,9 @@
                                     }
                                 };
                                 var errMsg='';
+                                if(files.length>20){
+                                    errMsg = '({$console->getLabel("FILE_COUNT_MAX_20")})'
+                                }
                                 for (var i = 0; i < files.length; i++) {
                                     objForm.append('images[]', files[i]);
                                 }

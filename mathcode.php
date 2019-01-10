@@ -3,24 +3,27 @@
 	Create by Jones
 	瀏覽人數計計數器顯示
 	MTsung 2018/12/19 cookie防止重複計算 (3600秒)
+	2019/1/10 使用流量分析修改count.txt
+	get bgcolor=色碼
 */
 
+include_once("include/header.php");
 header("Pragma: no-cache");
 header("Cache-Control: no-cache");
 header("Content-type:image/png");
 header("Content-Disposition:filename=math_code.png");
 
-define(COUNT_FILE_NAME, "count.txt");
+define(COUNT_FILE_NAME, APP_PATH.DATA_PATH."count.txt");
 
 $mydata = 0;
 if (is_file(COUNT_FILE_NAME)){
 	$mydata = file_get_contents(COUNT_FILE_NAME);
 }
 
-if(!isset($_COOKIE["vCount"])){
-	file_put_contents(COUNT_FILE_NAME,++$mydata);
-	setcookie("vCount", "1", time()+3600);//3600秒算一次
-}
+// if(!isset($_COOKIE["vCount"])){
+// 	file_put_contents(COUNT_FILE_NAME,++$mydata);
+// 	setcookie("vCount", "1", time()+3600);//3600秒算一次
+// }
 
 
 $all_len = '8';									//--字段總長度 (auto則自動)
@@ -55,7 +58,12 @@ $imageHeight += $image_height_add;
 $im = @imagecreatetruecolor($imageWidth, $imageHeight)
 or die("無法建立圖片！");
 
-$bgColor = imagecolorallocate($im, 0,0,0);				//背景RGB色彩
+$r = $g = $b = 0;
+if($_GET["bgcolor"]){
+	list($r, $g, $b) = array_map('hexdec', str_split($_GET["bgcolor"], 2));
+}
+
+$bgColor = imagecolorallocate($im, $r,$g,$b);				//背景RGB色彩
 $font_color = imagecolorallocate($im, 255,255,255);		//字體RGB色彩
 
 imagefill($im,0,0,$bgColor);

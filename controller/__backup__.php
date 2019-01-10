@@ -6,7 +6,7 @@
 	set_time_limit(0);
 
 	//備份
-	$fileName = APP_PATH."backup.txt";
+	$fileName = APP_PATH.DATA_PATH."backup.txt";
 	$file = fopen($fileName, "r") or die("Unable to open file!");
 	$day = fread($file,filesize($fileName));
 	fclose($file);

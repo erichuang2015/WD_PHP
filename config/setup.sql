@@ -75,7 +75,7 @@ CREATE TABLE `database_admin_group` (
 
 INSERT INTO `database_admin_group` (`id`,`name`,`control`,`auth`,`status`,`create_date`,`update_date`,`create_user`,`update_user`) VALUES
 ('1','系統管理員','-999','79,80,81,1,3,17,71,72,2,18,19,38,39,40,64,4,92,5,6,7,70,8,89,88,21,36,93,22,87,91,85,83,84,86,90,95,94','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin'),
-('2','客戶管理者','0','1,3,17,71,72,2,18,19,38,39,40,4,6','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin'),
+('2','客戶管理者','0','1,3,17,71,72,2,18,19,38,39,40,4,6','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin');
 -- ('3','設計師','0','1,3,17,71,72,2,18,19,21,36,93,22,87,91,85,83,84,94,95','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin');
 
 DROP TABLE IF EXISTS `database_admin_logs`;
@@ -159,7 +159,7 @@ INSERT INTO `database_menu` (`id`, `name`, `floor`, `parent`, `url`, `sort`, `st
 (70, 'LANGUAGE_COPY', 2, 4, 'languageCopy', 5, 20, 1, '2018-12-31 16:00:00', '2018-12-31 16:00:00', 'vipadmin', 'vipadmin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (71, 'PAYMENT_SETTING', 2, 3, 'setting/payment', 2, 6, 1, '2018-12-31 16:00:00', '2018-12-31 16:00:00', 'vipadmin', 'vipadmin', 'setting/payment', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '', '', '', ''),
 (72, 'SHIPMENT_SETTING', 2, 3, 'setting/shipment', 3, 7, 1, '2018-12-31 16:00:00', '2018-12-31 16:00:00', 'vipadmin', 'vipadmin', 'setting/shipment', '', '', '', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '', ''),
-(79, 'WEB_ANALYSIS', 0, 0, '', 1, 0, 1, '2018-12-31 16:00:00', '2018-12-31 16:00:00', 'vipadmin', 'vipadmin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(79, 'WEB_ANALYSIS', 0, 0, '', 1, 0, 0, '2018-12-31 16:00:00', '2018-12-31 16:00:00', 'vipadmin', 'vipadmin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (80, 'WEB_ANALYSIS', 1, 79, '', 1, 1, 1, '2018-12-31 16:00:00', '2018-12-31 16:00:00', 'vipadmin', 'vipadmin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (81, 'USER_ANALYSIS', 2, 80, 'analytics', 1, 2, 1, '2018-12-31 16:00:00', '2018-12-31 16:00:00', 'vipadmin', 'vipadmin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (83, 'CSS', 2, 91, 'file/css', 2, 32, 1, '2018-12-31 16:00:00', '2018-12-31 16:00:00', 'vipadmin', 'vipadmin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),

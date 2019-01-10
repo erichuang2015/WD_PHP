@@ -81,6 +81,9 @@
                 }
             };
             var errMsg='';
+            if(files.length>20){
+                errMsg = '({$console->getLabel("FILE_COUNT_MAX_20")})'
+            }
             ({if $module.uploadFile[$_I_].extension})
                 for (var i = 0; i < files.length; i++) {
                     var check_image_type = [({section name=i loop=$module.uploadFile[$_I_].extension})'({$module.uploadFile[$_I_].extension[i]})',({/section})];

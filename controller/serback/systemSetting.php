@@ -30,25 +30,13 @@ $switch["buttonBox"] = 1;
 $switch["saveButton"] = 1;
 if($_POST){
 	if($memberInfo["groupID"]!=1){
-		unset(
-				$_POST["sizeSwitch"],
-				$_POST["webMaxSize"],
-				$_POST["uploadMaxSize"],
-				$_POST["outputMaxSize"],
-				$_POST["sqlMaxSize"],
-				$_POST["backupSwitch"],
-				$_POST["backupDay"],
-				$_POST["backupDeleteDay"],
-				$_POST["backupMailSwitch"],
-				$_POST["backupMailUser"],
-				$_POST["analyticsCheck"],
-				$_POST["stockMode"],
-				$_POST["originalPriceCheck"],
-				$_POST["specialPriceCheck"],
-				$_POST["memberPriceCheck"],
-				$_POST["addProductCheck"],
-				$_POST["pointCheck"]
-			);
+		//允許客戶修改的值
+		$a = array("icon","watermark","recipientEmail","senderEmail","senderName","csrfWhitelist","indexPATH","smtpSMTPSecure","smtpHost","smtpPort","smtpUsername","smtpPassword","otherCode");
+		foreach ($_POST as $key => $value) {
+			if(!in_array($key, $a)){
+				unset($_POST[$key]);
+			}
+		}
 	}
 	if($console->setting->setData($_POST)){
 		$console->alert($console->getMessage('EDIT_OK'),$console->path[0]);

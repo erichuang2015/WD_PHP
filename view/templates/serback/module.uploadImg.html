@@ -90,6 +90,9 @@
                 }
             };
             var errMsg='';
+            if(files.length>20){
+                errMsg = '({$console->getLabel("FILE_COUNT_MAX_20")})'
+            }
             for (var i = 0; i < files.length; i++) {
                 var check_image_type = ['jpeg', 'jpg', 'bmp', 'gif', 'png', 'ico'];
                 var check_file_name = files[i].name.split('.');

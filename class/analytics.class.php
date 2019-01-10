@@ -14,8 +14,10 @@ namespace MTsung{
 			$this->setConsole($console);
 			$this->conn = $this->console->conn;
 			$this->checkTable();
-			//刪除超過半年的資料
-			$rmDate = date('Y-m-d H:i:s',strtotime(DATE)-(86400*365/2));
+
+			//刪除超過_天的資料
+			$day = $this->console->setting->getValue("analyticsResetDay")?$this->console->setting->getValue("analyticsResetDay"):(365/2);
+			$rmDate = date('Y-m-d H:i:s',strtotime(DATE)-(86400*(int)($day)));
 			$this->conn->Execute("delete from ".$this->table." where time<'".$rmDate."'");
 		}
 
@@ -126,6 +128,14 @@ namespace MTsung{
 			}else{
 				$this->conn->AutoExecute($this->table,$data,"INSERT");
 				$id = $this->conn->GetRow("SELECT LAST_INSERT_ID()")[0];
+
+				$countPath = APP_PATH.DATA_PATH."count.txt";
+				$tempCount = 0;
+				if (is_file($countPath)){
+					$tempCount = file_get_contents($countPath);
+				}
+				file_put_contents($countPath,++$tempCount);
+
 			}
 			$this->addLogPage($id);
 		}

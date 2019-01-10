@@ -59,6 +59,12 @@
     </nav>
     <div class="wrapper">
         <nav id="sidebar">
+            ({if $web.analyticsCheck})
+                <ul class="list-unstyled components">
+                    <p>({$console->getLabel("FRONT_VIEWS_COUNT")})</p>
+                    <img src="mathcode.php?bgcolor=1d65a6" width="100%">
+                </ul>
+            ({/if})
             ({if count($console->getLanguageArray("array"))>1})
                 <ul class="list-unstyled components">
                     <!-- <div class="form-group">
@@ -95,7 +101,9 @@
 
                                     ({section name=k loop=$menu[2]})
                                         ({if $menu[1][j].id == $menu[2][k].parent})
+                                        ({if $menu[2][k].url!="systemMenu" || $member.account=="vipadmin"})
                                             <li><a href="({$web.serback_url})/({$menu[2][k].url})">({$console->getLabel($menu[2][k].name)})</a></li>
+                                        ({/if})
                                         ({/if})
                                     ({/section})
                                 </ul>

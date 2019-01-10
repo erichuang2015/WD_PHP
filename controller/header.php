@@ -1,6 +1,6 @@
 <?php 
 	//建構中 需要有登入後台才能看內頁
-	if($console->setting->getValue("indexPATH")=="demo" && !(isset($_SESSION[FRAME_NAME]["member"]["serback"]) && $_SESSION[FRAME_NAME]["member"]["serback"])){
+	if($console->path[0]!="demo" && $console->setting->getValue("indexPATH")=="demo" && !(isset($_SESSION[FRAME_NAME]["member"]["serback"]) && $_SESSION[FRAME_NAME]["member"]["serback"])){
 		$console->linkTo(HTTP_PATH);
 		exit;
 	}
