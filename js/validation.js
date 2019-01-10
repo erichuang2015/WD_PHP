@@ -39,10 +39,10 @@ $(window).keydown(function(event) {
 var onlyValues=[];
 function formSubmit(index) {
 	onlyValues=[];
-	if(typeof(index) == "undefined"){
+	if((typeof(index) == "undefined") || isNaN(index)){
 		index = 0;
 	}
-	
+
 	tempInput = [];
 	msg = "";
 	$(".chosen-container").removeClass("is-invalid");
