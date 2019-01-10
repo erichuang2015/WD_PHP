@@ -8,7 +8,7 @@
 	$isPConnect = true;
 
 	//資料庫資訊
-	if(!isset($_SERVER["HTTP_HOST"]) || strpos($_SERVER["HTTP_HOST"],"localhost")!==false || strpos($_SERVER["HTTP_HOST"],"127.0.0.1")!==false){
+	if(!isset($_SERVER["SERVER_NAME"]) || $_SERVER["SERVER_NAME"]=="localhost" || $_SERVER["SERVER_NAME"]=="127.0.0.1"){
 		//本機
 		$dbHost = "localhost";
 		$dbUser = "root";
@@ -20,6 +20,12 @@
 		$dbUser = "";
 		$dbPass = "";
 		$dbData = "";
+
+		if(!$dbUser){
+			$dbUser = $_GET["dbUser"];
+			$dbPass = $_GET["dbPass"];
+			$dbData = $_GET["dbData"];
+		}
 	}
 
 	//網站資料夾權限判斷
