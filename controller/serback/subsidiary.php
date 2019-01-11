@@ -44,7 +44,7 @@ if(isset($console->path[1])){
 			//新增
 			if($_POST){
 				global $dbUser,$dbPass;
-				$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass);
+				$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,"wdtaiwan_");
 				if($_POST["subDomain"]){
 					if(!$cPanel->addDatabase($_POST["subDomain"])){
 						$console->alert($cPanel->message,-1);

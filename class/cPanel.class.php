@@ -12,18 +12,20 @@ namespace MTsung{
 		var $message;
 		var $account;
 		var $password;
+		var $prefix;
 		var $auth;
 		var $serverName;
 
-		function __construct($console,$account,$password,$serverName=""){
+		function __construct($console,$account,$password,$prefix,$serverName=""){
 			$this->console = $console;
 			$this->account = $account;
 			$this->password = $password;
+			$this->prefix = $prefix;
 			$this->auth = $this->account.":".$this->password;
 			if($serverName){
 				$this->serverName = $serverName;
 			}else{
-				$this->serverName = HTTP.$_SERVER['SERVER_NAME'].":2083";
+				$this->serverName = "https://".$_SERVER['SERVER_NAME'].":2083";
 			}
 		}
 
@@ -119,7 +121,7 @@ namespace MTsung{
 				"cpanel_jsonapi_apiversion" => "2",
 				"cpanel_jsonapi_module" => "MysqlFE",
 				"cpanel_jsonapi_func" => "createdb",
-				"db" => PREFIX.$name
+				"db" => $this->prefix.$name
 			);
 			if(!$temp = $this->cCurl($url,"GET",$data)){
 				return false;

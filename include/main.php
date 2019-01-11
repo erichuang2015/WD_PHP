@@ -468,6 +468,7 @@ namespace MTsung{
 		 * @param  string $url     轉跳網址 -1:上一頁  NULL,"":reload  NO:不轉跳 CLOSE:關閉
 		 */
 		function alert($message,$url=NULL){
+		    $message = str_replace(array("\r", "\n", "\r\n", "\n\r"), '', $message);
 			print "<meta http-equiv=Content-Type content=text/html; charset=utf-8>";
 			if(trim($url) == "-1"){
 				echo "<script language=\"JavaScript\" type=\"text/JavaScript\">window.addEventListener('load',function(){alert(\"$message\");javascript:history.back(-1);});</script>";
