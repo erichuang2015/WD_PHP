@@ -76,8 +76,13 @@ namespace MTsung{
          * 後台樣板
          */
         public function setSerbackDir(){
-    		$this->tpl->template_dir = APP_PATH . "view/templates/serback";
-    		$this->tpl->compile_dir = APP_PATH . "view/templates_c/serback";
+            $this->tpl->setTemplateDir(
+                array(
+                    'one' => APP_PATH."view/templates/serback",
+                    'two' => APP_PATH
+                )
+            );
+    		$this->tpl->compile_dir = APP_PATH."view/templates_c/serback";
         }
     }
 }

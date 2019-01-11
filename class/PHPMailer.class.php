@@ -120,6 +120,8 @@ namespace MTsung{
 			$tpl->config_dir = APP_PATH."view/configs/";
 			$tpl->cache_dir = APP_PATH."view/cache/";
 
+			$tpl->assign("console",$this->console);
+
 			if(is_array($data)){
 				foreach ($data as $k => $v) {
 					$tpl->assign($k,$v);

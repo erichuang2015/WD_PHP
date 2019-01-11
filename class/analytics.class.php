@@ -17,8 +17,9 @@ namespace MTsung{
 
 			//刪除超過_天的資料
 			$day = $this->console->setting->getValue("analyticsResetDay")?$this->console->setting->getValue("analyticsResetDay"):(365/2);
-			$rmDate = date('Y-m-d H:i:s',strtotime(DATE)-(86400*(int)($day)));
+			$rmDate = date('Y-m-d H:i:s',strtotime(DATE)-(86400*$day));
 			$this->conn->Execute("delete from ".$this->table." where time<'".$rmDate."'");
+			$this->conn->Execute("delete from ".$this->table_page." where time<'".$rmDate."'");
 		}
 
 		/**

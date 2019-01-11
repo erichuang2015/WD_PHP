@@ -62,9 +62,9 @@ namespace MTsung{
 		/**
 		 * 新增附加網域
 		 * @param [type] $name      [description]
-		 * @param [type] $subDoname [description]
+		 * @param [type] $subDomain [description]
 		 */
-		function addAddonDomain($name,$subDoname){
+		function addAddonDomain($name,$subDomain){
 			$url = "/json-api/cpanel";
 			$data = array(
 				"cpanel_jsonapi_apiversion" => "2",
@@ -72,7 +72,7 @@ namespace MTsung{
 				"cpanel_jsonapi_func" => "addaddondomain",
 				"dir" => "/public_html",
 				"newdomain" => $name,
-				"subdomain" => $subDoname
+				"subdomain" => $subDomain
 			);
 			if(!$temp = $this->cCurl($url,"GET",$data)){
 				return false;
@@ -87,7 +87,6 @@ namespace MTsung{
 		/**
 		 * 新增子網域
 		 * @param [type] $name      [description]
-		 * @param [type] $subDoname [description]
 		 */
 		function addSubDomain($name){
 			$url = "/json-api/cpanel";

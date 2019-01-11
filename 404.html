@@ -6,6 +6,7 @@
     <link rel="apple-touch-icon" href="({$web.icon})">
     <link rel="apple-touch-icon-precomposed" href="({$web.icon})">
 </head>
+({include "top.html"})
 <style>
     body {
         background: #dedede;
@@ -28,12 +29,13 @@
     </div>
 </div>
 <script>
-    var _aaaa = 5;
-    function togohome(){
-        if (--_aaaa < 0) {
-            window.location.href='({$web.main_url})/index/';
-        }
-    }
-    togohome();
-    window.setInterval("togohome()",1000);
+//    var _aaaa = 5;
+//    function togohome(){
+//        if (--_aaaa < 0) {
+//            window.location.href='({$web.main_url})/index/';
+//        }
+//    }
+//    togohome();
+//    window.setInterval("togohome()",1000);
 </script>
+({include "foor.html"})

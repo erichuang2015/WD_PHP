@@ -44,6 +44,9 @@ namespace MTsung{
 					  UNIQUE KEY `urlKey` (`urlKey`)
 					) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 				");
+				$this->conn->Execute("
+					CREATE INDEX INDEX_NAME ON `".$this->table." (name);
+				");
 			}
 		}
 	}

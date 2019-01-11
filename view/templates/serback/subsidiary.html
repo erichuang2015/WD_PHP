@@ -1,0 +1,162 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    ({if $switch.listList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
+                        </li>
+                    ({/if})
+                    ({if $switch.editList!=0 || $switch.addList!=0})
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("BASIC_INFORMATION")})</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$console->getLabel("PAGE_SETTING")})</a>
+                        </li> -->
+                    ({/if})
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                ({if $switch.listList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-list">
+                        <table class="table table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" width="2%">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input border" id="checkAll">
+                                            <label class="custom-control-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                    <th scope="col">({$console->getLabel("NAME")})</th>
+                                    <th scope="col">({$console->getLabel("SUB_DOMAIN")})</th>
+                                    <th scope="col">({$console->getLabel("ADD_ON_DOMAIN")})</th>
+                                    <th scope="col">({$console->getLabel("SORT")})</th>
+                                    <th scope="col">({$console->getLabel("STATUS")})</th>
+                                    <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                    <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
+                                    <th scope="col">({$console->getLabel("TOW_SORT")})</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ({section name=i loop=$data.list})
+                                    <tr>
+                                        <td scope="row">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
+                                                <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
+                                            
+                                        </td>
+                                        <td >
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].subDomain})</a>
+                                            
+                                        </td>
+                                        <td >
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].addonDomain})</a>
+                                            
+                                        </td>
+                                        <td>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control col-md-3" name="sort_({$data.list[i].id})" value="({$data.list[i].sort})">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="onoffswitch">
+                                                <input type="hidden" name="status_({$data.list[i].id})" value="0">
+                                                <input type="checkbox" name="status_({$data.list[i].id})" class="onoffswitch-checkbox" id="myonoffswitch_({$data.list[i].id})" value="1" ({if $data.list[i].status})checked({/if})>
+                                                <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            ({$data.list[i].create_date})(({$data.list[i].create_user}))
+                                        </td>
+                                        <td >
+                                            ({$data.list[i].update_date})(({$data.list[i].update_user}))
+                                        </td>
+                                        <th >
+                                            <span class="glyphicon-move" style="font-size: 20px;"></span>
+                                        </th>
+                                    </tr>
+
+                                ({/section})
+                                
+                            </tbody>
+                        </table>          
+                    </div>
+                ({/if})
+
+                ({if $switch.editList!=0 || $switch.addList!=0})
+                    <div class="card-body tab-pane fade show active" id="list-edit">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('NAME')})</label>
+                                <input type="text" name="name" class="form-control" autocomplete="name" value="({$data.one.name})" data-text="({$console->getLabel("NAME")})" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('SUB_DOMAIN')})</label>
+                                <input type="text" name="subDomain" class="form-control" value="({$data.one.subDomain})" data-text="({$console->getLabel("SUB_DOMAIN")})" required >
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('ADD_ON_DOMAIN')})</label>
+                                <input type="text" name="addonDomain" class="form-control" value="({$data.one.addonDomain})">
+                            </div>
+                        </div>
+
+                        <small class="text-muted">
+                            ({$console->getLabel('CREATE_DATE')})
+                            ({$data.one.create_date})(({$data.one.create_user}));
+                            ({$console->getLabel('UPDATE_DATE')})
+                            ({$data.one.update_date})(({$data.one.update_user}))
+                        </small>
+                        
+                    </div>
+
+                    <div class="card-body tab-pane fade" id="list-page-setting">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("CUSTOM_PAGE_TITLE")})</label>
+                                <input type="text" class="form-control" name="pageTitle" value="({$data.one.pageTitle})">
+                                <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_TITLE_TEXT")})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("CUSTOM_URL")})</label>
+                                <input type="text" class="form-control" name="urlKey" value="({$data.one.urlKey})">
+                                <small class="text-muted">({$console->getLabel("CUSTOM_URL_TEXT")})</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("CUSTOM_PAGE_META")})</label>
+                                <textarea class="form-control" rows="8" name="pageMeta">({$data.one.pageMeta})</textarea>
+                                <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_META_TEXT")})</small>
+                            </div>
+                        </div>
+                    </div>
+                ({/if})
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
+({include file='foor.html'})

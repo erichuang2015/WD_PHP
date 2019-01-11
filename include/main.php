@@ -906,15 +906,10 @@ namespace MTsung{
 		 * 404頁面
 		 * @return [type] [description]
 		 */
-		function to404(){
+		function to404($data=""){
 			http_response_code(404);
-			$web_set['main_path'] = WEB_PATH;
-			$web_set['lang'] = count($this->getLanguageArray("array"))==1?'':$this->getLanguage();
-			$web_set['main_url'] = $web_set['main_path'].($web_set['lang']?'/'.$web_set['lang']:'');
-			$web_set = array_merge($web_set,$this->webSetting->getValue());
-			$web_set = array_merge($web_set,$this->setting->getValue());
-			$web_set = array_map("htmlspecialchars_decode",$web_set);
-			$this->design->setData("web", @$web_set);
+			global $console;
+			include_once(INCLUDE_PATH.'foor.php');
 			$this->design->loadDisplay('404.html');
 			exit;
 		}
