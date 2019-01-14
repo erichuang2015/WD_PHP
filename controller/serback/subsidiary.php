@@ -2,7 +2,7 @@
 $switch["buttonBox"] = 1;
 $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
-$basic = new MTsung\dataList($console,PREFIX.$console->path[0],$settingLang);
+$basic = new MTsung\dataList($console,PREFIX.$console->path[0],"");
 
 $designName = $console->path[0];
 
@@ -43,25 +43,77 @@ if(isset($console->path[1])){
 		case 'add':
 			//新增
 			if($_POST){
-				global $dbUser,$dbPass;
-				$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,"wdtaiwan_");
+				global $dbHost,$dbUser,$dbPass;
+				$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
 				if($_POST["subDomain"]){
-					if(!$cPanel->addDatabase($_POST["subDomain"])){
-						$console->alert($cPanel->message,-1);
-					}
-					if(!$cPanel->addSubDomain($_POST["subDomain"])){
-						$console->alert($cPanel->message,-1);
-					}
-					if($_POST["addonDomain"]){
-						if(!$cPanel->addAddonDomain($_POST["subDomain"],$_POST["addonDomain"])){
+
+					$dbData = DB_PREFIX.$_POST["subDomain"];
+					if($_SERVER["SERVER_NAME"]=="localhost" || $_SERVER["SERVER_NAME"]=="127.0.0.1"){
+						$console->conn->Execute("create database ".$dbData." default character set utf8mb4 collate utf8mb4_general_ci");
+					}else{
+						if(!$cPanel->addDatabase($_POST["subDomain"])){
 							$console->alert($cPanel->message,-1);
 						}
+						if(!$cPanel->addSubDomain($_POST["subDomain"])){
+							$console->alert($cPanel->message,-1);
+						}
+						if($_POST["addonDomain"]){
+							if(!$cPanel->addAddonDomain($_POST["subDomain"],$_POST["addonDomain"])){
+								$console->alert($cPanel->message,-1);
+							}
+						}
+					}
+
+					$tempConn = ADONewConnection("mysqli");
+					$connect_check = $tempConn->PConnect($dbHost,$dbUser,$dbPass,$dbData);
+					if(!$connect_check){
+						$console->alert("Database connection failed.",-1);
+					}
+					ignore_user_abort(true);
+					set_time_limit(0);
+					ini_set("memory_limit",-1);
+					$tempConn->Execute("set global max_allowed_packet=200*1024*1024; ");
+					$fileName = APP_PATH.'config/setup.sql';
+					$errorFlag = false;
+					if(is_file($fileName)){
+						$file = file($fileName);
+						$sql = "";
+						foreach ($file as $key => $value) {
+							$value = str_replace("\n","", str_replace("\r","",$value));
+							if(substr($value, 0, 2) == '--' || $value == ''){
+								continue;
+							}
+							$sql .= $value;
+							if($value && $value[strlen($value)-1] == ";"){
+								$tempConn->Execute($sql);
+								if($tempConn->errorMsg()){
+									echo "<b>Error</b>: ".$tempConn->errorMsg().". in <b>".$fileName."</b> on line <b>".($key+1)."</b><br><br>";
+									$errorFlag = true;
+								}
+								$sql = "";
+							}
+						}
+						if($errorFlag){
+							exit;
+						}
+					}else{
+						$console->alert("Setup error.",-1);
 					}
 				}else{
 					$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
 				}
 				
-				if($basic->setData($_POST,false,$checkArray,$requiredArray)){
+				if($tempId = $basic->setData($_POST,false,$checkArray,$requiredArray)){
+					$dataPath = "data/".($tempId+10000)."/";
+					recurse_copy(APP_PATH."data/10000/",APP_PATH.$dataPath);
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."css' WHERE url='file/css'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."fonts' WHERE url='file/fonts'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."images' WHERE url='file/images'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."js' WHERE url='file/js'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."output' WHERE url='file/output'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."svg' WHERE url='file/svg'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."upload' WHERE url='file/upload'");
+					$tempConn->close();
 					$console->alert($basic->message,$data["listUrl"]."?".$_SERVER["QUERY_STRING"]);
 				}else{
 					$console->alert($basic->message,-1);
@@ -117,6 +169,29 @@ if(isset($console->path[1])){
 	$switch["saveButton"] = 1;
 	$switch["listList"] = 1;
 	$switch["searchBox"] = 1;
+}
+
+
+/**
+ * 資料夾複製
+ * @param  [type] $src [description]
+ * @param  [type] $dst [description]
+ * @return [type]      [description]
+ */
+function recurse_copy($src,$dst) {
+	$dir = opendir($src);
+	@mkdir($dst);
+	while(false !== ( $file = readdir($dir)) ) {
+	    if (( $file != '.' ) && ( $file != '..' )) {
+	        if ( is_dir($src . '/' . $file) ) {
+	            recurse_copy($src . '/' . $file,$dst . '/' . $file);
+	        }
+	        else {
+	            copy($src . '/' . $file,$dst . '/' . $file);
+	        }
+	    }
+	}
+	closedir($dir);
 }
 
 ?>

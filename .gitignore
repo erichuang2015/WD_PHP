@@ -9,6 +9,7 @@
 /output
 !/output/.htaccess
 /data/*
+!/data/10000
 !/data/.htaccess
 /sessionTemp/*
 /view/templates_c/*

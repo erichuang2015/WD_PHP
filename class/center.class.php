@@ -185,7 +185,7 @@ namespace MTsung{
 					if(!$this->isTree) $this->sortTable();
 					$this->message = $this->console->getMessage('ADD_OK');
 					$this->systemLog->addLog("INSERT",$this->table,array(),$data);
-					return true;
+					return $data["id"];
 				}else{
 					$this->message = $this->console->getMessage('ADD_ERROR');
 					error_log($this->message.$this->conn->errorMsg());
