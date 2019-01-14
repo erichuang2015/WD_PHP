@@ -72,7 +72,7 @@ namespace MTsung{
 				"cpanel_jsonapi_apiversion" => "2",
 				"cpanel_jsonapi_module" => "AddonDomain",
 				"cpanel_jsonapi_func" => "addaddondomain",
-				"dir" => "/public_html",
+				"dir" => APP_PATH,
 				"newdomain" => $name,
 				"subdomain" => $subDomain
 			);
@@ -96,7 +96,7 @@ namespace MTsung{
 				"cpanel_jsonapi_apiversion" => "2",
 				"cpanel_jsonapi_module" => "SubDomain",
 				"cpanel_jsonapi_func" => "addsubdomain",
-				"dir" => "/public_html/".$name,
+				"dir" => APP_PATH,
 				"domain" => $name,
 				"rootdomain" => str_replace('www.','',$_SERVER['SERVER_NAME'])
 			);

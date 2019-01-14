@@ -7,8 +7,8 @@
 	//資料庫前墜
 	define('DB_PREFIX','wdtaiwan_');
 
-	//主網server name
-	define('MAIN_SERVER_NAME','localhost');
+	//主網server name 
+	define('MAIN_SERVER_NAME','');
 
 	//是否持續連線 
 	$isPConnect = true;
@@ -25,7 +25,7 @@
 		$dbHost = "localhost";
 		$dbUser = "";
 		$dbPass = "";
-		$dbData = "";
+		$dbData = DB_PREFIX."toby";
 
 		if(!$dbUser){
 			$dbUser = $_GET["dbUser"];

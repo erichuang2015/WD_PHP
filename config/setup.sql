@@ -253,7 +253,7 @@ CREATE TABLE `database_template` (
   `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',
   `create_user` varchar(191) NOT NULL COMMENT '創建人',
   `update_user` varchar(191) NOT NULL COMMENT '最後修改人',
-  `useTables` text NOT NULL COMMENT '使用資料',
+  `useTables` text COMMENT '使用資料',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`type`,`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
