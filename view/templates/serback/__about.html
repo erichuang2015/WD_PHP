@@ -305,6 +305,17 @@
 
                     ({include "__field.html"})
                     
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel('STATUS')})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="status" value="0">
+                                <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" ({if !$data.one || $data.one.status})checked({/if}) >
+                                <label class="onoffswitch-label" for="myonoffswitch"></label>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <small class="text-muted">
                         ({$console->getLabel('CREATE_DATE')})
                         ({$data.one.create_date})(({$data.one.create_user}));

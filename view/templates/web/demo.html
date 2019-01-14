@@ -35,6 +35,7 @@ html {
     width: 300px;
 }
 </style>
+
 <table border="0" cellpadding="0" cellspacing="0" style="height:100%;" width="100%">
     <tbody>
         <tr>
@@ -51,9 +52,10 @@ html {
 <script>
 	var _aaaa = 3;
 	function togohome(){
-		document.getElementById('dtn').innerHTML = _aaaa--;
 		if (_aaaa<0) {
 		    window.location.href='({$web.main_url})/index/';
+		}else{
+    		document.getElementById('dtn').innerHTML = _aaaa--;
 		}
 	}
 	togohome();

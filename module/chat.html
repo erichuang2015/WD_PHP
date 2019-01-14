@@ -1,0 +1,31 @@
+({if $data.chat.0.status})
+<div class="wd_chat_widget">
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".community-title").click(function() {
+        $(".community-title+ul").toggleClass("show");
+    });
+});
+</script>
+<div class="community clearfix">
+    <div class="community-title"><img src="images/livechat.svg" alt="SHARE"/></div>
+        <ul>
+            ({if $data.chat.0.email})
+                <li><a href="mailto:({$data.chat.0.email})" class="icon-email" style="background-color:#2d70e7; z-index:99;"><div class="label">Email</div><img src="images/email.svg"></a></li>
+            ({/if})
+            ({if $data.chat.0.fbId})
+                <li><a href="https://m.me/({$data.chat.0.fbId})" class="icon-facebook" target="_blank" style="background-color:#0084ff; z-index:98;"><div class="label">Facebook</div><img src="images/facebook.svg"></a></li>
+            ({/if})
+            ({if $data.chat.0.phone})
+                <li><a href="tel:({$data.chat.0.phone})" class="icon-phone" style="background-color:#0ad02c; z-index:97;"><div class="label">Phone</div><img src="images/phone.svg"></a></li>
+            ({/if})
+            ({if $data.chat.0.wechat})
+                <li><a href="({$web.main_url})/QRcode.php?d=({$data.chat.0.wechat})" target="_blank" class="icon-wechat" style="background-color:#1ece29; z-index:96;"><div class="label">Wechat</div><img src="images/wechat.svg"></a></li>
+            ({/if})
+            ({if $data.chat.0.line})
+                <li><a href="({$data.chat.0.line})" target="_blank" class="icon-line" style="background-color:#3ace01; z-index:95;"><div class="label">Line</div><img src="images/line.svg"></a></li>
+            ({/if})
+        </ul>
+    </div>
+</div>
+({/if})

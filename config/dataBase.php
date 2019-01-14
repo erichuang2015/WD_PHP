@@ -19,7 +19,7 @@
 		$dbHost = "localhost";
 		$dbUser = "root";
 		$dbPass = "74512345";
-		$dbData = "style07_andy";
+		$dbData = "system";
 	}else{
 		//線上
 		$dbHost = "localhost";

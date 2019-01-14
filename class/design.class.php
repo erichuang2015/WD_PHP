@@ -23,7 +23,7 @@ namespace MTsung{
             $this->tpl->setTemplateDir(
                 array(
                     'one' => APP_PATH.DATA_PATH."view/templates/web",
-                    'two' => APP_PATH."modeule",
+                    'two' => APP_PATH."module",
                     'three' => APP_PATH
                 )
             );
