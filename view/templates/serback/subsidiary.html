@@ -59,11 +59,14 @@
                                         </td>
                                         <td >
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].subDomain})</a>
-                                            
+                                            <a href="//({$data.list[i].subDomain}).({$web.serverName})" target="_blank"><span class="glyphicon-link" ></span></a>
+
                                         </td>
                                         <td >
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].addonDomain})</a>
-                                            
+                                            ({if $data.list[i].addonDomain})
+                                                <a href="//({$data.list[i].addonDomain})" target="_blank"><span class="glyphicon-link"></span></a>
+                                            ({/if})
                                         </td>
                                         <td >
                                             ({$data.list[i].dataSize})
@@ -92,6 +95,7 @@
                                         <th >
                                             <span class="glyphicon-move" style="font-size: 20px;"></span>
                                         </th> -->
+                                                
                                     </tr>
 
                                 ({/section})

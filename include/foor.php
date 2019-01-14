@@ -87,6 +87,8 @@
 		$web_set['meta'] = htmlspecialchars_decode($console->webSetting->getValue('webMeta'));
 	}
 
+	$web_set['serverName'] = MAIN_SERVER_NAME;
+
 	//網站圖示
 	$web_set['icon'] = $console->setting->getValue('icon');
 
