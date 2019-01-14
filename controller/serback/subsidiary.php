@@ -23,9 +23,19 @@ if(isset($console->path[1])){
 					}else{
 						$console->alert($basic->message,-1);
 					}
-				}else{
+				}else{					
 					if($temp = $basic->getData("where id=?",array($console->path[2]),$explodeArray,$module)){
 						$data["one"] = $temp[0];
+
+						global $dbHost,$dbUser,$dbPass;
+						$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
+
+						$data["one"]["bandwidth"] = 0;
+						if($temp = $cPanel->getBandwidth("year_month",$data["one"]["subDomain"].".".MAIN_SERVER_NAME,strtotime(date('Y-m-01', strtotime(DATE))))){
+							$data["one"]["bandwidth"] = $console->formatSize(array_shift($temp));
+						}
+						$data["one"]["dataSize"] = $console->formatSize($console->getDirSize("data/".($data["one"]["id"]+10000)."/"));
+
 					}else{
 						$console->alert($basic->message,$data["listUrl"]);
 					}
@@ -153,8 +163,18 @@ if(isset($console->path[1])){
 		}
 	}
 
-	$data["list"] = $basic->getListData("order by sort ",$searchKey);
+	if($data["list"] = $basic->getListData("order by sort ",$searchKey)){
+		foreach ($data["list"] as $key => $value) {
+			global $dbHost,$dbUser,$dbPass;
+			$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
 
+			$data["list"][$key]["bandwidth"] = 0;
+			if($temp = $cPanel->getBandwidth("year_month",$value["subDomain"].".".MAIN_SERVER_NAME,strtotime(date('Y-m-01', strtotime(DATE))))){
+				$data["list"][$key]["bandwidth"] = $console->formatSize(array_shift($temp));
+			}
+			$data["list"][$key]["dataSize"] = $console->formatSize($console->getDirSize("data/".($value["id"]+10000)."/"));
+		}
+	}
 
 	$data["pageNumber"] = $basic->pageNumber;
 

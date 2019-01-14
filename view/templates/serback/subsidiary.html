@@ -35,11 +35,13 @@
                                     <th scope="col">({$console->getLabel("NAME")})</th>
                                     <th scope="col">({$console->getLabel("SUB_DOMAIN")})</th>
                                     <th scope="col">({$console->getLabel("ADD_ON_DOMAIN")})</th>
-                                    <th scope="col">({$console->getLabel("SORT")})</th>
+                                    <th scope="col">({$console->getLabel("DATA_SIZE")})</th>
+                                    <th scope="col">({$console->getLabel("MONTH_BANDWIDTH")})</th>
+                                    <!-- <th scope="col">({$console->getLabel("SORT")})</th> -->
                                     <th scope="col">({$console->getLabel("STATUS")})</th>
-                                    <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                    <!-- <th scope="col">({$console->getLabel("CREATE_DATE")})</th> -->
                                     <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
-                                    <th scope="col">({$console->getLabel("TOW_SORT")})</th>
+                                    <!-- <th scope="col">({$console->getLabel("TOW_SORT")})</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,11 +65,17 @@
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].addonDomain})</a>
                                             
                                         </td>
-                                        <td>
+                                        <td >
+                                            ({$data.list[i].dataSize})
+                                        </td>
+                                        <td >
+                                            ({$data.list[i].bandwidth})
+                                        </td>
+                                        <!-- <td>
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control col-md-3" name="sort_({$data.list[i].id})" value="({$data.list[i].sort})">
                                             </div>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <div class="onoffswitch">
                                                 <input type="hidden" name="status_({$data.list[i].id})" value="0">
@@ -75,15 +83,15 @@
                                                 <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
                                             </div>
                                         </td>
-                                        <td >
+                                        <!-- <td >
                                             ({$data.list[i].create_date})(({$data.list[i].create_user}))
-                                        </td>
+                                        </td> -->
                                         <td >
                                             ({$data.list[i].update_date})(({$data.list[i].update_user}))
-                                        </td>
+                                        </td><!-- 
                                         <th >
                                             <span class="glyphicon-move" style="font-size: 20px;"></span>
-                                        </th>
+                                        </th> -->
                                     </tr>
 
                                 ({/section})
@@ -105,16 +113,32 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel('SUB_DOMAIN')})</label>
-                                <input type="text" name="subDomain" class="form-control" value="({$data.one.subDomain})" data-text="({$console->getLabel("SUB_DOMAIN")})" required >
+                                <input type="text" name="subDomain" class="form-control" value="({$data.one.subDomain})" data-text="({$console->getLabel("SUB_DOMAIN")})" required  ({if $data.one})readonly({/if})>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel('ADD_ON_DOMAIN')})</label>
-                                <input type="text" name="addonDomain" class="form-control" value="({$data.one.addonDomain})">
+                                <input type="text" name="addonDomain" class="form-control" value="({$data.one.addonDomain})" ({if $data.one})readonly({/if})>
                             </div>
                         </div>
+                        
+                        ({if $data.one})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('DATA_SIZE')})</label>
+                                    <input type="text" class="form-control" value="({$data.one.dataSize})" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('MONTH_BANDWIDTH')})</label>
+                                    <input type="text" class="form-control" value="({$data.one.bandwidth})" readonly>
+                                </div>
+                            </div>
+                        ({/if})
 
                         <small class="text-muted">
                             ({$console->getLabel('CREATE_DATE')})
