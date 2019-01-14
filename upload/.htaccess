@@ -4,7 +4,7 @@ Options -Indexes
 	Deny from all
 </FilesMatch>
 <IfModule mod_rewrite.c>
-    RewriteEngine on
-    php_flag engine off
+    #RewriteEngine on
+    #php_flag engine off
 </IfModule>
 

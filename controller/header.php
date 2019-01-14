@@ -5,7 +5,7 @@
 		exit;
 	}
 	
-
+exit;
 	if($console->setting->getValue("analyticsCheck")){
 		$analytics = new MTsung\analytics($console);
 		$analytics->addLog();
