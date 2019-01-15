@@ -73,8 +73,8 @@ namespace MTsung{
 				"cpanel_jsonapi_module" => "AddonDomain",
 				"cpanel_jsonapi_func" => "addaddondomain",
 				"dir" => APP_PATH,
-				"newdomain" => $name,
-				"subdomain" => $subDomain
+				"newdomain" => $subDomain,
+				"subdomain" => $name
 			);
 			if(!$temp = $this->cCurl($url,"GET",$data)){
 				return false;

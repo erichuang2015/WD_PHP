@@ -10,6 +10,9 @@ $designName = $console->path[0];
 $checkArray = $requiredArray = $explodeArray = $searchKey = array();
 $searchKey = array("name","subDomain","addonDomain");
 
+global $dbHost,$dbUser,$dbPass;
+$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
+
 if(isset($console->path[1])){
 //動作
 	switch ($console->path[1]) {
@@ -26,10 +29,6 @@ if(isset($console->path[1])){
 				}else{					
 					if($temp = $basic->getData("where id=?",array($console->path[2]),$explodeArray,$module)){
 						$data["one"] = $temp[0];
-
-						global $dbHost,$dbUser,$dbPass;
-						$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
-
 						$data["one"]["bandwidth"] = 0;
 						if($temp = $cPanel->getBandwidth("year_month",$data["one"]["subDomain"].".".MAIN_SERVER_NAME,strtotime(date('Y-m-01', strtotime(DATE))))){
 							$data["one"]["bandwidth"] = $console->formatSize(array_shift($temp));
@@ -53,24 +52,23 @@ if(isset($console->path[1])){
 		case 'add':
 			//新增
 			if($_POST){
-				global $dbHost,$dbUser,$dbPass;
-				$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
 				if($_POST["subDomain"]){
 
 					$dbData = DB_PREFIX.$_POST["subDomain"];
 					if($_SERVER["SERVER_NAME"]=="localhost" || $_SERVER["SERVER_NAME"]=="127.0.0.1"){
 						$console->conn->Execute("create database ".$dbData." default character set utf8mb4 collate utf8mb4_general_ci");
 					}else{
-						if(!$cPanel->addDatabase($_POST["subDomain"])){
-							$console->alert($cPanel->message,-1);
-						}
-						if(!$cPanel->addSubDomain($_POST["subDomain"])){
-							$console->alert($cPanel->message,-1);
-						}
 						if($_POST["addonDomain"]){
 							if(!$cPanel->addAddonDomain($_POST["subDomain"],$_POST["addonDomain"])){
 								$console->alert($cPanel->message,-1);
 							}
+						}else{
+							if(!$cPanel->addSubDomain($_POST["subDomain"])){
+								$console->alert($cPanel->message,-1);
+							}
+						}
+						if(!$cPanel->addDatabase($_POST["subDomain"])){
+							$console->alert($cPanel->message,-1);
 						}
 					}
 
@@ -165,9 +163,6 @@ if(isset($console->path[1])){
 
 	if($data["list"] = $basic->getListData("order by sort ",$searchKey)){
 		foreach ($data["list"] as $key => $value) {
-			global $dbHost,$dbUser,$dbPass;
-			$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
-
 			$data["list"][$key]["bandwidth"] = 0;
 			if($temp = $cPanel->getBandwidth("year_month",$value["subDomain"].".".MAIN_SERVER_NAME,strtotime(date('Y-m-01', strtotime(DATE))))){
 				$data["list"][$key]["bandwidth"] = $console->formatSize(array_shift($temp));
