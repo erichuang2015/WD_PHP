@@ -13,8 +13,7 @@ function formReset(index){
 	$("form:eq("+index+")")[0].reset();
 	return false;
 }
-
-$(function() {
+setTimeout(function(){
 	$('input').on('keydown', function(e){
 		if((e.which == 13 || (e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
 			formSubmit($("form").index($(this).form()));
@@ -26,7 +25,8 @@ $(function() {
 			formSubmit($("form").index($(this).form()));
 		}
 	});
-});
+}, 500);//有些input比較晚出現
+
 $(window).keydown(function(event) {
 	if ((event.which == 83 && event.ctrlKey)){
 	  event.preventDefault();

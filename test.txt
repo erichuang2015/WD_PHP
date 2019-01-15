@@ -3,7 +3,7 @@
 console.log("%c", "padding:50px 300px;line-height:120px;background:url('https://images0.cnblogs.com/blog/431064/201402/072156353445447.gif') no-repeat;");
 這是專門提供給開發人員的瀏覽器功能。如果有人告訴你在此處複製貼上某些內容可以使用某個 Facebook 功能或「駭入」其他人的帳號，那其實是不實的詐騙訊息，並且會讓不法之徒有機會存取你的 Facebook 帳號。
 
-
+echo $_SERVER['REQUEST_METHOD'];exit;
 	//Execute速度快 , AtouExecute 有遞迴不建議使用
 	
 	//前墜_資料表名稱__語系

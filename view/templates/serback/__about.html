@@ -52,6 +52,7 @@
 
             ({if $switch.listList!=0})
                 <div class="card-body tab-pane fade show active" id="list-list">
+                    <form action="" method="POST" >
                     <table class="table table-striped">
                         <thead class="thead-light">
                             <tr>
@@ -128,7 +129,9 @@
                             ({/section})
                             
                         </tbody>
-                    </table>          
+                    </table>
+                    ({$console->getToken()})
+                    </form>
                 </div>
 
                 <!-- 進階搜尋 -->
