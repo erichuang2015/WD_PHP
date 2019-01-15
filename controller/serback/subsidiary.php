@@ -1,4 +1,8 @@
 <?php
+if(MAIN_SERVER_NAME!=$_SERVER["SERVER_NAME"]){
+    $console->alert($console->getMessage("MAIN_SERVER_USE"),-1);
+}
+
 $switch["buttonBox"] = 1;
 $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
