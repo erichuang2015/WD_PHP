@@ -58,15 +58,16 @@ if(isset($console->path[1])){
 					if($_SERVER["SERVER_NAME"]=="localhost" || $_SERVER["SERVER_NAME"]=="127.0.0.1"){
 						$console->conn->Execute("create database ".$dbData." default character set utf8mb4 collate utf8mb4_general_ci");
 					}else{
+						if(!$cPanel->addSubDomain($_POST["subDomain"])){
+							$console->alert($cPanel->message,-1);
+						}
+
 						if($_POST["addonDomain"]){
 							if(!$cPanel->addAddonDomain($_POST["subDomain"],$_POST["addonDomain"])){
 								$console->alert($cPanel->message,-1);
 							}
-						}else{
-							if(!$cPanel->addSubDomain($_POST["subDomain"])){
-								$console->alert($cPanel->message,-1);
-							}
 						}
+
 						if(!$cPanel->addDatabase($_POST["subDomain"])){
 							$console->alert($cPanel->message,-1);
 						}

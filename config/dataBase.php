@@ -93,17 +93,6 @@
 		exit;
 	}
 
-	//關閉嚴格模式
-	$conn->Execute("SET sql_mode = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
-	//設定utf8mb4編碼
-	$conn->Execute("SET NAMES utf8mb4;");
-	$conn->Execute("SET CHARACTER_SET_CLIENT=utf8mb4;");
-	$conn->Execute("SET CHARACTER_SET_RESULTS=utf8mb4;");
-	$conn->Execute("SET CHARACTER_SET_CONNECTION=utf8mb4;");
-	//時區
-	$conn->Execute("SET GLOBAL time_zone = '+08:00';");
-	$conn->Execute("SET time_zone = '+08:00';");
-
 	//utf8轉utf8mb4
 	// $tables = $conn->GetArray("SHOW TABLES");
 	// foreach ($tables as $key => $value) {
@@ -133,6 +122,17 @@
 			exit;
 		}
 	}
+	
+	//關閉嚴格模式
+	$conn->Execute("SET sql_mode = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+	//設定utf8mb4編碼
+	$conn->Execute("SET NAMES utf8mb4;");
+	$conn->Execute("SET CHARACTER_SET_CLIENT=utf8mb4;");
+	$conn->Execute("SET CHARACTER_SET_RESULTS=utf8mb4;");
+	$conn->Execute("SET CHARACTER_SET_CONNECTION=utf8mb4;");
+	//時區
+	$conn->Execute("SET GLOBAL time_zone = '+08:00';");
+	$conn->Execute("SET time_zone = '+08:00';");
 
 	define('DATA_PATH',$dataPath);
 	if(!is_dir(APP_PATH.DATA_PATH)) mkdir(APP_PATH.DATA_PATH);

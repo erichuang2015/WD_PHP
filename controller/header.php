@@ -6,11 +6,14 @@
 	}
 	
 	
-	if($console->setting->getValue("analyticsCheck")){
-		$analytics = new MTsung\analytics($console);
-		$analytics->addLog();
+	$dirArray = array("css","js","images","fonts","svg","data");
+	if(!in_array($console->path[0], $dirArray)){
+		if($console->setting->getValue("analyticsCheck")){
+			$analytics = new MTsung\analytics($console);
+			$analytics->addLog();
+		}
 	}
-	
+		
 
 	$lang = $console->getLanguage();
 	$member = new MTsung\member($console,PREFIX.'member');
