@@ -16,7 +16,9 @@
         </div>
             <div class="tab-content">
                 <div class="card-body tab-pane fade show active" id="list-analytics">
-                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})</small>
+                    ({if $web.analyticsResetDay})
+                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})({$web.analyticsResetDay})({$console->getLabel('ANALYTICS_SMALL_1')})</small>
+                    ({/if})
                     <div class="form-row">
                         <div class="col-xl-6 col-md-12 mb-10">
                             <canvas id="canvasDevice"></canvas>
@@ -42,7 +44,9 @@
                     </div>
                 </div>
                 <div class="card-body tab-pane fade " id="list-analytics-page">
-                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})</small>
+                    ({if $web.analyticsResetDay})
+                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})({$web.analyticsResetDay})({$console->getLabel('ANALYTICS_SMALL_1')})</small>
+                    ({/if})
                     <div class="form-row">
                         <div class="col-md-8 mb-3">
                             <canvas id="canvasUrlCount"></canvas>
@@ -53,7 +57,9 @@
                     </div>
                 </div>
                 <div class="card-body tab-pane fade " id="list-analytics-page-product">
-                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})</small>
+                    ({if $web.analyticsResetDay})
+                    <small class="text-muted">({$console->getLabel('ANALYTICS_SMALL')})({$web.analyticsResetDay})({$console->getLabel('ANALYTICS_SMALL_1')})</small>
+                    ({/if})
                     <div class="form-row">
                         <div class="col-md-8 mb-3">
                             <canvas id="canvasUrlCountProduct"></canvas>

@@ -148,7 +148,7 @@ namespace MTsung{
 		 */
 		function addLogPage($id){
 			$temp[] = $data["analyticsId"] = $id;
-			$temp[] = $data["url"] = explode("?",$_SERVER["REQUEST_URI"])[0];
+			$temp[] = $data["url"] = urldecode(explode("?",$_SERVER["REQUEST_URI"])[0]);
 			$data["type"] = isset($this->console->path[0])?$this->console->path[0]:"";
 			if($page = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->table_page." where analyticsId=? and url=?"),$temp)){
 				$id = $page["id"];
