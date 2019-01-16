@@ -76,6 +76,7 @@ $data["featuresList"] = array(
 $data["typeOption"] = array(
 	"text" => "單行文字欄位",
 	"textarea" => "多行文字欄位",
+	"color" => "顏色選擇欄位",
 	"date" => "日期選擇欄位",
 	"aceEditor" => "HTML編輯器",
 	"imageModule" => "上傳圖片模組",
