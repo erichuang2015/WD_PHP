@@ -1,4 +1,7 @@
-<?php	
+<?php
+    //跨網域ajax
+    // header("Access-Control-Allow-Origin: *");
+
 	//設定時間
 	date_default_timezone_set("Asia/Taipei");
 
