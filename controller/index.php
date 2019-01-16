@@ -44,7 +44,16 @@
 							// $data["one"]["specificationsID"] = explode("|__|",$data["one"]["specificationsID"])[0];
 						}
 					}else{
-						$data["list"] = $basic->getListData("and status='1' ".$findClassSql." order by sort",array(),$value["count"]);
+						if($data["list"] = $basic->getListData("and status='1' ".$findClassSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"])){
+							foreach ($data["list"] as $listKey => $listValue) {
+								if(isset($data["list"][$listKey]["class"]) && $class){
+									$data["list"][$listKey]["class"] = explode("|__|",$listValue["class"]);
+									foreach ($data["list"][$listKey]["class"] as $listKey1 => $listValue1) {
+										$data["list"][$listKey]["class"][$listKey1] = $class->getData("where id='".$listValue1."'")[0];
+									}
+								}
+							}
+						}
 						$data["page"] = $basic->pageNumber->getHTML1();
 					}
 					break;
