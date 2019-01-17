@@ -38,6 +38,7 @@ if(isset($console->path[1])){
 							$data["one"]["bandwidth"] = $console->formatSize(array_shift($temp));
 						}
 						$data["one"]["dataSize"] = $console->formatSize($console->getDirSize("data/".($data["one"]["id"]+10000)."/"));
+			            $data["one"]["dbSize"] = $console->formatSize($console->getDatabaseSize(DB_PREFIX.$data["one"]["subDomain"]));
 
 					}else{
 						$console->alert($basic->message,$data["listUrl"]);
@@ -173,6 +174,7 @@ if(isset($console->path[1])){
 				$data["list"][$key]["bandwidth"] = $console->formatSize(array_shift($temp));
 			}
 			$data["list"][$key]["dataSize"] = $console->formatSize($console->getDirSize("data/".($value["id"]+10000)."/"));
+			$data["list"][$key]["dbSize"] = $console->formatSize($console->getDatabaseSize(DB_PREFIX.$value["subDomain"]));
 		}
 	}
 

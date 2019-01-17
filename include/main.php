@@ -688,6 +688,19 @@ namespace MTsung{
 		}
 
 		/**
+		 * 取得指定資料庫大小
+		 * @param  string $database [description]
+		 * @return [type]           [description]
+		 */
+		function getDatabaseSize($database){
+			return $this->conn->getRow("
+                    SELECT table_schema ,SUM(data_length + index_length) AS size
+                    FROM information_schema.TABLES
+                    WHERE table_schema = '".$database."'
+                ")["size"];
+		}
+
+		/**
 		 * 計算資料庫/資料表大小
 		 * @param  string $table [description]
 		 * @return [type]        [description]

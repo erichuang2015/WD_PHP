@@ -35,6 +35,7 @@
                                     <th scope="col">({$console->getLabel("NAME")})</th>
                                     <th scope="col">({$console->getLabel("SUB_DOMAIN")})</th>
                                     <th scope="col">({$console->getLabel("ADD_ON_DOMAIN")})</th>
+                                    <th scope="col">({$console->getLabel("DATABASE_SIZE")})</th>
                                     <th scope="col">({$console->getLabel("DATA_SIZE")})</th>
                                     <th scope="col">({$console->getLabel("MONTH_BANDWIDTH")})</th>
                                     <!-- <th scope="col">({$console->getLabel("SORT")})</th> -->
@@ -67,6 +68,9 @@
                                             ({if $data.list[i].addonDomain})
                                                 <a href="//({$data.list[i].addonDomain})" target="_blank"><span class="glyphicon-link"></span></a>
                                             ({/if})
+                                        </td>
+                                        <td >
+                                            ({$data.list[i].dbSize})
                                         </td>
                                         <td >
                                             ({$data.list[i].dataSize})
@@ -131,6 +135,13 @@
                         ({if $data.one})
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('DATABASE_SIZE')})</label>
+                                    <input type="text" class="form-control" value="({$data.one.dbSize})" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
                                     <label>({$console->getLabel('DATA_SIZE')})</label>
                                     <input type="text" class="form-control" value="({$data.one.dataSize})" readonly>
                                 </div>
@@ -142,6 +153,7 @@
                                     <input type="text" class="form-control" value="({$data.one.bandwidth})" readonly>
                                 </div>
                             </div>
+                            
                         ({/if})
 
                         <small class="text-muted">
