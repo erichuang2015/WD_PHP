@@ -533,6 +533,19 @@
                                 <input type="text" class="form-control" name="couldMessageKey" value="({$data.couldMessageKey})">
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>messagingSenderId</label>
+                                <input type="text" class="form-control" name="messagingSenderId" value="({$data.messagingSenderId})">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-10 mb-3">
+                                <label>({$console->getLabel('CLOUD_MESSAGING_CODE')})</label>
+                                <textarea class="form-control" name="couldMessageCode" rows="13">({$data.couldMessageCode})</textarea>
+                            </div>
+                        </div>
+
                         <small class="text-muted">
                             ({$console->getLabel('UPDATE_DATE')})
                             ({$data.update_date})(({$data.update_user}))
