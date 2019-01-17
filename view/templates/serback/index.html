@@ -4,7 +4,7 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="list" href="#list-version">版本信息</a>
+                    <a class="nav-link active" data-toggle="list" href="#list-version">版本信息</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="list" href="#list-development">開發訊息</a>
@@ -14,13 +14,13 @@
                 </li>
                 ({if $data.dataSize})
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="list" href="#list-data">使用空間</a>
+                        <a class="nav-link" data-toggle="list" href="#list-data">使用空間</a>
                     </li>
                 ({/if})
             </ul>
         </div>
             <div class="tab-content">
-                <div class="card-body tab-pane fade" id="list-version">
+                <div class="card-body tab-pane fade show active" id="list-version">
                     <table class="table table-striped">
                             <thead class="thead-light">
                                 <tr>
@@ -62,7 +62,7 @@
                 </div>
 
                 ({if $data.dataSize})
-                    <div class="card-body tab-pane fade show active" id="list-data">
+                    <div class="card-body tab-pane fade" id="list-data">
                         <div class="card-deck text-center ">
                             <div class="card">
                                 <h5 class="card-header">網站使用空間</h5>

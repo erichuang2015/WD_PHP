@@ -184,6 +184,36 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("MEMBER_SETTING")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="memberCheck" value="0">
+                                    <input type="checkbox" name="memberCheck" class="onoffswitch-checkbox" id="memberCheck" value="1" ({if $data.memberCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="memberCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("ORDER_SETTING")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="orderCheck" value="0">
+                                    <input type="checkbox" name="orderCheck" class="onoffswitch-checkbox" id="orderCheck" value="1" ({if $data.orderCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="orderCheck"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("ECPAY_SETTING")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="ecpayCheck" value="0">
+                                    <input type="checkbox" name="ecpayCheck" class="onoffswitch-checkbox" id="ecpayCheck" value="1" ({if $data.ecpayCheck})checked({/if})>
+                                    <label class="onoffswitch-label" for="ecpayCheck"></label>
+                                </div>
+                            </div>
+                        </div>
                         <small class="text-muted">
                             ({$console->getLabel('UPDATE_DATE')})
                             ({$data.update_date})(({$data.update_user}))

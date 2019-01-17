@@ -6,6 +6,10 @@ if(isset($console->path[1])){
 	$switch["buttonBox"] = 1;
 	
 	switch ($console->path[1]) {
+		case 'truncate':
+			$console->conn->Execute("truncate ".$systemLog->table);
+			$console->alert("OK",-1);
+			break;
 		case 'detail':
 			//查看
 			if(isset($console->path[2]) && is_numeric($console->path[2])){

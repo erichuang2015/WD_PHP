@@ -39,6 +39,12 @@
 						if(!$data["one"] = $basic->getOne("and (id=? or urlKey=?) ".$findClassSql,array($key,$key),$explodeArray)){
 							$console->to404();
 						}
+						if(isset($data["one"]["class"]) && $class){
+							$data["one"]["class"] = explode("|__|",$data["one"]["class"]);
+							foreach ($data["one"]["class"] as $oneKey => $oneValue) {
+								$data["one"]["class"][$oneKey] = $class->getData("where id='".$oneValue."'")[0];
+							}
+						}
 						if($console->path[0] == "product"){
 							$data["one"]["price"] = $product->getPrice($data["one"]["id"]);
 							// $data["one"]["specificationsID"] = explode("|__|",$data["one"]["specificationsID"])[0];

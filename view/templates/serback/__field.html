@@ -12,6 +12,19 @@
             <div class="col-md-4 mb-3">
                 <label>({$console->getLabel($data.system.dataName[i])})</label>
                 <input type="text" name="({$data.system.dataKey[i]})" class="form-control" value="({$data.one[$data.system.dataKey[i]]})" data-text="({$console->getLabel($data.system.dataName[i])})">
+                <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
+            </div>
+        </div>
+    ({else if $data.system.dataType[i] == "status"})
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>({$console->getLabel($data.system.dataName[i])})</label>
+                <div class="onoffswitch">
+                    <input type="hidden" name="({$data.system.dataKey[i]})" value="0">
+                    <input type="checkbox" name="({$data.system.dataKey[i]})" class="onoffswitch-checkbox" id="({$data.system.dataKey[i]})" value="1" ({if $data.one[$data.system.dataKey[i]]})checked({/if})>
+                    <label class="onoffswitch-label" for="({$data.system.dataKey[i]})"></label>
+                </div>
+                <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
             </div>
         </div>
     ({else if $data.system.dataType[i] == "color"})
@@ -20,6 +33,7 @@
                 <label>({$console->getLabel($data.system.dataName[i])})</label>
                 <input type="text" class="form-control" name="({$data.system.dataKey[i]})" value="({$data.one[$data.system.dataKey[i]]})">
                 <input class="form-control" id='colorpicker({$colorI})'/>
+                <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
             </div>
             <script>
                 $("#colorpicker({$colorI})").spectrum( {
@@ -40,6 +54,7 @@
             <div class="col-md-6 mb-3">
                 <label>({$console->getLabel($data.system.dataName[i])})</label>
                 <textarea class="form-control" rows="8" name="({$data.system.dataKey[i]})">({$data.one[$data.system.dataKey[i]]})</textarea>
+                <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
             </div>
         </div>
     ({else if $data.system.dataType[i] == "date"})
@@ -47,6 +62,7 @@
             <div class="col-md-4 mb-3">
                 <label>({$console->getLabel($data.system.dataName[i])})</label>
                 <input type="date" name="({$data.system.dataKey[i]})" class="form-control" data-text="({$console->getLabel($data.system.dataName[i])})" value="({$data.one[$data.system.dataKey[i]]})" >
+                <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
             </div>
         </div>
     ({else if $data.system.dataType[i] == "aceEditor"})
@@ -57,6 +73,7 @@
                     ({assign var=_I_ value=$aceI})
                     ({include file='module.tinymceEditor.html'})
                 </div>
+                <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
             </div>
         </div>
         ({assign var="aceI" value=$aceI+1})
@@ -68,6 +85,7 @@
                     ({assign var=_I_ value=$imgI})
                     ({include file='module.uploadImg.html'})
                 </div>
+                <!-- <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small> -->
             </div>
         </div>
         ({assign var="imgI" value=$imgI+1})
@@ -79,6 +97,7 @@
                     ({assign var=_I_ value=$fileI})
                     ({include file='module.uploadFile.html'})
                 </div>
+                <!-- <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small> -->
             </div>
         </div>
         ({assign var="fileI" value=$fileI+1})
@@ -99,6 +118,7 @@
                 </div>
                 <input type="hidden" name="({$data.system.dataKey[i]})" value="({$data.one[$data.system.dataKey[i]]})">
             </div>
+            <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
             <script>
                 function getGoogleMap(){
                     var data = $("#google_map_data_div({$mapI})>input,#google_map_data_div({$mapI})>select");
@@ -120,7 +140,7 @@
         </div>
         ({assign var="mapI" value=$mapI+1})
     ({else if $data.system.dataType[i] == "search"})
-        <div class="form-row form-inline">
+        <div class="form-row form-inline mb-3">
             <label class="mb-3">({$console->getLabel($data.system.dataName[i])})</label>
             <div class="col-md-12 mb-3">
                 <input type="text" class="form-control" id="sKeyword({$searchI})" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
@@ -131,6 +151,7 @@
                 </select>
                 <span> </span><input class="btn btn-outline-secondary" type="button" value="({$console->getLabel('ADD')})" onclick="addNewsF({$searchI})($('#sSelect({$searchI})').val());">
             </div>
+            <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
         </div>
         <div class="form-row form-inline" id="s_div({$searchI})" >
             <input type="hidden" name="({$data.system.dataKey[i]})" value="">

@@ -83,4 +83,5 @@ $data["typeOption"] = array(
 	"fileModule" => "上傳檔案模組",
 	"googleMap" => "google地圖",
 	"search" => "搜尋模組",
+	"status" => "開關模組",
 );

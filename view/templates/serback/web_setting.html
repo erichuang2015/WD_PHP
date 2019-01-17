@@ -7,15 +7,21 @@
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="list" href="#list-setting">({$console->getLabel("BASIC_SETTING")})</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-member-setting">({$console->getLabel("MEMBER_SETTING")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-order-setting">({$console->getLabel("ORDER_SETTING")})</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="list" href="#list-ECPay-setting">({$console->getLabel("ECPAY_SETTING")})</a>
-                    </li>
+                    ({if $web.memberCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-member-setting">({$console->getLabel("MEMBER_SETTING")})</a>
+                        </li>
+                    ({/if})
+                    ({if $web.orderCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-order-setting">({$console->getLabel("ORDER_SETTING")})</a>
+                        </li>
+                    ({/if})
+                    ({if $web.ecpayCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-ECPay-setting">({$console->getLabel("ECPAY_SETTING")})</a>
+                        </li>
+                    ({/if})
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="list" href="#list-FB-msg-bot-setting">({$console->getLabel("FB_MESSAGE_BOT")})</a>
                     </li>

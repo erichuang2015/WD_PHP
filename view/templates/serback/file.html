@@ -63,7 +63,7 @@
                                                     </div>
                                                 ({/if})
                                             </td>
-                                            <td><a href="({$data.listUrl})/({$data.list[i].name})"><img src="({$data.dirPath})/({$data.list[i].name})" onerror="this.remove();" width="50" >({$data.list[i].name})</a></td>
+                                            <td><a href="({$data.listUrl})/({$data.list[i].name})">({if $data.list[i].isImg})<img src="({$data.dirPath})/({$data.list[i].name})" onerror="this.remove();" width="50" >({/if})({$data.list[i].name})</a></td>
                                             <td>({$data.list[i].size})</td>
                                             <td>
                                             ({if $data.list[i].name!=".htaccess" && !$data.list[i].isDir})

@@ -151,8 +151,10 @@ if(!is_dir($dirPath)){//編輯
     		if($temp["isDir"] = (int)is_dir($allPath)){
     			$temp["name"] .= "/";
     			$temp["size"] = $console->formatSize($console->getDirSize($allPath."/"));
+    			$temp["isImg"] = false;
     		}else{
     			$temp["size"] = $console->formatSize(filesize($allPath));
+    			$temp["isImg"] = isImage($allPath);
     		}
     		$data["list"][] = $temp;
     	}
@@ -168,6 +170,16 @@ if(!is_dir($dirPath)){//編輯
 	$switch["listList"] = 1;
 }
 
+function isImage($filename){
+    $types = '.gif|.jpeg|.png|.bmp|.svg|.jpg';
+    if(file_exists($filename)){
+		$ext = explode(".",$filename);
+		$ext = ".".end($ext);
+        return stripos($types,$ext);
+    }else{
+        return false;
+    }
+}
 
 
 ?>
