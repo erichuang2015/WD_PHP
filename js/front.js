@@ -204,7 +204,7 @@ function fcm(){
         })
         .then(function(token){ //--取得Token
             $.ajax( {
-                url : _jsPath+'/ajax.php',
+                url : _jsPath+'/fcm',
                 data: {push_token:token},
                 type:"GET",
                 dataType:'text',

@@ -49,7 +49,7 @@ namespace MTsung{
 		function setTopics($group,$userToken,$isJoin = true){
 			$data = array(
 				"to" => '/topics/'.$group,
-				"registration_tokens" => $userToken
+				"registration_tokens" => array($userToken),
 			);
 			$data = json_encode($data);
 			if($isJoin){
