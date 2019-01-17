@@ -86,7 +86,7 @@ if ($qrcode_module_size>0) {
 $qrcode_data_string=rawurldecode($qrcode_data_string);
 $data_length=strlen($qrcode_data_string);
 if ($data_length<=0) {
-    trigger_error("QRcode : Data do not exist.",E_USER_ERROR);
+    echo "QRcode : Data do not exist.";
     exit;
 }
 $data_counter=0;
