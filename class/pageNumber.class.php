@@ -33,11 +33,12 @@ namespace MTsung{
 				$sql = str_replace('*','count(*)',$sql);
 			}
 
-			$temp = $this->conn->GetArray($sql);
-			if(count($temp)>1){
-				$this->dataCount = count($temp);
-			}else{
-				$this->dataCount = $temp[0][0];
+			if($temp = $this->conn->GetArray($sql)){
+    			if(count($temp)>1){
+    				$this->dataCount = count($temp);
+    			}else{
+    				$this->dataCount = $temp[0][0];
+    			}
 			}
 
 			$this->pageTotal = ceil($this->dataCount/$this->per);
