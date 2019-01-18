@@ -30,7 +30,7 @@ Options -Indexes
 	#RewriteRule (.[^\.]).(php)$ - [L]
 	#RewriteRule (.[^\.]).(mp3|mov|php|mp4|avi|wmv)$ - [NC,F,L]
 
-	RewriteCond $1 !^(ajax\.php|upload\.php|web|QRcode\.php|barcode\.php|mathcode\.php|robots\.txt|output|upload|css|js|fonts|images|svg|include|verifycode\.php|.*\.ico|sitemap\.xml|firebase-messaging-sw\.js|data|view|$)
+	RewriteCond $1 !^(ajax\.php|upload\.php|web|QRcode\.php|barcode\.php|mathcode\.php|robots\.txt|output|upload|css|js|fonts|images|svg|include|verifycode\.php|.*\.ico|sitemap\.xml|firebase-messaging-sw\.js|data|view|\.well-known|$)
 	#RewriteCond $1 ^(error|serback)
 
 	#.* 一到多個任意字元 

@@ -97,7 +97,7 @@ if(isset($console->path[1])){
 					set_time_limit(0);
 					ini_set("memory_limit",-1);
 					$tempConn->Execute("set global max_allowed_packet=200*1024*1024; ");
-					$fileName = APP_PATH.'config/setup.sql';
+					$fileName = APP_PATH.'config/setup.sql';//安裝檔
 					$errorFlag = false;
 					if(is_file($fileName)){
 						$file = file($fileName);
