@@ -23,8 +23,8 @@ namespace MTsung{
 		 * @return [type]        [description]
 		 */
 		function send($group,$title='測試標題',$body='測試內容',$icon='',$url=''){
-			if(!$icon) $icon = $this->console->setting->getValue('icon');
-			if(!$url) $url = $this->console->MTweb;
+			if(!$icon) $icon = HTTP_PATH.DATA_PATH.$this->console->setting->getValue('icon');
+			if(!$url) $url = HTTP_PATH;
 			$data = array(
 				"to" => '/topics/'.$group,
 				"notification" => array(
