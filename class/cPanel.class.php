@@ -30,6 +30,31 @@ namespace MTsung{
 		}
 
 		/**
+		 * 建立email使用者
+		 * @param [type]  $email    帳號
+		 * @param [type]  $password 密碼 (強度不夠會不能創)
+		 * @param integer $quota    配額 (單位MB)
+		 */
+		function addEmailUser($email,$password,$quota=1024){
+			$url = "/execute/Email/add_pop";
+			$data = array(
+				"email" => $email,
+				"password" => $password,
+				"quota" => $quota,
+				// "domain" => "",
+				"skip_update_db" => 1
+			);
+			if(!$temp = $this->cCurl($url,"GET",$data)){
+				return false;
+			}
+			if($err = $temp["errors"][0]){
+				$this->message = $err;
+				return false;
+			}
+			return $temp["data"];
+		}
+
+		/**
 		 * 取得頻寬
 		 * @param [type] $grouping      欄位 |分隔
 		 * @param [type] $domains       網域 |分隔

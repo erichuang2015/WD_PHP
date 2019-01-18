@@ -83,6 +83,16 @@ if(isset($console->path[1])){
 					if(!$connect_check){
 						$console->alert("Database connection failed.",-1);
 					}
+					//關閉嚴格模式
+					$tempConn->Execute("SET sql_mode = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+					//設定utf8mb4編碼
+					$tempConn->Execute("SET NAMES utf8mb4;");
+					$tempConn->Execute("SET CHARACTER_SET_CLIENT=utf8mb4;");
+					$tempConn->Execute("SET CHARACTER_SET_RESULTS=utf8mb4;");
+					$tempConn->Execute("SET CHARACTER_SET_CONNECTION=utf8mb4;");
+					//時區
+					$tempConn->Execute("SET GLOBAL time_zone = '+08:00';");
+					$tempConn->Execute("SET time_zone = '+08:00';");
 					ignore_user_abort(true);
 					set_time_limit(0);
 					ini_set("memory_limit",-1);
@@ -127,6 +137,12 @@ if(isset($console->path[1])){
 					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."output' WHERE url='file/output'");
 					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."svg' WHERE url='file/svg'");
 					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."upload' WHERE url='file/upload'");
+
+					$tempConn->Execute("UPDATE database_setting SET detail='ssl' WHERE name='smtpSMTPSecure'");
+					$tempConn->Execute("UPDATE database_setting SET detail='mail.".MAIN_SERVER_NAME."' WHERE name='smtpHost'");
+					$tempConn->Execute("UPDATE database_setting SET detail='465' WHERE name='smtpPort'");
+					$tempConn->Execute("UPDATE database_setting SET detail='".$_POST["subDomain"]."@".MAIN_SERVER_NAME."' WHERE name='smtpUsername'");
+					$tempConn->Execute("UPDATE database_setting SET detail='".$emailPwd."' WHERE name='smtpPassword'");
 					$tempConn->close();
 					$console->alert($basic->message,$data["listUrl"]."?".$_SERVER["QUERY_STRING"]);
 				}else{
