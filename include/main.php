@@ -135,6 +135,9 @@ namespace MTsung{
 			/*config*/
 
 
+			if($_GET) $_GET = $this->trimData($_GET);
+			if($_POST) $_POST = $this->trimData($_POST);
+
 			$this->POSTVerifty();						//POSTtime
 			$this->XSSVerifty();						//XSS處理
 			$this->rmBadToken();						//刪除不合法的token
@@ -535,6 +538,16 @@ namespace MTsung{
 		function XXSDataVerifty($data){
 			foreach ($data as $key=>$value){
 				$data[$key] = (!is_array($value)) ? /*addslashes*/(htmlspecialchars(/*strip_tags*/($value))) : $this->XXSDataVerifty($value);
+			}
+			return $data;
+	    }
+
+		/**
+		 * 頭尾空白處理
+		 */
+		function trimData($data){
+			foreach ($data as $key=>$value){
+				$data[$key] = (!is_array($value)) ? trim($value) : $this->trimData($value);
 			}
 			return $data;
 	    }

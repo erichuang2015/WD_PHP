@@ -20,9 +20,15 @@ $designName = $console->path[1];
 //欄位白名單 = 需要必填的欄位 = 需要轉陣列的欄位 = 搜尋key
 $checkArray = $requiredArray = $explodeArray = $searchKey = array();
 
+/**推播**/
+if($_GET["push"] && $_GET["group"] && $_GET["title"] && $_GET["body"]){
+	$fcm = new MTsung\fcm($console);
+	$fcm->send($_GET["group"],$_GET["title"],$_GET["body"],$_GET["icon"],$_GET["url"]);
+	$console->outputJson(true,"");
+}
+
 /**設定**/
 switch ($console->path[1]) {
-
 	case 'product':
 
 	    if($_POST && isset($_POST["addProduct"]) && is_array($_POST["addProduct"])){//加價購 刪除同商品同規格

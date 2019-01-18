@@ -18,6 +18,6 @@
 			// print_r($fcm->setTopics("toby",$_GET["push_token"],false));exit;
 			break;
 		case 'send':
-			print_r($fcm->send("toby"));exit;
+			// print_r($fcm->send("toby"));exit;
 			break;
 	}
