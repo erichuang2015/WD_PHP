@@ -266,10 +266,21 @@ namespace MTsung{
          */
         private function checkSize($file){
             if ($file['size'] > $this->maxSize) {
-                $this->res['error'] = $file['name'] . '上傳檔案容量超過限制';
+                $this->res['error'] = $file['name'] . '上傳檔案容量超過限制 '.$this->formatSize($this->maxSize);
                 return false;
             }
             return true;
+        }
+
+        /**
+         * 單位轉換
+         * @param  [type]  $size  大小
+         * @param  integer $depth 預設0，Bytes
+         * @return [type]         [description]
+         */
+        function formatSize($size,$depth=0){
+            $disk_array = array('0'=>'Bytes','1'=>'KB','2'=>'MB','3'=>'GB','4'=>'TB');
+            return $size = ($size/1024>1) ? $this->formatSize($size/1024,++$depth) : number_format($size,2).$disk_array[$depth];
         }
      
         /**

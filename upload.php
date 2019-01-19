@@ -41,7 +41,7 @@
 	//前台檔案限制
 	$allowMIME = array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword');
 	$allowExt = array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4');
-	$maxSize = 1048576;//1MB
+	$maxSize = 1048576;//1MB=1048576
 
 
 	//後台登入狀態
@@ -118,7 +118,7 @@
 		$upload->callUploadFile();
 
 		if(!$upload->getDestination()){
-			echo "Upload error.".$upload->res['error'];
+			echo "Upload error.\n".$upload->res['error'];
 			// echo "upload_max_filesize is ".ini_get('upload_max_filesize');
 			exit;
 		}
