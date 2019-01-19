@@ -12,7 +12,7 @@ $member->logout();
  * 傳送email
  */
 if(isset($_POST["email"])){
-	if(!$member->resetPassword('email',$_POST["email"],'serback/forget')){
+	if(!$member->resetPassword('email',$_POST["email"],'serback/forget','forget')){
 		$console->alert($member->message,'forget');
 	}
 }
