@@ -1382,3 +1382,12 @@ div.aceEditor{
     font-family: 'Glyphicons Halflings';
     content: "\e260";
 }
+
+::selection {
+    background: #17a2b8;
+    color: #fff;
+}
+::-moz-selection {
+    background: #17a2b8;
+    color: #fff;
+}
