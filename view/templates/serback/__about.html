@@ -192,7 +192,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("CLASS")})</label>
-                                <select class="form-control" name="class" >
+                                <select class="form-control" name="class" data-type="chosen" >
                                     <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                     ({if $data.class.list})
                                         ({section name=i loop=$data.class.list})
