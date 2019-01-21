@@ -5,8 +5,8 @@ $analytics = new MTsung\analytics($console);
 //半年內流覽數
 $monthArray = array("","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 for ($i = -6; $i <= 0; $i++){
-    $s = date('Y-m-d 00:00:00',strtotime($i." month"));
-    $e = date('Y-m-d 00:00:00',strtotime(($i+1)." month"));
+    $s = date('Y-m-01 00:00:00',strtotime($i." month"));
+    $e = date('Y-m-01 00:00:00',strtotime(($i+1)." month"));
 	$data["analytics"]["month"][] = date('Y-m',strtotime($i." month"));//$monthArray[(int)date('m',strtotime($i." month"))];
 	$data["analytics"]["count"][] = $analytics->getTotalCount(false,$s,$e);
 	$data["analytics"]["repeatCount"][] = $analytics->getTotalCount(true,$s,$e);
