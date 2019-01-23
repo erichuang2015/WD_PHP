@@ -5,6 +5,19 @@
 ({$web.meta})
 ({$web.otherCode})
 ({$web.couldMessageCode})
+
+({if $web.ogTitle})
+	<meta property="og:title" content="({$web.ogTitle})"/>
+({/if})
+({if $web.ogDescription})
+	<meta property="og:description" content="({$web.ogDescription})"/>
+({/if})
+({if $web.ogImage})
+	<meta property="og:image" content="({$web.http_path})({$web.ogImage})"/>
+({/if})
+
+<meta name="google" value="notranslate">
+
 <link href="css/front.css" rel="stylesheet" type="text/css" media="screen">
 
 <script src="js/jquery.all.min.js"></script>

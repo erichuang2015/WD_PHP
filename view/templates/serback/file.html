@@ -49,6 +49,7 @@
                                         </th>
                                         <th scope="col">({$console->getLabel("NAME")})</th>
                                         <th scope="col">({$console->getLabel("FILE_SIZE")})</th>
+                                        <th scope="col">({$console->getLabel("FILE_DATE")})</th>
                                         <th scope="col" width="5%"></th>
                                     </tr>
                                 </thead>
@@ -65,6 +66,7 @@
                                             </td>
                                             <td><a href="({$data.listUrl})/({$data.list[i].name})">({if $data.list[i].isImg})<img src="({$data.dirPath})/({$data.list[i].name})" onerror="this.remove();" width="50" >({/if})({$data.list[i].name})</a></td>
                                             <td>({$data.list[i].size})</td>
+                                            <td>({$data.list[i].date})</td>
                                             <td>
                                             ({if $data.list[i].name!=".htaccess" && !$data.list[i].isDir})
                                                 <a href="({$data.dirPath})/({$data.list[i].name})" download><span class="glyphicon-download" style="font-size: 25px;"></span></a>

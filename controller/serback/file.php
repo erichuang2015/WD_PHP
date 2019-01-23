@@ -151,9 +151,11 @@ if(!is_dir($dirPath)){//編輯
     		if($temp["isDir"] = (int)is_dir($allPath)){
     			$temp["name"] .= "/";
     			$temp["size"] = $console->formatSize($console->getDirSize($allPath."/"));
+    			// $temp["date"] = date("Y-m-d H:i:s", filemtime($allPath));
     			$temp["isImg"] = false;
     		}else{
     			$temp["size"] = $console->formatSize(filesize($allPath));
+    			$temp["date"] = date("Y-m-d H:i:s", filemtime($allPath));
     			$temp["isImg"] = isImage($allPath);
     		}
     		$data["list"][] = $temp;
