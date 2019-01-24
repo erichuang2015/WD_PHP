@@ -430,7 +430,7 @@ namespace MTsung{
 		 * @return [type]       失敗為false
 		 */
 		public function checkEmail($id,$back='NO'){
-			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->table." where id=? "),array($id));
+			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->table." where id=? and emailCheck=?"),array($id,emailCheckType::CHECK_NO));
 			if($temp){
 				if($temp["emailCheck"]==emailCheckType::CHECK_NO){
 					$auth = urlencode(base64_encode(base64_encode($temp["password"])));

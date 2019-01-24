@@ -472,18 +472,23 @@ namespace MTsung{
 		 */
 		function alert($message,$url=NULL){
 		    $message = str_replace(array("\r", "\n", "\r\n", "\n\r"), '', $message);
-			print "<meta http-equiv=Content-Type content=text/html; charset=utf-8>";
+			echo "<meta http-equiv=Content-Type content=text/html; charset=utf-8>";
+			echo "<script language=\"JavaScript\" type=\"text/JavaScript\">window.addEventListener('load',function(){";
+			if($message){
+				echo "alert(\"$message\");";
+			}
+
 			if(trim($url) == "-1"){
-				echo "<script language=\"JavaScript\" type=\"text/JavaScript\">window.addEventListener('load',function(){alert(\"$message\");javascript:history.back(-1);});</script>";
+				echo "javascript:history.back(-1);});</script>";
 				exit;
 			}else if(trim($url)==NULL || trim($url)==""){
-				echo "<script language=\"JavaScript\" type=\"text/JavaScript\">window.addEventListener('load',function(){alert(\"$message\");location.reload();});</script>";
+				echo "location.reload();});</script>";
 			}else if(trim($url)=='NO'){
-				echo "<script language=\"JavaScript\" type=\"text/JavaScript\">window.addEventListener('load',function(){alert(\"$message\");});</script>";
+				echo "});</script>";
 			}else if(trim($url)=='CLOSE'){
-				echo "<script language=\"JavaScript\" type=\"text/JavaScript\">window.addEventListener('load',function(){alert(\"$message\");window.close();});</script>";
+				echo "window.close();});</script>";
 			}else{
-				echo "<script language=\"JavaScript\" type=\"text/JavaScript\">window.addEventListener('load',function(){alert(\"$message\");location.href='$url';});</script>";
+				echo "location.href='$url';});</script>";
 				exit;
 			}
 		}
@@ -952,7 +957,7 @@ namespace MTsung{
 			}
 			if(!isset($data["id"])){
 				foreach ($data as $key => $value) {
-					$data[$key]["urlKey"] = (isset($data[$key]["urlKey"])&&$data[$key]["urlKey"]) ? $data[$key]["urlKey"] : $data[$key]["id"];
+					$data[$key] = $this->urlKey($value);
 				}
 			}else{
 				$data["urlKey"] = (isset($data["urlKey"])&&$data["urlKey"]) ? $data["urlKey"] : $data["id"];

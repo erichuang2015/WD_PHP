@@ -141,7 +141,7 @@ if(isset($console->path[1])){
 					$tempConn->Execute("UPDATE database_setting SET detail='ssl' WHERE name='smtpSMTPSecure'");
 					$tempConn->Execute("UPDATE database_setting SET detail='mail.".MAIN_SERVER_NAME."' WHERE name='smtpHost'");
 					$tempConn->Execute("UPDATE database_setting SET detail='465' WHERE name='smtpPort'");
-					$tempConn->Execute("UPDATE database_setting SET detail='".$_POST["subDomain"]."@".MAIN_SERVER_NAME."' WHERE name='smtpUsername'");
+					$tempConn->Execute("UPDATE database_setting SET detail='".$_POST["subDomain"]."@".MAIN_SERVER_NAME."' WHERE name='smtpUsername' or name='senderEmail'");
 					$tempConn->Execute("UPDATE database_setting SET detail='".$emailPwd."' WHERE name='smtpPassword'");
 					$tempConn->close();
 					$console->alert($basic->message,$data["listUrl"]."?".$_SERVER["QUERY_STRING"]);

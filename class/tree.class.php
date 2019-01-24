@@ -230,5 +230,21 @@ namespace MTsung{
 				}
 			}
 		}
+
+
+		/**
+		 * 取得樹狀資料 data.next.next...
+		 * @param  [type] $data [description]
+		 * @return [type]       [description]
+		 */
+		function getTree($data=''){
+			if(!$data){
+				$data = $this->getData("where status='1' and floor='0' order by step");
+			}
+			foreach ($data as $key => $value) {
+				$data[$key]["next"] = $this->getTree($this->getData("where parent='".$value["id"]."'"));
+			}
+			return $data;
+		}
 	}
 }
