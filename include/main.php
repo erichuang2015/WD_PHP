@@ -278,7 +278,7 @@ namespace MTsung{
 				$this->alert($this->getMessage('LANGUAGE_NULL'),-1);
 				exit;
 			}else{
-				$tmpe = parse_ini_file($file,true);
+				$tmpe = @parse_ini_file($file,true);
 
 				$this->message = @$tmpe['message'];
 				$this->serbackLabel = @$tmpe['label'];
@@ -286,15 +286,16 @@ namespace MTsung{
 				/**
 				 * 找不到就用預設的
 				 */
-				$tmpe = parse_ini_file(LANGUAGE_PATH.LANG.'.ini',true);
-				foreach ($tmpe['message'] as $key => $value) {
-					if(!isset($this->message[$key])){
-						$this->message[$key] = $value;
+				if($tmpe = @parse_ini_file(LANGUAGE_PATH.LANG.'.ini',true)){
+					foreach ($tmpe['message'] as $key => $value) {
+						if(!isset($this->message[$key])){
+							$this->message[$key] = $value;
+						}
 					}
-				}
-				foreach ($tmpe['label'] as $key => $value) {
-					if(!isset($this->serbackLabel[$key])){
-						$this->serbackLabel[$key] = $value;
+					foreach ($tmpe['label'] as $key => $value) {
+						if(!isset($this->serbackLabel[$key])){
+							$this->serbackLabel[$key] = $value;
+						}
 					}
 				}
 
@@ -308,7 +309,7 @@ namespace MTsung{
 			$dir = dir(LANGUAGE_PATH);
 			while($file = $dir->read()) {
 			   	if (!is_dir($file) && strpos($file,'.ini')){
-			   		$temp = parse_ini_file(LANGUAGE_PATH.$file,true);
+			   		$temp = @parse_ini_file(LANGUAGE_PATH.$file,true);
 			   		if(isset($temp['value']['LANGUAGE_NAME'])){
 			   			$temp = htmlspecialchars($temp['value']['LANGUAGE_NAME']);
 			   		}else{
