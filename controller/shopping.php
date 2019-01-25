@@ -117,6 +117,13 @@
 				$console->outputJson($temp,$order->message,$order->getShoppingCartList());
 				break;
 
+			case 'editSpecifications'://修改規格
+				if($temp = $order->addProduct($_GET["productid"],$_GET["count"],$_GET["newSpecifications"])){
+					$temp = $order->rmProduct($_GET["productid"],$_GET["specifications"]);
+				}
+				$console->outputJson($temp,$order->message,$order->getShoppingCartList());
+				break;
+				
 			case 'editCount'://修改數量
 				$temp = $order->editProductCount($_GET["productid"],$_GET["count"],$_GET["specifications"]);
 				$console->outputJson($temp,$order->message,$order->getShoppingCartList());

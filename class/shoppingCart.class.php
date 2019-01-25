@@ -84,6 +84,7 @@ namespace MTsung{
 					  `parentId` int(11) DEFAULT NULL COMMENT '加價購母商品ID',
 					  `productId` int(11) NOT NULL COMMENT '商品ID',
 					  `specifications` TEXT DEFAULT NULL COMMENT '商品規格',
+					  `specificationsName` TEXT DEFAULT NULL COMMENT '商品規格名稱',
 					  `name` varchar(191) DEFAULT NULL COMMENT '商品名稱',
 					  `count` int(11) DEFAULT 1 COMMENT '商品數量',
 					  `memo` TEXT DEFAULT NULL COMMENT '商品簡單內容',
@@ -170,6 +171,8 @@ namespace MTsung{
 					$temp = $this->product->getProduct($value["productId"]);
 					if($temp && in_array($value["specifications"],$temp["specificationsID"]) && $value["price"]>0){
 
+						$name = $temp["specifications"][array_search($value["specifications"],$temp["specificationsID"])];
+						if($value["specificationsName"] != $name) $data["specificationsName"] = $name;
 						if($value["name"] != $temp["name"]) $data["name"] = $temp["name"];
 						if($value["memo"] != $temp["memo"]) $data["memo"] = $temp["memo"];
 						if($value["detail"] != $temp["detail"]) $data["detail"] = $temp["detail"];
@@ -278,7 +281,7 @@ namespace MTsung{
 						return false;
 					}
 					if($count+$addCount > $temp["stock"][array_search($specifications, $temp["specificationsID"])] && $this->isStockMode){
-						$this->message = $this->console->getMessage("ERROR_PRODUCT_STOCK",array($temp["name"],$count+$addCount));
+						$this->message = $this->console->getMessage("ERROR_PRODUCT_STOCK",array($temp["name"]." ".$temp["specifications"][array_search($specifications, $temp["specificationsID"])],$count+$addCount));
 						return false;
 					}
 					$data["shoppingCartId"] = $this->order["id"];
@@ -334,7 +337,7 @@ namespace MTsung{
 					return false;
 				}
 				if($count+$addCount > $temp["stock"][array_search($specifications, $temp["specificationsID"])] && $this->isStockMode){
-					$this->message = $this->console->getMessage("ERROR_PRODUCT_STOCK",array($temp["name"],$count+$addCount));
+					$this->message = $this->console->getMessage("ERROR_PRODUCT_STOCK",array($temp["name"]." ".$temp["specifications"][array_search($specifications, $temp["specificationsID"])],$count+$addCount));
 					return false;
 				}
 				$data["count"] = $count;
@@ -1217,6 +1220,7 @@ namespace MTsung{
 			if($temp){
 				foreach ($temp as $key => $value) {
 					$temp[$key]["addProductList"] = $this->conn->GetArray("select * from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and parentId='".$value["productId"]."'");
+					$temp[$key]["onlieProduct"] = $this->product->getProduct($value["productId"]);
 				}
 			}
 			return $temp;
