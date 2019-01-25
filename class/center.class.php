@@ -617,7 +617,7 @@ namespace MTsung{
 			$temp = array();
 			if(is_array($array)){
 				foreach ($array as $key => $value) {
-					if(!isset($data[$value]) || ""==$data[$value]){
+					if(!isset($data[$value]) || (""==$data[$value])){
 						array_push($temp,$value);
 					}
 				}
