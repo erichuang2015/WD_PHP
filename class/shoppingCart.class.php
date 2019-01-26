@@ -214,7 +214,7 @@ namespace MTsung{
 			//折扣
 			if(is_numeric($this->order["deshprice"]) && $this->order["deshprice"]<=1 && $this->order["deshprice"]>0){
 				$total *= $this->order["deshprice"];
-				round($total);
+				$total = round($total);
 			}
 
 			//確認使用紅利沒超過會員身上的點數
@@ -228,7 +228,7 @@ namespace MTsung{
 				$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
 			}
 			$this->updateOrder(array("pointDownMoney"=>$pointDownMoney));
-			
+
 			$this->updateOrder(array("total"=>$total-$pointDownMoney));
 		}
 
