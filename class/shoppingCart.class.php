@@ -210,11 +210,20 @@ namespace MTsung{
 					$total += ($value["price"]*$value["count"]);
 				}
 			}
+
+			//折扣
 			if(is_numeric($this->order["deshprice"]) && $this->order["deshprice"]<=1 && $this->order["deshprice"]>0){
 				$total *= $this->order["deshprice"];
 				round($total);
 			}
-			$this->updateOrder(array("total"=>$total));
+
+			//使用紅利減少的錢
+			$pointDownMoney = 0;
+			if($this->pointSetting[2]>0){
+				$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
+			}
+			$this->updateOrder(array("pointDownMoney"=>$pointDownMoney));
+			$this->updateOrder(array("total"=>$total-$pointDownMoney));
 		}
 
 		/**
@@ -236,13 +245,6 @@ namespace MTsung{
 			if($this->order["usePoint"] > $memberPoint){
 				$this->updateOrder(array("usePoint"=>$memberPoint));
 			}
-
-			//使用紅利減少的錢
-			$pointDownMoney = 0;
-			if($this->pointSetting[2]>0){
-				$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
-			}
-			$this->updateOrder(array("pointDownMoney"=>$pointDownMoney));
 		}
 
 		/**
@@ -659,10 +661,6 @@ namespace MTsung{
 			if((int)$this->order['usePoint']>0){
 				if($this->member->setPoint(($this->order['usePoint']*-1),pointType::USE_POINT)){
 					$this->conn->Execute($this->conn->Prepare("UPDATE ".$this->table." SET usePointStatus=1 where id=?"),array($this->order["id"]));
-					if($this->pointSetting[2]){
-						$total = $this->order["total"] - floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
-						$this->updateOrder(array("total" => $total));
-					}
 				}else{
 					$this->message = $this->console->getMessage('SET_POINT_ERROR');
 					return false;
@@ -1233,7 +1231,7 @@ namespace MTsung{
 			if($temp){
 				foreach ($temp as $key => $value) {
 					$temp[$key]["addProductList"] = $this->conn->GetArray("select * from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and parentId='".$value["productId"]."'");
-					$temp[$key]["onlieProduct"] = $this->product->getProduct($value["productId"]);
+					$temp[$key]["onilieProduct"] = $this->product->getProduct($value["productId"]);
 				}
 			}
 			return $temp;
