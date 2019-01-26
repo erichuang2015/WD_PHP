@@ -54,6 +54,7 @@ namespace MTsung{
 					  `getPointStatus` tinyint(1) DEFAULT '0' COMMENT '取得的紅利狀態',
 					  `usePoint` int(11) DEFAULT '0' COMMENT '使用的紅利',
 					  `usePointStatus` tinyint(1) DEFAULT '0' COMMENT '使用的紅利狀態',
+					  `pointDownMoney` int(11) DEFAULT '0' COMMENT '使用紅利減少的錢',
 					  `paymentMethod` int(11) DEFAULT '0' COMMENT '付款方式',
 					  `paymentStatus` int(11) DEFAULT '0' COMMENT '付款狀態',
 					  `shipmentMethod` int(11) DEFAULT '0' COMMENT '出貨方式',
@@ -233,8 +234,15 @@ namespace MTsung{
 			//確認使用紅利沒超過會員身上的點數
 			$memberPoint = $this->member->getInfo("point")?$this->member->getInfo("point"):0;
 			if($this->order["usePoint"] > $memberPoint){
-				$this->updateOrder(array("usePoint"=>$usePoint));
+				$this->updateOrder(array("usePoint"=>$memberPoint));
 			}
+
+			//使用紅利減少的錢
+			$pointDownMoney = 0;
+			if($this->pointSetting[2]>0){
+				$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
+			}
+			$this->updateOrder(array("pointDownMoney"=>$pointDownMoney));
 		}
 
 		/**
@@ -244,16 +252,20 @@ namespace MTsung{
 		 */
 		function usePoint($usePoint=0){
 			if($this->pointSetting){
-				if(is_numeric($usePoint) && $usePoint > 0){
+				if(is_numeric($usePoint) && $usePoint >= 0){
 					$memberPoint = $this->member->getInfo("point")?$this->member->getInfo("point"):0;
 					if($usePoint > $memberPoint){
 						$this->message = $this->console->getMessage("MEMBER_POINT_NOT_ENOUGH",array($usePoint,$memberPoint));
 						return false;
 					}
 					$this->updateOrder(array("usePoint"=>$usePoint));
+					return true;
 				}
 			}
+			$this->message = $this->console->getMessage("INPUT_ERROR");
+			return false;
 		}
+		
 		/**
 		 * 加入商品
 		 * @param [type] $id             [description]
@@ -648,7 +660,7 @@ namespace MTsung{
 				if($this->member->setPoint(($this->order['usePoint']*-1),pointType::USE_POINT)){
 					$this->conn->Execute($this->conn->Prepare("UPDATE ".$this->table." SET usePointStatus=1 where id=?"),array($this->order["id"]));
 					if($this->pointSetting[2]){
-						$this->order["total"] = $this->order["total"] - (floor($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
+						$this->order["total"] = $this->order["total"] - floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
 					}
 				}else{
 					$this->message = $this->console->getMessage('SET_POINT_ERROR');
@@ -1373,7 +1385,11 @@ namespace MTsung{
 			foreach ($isAdd as $key => $value) {
 				$temp[$value["parentId"]]["addList"][] = $value;
 			}
-			$temp = array_values($temp);
+			if($temp = array_values($temp)){
+				foreach ($temp as $key => $value) {
+					$temp[$key]["onilieProduct"] = $this->product->getProduct($value["productId"]);
+				}
+			}
 			return $temp;
 		}
 
