@@ -217,12 +217,18 @@ namespace MTsung{
 				round($total);
 			}
 
+			//確認使用紅利沒超過會員身上的點數
+			$memberPoint = $this->member->getInfo("point")?$this->member->getInfo("point"):0;
+			if($this->order["usePoint"] > $memberPoint){
+				$this->updateOrder(array("usePoint"=>$memberPoint));
+			}
 			//使用紅利減少的錢
 			$pointDownMoney = 0;
 			if($this->pointSetting[2]>0){
 				$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
 			}
 			$this->updateOrder(array("pointDownMoney"=>$pointDownMoney));
+			
 			$this->updateOrder(array("total"=>$total-$pointDownMoney));
 		}
 
@@ -238,12 +244,6 @@ namespace MTsung{
 					$getPoint = floor($total / $this->pointSetting[0]) * $this->pointSetting[1];
 				}
 				$this->updateOrder(array("getPoint"=>$getPoint));
-			}
-
-			//確認使用紅利沒超過會員身上的點數
-			$memberPoint = $this->member->getInfo("point")?$this->member->getInfo("point"):0;
-			if($this->order["usePoint"] > $memberPoint){
-				$this->updateOrder(array("usePoint"=>$memberPoint));
 			}
 		}
 
