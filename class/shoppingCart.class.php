@@ -660,7 +660,8 @@ namespace MTsung{
 				if($this->member->setPoint(($this->order['usePoint']*-1),pointType::USE_POINT)){
 					$this->conn->Execute($this->conn->Prepare("UPDATE ".$this->table." SET usePointStatus=1 where id=?"),array($this->order["id"]));
 					if($this->pointSetting[2]){
-						$this->order["total"] = $this->order["total"] - floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
+						$total = $this->order["total"] - floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
+						$this->updateOrder(array("total" => $total));
 					}
 				}else{
 					$this->message = $this->console->getMessage('SET_POINT_ERROR');

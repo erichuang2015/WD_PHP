@@ -19,7 +19,6 @@
 	$member = new MTsung\member($console,PREFIX.'member');
 	$product = new MTsung\product($console,PREFIX."product",$lang);
 	$order = new MTsung\shoppingCart($console,$member,$product,PREFIX."shopping_cart",$lang);
-	$order->reloadCart();
 	$order->setDeshprice(1);//設定折數 0~1
 	if($console->setting->getValue("pointCheck")){//設定點數
 		$order->setPoint(
@@ -31,6 +30,7 @@
 	}else{
 		$order->setPoint(0,0,0,0);
 	}
+	$order->reloadCart();
 
 	$web_set['lang'] = count($console->getLanguageArray("array"))==1?'':$console->getLanguage();
 	$lang_url = ($web_set['lang']?'/'.$web_set['lang']:'');
