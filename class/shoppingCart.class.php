@@ -87,6 +87,7 @@ namespace MTsung{
 					  `specifications` TEXT DEFAULT NULL COMMENT '商品規格',
 					  `specificationsName` TEXT DEFAULT NULL COMMENT '商品規格名稱',
 					  `name` varchar(191) DEFAULT NULL COMMENT '商品名稱',
+					  `isDeshprice` int(11) NOT NULL COMMENT '是否享有打折',
 					  `count` int(11) DEFAULT 1 COMMENT '商品數量',
 					  `memo` TEXT DEFAULT NULL COMMENT '商品簡單內容',
 					  `detail` TEXT DEFAULT NULL COMMENT '商品內容',
@@ -174,6 +175,7 @@ namespace MTsung{
 
 						$name = $temp["specifications"][array_search($value["specifications"],$temp["specificationsID"])];
 						if($value["specificationsName"] != $name) $data["specificationsName"] = $name;
+						if($value["isDeshprice"] != $temp["isDeshprice"]) $data["isDeshprice"] = $temp["isDeshprice"];
 						if($value["name"] != $temp["name"]) $data["name"] = $temp["name"];
 						if($value["memo"] != $temp["memo"]) $data["memo"] = $temp["memo"];
 						if($value["detail"] != $temp["detail"]) $data["detail"] = $temp["detail"];
@@ -222,13 +224,16 @@ namespace MTsung{
 			if($this->order["usePoint"] > $memberPoint){
 				$this->updateOrder(array("usePoint"=>$memberPoint));
 			}
+			
 			//使用紅利減少的錢
 			$pointDownMoney = 0;
 			if($this->pointSetting[2]>0){
 				$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
 			}
+			if($pointDownMoney>$total){
+				$this->updateOrder(array("usePoint"=>0));
+			}
 			$this->updateOrder(array("pointDownMoney"=>$pointDownMoney));
-
 			$this->updateOrder(array("total"=>$total-$pointDownMoney));
 		}
 
@@ -260,6 +265,13 @@ namespace MTsung{
 						$this->message = $this->console->getMessage("MEMBER_POINT_NOT_ENOUGH",array($usePoint,$memberPoint));
 						return false;
 					}
+					
+					$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * ($usePoint-$this->order['usePoint']));
+					if($pointDownMoney > $this->order["total"]){
+						$this->message = $this->console->getMessage("POINT_GT_TOTAL");
+						return false;
+					}
+					$this->updateOrder(array("pointDownMoney"=>$pointDownMoney));
 					$this->updateOrder(array("usePoint"=>$usePoint));
 					return true;
 				}
