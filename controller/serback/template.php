@@ -66,6 +66,7 @@ if(isset($console->path[2])){
 			if($_POST){
 				if($_POST["name"]){
 					$_POST["type"] = $console->path[1];
+					$_POST["useTables"] = implode("|__|",$_POST["useTables"]);
 					if(!$fileTemplate->addFile($_POST["name"],$_POST[$module["aceEditor"]["name"]])){
 						$console->alert($fileTemplate->message,-1);
 					}

@@ -38,4 +38,3 @@
 	//購物內容數量
 	$data["orderCount"] = count($order->getShoppingCartList());
 
-?>
