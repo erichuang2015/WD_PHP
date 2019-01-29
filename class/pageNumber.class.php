@@ -278,7 +278,7 @@ namespace MTsung{
 	    	if(!$this->dataCount || $this->pageTotal<2){
 	    		return "";
 	    	}
-	    	$str = '全部共 '.$this->dataCount.'  筆 (每頁 '.$this->per.' 筆) <br>　　'.($this->pageNow>$this->pagePrevious?'<a href="'.$this->newQuery.$this->pagePrevious.'">上一頁</a>':'').'　　'.($this->pageNow<$this->pageNext?'<a href="'.$this->newQuery.$this->pageNext.'">下一頁</a>':'').'　　<br>前往第 <select onchange="location=this.value;">';
+	    	$str = ''.$this->console->getLabel("PAGE_LABEL1").' '.$this->dataCount.'  '.$this->console->getLabel("PAGE_LABEL2").' '.$this->per.' '.$this->console->getLabel("PAGE_LABEL3").' <br>　　'.($this->pageNow>$this->pagePrevious?'<a href="'.$this->newQuery.$this->pagePrevious.'">'.$this->console->getLabel("PAGE_LABEL4").'</a>':'').'　　'.($this->pageNow<$this->pageNext?'<a href="'.$this->newQuery.$this->pageNext.'">'.$this->console->getLabel("PAGE_LABEL5").'</a>':'').'　　<br>'.$this->console->getLabel("PAGE_LABEL6").' <select onchange="location=this.value;">';
 
 	    	for ($i=1; $i <= $this->pageTotal ; $i++) { 
 	    		if($i == $this->pageNow){
@@ -288,7 +288,7 @@ namespace MTsung{
 	    		}
 	    	}
 
-	    	$str .= '</select>頁';
+	    	$str .= '</select>'.$this->console->getLabel("PAGE_LABEL7").'';
 	    	return $str;
 	    }
 

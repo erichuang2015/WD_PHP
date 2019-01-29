@@ -1,6 +1,6 @@
 <?php 
 	include_once('header.php');
-	$web_set["titlePrefix"] = "購物車";
+	$web_set["titlePrefix"] = $console->getLabel("SHOPPING_CART");
 
 	define("SHOPPING_PATH",WEB_PATH.$lang_url."/".$console->path[0]."/");
 
@@ -86,6 +86,11 @@
 		}
 
 		switch ($_GET["ajax"]) {
+			case 'usePoint'://使用點數
+				$temp = $order->usePoint($_GET["point"]);
+				$console->outputJson($temp,$order->message);
+				break;
+
 			case 'getShipment'://取得運送方式
 				//運送方式
 				$data["shipmentMethod"] = array();
@@ -119,7 +124,10 @@
 
 			case 'editSpecifications'://修改規格
 				if($temp = $order->addProduct($_GET["productid"],$_GET["count"],$_GET["newSpecifications"])){
-					$temp = $order->rmProduct($_GET["productid"],$_GET["specifications"]);
+					$order->message = $console->getLabel("EDIT_SPECIFICATIONS_ERROR");
+					if($temp = $order->rmProduct($_GET["productid"],$_GET["specifications"])){
+						$order->message = $console->getLabel("EDIT_SPECIFICATIONS_OK");
+					}
 				}
 				$console->outputJson($temp,$order->message,$order->getShoppingCartList());
 				break;
@@ -136,6 +144,10 @@
 
 			case 'shoppingList'://取得購物車內容
 				$console->outputJson(true,"",$order->getShoppingCartList());
+				break;
+
+			case 'shoppingCart'://取得購物車
+				$console->outputJson(true,"",$order->getShoppingCart());
 				break;
 		}
 		$console->outputJson(true,"");

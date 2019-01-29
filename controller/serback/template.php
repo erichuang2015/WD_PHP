@@ -66,7 +66,7 @@ if(isset($console->path[2])){
 			if($_POST){
 				if($_POST["name"]){
 					$_POST["type"] = $console->path[1];
-					$_POST["useTables"] = implode("|__|",$_POST["useTables"]);
+					if($_POST["useTables"]) $_POST["useTables"] = implode("|__|",$_POST["useTables"]);
 					if(!$fileTemplate->addFile($_POST["name"],$_POST[$module["aceEditor"]["name"]])){
 						$console->alert($fileTemplate->message,-1);
 					}
@@ -80,7 +80,9 @@ if(isset($console->path[2])){
 					$console->alert($console->getMessage("INPUT_NULL"),-1);
 				}
 			}
-			$data[$module["aceEditor"]["name"]] = '';
+			$data[$module["aceEditor"]["name"]] = '({include "top.html"})
+
+({include "foor.html"})';
 
 
 			$switch["addButton"] = 1;

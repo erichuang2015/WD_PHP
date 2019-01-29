@@ -25,7 +25,7 @@ Options -Indexes
 	ErrorDocument 404 /_MTsung/
 
 	#縮圖轉址
-    RewriteRule (.+)\.(.+)\.min$ $1_min\.$2 [R,L]
+    RewriteRule ^(.+)\.(.+)\.min$ http://%{HTTP_HOST}/$1_min\.$2 [R,L]
 
 	#RewriteRule (.[^\.]).(php)$ - [L]
 	#RewriteRule (.[^\.]).(mp3|mov|php|mp4|avi|wmv)$ - [NC,F,L]
