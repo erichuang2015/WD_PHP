@@ -17,6 +17,10 @@
 				$explodeArray = getExplode($features[0]);
 			}
 
+			$search = getSystemKey($features[0],'search');
+			$youtube = getSystemKey($features[0],'youtube');
+			// $imageModule = getSystemKey($features[0],'imageModule');
+
 			if($console->isTables($value)){
 				$$value = new MTsung\dataList($console,PREFIX.$value,$lang);
 				if($data[$value] = $$value->getData("where status=1 order by sort",array(),$explodeArray)){
@@ -27,6 +31,30 @@
 							}
 							return $v;
 						},$value1);
+
+						foreach ($data[$value][$key1] as $key2 => $value2) {
+							//搜尋模組的內容 不做字串陣列轉換
+							if(isset($search[$key2])){
+								$basicOne = new MTsung\dataList($console,PREFIX.$search[$key2],$lang);
+								foreach ($data[$value][$key1][$key2] as $keyOne => $valueOne) {
+									$data[$value][$key1][$key2][$keyOne] = $basicOne->getOne("and id=?",array($valueOne));
+								}
+							}
+							//YT連結轉換
+							if(isset($youtube[$key2])){
+								$data[$value][$key1][$key2] = $console->youtubeLink($value2);
+							}
+							//圖片縮圖網址
+							// if(isset($imageModule[$key2])){
+							// 	if($data[$value][$key1][$key2."__min"] = $value2){
+							// 		foreach ($data[$value][$key1][$key2."__min"] as $key3 => $value3) {
+							// 			$imgTemp = explode(".",$value3);
+							// 			$typeTemp = array_pop($imgTemp);
+							// 			$data[$value][$key1][$key2."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
+							// 		}
+							// 	}
+							// }
+						}
 					}
 				}
 				$data[$value] = $console->urlKey($data[$value]);
