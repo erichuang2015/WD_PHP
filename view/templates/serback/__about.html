@@ -196,7 +196,7 @@
                                     <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                     ({if $data.class.list})
                                         ({section name=i loop=$data.class.list})
-                                            <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) ({if $data.class.list[i].id==$smarty.get.class})selected({/if})>({$data.class.list[i].name})</option>
+                                            <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" <!-- ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) --> ({if $data.class.list[i].id==$smarty.get.class})selected({/if})>({$data.class.list[i].name})</option>
                                         ({/section})
                                     ({/if})
                                 </select>
@@ -283,7 +283,7 @@
                                         <input type="hidden" name="class">
                                         <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required multiple>
                                             ({section name=i loop=$data.class.list})
-                                                <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) ({if in_array($data.class.list[i].id,$data.one.class)})selected({/if})>({$data.class.list[i].name})</option>
+                                                <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" <!-- ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) --> ({if in_array($data.class.list[i].id,$data.one.class)})selected({/if})>({$data.class.list[i].name})</option>
                                             ({/section})
                                         </select>
                                     </div>
@@ -297,7 +297,7 @@
                                         <input type="hidden" name="class">
                                         <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required multiple>
                                             ({section name=i loop=$data.class.list})
-                                                <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if})>({$data.class.list[i].name})</option>
+                                                <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" <!-- ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) -->>({$data.class.list[i].name})</option>
                                             ({/section})
                                         </select>
                                     </div>

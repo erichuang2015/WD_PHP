@@ -4,6 +4,15 @@
 	$class = new MTsung\dataClass($console,PREFIX.$console->path[0]."_class",$lang);
 	$data["class"] = $class->getData("where status='1' order by step");
 
+	// $explodeArray[] = "specificationsID";
+	// $explodeArray[] = "specifications";
+	// $explodeArray[] = "stock";
+	// $explodeArray[] = "addProduct";
+	// $explodeArray[] = "addProductSpecifications";
+	// $explodeArray[] = "maxCount";
+	// $explodeArray[] = "addProductMaxCount";
+	// $explodeArray[] = "addProductMoney";
+	
 	//class
 	if(isset($console->path[1])){
 		//網址轉換

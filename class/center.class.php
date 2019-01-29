@@ -262,16 +262,18 @@ namespace MTsung{
 			}
 
 			
-			$whereSql = $this->getSqlWhere($searchKey).$whereSql;
+			$whereSql = $this->getSqlWhere($searchKey,strpos($whereSql,"class like")===false).$whereSql;
 			$this->pageNumber = new pageNumber($this->console,'select * from '.$this->table." ".$whereSql,$per,$pageViewMax);
 			return $this->getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$this->pageNumber->getPer());
 		}
 
 		/**
 		 * 取得GET組合的sql
-		 * @return [type] [description]
+		 * @param  array   $searchKey [description]
+		 * @param  boolean $classFlag class搜尋
+		 * @return [type]             [description]
 		 */
-		function getSqlWhere($searchKey=array("name")){
+		function getSqlWhere($searchKey=array("name"),$classFlag=true){
 			$sql = "";
 			if(isset($_GET["searchKeyWord"])){
 				$sql = "where ";
@@ -305,7 +307,7 @@ namespace MTsung{
 			}else{
 				$sql = "where 1=1 ";
 			}
-			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
+			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && $classFlag){
 				$sql .= $this->findArrayString("class",$_GET["class"]);
 			}
 			if(isset($_GET["stockBelow"]) && is_numeric($_GET["stockBelow"]) && $_GET["stockBelow"] && $_GET["stockBelow"]<1000){
@@ -686,7 +688,15 @@ namespace MTsung{
 		 * @param  [type] $val [description]
 		 * @return [type]      [description]
 		 */
-		function findArrayString($row,$val){ 
+		function findArrayString($row,$val){
+			if(is_array($val)){
+				$temp = " and (";
+				foreach ($val as $key => $value) {
+					$temp .= " ".$row." like '%|".$value."|%' or ".$row." like '%|".$value."' or ".$row." like '".$value."|%' or ".$row."='".$value."' or";
+				}
+				$temp .= " 0)";
+				return $temp;
+			}
 			return " and (".$row." like '%|".$val."|%' or ".$row." like '%|".$val."' or ".$row." like '".$val."|%' or ".$row."='".$val."')";
 		}
 

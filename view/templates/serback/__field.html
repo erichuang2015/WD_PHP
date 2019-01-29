@@ -7,7 +7,7 @@
 ({assign var="searchI" value=0})
 ({section name=i loop=$data.system.dataType})
 
-    ({if $data.system.dataType[i] == "text"})
+    ({if $data.system.dataType[i] == "text" || $data.system.dataType[i] == "youtube"})
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label>({$console->getLabel($data.system.dataName[i])})</label>

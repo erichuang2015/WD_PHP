@@ -14,16 +14,12 @@
 				$web_set["titlePrefix"] = $console->getLabel($value["name"]);
 			}
 
+			//取得搜尋功能的鍵值與使用功能別名
+			$search = getSystemKey($value,'search');
+			$youtube = getSystemKey($value,'youtube');
+
 			$explodeArray = getExplode($value);
 			$explodeArray[] = "class";
-			$explodeArray[] = "specificationsID";
-			$explodeArray[] = "specifications";
-			$explodeArray[] = "stock";
-			$explodeArray[] = "addProduct";
-			$explodeArray[] = "addProductSpecifications";
-			$explodeArray[] = "maxCount";
-			$explodeArray[] = "addProductMaxCount";
-			$explodeArray[] = "addProductMoney";
 
 			$basic = new MTsung\dataList($console,PREFIX.$console->path[0],$lang);
 			switch ($value["features"]) {
@@ -40,14 +36,9 @@
 							$console->to404();
 						}
 						if(isset($data["one"]["class"]) && $class){
-							$data["one"]["class"] = explode("|__|",$data["one"]["class"]);
 							foreach ($data["one"]["class"] as $oneKey => $oneValue) {
 								$data["one"]["class"][$oneKey] = $class->getData("where id='".$oneValue."'")[0];
 							}
-						}
-						if($console->path[0] == "product"){
-							$data["one"]["price"] = $product->getPrice($data["one"]["id"]);
-							// $data["one"]["specificationsID"] = explode("|__|",$data["one"]["specificationsID"])[0];
 						}
 					}else{
 						if($data["list"] = $basic->getListData("and status='1' ".$findClassSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"])){
@@ -85,13 +76,40 @@
 					$data["oneClass"] = $console->urlKey($data["oneClass"]);
 					$_GET["class"] = $data["oneClass"]["id"];
 
-					$findClassSql = $basic->findArrayString("class",$data["oneClass"]["id"]);
+					//所有子節點一並搜尋
+					$classArray[] = $data["oneClass"]["id"];
+					if($tempC = $class->findChildren($data["oneClass"]["id"])){
+						foreach ($tempC as $valueC) {
+							$classArray[] = $valueC;
+						}
+					}
+					$findClassSql = $basic->findArrayString("class",$classArray);
+
+					$data["class"] = $class->getTree();//樣板使用的陣列方式
 
 					break;
 				default:
 					# code...
 					break;
 			}
+
+			
+			if($data["one"]){
+				foreach ($data["one"] as $keyOne => $valueOne) {
+					//搜尋模組的內容 不做字串陣列轉換
+					if(isset($search[$keyOne])){
+						$basicOne = new MTsung\dataList($console,PREFIX.$search[$keyOne],$lang);
+						foreach ($data["one"][$keyOne] as $keyOne1 => $valueOne1) {
+							$data["one"][$keyOne][$keyOne1] = $basicOne->getOne("and id=?",array($valueOne1));
+						}
+					}
+					//YT連結轉換
+					if(isset($youtube[$keyOne])){
+						$data["one"][$keyOne] = $console->youtubeLink($valueOne);
+					}
+				}
+			}
+
 			if($value["formData"] && $data["one"]){
 
 				if($_POST){
@@ -209,6 +227,20 @@
 	}
 
 	/**
+	 * 取得使用value功能的鍵值
+	 */
+	function getSystemKey($temp,$value){
+		$searchTemp = array_combine(explode("|__|",$temp["dataKey"]), explode("|__|",$temp["dataType"]));
+		$searchTemp1 = array_combine(explode("|__|",$temp["dataKey"]), explode("|__|",$temp["dataSearch"]));
+		if($searchKey = array_keys($searchTemp,$value)){
+			foreach ($searchKey as $keyS => $valueS) {
+				$search[$valueS] = $searchTemp1[$valueS];
+			}
+		}
+		return $search;
+	}
+
+	/**
 	 * 取得需要轉為陣列的字串key
 	 * @param  [type] $temp [description]
 	 * @return [type]       [description]
@@ -264,4 +296,4 @@
 	}
 	
 
-	// print_r($data);
+	print_r($data);exit;

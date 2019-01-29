@@ -991,6 +991,23 @@ namespace MTsung{
 			$value = preg_replace("/[^A-Za-z0-9_ ]/", "", $value);
 			return (boolean)$this->conn->GetArray("desc ".PREFIX.$value."__".str_replace("-","_",$this->getLanguage()));
 		}
+
+		/**
+		 * yt連結轉換
+		 * @param  [type] $value [description]
+		 * @return [type]        [description]
+		 */
+		function youtubeLink($value){
+			if(strpos($value,"?v=") !== false || strpos($value,"&v=") !== false){
+				parse_str(explode("?",$value)[1],$value);
+				$value = $value["v"];
+			}else{
+				$value = explode("/",explode("?",$value)[0]);
+				$value = end($value);
+			}
+			$value = $value?"//www.youtube.com/embed/".$value."?rel=0":"";
+			return $value;
+		}
 	}
 }
 

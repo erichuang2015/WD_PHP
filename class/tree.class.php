@@ -237,12 +237,14 @@ namespace MTsung{
 		 * @param  [type] $data [description]
 		 * @return [type]       [description]
 		 */
-		function getTree($data=''){
-			if(!$data){
+		function getTree($data='start'){
+			if($data=='start'){
 				$data = $this->getData("where status='1' and floor='0' order by step");
 			}
-			foreach ($data as $key => $value) {
-				$data[$key]["next"] = $this->getTree($this->getData("where parent='".$value["id"]."'"));
+			if($data){
+				foreach ($data as $key => $value) {
+					$data[$key]["next"] = $this->getTree($this->getData("where parent='".$value["id"]."'"));
+				}
 			}
 			return $data;
 		}
