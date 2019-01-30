@@ -57,6 +57,12 @@ namespace MTsung{
 				}else{
 					$data["url"] = $data["features"];
 				}
+				if($data["features"]=="class/product"){
+					$data["tablesName"] = "product_class";
+				}
+				if($data["features"]=="basic/product"){
+					$data["tablesName"] = "product";
+				}
 			}
 			return parent::setData($data,$isSetAll,$checkArray=array(),$requiredArray=array());
 		}
