@@ -92,17 +92,22 @@
 							$key = $console->path[2];
 							$console->HTTPStatusCode(301,WEB_PATH."/".$console->path[0]."/".explode("|__|",$product->getOne("and (id=? or urlKey=?)",array($key,$key))["class"])[0]."/".$key);
 							exit;
+						}else if($console->path[1] == "all"){
+							$data["oneClass"]["id"] = 0;
+						}else{
+							$key = $console->path[1];
+							if(!$data["one"] = $data["oneClass"] = $class->getOne("and (id=? or urlKey=?)",array($key,$key),$explodeArray)){
+								$console->to404();
+							}
 						}
 
-						$key = $console->path[1];
-						if(!$data["one"] = $data["oneClass"] = $class->getOne("and (id=? or urlKey=?)",array($key,$key),$explodeArray)){
-							$console->to404();
-						}
 					}else{
 						$data["oneClass"] = $data["class"][0];
 					}
 					$data["oneClass"] = $console->urlKey($data["oneClass"]);
-					$_GET["class"] = $data["oneClass"]["id"];
+					if($data["oneClass"]["id"]!=0){
+						$_GET["class"] = $data["oneClass"]["id"];
+					}
 
 					//所有子節點一並搜尋
 					$classArray[] = $data["oneClass"]["id"];
@@ -232,4 +237,4 @@
 		return $search;
 	}
 
-	// print_r($data);exit;
+	print_r($data);exit;
