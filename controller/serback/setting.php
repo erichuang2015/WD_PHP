@@ -19,6 +19,11 @@ switch ($console->path[1]) {
 	case "shipment":
 		$module["tinemceEditor"][0]["name"] = 'detail';
 		break;
+	case "web":
+		$module["uploadImg"][0]["name"] = 'webImage';
+		$module["uploadImg"][0]["max"] = 1.1;//限制數量
+		$module["uploadImg"][0]["suggestText"] = "1200x630";//建議尺寸
+		break;
 	default:
 		break;
 }

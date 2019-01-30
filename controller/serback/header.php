@@ -142,5 +142,10 @@ $switch["instructionsList"] = 0;
 $data["addOnClick"] = '';		//javascript
 $data["listUrl"] = '';			//url
 
+
+$module["uploadImg"][9999]["name"] = 'pageImage';
+$module["uploadImg"][9999]["max"] = 1.1;//限制數量
+$module["uploadImg"][9999]["suggestText"] = "1200x630";//建議尺寸
+
 	
 ?>

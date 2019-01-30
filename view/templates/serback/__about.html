@@ -68,7 +68,7 @@
                                 ({/if})
                                 <th scope="col">({$console->getLabel("SORT")})</th>
                                 <th scope="col">({$console->getLabel("STATUS")})</th>
-                                <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                <!-- <th scope="col">({$console->getLabel("CREATE_DATE")})</th> -->
                                 <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
                                 <th scope="col">({$console->getLabel("TOW_SORT")})</th>
                             </tr>
@@ -115,9 +115,9 @@
                                             <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
                                         </div>
                                     </td>
-                                    <td >
+                                    <!-- <td >
                                         ({$data.list[i].create_date})(({$data.list[i].create_user}))
-                                    </td>
+                                    </td> -->
                                     <td >
                                         ({$data.list[i].update_date})(({$data.list[i].update_user}))
                                     </td>
@@ -402,7 +402,7 @@
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label>({$console->getLabel("CUSTOM_PAGE_TITLE")})</label>
-                            <input type="text" class="form-control" name="pageTitle" value="">
+                            <input type="text" class="form-control" name="pageTitle" value="({$data.one.pageTitle})">
                             <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_TITLE_TEXT")})</small>
                         </div>
                     </div>
@@ -411,7 +411,7 @@
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label>({$console->getLabel("CUSTOM_URL")})</label>
-                            <input type="text" class="form-control" name="urlKey" value="" onkeyup="this.value=this.value.replace(/\\*\/*\?*/g,'');">
+                            <input type="text" class="form-control" name="urlKey" value="({$data.one.urlKey})" onkeyup="this.value=this.value.replace(/\\*\/*\?*/g,'');">
                             <small class="text-muted">({$console->getLabel("CUSTOM_URL_TEXT")})</small>
                         </div>
                     </div>
@@ -420,8 +420,26 @@
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label>({$console->getLabel("CUSTOM_PAGE_META")})</label>
-                            <textarea class="form-control" rows="8" name="pageMeta"></textarea>
+                            <textarea class="form-control" rows="8" name="pageMeta">({$data.one.pageMeta})</textarea>
                             <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_META_TEXT")})</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label>({$console->getLabel("CUSTOM_PAGE_IMAGE")})</label>
+                            <div>
+                                ({assign var=_I_ value=9999})
+                                ({include file='module.uploadImg.html'})
+                            </div>
+                            <small class="text-muted">({$console->getLabel("OG_IMAGE_SMALL")})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("CUSTOM_PAGE_DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="pageDescription">({$data.one.pageDescription})</textarea>
+                            <small class="text-muted">({$console->getLabel("OG_DESCRIPTION_SMALL")})</small>
                         </div>
                     </div>
                 </div>

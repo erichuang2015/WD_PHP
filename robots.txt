@@ -6,5 +6,3 @@ Disallow: /upload/
 Disallow: /css/
 Disallow: /js/
 Disallow: /fonts/
-Disallow: /images/
-Disallow: /data/

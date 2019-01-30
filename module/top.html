@@ -2,21 +2,40 @@
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>({$web.title})</title>
 ({$web.hreflang})
-({$web.meta})
 ({$web.otherCode})
 ({$web.couldMessageCode})
-
-({if $web.ogTitle})
-	<meta property="og:title" content="({$web.ogTitle})"/>
+<meta name="og:site_name" content="({$web.webTitle})">
+<meta property="og:site_name" content="({$web.webTitle})">
+<meta name="og:url" content="({$web.thisUrl})">
+<meta property="og:url" content="({$web.thisUrl})">
+<meta name="twitter:card" content="summary">
+({if $web.title})
+	<meta property="og:title" content="({$web.title})">
+	<meta name="og:title" content="({$web.title})">
+	<meta itemprop="name" content="({$web.title})">
+	<meta name="twitter:title" content="({$web.title})">
 ({/if})
 ({if $web.ogDescription})
-	<meta property="og:description" content="({$web.ogDescription})"/>
+	<meta name="description" content="({$web.ogDescription})">
+	<meta itemprop="description" content="({$web.ogDescription})">
+	<meta property="og:description" content="({$web.ogDescription})">
+	<meta name="og:description" content="({$web.ogDescription})">
+	<meta name="twitter:description" content="({$web.ogDescription})">
 ({/if})
 ({if $web.ogImage})
-	<meta property="og:image" content="({$web.http_path})({$web.ogImage})"/>
+	<meta name="image" content="({$web.http_path})({$web.ogImage})">
+	<meta itemprop="image" content="({$web.http_path})({$web.ogImage})">
+	<meta property="og:image" content="({$web.http_path})({$web.ogImage})">
+	<meta name="og:image" content="({$web.http_path})({$web.ogImage})">
+	<meta name="twitter:image:src" content="({$web.http_path})({$web.ogImage})">
 ({/if})
-
+<meta name="og:locale" content="({$lang})">
+<meta property="og:locale" content="({$lang})">
+<meta name="og:type" content="website">
+<meta property="og:type" content="website">
 <meta name="google" value="notranslate">
+
+({$web.meta})
 
 <link href="css/front.css" rel="stylesheet" type="text/css" media="screen">
 

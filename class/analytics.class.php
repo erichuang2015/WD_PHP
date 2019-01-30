@@ -99,7 +99,8 @@ namespace MTsung{
 			    'PycURL',
 			    'bitlybot',
 			    'Hatena',
-			    'facebookexternalhit'
+			    'facebookexternalhit',
+			    'Twitterbot'
 			);
 
 			foreach ($bot_list as $bot) {

@@ -43,8 +43,23 @@
                             <textarea class="form-control" rows="8" name="webMeta">({$data.one.webMeta})</textarea>
                         </div>
                     </div>
-
-                    ({include "__field.html"})
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label>({$console->getLabel("WEB_IMAGE")})</label>
+                            <div>
+                                ({assign var=_I_ value=0})
+                                ({include file='module.uploadImg.html'})
+                            </div>
+                            <small class="text-muted">({$console->getLabel("OG_IMAGE_SMALL")})</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("WEB_DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="webDescription">({$data.one.webDescription})</textarea>
+                            <small class="text-muted">({$console->getLabel("OG_DESCRIPTION_SMALL")})</small>
+                        </div>
+                    </div>
 
                     <small class="text-muted">
                         ({$console->getLabel('UPDATE_DATE')})

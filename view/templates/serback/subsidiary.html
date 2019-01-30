@@ -13,9 +13,6 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("BASIC_INFORMATION")})</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-page-setting">({$console->getLabel("PAGE_SETTING")})</a>
-                        </li> -->
                     ({/if})
                 </ul>
             </div>
@@ -163,30 +160,6 @@
                             ({$data.one.update_date})(({$data.one.update_user}))
                         </small>
                         
-                    </div>
-
-                    <div class="card-body tab-pane fade" id="list-page-setting">
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel("CUSTOM_PAGE_TITLE")})</label>
-                                <input type="text" class="form-control" name="pageTitle" value="({$data.one.pageTitle})">
-                                <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_TITLE_TEXT")})</small>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel("CUSTOM_URL")})</label>
-                                <input type="text" class="form-control" name="urlKey" value="({$data.one.urlKey})">
-                                <small class="text-muted">({$console->getLabel("CUSTOM_URL_TEXT")})</small>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel("CUSTOM_PAGE_META")})</label>
-                                <textarea class="form-control" rows="8" name="pageMeta">({$data.one.pageMeta})</textarea>
-                                <small class="text-muted">({$console->getLabel("CUSTOM_PAGE_META_TEXT")})</small>
-                            </div>
-                        </div>
                     </div>
                 ({/if})
             </div>

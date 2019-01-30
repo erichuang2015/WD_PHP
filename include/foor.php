@@ -32,6 +32,12 @@
 			if(isset($data["one"]['pageMeta']) && $data["one"]['pageMeta']){
 				$web_set['meta'] = $data["one"]['pageMeta'];
 			}
+			if(isset($data["one"]['pageImage']) && $data["one"]['pageImage']){
+				$web_set['ogImage'] = $data["one"]['pageImage'];
+			}
+			if(isset($data["one"]['pageDescription']) && $data["one"]['pageDescription']){
+				$web_set['ogDescription'] = $data["one"]['pageDescription'];
+			}
 		}
 
 		if(isset($data["list"]) && $data["list"]){
@@ -85,6 +91,12 @@
 	}
 	if(!isset($web_set['meta'])){
 		$web_set['meta'] = htmlspecialchars_decode($console->webSetting->getValue('webMeta'));
+	}
+	if(!isset($web_set['ogImage'])){
+		$web_set['ogImage'] = $console->webSetting->getValue('webImage');
+	}
+	if(!isset($web_set['ogDescription'])){
+		$web_set['ogDescription'] = $console->webSetting->getValue('webDescription');
 	}
 
 	$web_set['serverName'] = MAIN_SERVER_NAME;
