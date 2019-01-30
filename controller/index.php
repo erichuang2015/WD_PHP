@@ -216,8 +216,6 @@
 				}
 			}
 		}
-	}else{
-		$console->to404($data);
 	}
 
 	/**

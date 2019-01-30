@@ -122,22 +122,24 @@ namespace MTsung{
 
 		    if($temp == $_SERVER["HTTP_HOST"]){
 		        $referer = "";
-		    }else if(stripos($temp, "google")){
+		    }else if(stripos($temp, "google")!==false){
 		        $referer = "google";
-		    }else if(stripos($temp, "yahoo")){
+		    }else if(stripos($temp, "yahoo")!==false){
 		        $referer = "yahoo";
-		    }else if(stripos($temp, "bing")){
+		    }else if(stripos($temp, "bing")!==false){
 		        $referer = "bing";
-		    }else if(stripos($temp, "facebook")){
+		    }else if(stripos($temp, "facebook")!==false){
 		        $referer = "facebook";
-		    }else if(stripos($temp, "instagram")){
+		    }else if(stripos($temp, "instagram")!==false){
 		        $referer = "instagram";
-		    }else if(stripos($temp, "instagram")){
+		    }else if(stripos($temp, "instagram")!==false){
 		        $referer = "instagram";
-		    }else if(stripos($temp, "pchome")){
+		    }else if(stripos($temp, "pchome")!==false){
 		        $referer = "pchome";
-		    }else if(stripos($temp, "wikipedia")){
+		    }else if(stripos($temp, "wikipedia")!==false){
 		        $referer = "wikipedia";
+		    }else if(stripos($temp, "twitter")!==false){
+		        $referer = "twitter";
 		    }else if($temp == ""){
 		        $referer = "";
 		    }else{
