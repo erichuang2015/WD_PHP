@@ -31,7 +31,7 @@
 			//取得搜尋功能的鍵值與使用功能別名
 			$search = getSystemKey($value,'search');
 			$youtube = getSystemKey($value,'youtube');
-			// $imageModule = getSystemKey($value,'imageModule');
+			$imageModule = getSystemKey($value,'imageModule');
 
 			$explodeArray = getExplode($value);
 			$explodeArray[] = "class";
@@ -136,15 +136,15 @@
 						$data["one"][$keyOne] = $console->youtubeLink($valueOne);
 					}
 					//圖片縮圖網址
-					// if(isset($imageModule[$keyOne])){
-					// 	if($data["one"][$keyOne."__min"] = $valueOne){
-					// 		foreach ($data["one"][$keyOne."__min"] as $key3 => $value3) {
-					// 			$imgTemp = explode(".",$value3);
-					// 			$typeTemp = array_pop($imgTemp);
-					// 			$data["one"][$keyOne."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
-					// 		}
-					// 	}
-					// }
+					if(isset($imageModule[$keyOne])){
+						if($data["one"][$keyOne."__min"] = $valueOne){
+							foreach ($data["one"][$keyOne."__min"] as $key3 => $value3) {
+								$imgTemp = explode(".",$value3);
+								$typeTemp = array_pop($imgTemp);
+								$data["one"][$keyOne."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
+							}
+						}
+					}
 				}
 			}
 

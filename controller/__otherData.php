@@ -19,7 +19,7 @@
 
 			$search = getSystemKey($features[0],'search');
 			$youtube = getSystemKey($features[0],'youtube');
-			// $imageModule = getSystemKey($features[0],'imageModule');
+			$imageModule = getSystemKey($features[0],'imageModule');
 
 			if($console->isTables($value)){
 				$$value = new MTsung\dataList($console,PREFIX.$value,$lang);
@@ -45,15 +45,15 @@
 								$data[$value][$key1][$key2] = $console->youtubeLink($value2);
 							}
 							//圖片縮圖網址
-							// if(isset($imageModule[$key2])){
-							// 	if($data[$value][$key1][$key2."__min"] = $value2){
-							// 		foreach ($data[$value][$key1][$key2."__min"] as $key3 => $value3) {
-							// 			$imgTemp = explode(".",$value3);
-							// 			$typeTemp = array_pop($imgTemp);
-							// 			$data[$value][$key1][$key2."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
-							// 		}
-							// 	}
-							// }
+							if(isset($imageModule[$key2])){
+								if($data[$value][$key1][$key2."__min"] = $value2){
+									foreach ($data[$value][$key1][$key2."__min"] as $key3 => $value3) {
+										$imgTemp = explode(".",$value3);
+										$typeTemp = array_pop($imgTemp);
+										$data[$value][$key1][$key2."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
+									}
+								}
+							}
 						}
 					}
 				}
