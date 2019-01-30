@@ -222,6 +222,7 @@ INSERT INTO `database_setting` (`id`,`name`,`detail`) VALUES
 ('32','ecpayHashIV','v77hoKGq4kWxNNIS'),
 ('33','otherCode',''),
 ('34','indexPATH','demo');
+('35','oneUploadMaxSize','1048576');
 
 DROP TABLE IF EXISTS `database_system_log`;
 

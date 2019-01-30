@@ -24,7 +24,7 @@
                             <a class="nav-link" data-toggle="list" href="#list-other-setting">({$console->getLabel('OTHER_SETTING')})</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="list" href="#list-data-size">({$console->getLabel('WEB_DATA_SIZE')})</a>
+                            <a class="nav-link" data-toggle="list" href="#list-data-size">({$console->getLabel('UPLOAD_SETTING')})</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="list" href="#list-app-key">({$console->getLabel('DEVELOPERS_KEY')})</a>
@@ -399,6 +399,19 @@
 
                     <!-- 網站空間 -->
                     <div class="card-body tab-pane fade" id="list-data-size">
+
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$console->getLabel('ONE_UPLOAD_MAX_SIZE')})</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="oneUploadMaxSize" value="({$data.oneUploadMaxSize})" data-type="size">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">bytes</span>
+                                    </div>
+                                </div>
+                                <small class="text-muted" id="oneUploadMaxSizeSmall"></small>
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label>({$console->getLabel('SIZE_SWITCH')})</label>

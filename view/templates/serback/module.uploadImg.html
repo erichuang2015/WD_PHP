@@ -99,9 +99,12 @@
                 check_file_name = check_file_name[check_file_name.length - 1];
                 if (check_image_type.indexOf(check_file_name.toLowerCase()) < 0) {
                     errMsg += files[i].name+'({$label_back.UPLOAD_IMG_TYPE_ERROR})\n';
-                } else {
+                }else if(files[i].size>({(int)$web.oneUploadMaxSize})){
+                    errMsg += files[i].name+'({$label_back.UPLOAD_SIZE_ERROR}) ({$console->formatSize((int)$web.oneUploadMaxSize)})\n';
+                }else{
                     objForm.append('images[]', files[i]);
                 }
+
             }
             if(errMsg!=''){
                 alert(errMsg);

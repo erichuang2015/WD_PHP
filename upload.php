@@ -41,7 +41,7 @@
 	//前台檔案限制
 	$allowMIME = array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword');
 	$allowExt = array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4');
-	$maxSize = 1048576;//1MB=1048576
+	$maxSize = (int)$setting->getValue("oneUploadMaxSize");//1MB=1048576
 
 
 	//後台登入狀態
@@ -58,7 +58,6 @@
 			$temp = 'files';
 			$allowMIME = array();
 			$allowExt = array();
-			$maxSize = 10485760;
 		}else{
 			$temp[1] = str_replace("/serback","",$temp[1]);
 			$temp = explode("/",$temp[1])[1];

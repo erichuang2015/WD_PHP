@@ -351,6 +351,30 @@
 	        }else{
 	        	eval("image".$type."(\$output,\$_GET['src']);");
 	        }
+
+	        //縮圖
+            $minFileName = str_replace(".".pathinfo($_GET['src'], PATHINFO_EXTENSION),"_min.".pathinfo($_GET['src'], PATHINFO_EXTENSION),$_GET['src']);
+            eval("\$img = imagecreatefrom".$type."(\$_GET['src']);");
+            $imgX = imagesx($img);
+            $imgY = imagesy($img);
+            $imageMinSize = 500;
+            if(($imgX>$imageMinSize) || ($imgY>$imageMinSize)){
+                if($imgX > $imgY){
+                  $newX = $imageMinSize;
+                  $newY = intval($imgY / $imgX * $imageMinSize);
+                }else{
+                  $newY = $imageMinSize;
+                  $newX = intval($imgX / $imgY * $imageMinSize);
+                }
+                $output = imagecreatetruecolor($newX, $newY);
+                imagesavealpha($output, true);
+                imageinterlace($output, 1);
+                imagefill($output, 0, 0, imagecolorallocatealpha($output, 0, 0, 0, 127));
+                imagecopyresampled($output, $img, 0, 0, 0, 0, $newX, $newY, $imgX, $imgY);
+                eval("image".$type."(\$output,\$minFileName);");
+            }else{
+                copy($_GET['src'],$minFileName);
+            }
         }
 		
 		exit;
