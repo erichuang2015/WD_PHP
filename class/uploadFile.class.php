@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * 單一及多檔案上傳
  *
@@ -13,6 +12,7 @@
  * @version 1.0
  */
 namespace MTsung{
+    include_once(APP_PATH.'class/imgCompress.class.php');
 
     class Upload{
         private $allowMIME;     //檢查上傳檔案是否為允許的類型 (video/* audio/* application/pdf)
@@ -134,28 +134,7 @@ namespace MTsung{
                     //縮圖產生
                     $array = array('image/jpeg', 'image/png', 'image/bmp');
                     if(in_array($file["type"], $array)){
-                        $minFileName = str_replace(".".pathinfo($destination, PATHINFO_EXTENSION),"_min.".pathinfo($destination, PATHINFO_EXTENSION),$destination);
-                        eval("\$img = imagecreatefrom".explode("/",$file["type"])[1]."(\$destination);");
-                        $imgX = imagesx($img);
-                        $imgY = imagesy($img);
-                        $imageMinSize = 500;
-                        if(($imgX>$imageMinSize) || ($imgY>$imageMinSize)){
-                            if($imgX > $imgY){
-                              $newX = $imageMinSize;
-                              $newY = intval($imgY / $imgX * $imageMinSize);
-                            }else{
-                              $newY = $imageMinSize;
-                              $newX = intval($imgX / $imgY * $imageMinSize);
-                            }
-                            $output = imagecreatetruecolor($newX, $newY);
-                            imagesavealpha($output, true);
-                            imageinterlace($output, 1);
-                            imagefill($output, 0, 0, imagecolorallocatealpha($output, 0, 0, 0, 127));
-                            imagecopyresampled($output, $img, 0, 0, 0, 0, $newX, $newY, $imgX, $imgY);
-                            eval("image".explode("/",$file["type"])[1]."(\$output,\$minFileName);");
-                        }else{
-                            copy($destination,$minFileName);
-                        }
+                        (new imgCompress($destination))->thumbnail();
                     }
                     //縮圖產生
                     

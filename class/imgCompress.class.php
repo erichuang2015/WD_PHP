@@ -3,6 +3,7 @@
 /**
  * 圖片壓縮
  * MTsung 修改背景透明 by 20180905
+ * MTsung 產生縮圖 by 20190130
  * 
  * $source =  'Penguins.jpg';  
  * $dst_img = '123';  
@@ -37,6 +38,38 @@ namespace MTsung{
 			$this->percent = $percent;  
 		}  
 	  
+	  	/**
+	  	 * 產生縮圖
+	  	 * by MTsung
+	  	 * @return [type] [description]
+	  	 */
+	  	function thumbnail($imageMinSize=500,$suffix='min'){
+			$temp = explode(".",$this->src);
+			$type = strtolower(end($temp));
+			if($type=='jpg') $type = 'jpeg';
+	  		$minFileName = str_replace(".".pathinfo($this->src, PATHINFO_EXTENSION),"_".$suffix.".".pathinfo($this->src, PATHINFO_EXTENSION),$this->src);
+            eval("\$img = imagecreatefrom".$type."(\$this->src);");
+            $imgX = imagesx($img);
+            $imgY = imagesy($img);
+            
+            if(($imgX>$imageMinSize) || ($imgY>$imageMinSize)){
+                if($imgX > $imgY){
+                  $newX = $imageMinSize;
+                  $newY = intval($imgY / $imgX * $imageMinSize);
+                }else{
+                  $newY = $imageMinSize;
+                  $newX = intval($imgX / $imgY * $imageMinSize);
+                }
+                $output = imagecreatetruecolor($newX, $newY);
+                imagesavealpha($output, true);
+                imageinterlace($output, 1);
+                imagefill($output, 0, 0, imagecolorallocatealpha($output, 0, 0, 0, 127));
+                imagecopyresampled($output, $img, 0, 0, 0, 0, $newX, $newY, $imgX, $imgY);
+                eval("image".$type."(\$output,\$minFileName);");
+            }else{
+                copy($this->src,$minFileName);
+            }
+	  	}
 	  
 		/** 高清壓縮圖片 
 		 * @param string $saveName  提供圖片名（可不帶擴展名，用源圖擴展名）用於保存。或不提供文檔名直接顯示 
