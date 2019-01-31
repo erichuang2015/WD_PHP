@@ -131,7 +131,8 @@ if(isset($console->path[1])){
 	//搜尋key
 	$searchKey = array(	
 						"name",
-						"account"
+						"account",
+						"email"
 						);
 	$data["list"] = $memberList->getListData("and groupID in ('".implode("','", $groupIDs)."') and id!='1' order by create_date desc",$searchKey);
 
