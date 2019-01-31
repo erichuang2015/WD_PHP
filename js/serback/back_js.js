@@ -102,6 +102,11 @@ function toLogin(){
 	window.location.href = _jsSerbackPath+"/login";
 }
 
+$(function(){
+	$("#sidebar").find(".active .collapse a").click(function() {
+		setTimeout(loadingStart, 500);
+	});
+});
 
 /**
  * 分類子項全選
