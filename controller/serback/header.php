@@ -147,5 +147,27 @@ $module["uploadImg"][9999]["name"] = 'pageImage';
 $module["uploadImg"][9999]["max"] = 1.1;//限制數量
 $module["uploadImg"][9999]["suggestText"] = "1200x630";//建議尺寸
 
-	
-?>
+//把假刪除檔案真實刪除 
+if($_POST && isset($_SESSION[FRAME_NAME]["rmSrc"])){
+	foreach ($_SESSION[FRAME_NAME]["rmSrc"] as $key => $value) {
+		//防止使用../操作目錄
+		while(strpos($value,'../')!==false || strpos($value,'..\\')!==false){
+			$value = str_replace('../',"",$value);
+			$value = str_replace('..\\',"",$value);
+		}
+		$value = str_replace(WEB_PATH.'/'.UPLOAD_PATH,"",$value);
+		$value = str_replace(UPLOAD_PATH,"",$value);
+		$path = APP_PATH.UPLOAD_PATH;
+		if(is_file($path.$value)){
+            unlink($path.$value);
+            //縮圖
+            $minImgPath = $path.str_replace(".".pathinfo($value, PATHINFO_EXTENSION),"_min.".pathinfo($value, PATHINFO_EXTENSION),$value);
+            if(is_file($minImgPath)){
+            	unlink($minImgPath);
+            }
+        }
+        unset($_SESSION[FRAME_NAME]["rmSrc"][$key]);
+    }
+}else if(isset($_SESSION[FRAME_NAME]["rmSrc"])){
+    unset($_SESSION[FRAME_NAME]["rmSrc"]);
+}

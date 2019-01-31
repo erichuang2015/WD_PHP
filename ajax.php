@@ -32,13 +32,19 @@
 	}
 
 	/**
-	 * 刪除upload內的檔案
+	 * 刪除upload內的檔案 
+	 * 假刪除 20190131
 	 */
 	if(isset($_GET['rmSrc'])){
 		if(!$serbackIsLogin){
 			echo false;
 			exit;
 		}
+
+		$_SESSION[FRAME_NAME]["rmSrc"][] = $_GET['rmSrc'];
+		echo true;
+		exit;
+
 		//防止使用../操作目錄
 		while(strpos($_GET['rmSrc'],'../')!==false || strpos($_GET['rmSrc'],'..\\')!==false){
 			$_GET['rmSrc'] = str_replace('../',"",$_GET['rmSrc']);
