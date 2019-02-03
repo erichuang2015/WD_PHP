@@ -1,4 +1,4 @@
-<base href="({$web.main_path})/" target="">
+<base href="({$web.main_path})/({$web.data_path})/" target="">
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>({$web.title})</title>
 ({$web.hreflang})
@@ -37,15 +37,15 @@
 
 ({$web.meta})
 
-<link href="css/front.css" rel="stylesheet" type="text/css" media="screen">
+<link href="({$web.main_path})/css/front.css" rel="stylesheet" type="text/css" media="screen">
 
-<script src="js/jquery.all.min.js"></script>
-<script src="js/config.js" id="config" data-lang="({$lang})" data-path="({$web.main_path})" data-fb_app_id="({$web.fbAuthAppID})" data-google_client_id="({$web.googleAuthAppID})"></script>
+<script src="({$web.main_path})/js/jquery.all.min.js"></script>
+<script src="({$web.main_path})/js/config.js" id="config" data-lang="({$lang})" data-path="({$web.main_path})" data-fb_app_id="({$web.fbAuthAppID})" data-google_client_id="({$web.googleAuthAppID})"></script>
 
 <script src="//apis.google.com/js/api:client.js?hl=({$lang})"></script>
-<script src="js/socialLogin.js" async></script>
-<script src="js/front.js" async></script>
-<script src="js/validation.js"></script>
+<script src="({$web.main_path})/js/socialLogin.js" async></script>
+<script src="({$web.main_path})/js/front.js" async></script>
+<script src="({$web.main_path})/js/validation.js"></script>
 
 <link rel="icon" href="({$web.icon})" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="({$web.icon})">

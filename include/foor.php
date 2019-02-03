@@ -2,7 +2,6 @@
 	/**
 	 * 每個controller的下版
 	 */
-	
 	//把沒POST的圖片刪除
 	if(isset($_SESSION[FRAME_NAME]["PICTURE_TEMP"])){
 		foreach ($_SESSION[FRAME_NAME]["PICTURE_TEMP"] as $key => $value) {
@@ -10,9 +9,7 @@
 				$value = str_replace('../',"",$value);
 				$value = str_replace('..\\',"",$value);
 			}
-			$value = str_replace(WEB_PATH.'/'.UPLOAD_PATH,"",$value);
-			$value = str_replace(UPLOAD_PATH,"",$value);
-			$path = APP_PATH.UPLOAD_PATH;
+			$path = APP_PATH.DATA_PATH;
 			if(is_file($path.$value)){
 	            unlink($path.$value);
 	            $minImgPath = $path.str_replace(".".pathinfo($value, PATHINFO_EXTENSION),"_min.".pathinfo($value, PATHINFO_EXTENSION),$value);

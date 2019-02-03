@@ -131,6 +131,7 @@
 			$temp = $upload->getDestination();
 			if($temp){
 				foreach ($temp as $key => $value) {
+					$temp[$key] = $value = str_replace(DATA_PATH,"",$value);
 					$_SESSION[FRAME_NAME]["PICTURE_TEMP"][] = str_replace(UPLOAD_PATH,"",$value);
 				}
 				print_r(json_encode($temp));

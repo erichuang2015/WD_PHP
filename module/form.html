@@ -84,7 +84,7 @@
         ({else})
             <div class="opinion clearfix">
                 <input type="text" placeholder="請輸入驗證碼" name="verifycode" data-text="驗證碼" class="input-main-style03" required>
-                <img src="verifycode.php" width="auto" height="31" class="code" name="verifycode" onclick="$(this).attr('src',$(this).attr('src'));"/>
+                <img src="({$web.main_path})/verifycode.php" width="auto" height="31" class="code" name="verifycode" onclick="$(this).attr('src',$(this).attr('src'));"/>
             </div>
         ({/if})
 
