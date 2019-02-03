@@ -60,7 +60,7 @@
 			$allowExt = array();
 		}else{
 			$temp[1] = str_replace("/serback","",$temp[1]);
-			$temp = explode("/",$temp[1])[1];
+			$temp = explode("?",explode("/",$temp[1])[1])[0];
 		}
 		$upload = new MTsung\Upload(	$allowMIME,
 										$allowExt,
