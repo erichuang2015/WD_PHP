@@ -127,8 +127,26 @@ function formSubmit(index) {
 		alert(msg);
 		return false;
 	}else{
-		$('#hiddenSubmitButton'+index).trigger('click');
-		setTimeout(loadingStart, 100);
+		var f = $('#hiddenSubmitButton'+index).closest("form");
+		if((f.attr("method")=="post" || f.attr("method")=="POST") && (window.location.pathname.indexOf(_jsPath+"/serback/")==0) && (window.location.pathname.indexOf("/add")==-1)){
+	        $.ajax({
+	            type : "POST",
+	            url : f.attr('action'),
+	            data : f.serialize(),
+	            success: function(data){
+	                toastr.options = {"positionClass": "toast-bottom-right",};
+	                var temp = JSON.parse(data);
+	                if(temp.response){
+	                    toastr.success(temp.message);
+	                }else{
+	                    toastr.error(temp.message);
+	                }
+	            }
+	        });
+		}else{
+			$('#hiddenSubmitButton'+index).trigger('click');
+			setTimeout(loadingStart, 100);
+		}
 	}
 }
 

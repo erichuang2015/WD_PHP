@@ -1,4 +1,3 @@
-
 function shoppingListReload(shoppingList) {
     loadingStart();
     $('#shoppingListDiv').html("");

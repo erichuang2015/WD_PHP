@@ -80,7 +80,7 @@ if(isset($console->path[1])){
 				if(isset($_POST["auth"])){
 					$_POST["auth"] = implode(",",$_POST["auth"]);
 				}
-				if($memberGroupList->setData($_POST) === true){
+				if($memberGroupList->setData($_POST)){
 					$console->alert($memberGroupList->message,$data["listUrl"]);
 				}else{
 					$console->alert($memberGroupList->message,-1);

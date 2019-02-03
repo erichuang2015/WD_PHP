@@ -5,6 +5,7 @@
         <script src="include/ace-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
         <script src="include/ace-noconflict/ext-language_tools.js"></script>
     -->
+
     <!-- POST用隱藏欄位 -->
     <base href="({$web.main_path})/" target="">
     <textarea name="({$module.aceEditor.name})" id="hiddenTextarea" style="display:none;"></textarea>
@@ -45,7 +46,7 @@
                     exec: function(editor) {
                         ace.require("ace/config").loadModule("ace/ext/searchbox", function(e) {
                             $("#hiddenTextarea").val(editor.getValue());
-                            $('form').submit();
+                            formSubmit(0);
                         });
                     }
                 });
