@@ -84,7 +84,7 @@
 							//浮水印
 							if(isset($_GET["watermark"]) && is_numeric($_GET["watermark"]) && $setting->getValue("watermark")){
 								$watermark = new MTsung\watermark();
-								$watermarkFile = str_replace(WEB_PATH,APP_PATH,$setting->getValue("watermark"));
+								$watermarkFile = APP_PATH.DATA_PATH.$setting->getValue("watermark");
 								$watermark->apply($tempFile, $tempFile, $watermarkFile, $_GET["watermark"]);
 							}
 
@@ -103,7 +103,7 @@
 						// 浮水印
 						if(isset($_GET["watermark"]) && is_numeric($_GET["watermark"]) && $setting->getValue("watermark")){
 							$watermark = new MTsung\watermark();
-							$watermarkFile = str_replace(WEB_PATH,APP_PATH,$setting->getValue("watermark"));
+							$watermarkFile = APP_PATH.DATA_PATH.$setting->getValue("watermark");
 							$watermark->apply($tempFile, $tempFile, $watermarkFile, $_GET["watermark"]);
 						}
 
