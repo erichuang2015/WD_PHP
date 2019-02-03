@@ -56,7 +56,16 @@ function fbLogin() {
     }, { scope: 'email' });//,user_birthday,user_gender
 }
 
-
+function fbLogout() {
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected' || response.status === 'authorization_expired' || response.status === 'not_authorized') {
+            FB.logout(function(response) {
+                var url = '//www.facebook.com/logout.php?access_token=' + response.authResponse.accessToken;
+                $('body').append('<iframe src="'+url+'" height="0" width="0" frameborder="0" scrolling="no" id="myFrame"></iframe>');
+            });
+        }
+    });
+}
 
 /**
  * Line登入
