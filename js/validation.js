@@ -134,7 +134,7 @@ function formSubmit(index) {
 	            url : f.attr('action'),
 	            data : f.serialize(),
 	            success: function(data){
-	                toastr.options = {"positionClass": "toast-bottom-right",};
+	                toastr.options = {"positionClass": "toast-bottom-right","progressBar": true};
 	                var temp = JSON.parse(data);
 	                if(temp.response){
 	                    toastr.success(temp.message);
