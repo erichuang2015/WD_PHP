@@ -70,6 +70,7 @@ namespace MTsung{
 				$this->message = $this->console->getMessage('EDIT_OK');
 			}else{
 				$this->message = $this->console->getMessage("DATA_NO_CHANGE");
+				return false;
 			}
 			return true;
 		}

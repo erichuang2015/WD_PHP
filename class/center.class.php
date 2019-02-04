@@ -142,7 +142,9 @@ namespace MTsung{
 			if(isset($data["id"])){
 				//修改
 
-				if($this->getData($this->makeWhereSql($data))){
+				$temp = $data;
+				unset($temp["update_user"]);
+				if($this->getData($this->makeWhereSql($temp))){
 					$this->message = $this->console->getMessage("DATA_NO_CHANGE");
 					return false;
 				}
@@ -241,6 +243,7 @@ namespace MTsung{
 				if(!$this->isTree) $this->sortTable();
 			}else{
 				$this->message = $this->console->getMessage("DATA_NO_CHANGE");
+				return false;
 			}
 			return true;
 		}
