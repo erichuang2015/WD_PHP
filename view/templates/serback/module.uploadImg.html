@@ -301,7 +301,8 @@
             ({/if})
 
             //拖曳排序
-            $("#imgDIV({$_I_})").sortable({ 
+            $("#imgDIV({$_I_})").sortable({
+                animation: 200,
                 items:'.imgDivE({$_I_})'
                 // stop: function(){
                 //     imgDivSort({$_I_})();

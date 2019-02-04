@@ -234,7 +234,10 @@ function searchMenu(value){
  * 拖曳排序
  */
 $(function(){
-	$("table tbody").sortable({ 
+	$("table tbody").sortable({
+        // axis: 'y',
+        // containment: 'parent',
+        animation: 200,
 	    handle: '.glyphicon-move',
 	    // items: 'tr[data-parent="0"]',
 	    cancel: '',
