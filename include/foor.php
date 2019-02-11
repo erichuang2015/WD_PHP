@@ -9,7 +9,7 @@
 				$value = str_replace('../',"",$value);
 				$value = str_replace('..\\',"",$value);
 			}
-			$path = APP_PATH.DATA_PATH;
+			$path = APP_PATH.UPLOAD_PATH;
 			if(is_file($path.$value)){
 	            unlink($path.$value);
 	            $minImgPath = $path.str_replace(".".pathinfo($value, PATHINFO_EXTENSION),"_min.".pathinfo($value, PATHINFO_EXTENSION),$value);
