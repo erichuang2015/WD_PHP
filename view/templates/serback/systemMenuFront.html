@@ -414,6 +414,17 @@
                                     '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                                 '</div>');
                                 checkboxI++;
+                                $('input').on('keydown', function(e){
+                                    if((e.which == 13 || (e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
+                                        formSubmit($("form").index($(this).form()));
+                                    }
+                                    return e.which !== 13;
+                                });
+                                $('textarea').on('keydown', function(e){
+                                    if(((e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
+                                        formSubmit($("form").index($(this).form()));
+                                    }
+                                });
                             }
                             $(function(){
                                 $('#specifications_div').sortable({

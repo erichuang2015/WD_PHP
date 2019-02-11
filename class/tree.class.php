@@ -35,13 +35,13 @@ namespace MTsung{
 		 * @param [type] $data [description]
 		 */
 		function setData($data,$isSetAll=false,$checkArray=array(),$requiredArray=array()){
-			parent::setData($data,$isSetAll,$checkArray=array(),$requiredArray=array());
+			$temp1 = parent::setData($data,$isSetAll,$checkArray=array(),$requiredArray=array());
 			$temp = $this->message;
 			//排序
 			$this->sortTable();
 			$this->sortTree();
 			$this->message = $temp;
-			return true;
+			return $temp1;
 		}
 
 		/**
