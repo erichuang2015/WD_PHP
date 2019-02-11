@@ -50,3 +50,13 @@
 <link rel="icon" href="({$web.icon})" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="({$web.icon})">
 <link rel="apple-touch-icon-precomposed" href="({$web.icon})">
+
+
+<script>
+	$(function(){
+		//判斷是否是LINE內建瀏覽器 是的話就強制跳轉
+		if (/Line/.test(navigator.userAgent)) {
+			location.href = location.href + '?openExternalBrowser=1';
+		}
+	});
+</script>
