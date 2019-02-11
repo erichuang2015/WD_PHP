@@ -41,7 +41,7 @@
 			exit;
 		}
 
-		$_SESSION[FRAME_NAME]["rmSrc"][] = $_GET['rmSrc'];
+		$_SESSION[FRAME_NAME]["rmSrc"][] = str_replace(WEB_PATH."/".UPLOAD_PATH,"",$_GET['rmSrc']);
 		echo true;
 		exit;
 

@@ -83,12 +83,12 @@ namespace MTsung{
 					if(isset($data[$value]) && $data[$value] && $_SESSION[FRAME_NAME]["PICTURE_TEMP"]){
 						if(is_array($data[$value])){
 							foreach ($data[$value] as $key => $value) {
-								if(is_numeric($key1 = array_search($value,$_SESSION[FRAME_NAME]["PICTURE_TEMP"]))){
+								if(is_numeric($key1 = array_search(str_replace(UPLOAD_PATH,"",$value),$_SESSION[FRAME_NAME]["PICTURE_TEMP"]))){
 									unset($_SESSION[FRAME_NAME]["PICTURE_TEMP"][$key1]);
 								}
 							}
 						}else{
-							if(is_numeric($key = array_search($value,$_SESSION[FRAME_NAME]["PICTURE_TEMP"]))){
+							if(is_numeric($key = array_search(str_replace(UPLOAD_PATH,"",$value),$_SESSION[FRAME_NAME]["PICTURE_TEMP"]))){
 								unset($_SESSION[FRAME_NAME]["PICTURE_TEMP"][$key]);
 							}
 						}
