@@ -338,9 +338,9 @@
                                 <input type="hidden" name="dataRequired">
                                 ({section name=i loop=$data.one.dataName})
                                     <div class="col-md-12 mb-3 specifications-div">
-                                        <span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="({$data.one.dataName[i]})" required>
+                                        <span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="({$data.one.dataName[i]})" required autocomplete="off" >
 
-                                        <span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="({$data.one.dataKey[i]})" data-check="Only" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');">
+                                        <span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="({$data.one.dataKey[i]})" data-check="Only" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');" autocomplete="off">
 
                                         <span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">
                                             ({foreach from=$data.typeOption key=k item=v})
@@ -349,19 +349,19 @@
                                         </select>
                                         
                                         <span class="count_div" ({if !($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
-                                            <span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="({$data.one.dataCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})required({/if}) size="4">
+                                            <span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="({$data.one.dataCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})required({/if}) size="4" autocomplete="off" >
                                         </span>
 
                                         <span class="search_div" ({if !($data.one.dataType[i]=="search")})style="display:none"({/if})>
-                                            <span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value="({$data.one.dataSearch[i]})" ({if ($data.one.dataType[i]=="search")})required({/if})>
-                                            <span> ({$console->getLabel('SEARCH_COUNT')})：</span><input type="text" class="form-control" name="dataSearchCount[]" data-text="({$console->getLabel('SEARCH_COUNT')})" value="({$data.one.dataSearchCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="search")})required({/if}) size="4">
+                                            <span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value="({$data.one.dataSearch[i]})" ({if ($data.one.dataType[i]=="search")})required({/if}) autocomplete="off" >
+                                            <span> ({$console->getLabel('SEARCH_COUNT')})：</span><input type="text" class="form-control" name="dataSearchCount[]" data-text="({$console->getLabel('SEARCH_COUNT')})" value="({$data.one.dataSearchCount[i]})" data-check="Number" ({if ($data.one.dataType[i]=="search")})required({/if}) size="4" autocomplete="off" >
                                         </span>
 
                                         <span class="option_div" ({if !($data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
                                             <span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="mp3,pdf" ({if ($data.one.dataType[i]=="fileModule")})required({/if})>({$data.one.dataExtension[i]})</textarea>
                                         </span>
 
-                                        <span> ({$console->getLabel('SUGGEST_TEXT')})：</span><input type="text" class="form-control" name="dataSuggestText[]" data-text="({$console->getLabel('SUGGEST_TEXT')})" value="({$data.one.dataSuggestText[i]})">
+                                        <span> ({$console->getLabel('SUGGEST_TEXT')})：</span><input type="text" class="form-control" name="dataSuggestText[]" data-text="({$console->getLabel('SUGGEST_TEXT')})" value="({$data.one.dataSuggestText[i]})" autocomplete="off" >
 
                                         <span class="count_div" ({if !($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
 
@@ -387,24 +387,24 @@
                             function addFormData(){
                                 $('#specifications_div').append(''+
                                 '<div class="col-md-12 mb-3 specifications-div">'+
-                                    '<span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="" required>'+
-                                    '<span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="" data-check="Only" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,\'\');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,\'\');">'+
+                                    '<span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="" required autocomplete="off" >'+
+                                    '<span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="" data-check="Only" required autocomplete="off" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,\'\');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,\'\');">'+
                                     '<span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">'+
                                         ({foreach from=$data.typeOption key=k item=v})
                                             '<option value="({$k})">({$v})</option>'+
                                         ({/foreach})
                                     '</select>'+
                                     '<span class="count_div" style="display:none">'+
-                                        '<span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="" data-check="Number" size="4">'+
+                                        '<span> ({$console->getLabel('UP_COUNT')})：</span><input type="text" class="form-control" name="dataCount[]" data-text="({$console->getLabel('UP_COUNT')})" value="" data-check="Number" size="4" autocomplete="off" >'+
                                     '</span> '+
                                     '<span class="search_div" style="display:none">'+
-                                        '<span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value="" >'+
-                                        '<span> ({$console->getLabel('SEARCH_COUNT')})：</span><input type="text" class="form-control" name="dataSearchCount[]" data-text="({$console->getLabel('SEARCH_COUNT')})" value="" data-check="Number" size="4">'+
+                                        '<span> ({$console->getLabel('FORM_NAME')})：</span><input type="text" class="form-control" name="dataSearch[]" data-text="({$console->getLabel('FORM_NAME')})" value=""  autocomplete="off" >'+
+                                        '<span> ({$console->getLabel('SEARCH_COUNT')})：</span><input type="text" class="form-control" name="dataSearchCount[]" data-text="({$console->getLabel('SEARCH_COUNT')})" value="" data-check="Number" size="4" autocomplete="off" >'+
                                     '</span> '+
                                     '<span class="option_div" style="display:none">'+
                                         '<span> ({$console->getLabel('EXTENSION')})：</span><textarea class="form-control" name="dataExtension[]" data-text="({$console->getLabel('EXTENSION')})" placeholder="mp3,pdf"></textarea>'+
                                     '</span> '+
-                                    '<span> ({$console->getLabel('SUGGEST_TEXT')})：</span><input type="text" class="form-control" name="dataSuggestText[]" data-text="({$console->getLabel('SUGGEST_TEXT')})" value="" >'+
+                                    '<span> ({$console->getLabel('SUGGEST_TEXT')})：</span><input type="text" class="form-control" name="dataSuggestText[]" data-text="({$console->getLabel('SUGGEST_TEXT')})" value=""  autocomplete="off" >'+
                                     '<span class="count_div" style="display:none">'+
                                         '<br><br><span> ({$console->getLabel('TEXT_OTHER')})：</span><textarea class="form-control" name="dataTextOther[]" data-text="({$console->getLabel('TEXT_OTHER')})" placeholder="Href,Alt"></textarea>'+
                                         '<span> ({$console->getLabel('TEXT_OTHER_TEXT')})：</span><textarea class="form-control" name="dataTextOtherText[]" data-text="({$console->getLabel('TEXT_OTHER_TEXT')})" placeholder="TEXT,文字"></textarea>'+
