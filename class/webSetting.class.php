@@ -88,7 +88,7 @@ namespace MTsung{
 								}
 							}
 						}else{
-							if(is_numeric($key = array_search(str_replace(UPLOAD_PATH,"",$value),$_SESSION[FRAME_NAME]["PICTURE_TEMP"]))){
+							if(is_numeric($key = array_search(str_replace(UPLOAD_PATH,"",$data[$value]),$_SESSION[FRAME_NAME]["PICTURE_TEMP"]))){
 								unset($_SESSION[FRAME_NAME]["PICTURE_TEMP"][$key]);
 							}
 						}
