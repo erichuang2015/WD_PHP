@@ -40,6 +40,9 @@ namespace MTsung{
     				$this->dataCount = $temp[0][0];
     			}
 			}
+			if($this->per == 0){
+				$this->per = $this->dataCount;
+			}
 
 			$this->pageTotal = ceil($this->dataCount/$this->per);
 			

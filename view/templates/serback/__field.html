@@ -140,7 +140,7 @@
         </div>
         ({assign var="mapI" value=$mapI+1})
     ({else if $data.system.dataType[i] == "search"})
-        <div class="form-row form-inline mb-3">
+        <div class="form-inline mb-3">
             <label class="mb-3">({$console->getLabel($data.system.dataName[i])})</label>
             <div class="col-md-12 mb-3">
                 <input type="text" class="form-control" id="sKeyword({$searchI})" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
