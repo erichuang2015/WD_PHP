@@ -133,7 +133,7 @@
 					if(isset($search[$keyOne])){
 						$basicOne = new MTsung\dataList($console,PREFIX.$search[$keyOne],$lang);
 						foreach ($data["one"][$keyOne] as $keyOne1 => $valueOne1) {
-							$data["one"][$keyOne][$keyOne1] = $basicOne->getOne("and id=?",array($valueOne1));
+							$data["one"][$keyOne][$keyOne1] = $console->urlKey($basicOne->getOne("and id=?",array($valueOne1)));
 						}
 					}
 					//YT連結轉換
