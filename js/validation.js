@@ -38,7 +38,9 @@ $(window).keydown(function(event) {
  */
 var onlyValues=[];
 function formSubmit(index) {
-	tinymce.triggerSave();
+	if((typeof(tinymce) != "undefined")){
+		tinymce.triggerSave();
+	}
 	onlyValues=[];
 	if((typeof(index) == "undefined") || isNaN(index)){
 		index = 0;
