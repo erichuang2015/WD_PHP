@@ -44,7 +44,7 @@ namespace MTsung{
 				$this->per = $this->dataCount;
 			}
 
-			$this->pageTotal = ceil($this->dataCount/$this->per);
+			$this->pageTotal = $this->per!=0?ceil($this->dataCount/$this->per):1;
 			
 			// 現在頁碼
 			if(!isset($_GET[$this->queryName]) || !is_numeric($_GET[$this->queryName])){

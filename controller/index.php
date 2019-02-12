@@ -25,7 +25,7 @@
 		});
 		foreach ($temp as $key => $value) {
 			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && (!$web_set["titlePrefix"] || ($web_set["titlePrefix"] && $value["features"]!="_other_calss"))){
-				$web_set["titlePrefix"] = $console->getLabel($value["name"]);
+				$web_set["titlePrefix"] = $console->getLabel(trim(explode("-",$value["name"])[0]));
 			}
 
 			//取得搜尋功能的鍵值與使用功能別名
@@ -54,20 +54,21 @@
 				case '_other_basic':
 
 					//資料
-					if(isset($console->path[2])){
-						$key = $console->path[2];
-						if(!$data["one"] = $basic->getOne("and (id=? or urlKey=?) ".$findClassSql,array($key,$key),$explodeArray)){
-							$console->to404();
-						}
-						if(isset($data["one"]["class"]) && $class){
-							foreach ($data["one"]["class"] as $oneKey => $oneValue) {
-								$data["one"]["class"][$oneKey] = $class->getData("where id='".$oneValue."'")[0];
+					if($findClassSql){
+						if(isset($console->path[2])){
+							$key = $console->path[2];
+							if(!$data["one"] = $basic->getOne("and (id=? or urlKey=?) ".$findClassSql,array($key,$key),$explodeArray)){
+								$console->to404();
+							}
+							if(isset($data["one"]["class"]) && $class){
+								foreach ($data["one"]["class"] as $oneKey => $oneValue) {
+									$data["one"]["class"][$oneKey] = $class->getData("where id='".$oneValue."'")[0];
+								}
+							}
+							if($console->path[0] == "product"){//產品金額
+								$data["one"]["price"] = $product->getPrice($data["one"]["id"],$member->isLogin());
 							}
 						}
-						if($console->path[0] == "product"){//產品金額
-							$data["one"]["price"] = $product->getPrice($data["one"]["id"],$member->isLogin());
-						}
-					}else{
 						if($data["list"] = $basic->getListData("and status='1' ".$findClassSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"])){
 							foreach ($data["list"] as $listKey => $listValue) {
 								if(isset($data["list"][$listKey]["class"]) && $class){
@@ -78,6 +79,15 @@
 								}
 							}
 						}
+						$data["page"] = $basic->pageNumber->getHTML1();
+					}else{
+						if(isset($console->path[1])){
+							$key = $console->path[1];
+							if(!$data["one"] = $basic->getOne("and (id=? or urlKey=?) ",array($key,$key),$explodeArray)){
+								$console->to404();
+							}
+						}
+						$data["list"] = $basic->getListData("and status='1' order by sort",explode("|__|", $value["dataKey"]),$value["count"]);
 						$data["page"] = $basic->pageNumber->getHTML1();
 					}
 					break;
@@ -139,6 +149,7 @@
 					//YT連結轉換
 					if(isset($youtube[$keyOne])){
 						$data["one"][$keyOne] = $console->youtubeLink($valueOne);
+						$data["one"][$keyOne."_img"] = $console->youtubeImg($valueOne);
 					}
 					//圖片縮圖網址
 					if(isset($imageModule[$keyOne])){

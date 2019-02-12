@@ -1042,6 +1042,23 @@ namespace MTsung{
 			$value = $value?"//www.youtube.com/embed/".$value."?rel=0":"";
 			return $value;
 		}
+		
+		/**
+		 * yt縮圖轉換
+		 * @param  [type] $value [description]
+		 * @return [type]        [description]
+		 */
+		function youtubeImg($value){
+			if(strpos($value,"?v=") !== false || strpos($value,"&v=") !== false){
+				parse_str(explode("?",$value)[1],$value);
+				$value = $value["v"];
+			}else{
+				$value = explode("/",explode("?",$value)[0]);
+				$value = end($value);
+			}
+			$value = $value?"//img.youtube.com/vi/".$value."/sddefault.jpg":"";
+			return $value;
+		}
 	}
 }
 

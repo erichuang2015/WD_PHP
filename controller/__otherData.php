@@ -43,6 +43,7 @@
 							//YT連結轉換
 							if(isset($youtube[$key2])){
 								$data[$value][$key1][$key2] = $console->youtubeLink($value2);
+								$data[$value][$key1][$key2."_img"] = $console->youtubeImg($value2);
 							}
 							//圖片縮圖網址
 							if(isset($imageModule[$key2])){
