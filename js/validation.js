@@ -16,12 +16,14 @@ function formReset(index){
 setTimeout(function(){
 	$('input').on('keydown', function(e){
 		if((e.which == 13 || (e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
+			if(typeof($(this).form)=="undefined"){return false;}
 			formSubmit($("form").index($(this).form()));
 		}
 		return e.which !== 13;
 	});
 	$('textarea').on('keydown', function(e){
 		if(((e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
+			if(typeof($(this).form)=="undefined"){return false;}
 			formSubmit($("form").index($(this).form()));
 		}
 	});
