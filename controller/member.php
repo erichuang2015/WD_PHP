@@ -1,5 +1,7 @@
 <?php
 	include_once('header.php');
+	include_once('__otherData.php');
+	
 	$web_set["titlePrefix"] = "會員專區";
 	
 	define("MEMBER_PATH",WEB_PATH.$lang_url."/".$console->path[0]."/");

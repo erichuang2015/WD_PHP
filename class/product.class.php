@@ -113,7 +113,7 @@ namespace MTsung{
 		 * @param  [type] $id [description]
 		 * @return
 		 */
-		public function getProduct($id){
+		public function getProduct($id,$isGetAdd=false){
 			$temp = $this->getData("where id=?",array($id))[0];
 			if($temp){
 				$temp["class"] = explode("|__|",$temp["class"]);//分類
@@ -133,6 +133,9 @@ namespace MTsung{
 				if(!$temp["urlKey"]){
 					$temp["urlKey"] = $temp["id"];
 				}
+				if($isGetAdd){
+					$temp["addProduct"] = $this->getAddProduct($temp["id"]);
+				}
 				return $temp;
 			}
 			return false;
@@ -143,9 +146,11 @@ namespace MTsung{
 		 * 取得可以加價購的商品,規格,限購數量,金額
 		 * @param  [type] $id [description]
 		 * @return array      格式:	array(
-		 *                        			'idAndSpecifications' => array('商品id|__|規格','商品id1|__|規格1'),
+		 *                        			'id' => array('商品id','商品id1'),
+		 *                        			'specifications' => array('商品規格','商品規格1'),
 		 *         					        'maxCount' => array('限購數量','限購數量1'),
 		 *         					        'money' => array('金額','金額1')
+		 *         					        'online' => array('目前商品資料','目前商品資料1')
 		 *         					)
 		 */
 		public function getAddProduct($id){
@@ -157,11 +162,18 @@ namespace MTsung{
 				$temp["addProductMoney"] = explode("|__|", $temp["addProductMoney"]);
 				$addProduct = $idAndSpecifications = $maxCount = array();
 				foreach ($temp["addProduct"] as $key => $value) {
-					$idAndSpecifications[] = $value."|__|".$temp["addProductSpecifications"][$key];
+					$addProductId[] = $value;
+					$specifications[] = $temp["addProductSpecifications"][$key];
 					$maxCount[] = $temp["addProductMaxCount"][$key];
 					$addProductMoney[] = $temp["addProductMoney"][$key];
+					$addProductOnline[] = $this->getProduct($value);
 				}
-				$addProduct = array('idAndSpecifications' => $idAndSpecifications,'maxCount' => $maxCount,'addProductMoney' => $addProductMoney);
+				$addProduct = array('id' => $addProductId,
+									'specifications' => $specifications,
+									'maxCount' => $maxCount,
+									'addProductMoney' => $addProductMoney,
+									'online' => $addProductOnline
+								);
 				return $addProduct;
 			}
 			return false;

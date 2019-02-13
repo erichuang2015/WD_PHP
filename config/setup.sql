@@ -3,13 +3,13 @@ DROP TABLE IF EXISTS `database_admin`;
 
 CREATE TABLE `database_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `account` varchar(50) NOT NULL COMMENT '帳號',
+  `account` varchar(191) NOT NULL COMMENT '帳號',
   `password` varchar(191) DEFAULT NULL COMMENT '密碼',
   `groupID` int(11) NOT NULL COMMENT '群組',
   `name` varchar(191) DEFAULT NULL COMMENT '姓名',
-  `email` varchar(50) NOT NULL COMMENT '電子郵件',
+  `email` varchar(191) NOT NULL COMMENT '電子郵件',
   `sex` varchar(20) NOT NULL COMMENT '1=男 2=女 3=不提供',
-  `picture` varchar(50) NOT NULL COMMENT '照片',
+  `picture` mediumtext NOT NULL COMMENT '照片',
   `country` varchar(191) DEFAULT NULL COMMENT '國家',
   `county` varchar(191) DEFAULT NULL COMMENT '城市',
   `city` varchar(191) DEFAULT NULL COMMENT '區域',

@@ -1,5 +1,7 @@
 <?php 
 	include_once('header.php');
+	include_once('__otherData.php');
+
 	$web_set["titlePrefix"] = $console->getLabel("SHOPPING_CART");
 
 	define("SHOPPING_PATH",WEB_PATH.$lang_url."/".$console->path[0]."/");
@@ -296,4 +298,3 @@
 	}
 
 	$designName = $console->path[0]."_".$step;
-?>

@@ -390,6 +390,7 @@ namespace MTsung{
 			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->tableList." where parentId is NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications));
 			if($temp){
 				if($this->conn->Execute("DELETE FROM ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and productId='".$id."' and specifications='".$specifications."'")){
+					$this->conn->Execute("DELETE FROM ".$this->tableList." where parentId='".$id."' and shoppingCartId='".$this->order["id"]."'");
 					$this->message = $this->console->getMessage("DELETE_PRODUCT_COUNT_OK");
 					return true;
 				}else{
@@ -1243,7 +1244,7 @@ namespace MTsung{
 			if($temp){
 				foreach ($temp as $key => $value) {
 					$temp[$key]["addProductList"] = $this->conn->GetArray("select * from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and parentId='".$value["productId"]."'");
-					$temp[$key]["onilieProduct"] = $this->product->getProduct($value["productId"]);
+					$temp[$key]["onlineProduct"] = $this->product->getProduct($value["productId"],true);
 				}
 			}
 			return $temp;
@@ -1398,7 +1399,7 @@ namespace MTsung{
 			}
 			if($temp = array_values($temp)){
 				foreach ($temp as $key => $value) {
-					$temp[$key]["onilieProduct"] = $this->product->getProduct($value["productId"]);
+					$temp[$key]["onlineProduct"] = $this->product->getProduct($value["productId"]);
 				}
 			}
 			return $temp;

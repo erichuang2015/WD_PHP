@@ -205,7 +205,7 @@ function msgIDCard(){
 function isAccount(account){
 	var checkString=/[^a-zA-Z0-9_@.]/g;
 	return 	(account.length > 4) &&
-			(account.length < 50) &&
+			(account.length < 191) &&
 			(!account.match(checkString));
 }
 

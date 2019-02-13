@@ -234,18 +234,5 @@
 		}
 	}
 
-	/**
-	 * 取得使用value功能的鍵值
-	 */
-	function getSystemKey($temp,$value){
-		$searchTemp = array_combine(explode("|__|",$temp["dataKey"]), explode("|__|",$temp["dataType"]));
-		$searchTemp1 = array_combine(explode("|__|",$temp["dataKey"]), explode("|__|",$temp["dataSearch"]));
-		if($searchKey = array_keys($searchTemp,$value)){
-			foreach ($searchKey as $keyS => $valueS) {
-				$search[$valueS] = $searchTemp1[$valueS];
-			}
-		}
-		return $search;
-	}
 
 	// print_r($data);exit;
