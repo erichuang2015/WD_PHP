@@ -455,7 +455,7 @@
                         
                             function selectFeatures(obj){
                                 if(!obj) obj = $("[name='features']");
-                                var temp = ["_null","member","order","memberLog/member","_other_form","setting/web","setting/payment","setting/shipment"];
+                                var temp = ["_null","order","memberLog/member","_other_form","setting/web","setting/payment","setting/shipment"];
                                 if(temp.indexOf($(obj).val())>-1){
                                     $("#item_detail").hide();
                                     $("#list-form-data .specifications-div").remove();
@@ -466,7 +466,7 @@
                                     $("#item_detail").show();
                                     $("#div_alias").show().find("input[type!='button'][type!='hidden']").prop('required',true);
                                 }
-                                if($(obj).val() == "basic/product" || $(obj).val() == "class/product" || $(obj).val() == "setting/web"){
+                                if($(obj).val() == "basic/product" || $(obj).val() == "class/product" || $(obj).val() == "setting/web" || $(obj).val() == "order" || $(obj).val() == "member"){
                                     $("#div_alias").hide().find("input[type!='button'][type!='hidden']").prop('required',false).val('');
                                 }
                                 var temp = ["_other_basic","basic/product"];

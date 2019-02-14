@@ -20,7 +20,13 @@ if($_GET["export"] == "1"){
 	$csv->export($temp);
 }
 
-$explodeArray = array("address");
+include_once(CONTROLLER_PATH.'serback/__about.php');
+
+if(isset($module["uploadImg"])){
+	foreach ($module["uploadImg"] as $key => $value) {
+		$memberList->addPictureName($value["name"]);
+	}
+}
 if(isset($console->path[1])){
 //動作
 	switch ($console->path[1]) {

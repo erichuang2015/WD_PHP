@@ -1,4 +1,5 @@
 
+({assign var="addressI" value=0})
 ({assign var="aceI" value=0})
 ({assign var="colorI" value=0})
 ({assign var="imgI" value=0})
@@ -15,6 +16,28 @@
                 <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
             </div>
         </div>
+    ({else if $data.system.dataType[i] == "address"})
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>({$console->getLabel($data.system.dataName[i])})</label>
+                <div class="form-inline" id="twzipcode({$addressI})"></div>
+                <script>
+                    $('#twzipcode({$addressI})').twzipcode({
+                        'css': ['form-control', 'form-control'],
+                        'countyName': '({$data.system.dataKey[i]})[0]',
+                        'districtName': '({$data.system.dataKey[i]})[1]',
+                        'zipcodeName': '({$data.system.dataKey[i]})[2]',
+                        'zipcodeIntoDistrict': true,
+                        'countySel'   : '({$data.one[$data.system.dataKey[i]][0]})',
+                        'districtSel' : '({$data.one[$data.system.dataKey[i]][1]})',
+                        'zipcodeSel' : '({$data.one[$data.system.dataKey[i]][2]})'
+                    });
+                    // $('#twzipcode({$addressI})').find('select').attr('required', true);
+                </script>
+                <input type="text" name="({$data.system.dataKey[i]})[3]" class="form-control" value="({$data.one[$data.system.dataKey[i]][3]})">
+            </div>
+        </div>
+        ({assign var="addressI" value=$addressI+1})
     ({else if $data.system.dataType[i] == "status"})
         <div class="form-row">
             <div class="col-md-4 mb-3">

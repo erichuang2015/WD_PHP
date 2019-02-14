@@ -1,9 +1,13 @@
 <?php
-
-/**後台開出**/
-if($temp = $menu->getData("where url='".$console->path[0]."/".$console->path[1]."' and (features!='' or features IS NOT NULL)")){
-	$temp = $temp[0];
+if($console->path[0]=="member"){
+	$temp = $menu->getData("where url='member' and (features!='' or features IS NOT NULL)");
+}else{
+	$temp = $menu->getData("where url='".$console->path[0]."/".$console->path[1]."' and (features!='' or features IS NOT NULL)");
 	$designName = "__about";
+}
+/**後台開出**/
+if($temp){
+	$temp = $temp[0];
 	foreach (array(
 					"dataName",
 					"dataType",
@@ -68,6 +72,9 @@ if($temp = $menu->getData("where url='".$console->path[0]."/".$console->path[1].
 			    if($_POST && isset($_POST[$temp["dataKey"][$key]]) && is_array($_POST[$temp["dataKey"][$key]])){
 		        	$_POST[$temp["dataKey"][$key]] = array_unique($_POST[$temp["dataKey"][$key]]);
 		        }
+				$explodeArray[] = $temp["dataKey"][$key];
+				break;
+			case 'address':
 				$explodeArray[] = $temp["dataKey"][$key];
 				break;
 		}

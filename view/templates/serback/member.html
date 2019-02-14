@@ -9,14 +9,9 @@
                             <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
                         </li>
                     ({/if})
-                    ({if $switch.editList!=0})
+                    ({if $switch.editList!=0 || $switch.addList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("EDIT")})</a>
-                        </li>
-                    ({/if})
-                    ({if $switch.addList!=0})
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-add">({$console->getLabel("ADD")})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("DETAIL")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -86,46 +81,70 @@
                     </div>
                 ({/if})
 
-                ({if $switch.editList!=0})
+                ({if $switch.editList!=0 || $switch.addList!=0})
                     <div class="card-body tab-pane fade show active" id="list-edit">
                         
-                        <div class="form-row">
-                            <div class="col-md-4">
-                                <label>({$console->getLabel('ACCOUNT')})</label>
-                                <input type="text" readonly class="form-control" value="({$data.one.account})" disabled>
-                            </div>
-                            <div class="col-md-4 mb-4">
-                                <label>&nbsp;</label>
-                                <div class='form-inline'>
-                                    ({if $web.lineAuthClientID})
-                                        <img src="images/LINE_LOGO.png" width="38px" ({if !$data.one.lineID})style="-webkit-filter:grayscale(1);"({/if})>&nbsp;
-                                    ({/if})
-                                    ({if $web.fbAuthAppID})
-                                        <img src="images/FB_LOGO.png" width="38px" ({if !$data.one.fbID})style="-webkit-filter:grayscale(1);"({/if})>&nbsp;
-                                    ({/if})
-                                    ({if $web.googleAuthAppID})
-                                        <img src="images/GOOGLE_LOGO.png" width="38px" ({if !$data.one.googleID})style="-webkit-filter:grayscale(1);"({/if})>
-                                    ({/if})
+                        ({if $switch.addList!=0})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('ACCOUNT')})</label>
+                                    <input type="text" name="account" class="form-control" autocomplete="account" data-check="Account" data-text="({$console->getLabel("ACCOUNT")})" required>
                                 </div>
-                            </div> 
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('NEW_PASSWORD')})</label>
-                                <input type="password" name="newPassword" class="form-control" data-check="Password" data-text="({$console->getLabel('NEW_PASSWORD')})" autocomplete="off">
-                                <small class="text-muted">({$console->getLabel('NEW_PASSWORD_MESSAGE')})</small>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('CHECK_NEW_PASSWORD')})</label>
-                                <input type="password" name="checkNewPassword" class="form-control" data-check="Password" data-text="({$console->getLabel('CHECK_NEW_PASSWORD')})" autocomplete="off">
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('PASSWORD')})</label>
+                                    <input type="password" name="password" class="form-control" autocomplete="off" data-check="Password" data-text="({$console->getLabel('PASSWORD')})" required>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('CHECK_PASSWORD')})</label>
+                                    <input type="password" name="checkPassword" class="form-control" autocomplete="off"  data-check="Password" data-text="({$console->getLabel('CHECK_PASSWORD')})" required>
+                                </div>
+                            </div>
+                        ({else if $switch.editList!=0})
+                        
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('ACCOUNT')})</label>
+                                    <input type="text" readonly class="form-control" value="({$data.one.account})" disabled>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <label>&nbsp;</label>
+                                    <div class='form-inline'>
+                                        ({if $web.lineAuthClientID})
+                                            <img src="images/LINE_LOGO.png" width="38px" ({if !$data.one.lineID})style="-webkit-filter:grayscale(1);"({/if})>&nbsp;
+                                        ({/if})
+                                        ({if $web.fbAuthAppID})
+                                            <img src="images/FB_LOGO.png" width="38px" ({if !$data.one.fbID})style="-webkit-filter:grayscale(1);"({/if})>&nbsp;
+                                        ({/if})
+                                        ({if $web.googleAuthAppID})
+                                            <img src="images/GOOGLE_LOGO.png" width="38px" ({if !$data.one.googleID})style="-webkit-filter:grayscale(1);"({/if})>
+                                        ({/if})
+                                    </div>
+                                </div> 
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('NEW_PASSWORD')})</label>
+                                    <input type="password" name="newPassword" class="form-control" data-check="Password" data-text="({$console->getLabel('NEW_PASSWORD')})" autocomplete="off">
+                                    <small class="text-muted">({$console->getLabel('NEW_PASSWORD_MESSAGE')})</small>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('CHECK_NEW_PASSWORD')})</label>
+                                    <input type="password" name="checkNewPassword" class="form-control" data-check="Password" data-text="({$console->getLabel('CHECK_NEW_PASSWORD')})" autocomplete="off">
+                                </div>
+                            </div>
+                        ({/if})
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel('FIRST_NAME')})</label>
-                                <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="name" required>
+                                <input type="text" name="name" class="form-control" value="({$data.one.name})" autocomplete="name"  data-text="({$console->getLabel('FIRST_NAME')})" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -134,49 +153,21 @@
                                 <input type="email" name="email" class="form-control" value="({$data.one.email})" autocomplete="email" data-check="Email" data-text="({$console->getLabel('EMAIL')})" required>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('ADDRESS')})</label>
-                                <div class="form-inline" id="twzipcode"></div>
-                                <script>
-                                    $('#twzipcode').twzipcode({
-                                        'css': ['form-control', 'form-control'],
-                                        'countyName': 'address[0]',
-                                        'districtName': 'address[1]',
-                                        'zipcodeName': 'address[2]',
-                                        'zipcodeIntoDistrict': true,
-                                        'countySel'   : '({$data.one.address[0]})',
-                                        'districtSel' : '({$data.one.address[1]})',
-                                        'zipcodeSel' : '({$data.one.address[2]})'
-                                    });
-                                    $('#twzipcode').find('select').attr('required', true);
-                                </script>
-                                <input type="text" name="address[3]" class="form-control" value="({$data.one.address[3]})">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('MOBILE_PHONE')})</label>
-                                <input type="text" name="phone" class="form-control" value="({$data.one.phone})">
-                            </div>
-                        </div>
-<!--                         <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('LANDLINE')})</label>
-                                <input type="text" name="landline" class="form-control" value="({$data.one.landline})">
-                            </div>
-                        </div> -->
+                        
+                        ({include "__field.html"})
                         
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel('STATUS')})</label>
                                 <div class="onoffswitch">
                                     <input type="hidden" name="status" value="0">
-                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" ({if $data.one.status})checked({/if}) >
+                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" ({if !$data.one || $data.one.status})checked({/if}) >
                                     <label class="onoffswitch-label" for="myonoffswitch"></label>
                                 </div>
                             </div>
                         </div>
+
+
                         <small class="text-muted">
                             ({$console->getLabel('CREATE_DATE')})
                             ({$data.one.create_date})(({$data.one.create_user}));
@@ -186,78 +177,6 @@
                     </div>
                 ({/if})
 
-                ({if $switch.addList!=0})
-                    <div class="card-body tab-pane fade show active" id="list-edit">
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('ACCOUNT')})</label>
-                                <input type="text" name="account" class="form-control" autocomplete="account" data-check="Account" data-text="({$console->getLabel("ACCOUNT")})" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('PASSWORD')})</label>
-                                <input type="password" name="password" class="form-control" autocomplete="off" data-check="Password" data-text="({$console->getLabel('PASSWORD')})" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('CHECK_PASSWORD')})</label>
-                                <input type="password" name="checkPassword" class="form-control" autocomplete="off"  data-check="Password" data-text="({$console->getLabel('CHECK_PASSWORD')})" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('FIRST_NAME')})</label>
-                                <input type="text" name="name" class="form-control" value="" autocomplete="name" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('EMAIL')})</label>
-                                <input type="email" name="email" class="form-control" value="" autocomplete="email" data-check="Email" data-text="({$console->getLabel('EMAIL')})" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('ADDRESS')})</label>
-                                <div class="form-inline" id="twzipcode"></div>
-                                <script>
-                                    $('#twzipcode').twzipcode({
-                                        'css': ['form-control', 'form-control'],
-                                        'countyName': 'address[0]',
-                                        'districtName': 'address[1]',
-                                        'zipcodeName': 'address[2]',
-                                        'zipcodeIntoDistrict': true,
-                                    });
-                                    $('#twzipcode').find('select').attr('required', true);
-                                </script>
-                                <input type="text" name="address[3]" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('MOBILE_PHONE')})</label>
-                                <input type="text" name="phone" class="form-control">
-                            </div>
-                        </div>
-<!--                         <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('LANDLINE')})</label>
-                                <input type="text" name="landline" class="form-control">
-                            </div>
-                        </div> -->
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label>({$console->getLabel('STATUS')})</label>
-                                <div class="onoffswitch">
-                                    <input type="hidden" name="status" value="0" >
-                                    <input type="checkbox" name="status" class="onoffswitch-checkbox" id="myonoffswitch" value="1" checked>
-                                    <label class="onoffswitch-label" for="myonoffswitch"></label>
-                                </div>
-                            </div>
-                        </div>
-                ({/if})
             </div>
         </div>
     </div>
