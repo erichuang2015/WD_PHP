@@ -156,6 +156,9 @@ if($_POST && isset($_SESSION[FRAME_NAME]["rmSrc"])){
 			$value = str_replace('..\\',"",$value);
 		}
 		$path = APP_PATH.UPLOAD_PATH;
+		if(!is_file($path.$value)){
+			$value = str_replace(UPLOAD_PATH,"",$value);
+		}
 		if(is_file($path.$value)){
             unlink($path.$value);
             //縮圖

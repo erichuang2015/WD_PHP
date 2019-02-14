@@ -44,6 +44,31 @@
             <a class="navbar-brand nav-title" href="({$web.serback_url})/index">({$web.title}) ({$console->getLabel('LOGIN_TITEL')})</a>
         </div>
         <div class="btn-group">
+            ({if $switch.buttonBox!=0})
+                <div class="nav-title">
+                    <div class="btn-group">
+                        ({if $switch.redoButton!=0})
+                            <a class="btn btn-outline-light" href="javascript:;" onclick="({if $data.redoOnClick})({$data.redoOnClick})({/if})"><span class="glyphicon glyphicon-repeat"></span> ({$console->getLabel('REDO')})</a>
+                        ({/if})
+                        ({if $switch.editButton!=0})
+                            <a class="btn btn-outline-light" href="javascript:;"><span class="glyphicon glyphicon-pencil"></span> ({$console->getLabel('EDITOR')})</a>
+                        ({/if})
+                        ({if $switch.saveButton!=0})
+                            <a class="btn btn-outline-light" href="javascript:;" onclick="formSubmit(({$switch.searchBox}));"><span class="glyphicon glyphicon-ok"></span> ({$console->getLabel('SAVE')})</a>
+                        ({/if})
+                        ({if $switch.addButton!=0})
+                            <a class="btn btn-outline-light" href="javascript:;" onclick="({if $data.addOnClick})({$data.addOnClick})({/if})"><span class="glyphicon glyphicon-plus"></span> ({$console->getLabel('ADD')})</a>
+                        ({/if})
+                        ({if $switch.deleteButton!=0})
+                            <a class="btn btn-outline-light" href="javascript:;" onclick="formSubmitDelete(({$switch.searchBox}));"><span class="glyphicon glyphicon-remove"></span> ({$console->getLabel('DELETE')})</a>
+                        ({/if})
+                        ({if $switch.backButton!=0})
+                            <a class="btn btn-outline-light" href="({if $data.listUrl})({$data.listUrl})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})({/if})"><span class="glyphicon glyphicon-th-list"></span> ({$console->getLabel('BACK')})</a>
+                        ({/if})
+                    </div>
+                </div> 
+                &nbsp;
+            ({/if})
             <a href="({$web.serback_url})/profile"><img src="({$member.picture})" class="rounded-circle " onerror="this.src='images/ProfilePicture.jpg'" height="40"></a>&nbsp;
             <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 ({$member.name})

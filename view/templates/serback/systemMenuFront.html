@@ -111,7 +111,7 @@
                         <div class="form-row" id="div_alias">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("ALIAS")})</label>
-                                <input type="text" class="form-control" name="alias" value="({$data.one.alias})" data-text="({$console->getLabel("ALIAS")})" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'');">
+                                <input type="text" class="form-control" name="alias" value="({$data.one.alias})" data-text="({$console->getLabel("ALIAS")})" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');">
                             </div>
                         </div>
 
@@ -414,17 +414,17 @@
                                     '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                                 '</div>');
                                 checkboxI++;
-                                $('input').on('keydown', function(e){
-                                    if((e.which == 13 || (e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
-                                        formSubmit($("form").index($(this).form()));
-                                    }
-                                    return e.which !== 13;
-                                });
-                                $('textarea').on('keydown', function(e){
-                                    if(((e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
-                                        formSubmit($("form").index($(this).form()));
-                                    }
-                                });
+                                // $('input').on('keydown', function(e){
+                                //     if((e.which == 13 || (e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
+                                //         formSubmit($("form").index($(this).form()));
+                                //     }
+                                //     return e.which !== 13;
+                                // });
+                                // $('textarea').on('keydown', function(e){
+                                //     if(((e.which == 83 && e.ctrlKey)) && $(this).attr("name")){
+                                //         formSubmit($("form").index($(this).form()));
+                                //     }
+                                // });
                             }
                             $(function(){
                                 $('#specifications_div').sortable({

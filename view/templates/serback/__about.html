@@ -63,7 +63,7 @@
                                     </div>
                                 </th>
                                 <th scope="col">({$console->getLabel("NAME")})</th>
-                                ({if $data.list[0].class})
+                                ({if $data.list[0].class && $console->path[0]!="class"})
                                     <th scope="col">({$console->getLabel("CLASS")})</th>
                                 ({/if})
                                 <th scope="col">({$console->getLabel("SORT")})</th>
@@ -97,7 +97,7 @@
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].name})</a>
                                         </td>
                                     ({/if})
-                                    ({if $data.list[i].class})
+                                    ({if $data.list[i].class && $console->path[0]!="class"})
                                         <td >
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].class})</a>
                                             
@@ -237,40 +237,44 @@
                     ({/if})
 
                     ({if $console->path[0]=="class"})
-                        ({if $switch.editList!=0})
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label>({$console->getLabel("FLOOR")})</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
-                                            <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
-                                            <option value="0,-1" ({if 0==$data.one.parent})selected({/if})>({$console->getLabel("ROOT_DIRECTORY")})</option>
-                                            ({section name=i loop=$data.list})
-                                                ({if $data.list[i].floor < $data.addMaxFloor})
-                                                <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;" ({if $data.list[i].id==$data.one.parent})selected({/if})> ({$data.list[i].name})</option>
-                                                ({/if})
-                                            ({/section})
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                        ({if $data.addMaxFloor==0})
+                            <input type="hidden" name="class" value="0,-1">
                         ({else})
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label>({$console->getLabel("FLOOR")})</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
-                                            <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
-                                            <option value="0,-1">({$console->getLabel("ROOT_DIRECTORY")})</option>
-                                            ({section name=i loop=$data.list})
-                                                ({if $data.list[i].floor < $data.addMaxFloor})
-                                                <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;">({$data.list[i].name})</option>
-                                                ({/if})
-                                            ({/section})
-                                        </select>
+                            ({if $switch.editList!=0})
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label>({$console->getLabel("FLOOR")})</label>
+                                        <div class="form-group">
+                                            <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
+                                                <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                                <option value="0,-1" ({if 0==$data.one.parent})selected({/if})>({$console->getLabel("ROOT_DIRECTORY")})</option>
+                                                ({section name=i loop=$data.list})
+                                                    ({if $data.list[i].floor < $data.addMaxFloor})
+                                                    <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;" ({if $data.list[i].id==$data.one.parent})selected({/if})> ({$data.list[i].name})</option>
+                                                    ({/if})
+                                                ({/section})
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            ({else})
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label>({$console->getLabel("FLOOR")})</label>
+                                        <div class="form-group">
+                                            <select class="form-control" name="parent" data-type="chosen" data-text="({$console->getLabel("FLOOR")})" required>
+                                                <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                                <option value="0,-1">({$console->getLabel("ROOT_DIRECTORY")})</option>
+                                                ({section name=i loop=$data.list})
+                                                    ({if $data.list[i].floor < $data.addMaxFloor})
+                                                    <option value="({$data.list[i].id}),({$data.list[i].floor})" style="margin-left:({$data.list[i].floor+1})em;">({$data.list[i].name})</option>
+                                                    ({/if})
+                                                ({/section})
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            ({/if})
                         ({/if})
                     ({/if})
 
