@@ -133,7 +133,7 @@ function formSubmit(index) {
 		return false;
 	}else{
 		var f = $('#hiddenSubmitButton'+index).closest("form");
-		if((f.attr("method")=="post" || f.attr("method")=="POST") && (window.location.pathname.indexOf(_jsPath+"/serback/")==0) && (window.location.pathname.indexOf("/add")==-1)){
+		if((f.attr("method")=="post" || f.attr("method")=="POST") && (window.location.pathname.indexOf("/serback/")>=0) && (window.location.pathname.indexOf("/add")==-1)){
 	        $.ajax({
 	            type : "POST",
 	            url : f.attr('action'),
