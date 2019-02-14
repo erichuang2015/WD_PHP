@@ -19,10 +19,15 @@
 	$menu = new MTsung\menu($console,PREFIX."menu");
 
 	if($temp = $menu->getData("where alias=? and status=1",array($console->path[0]))){
-		usort($temp,function($a,$b){//把class放到最前面
-			if ($a["features"]!="_other_calss") return 1;
-			return 0;
-		});
+		$tempSort = array();
+		foreach ($temp as $keySort => $valueSort) {//把class放到最前面
+			if ($valueSort["features"]=="_other_class"){
+				array_unshift($tempSort,$valueSort);
+			}else{
+				$tempSort[] = $valueSort;
+			}
+		}
+		$temp = $tempSort;
 		foreach ($temp as $key => $value) {
 			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && (!$web_set["titlePrefix"] || ($web_set["titlePrefix"] && $value["features"]!="_other_calss"))){
 				$web_set["titlePrefix"] = $console->getLabel(trim(explode("-",$value["name"])[0]));
@@ -58,7 +63,7 @@
 						if(isset($console->path[2])){
 							$key = $console->path[2];
 							if(!$data["one"] = $basic->getOne("and (id=? or urlKey=?) ".$findClassSql,array($key,$key),$explodeArray)){
-								$console->to404();
+								$console->to404($data);
 							}
 							if(isset($data["one"]["class"]) && $class){
 								foreach ($data["one"]["class"] as $oneKey => $oneValue) {
@@ -87,7 +92,7 @@
 						if(isset($console->path[1])){
 							$key = $console->path[1];
 							if(!$data["one"] = $basic->getOne("and (id=? or urlKey=?) ",array($key,$key),$explodeArray)){
-								$console->to404();
+								$console->to404($data);
 							}
 						}
 						$data["list"] = $basic->getListData("and status='1' order by sort",explode("|__|", $value["dataKey"]),$value["count"]);
@@ -110,7 +115,7 @@
 						}else{
 							$key = $console->path[1];
 							if(!$data["one"] = $data["oneClass"] = $class->getOne("and (id=? or urlKey=?)",array($key,$key),$explodeArray)){
-								$console->to404();
+								$console->to404($data);
 							}
 						}
 

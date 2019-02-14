@@ -12,7 +12,7 @@
             $data.one.dataType[$k] == "date" ||
             $data.one.dataType[$k] == "file"
             })
-            <div class="opinion clearfix">
+            <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <input type="({$data.one.dataType[$k]})" name="key({$k})" placeholder="({$v})" ({if $data.one.dataRequired[$k]})required({/if}) class="input-main-style01" data-text="({$v})" ({if $data.one.dataType[$k] == "email"})data-check="Email"({/if})>
                 ({if "姓名"==$v})
                     <label class="form-icon"><i class="fa fa-address-book-o" aria-hidden="true"></i></label>
@@ -23,7 +23,7 @@
                 ({/if})
             </div>
             ({else if $data.one.dataType[$k] == "radio"})
-            <div class="opinion clearfix">
+            <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <div class="input-main-style01">
                     <input type="hidden" name="key({$k})" value="">
                     ({section name=i loop=$data.one.dataOption[$k]})
@@ -32,7 +32,7 @@
                 </div>
             </div>
             ({else if $data.one.dataType[$k] == "checkbox"})
-            <div class="opinion clearfix">
+            <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <div class="input-main-style01">
                     <input type="hidden" name="key({$k})" value="">
                     ({section name=i loop=$data.one.dataOption[$k]})
@@ -41,7 +41,7 @@
                 </div>
             </div>
             ({else if $data.one.dataType[$k] == "select"})
-            <div class="opinion clearfix">
+            <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <div class="input-main-style01">
                     <select name="key({$k})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})>
                         <option value="">請選擇</option>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             ({else if $data.one.dataType[$k] == "address"})
-            <div class="opinion clearfix">
+            <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <div class="input-main-style01" id="twzipcode({$k})">
                     <script>
                         $('#twzipcode({$k})').twzipcode({
@@ -70,7 +70,7 @@
                 </div>
             </div>
             ({else if $data.one.dataType[$k] == "textarea"})
-            <div class="opinion clearfix">
+            <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <textarea rows="5" class="input-main-style02" name="key({$k})" placeholder="({$v})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})></textarea>
             </div>
             ({/if})

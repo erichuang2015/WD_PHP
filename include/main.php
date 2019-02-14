@@ -976,8 +976,12 @@ namespace MTsung{
 		function to404($data=""){
 			http_response_code(404);
 			global $console;
-			include_once(INCLUDE_PATH.'foor.php');
-			$this->design->loadDisplay('404.html');
+			if($data){exit;
+				$designName = "404";
+				include_once(INCLUDE_PATH.'foor.php');
+			}else{
+				$this->design->loadDisplay('404.html');
+			}
 			exit;
 		}
 
