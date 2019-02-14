@@ -69,6 +69,9 @@
 								$data["one"]["price"] = $product->getPrice($data["one"]["id"],$member->isLogin());
 							}
 						}
+						if(isset($console->path[1]) && $console->path[1]=="all"){
+							$findClassSql = "";
+						}
 						if($data["list"] = $basic->getListData("and status='1' ".$findClassSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"])){
 							foreach ($data["list"] as $listKey => $listValue) {
 								if(isset($data["list"][$listKey]["class"]) && $class){
