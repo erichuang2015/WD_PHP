@@ -64,8 +64,8 @@
                 ({if $data.dataSize})
                     <div class="card-body tab-pane fade" id="list-data">
                         <div class="card-deck text-center ">
-                            <div class="card">
-                                <h5 class="card-header">網站使用空間</h5>
+                            <div class="card"({if $member.groupID!=1}) style="display: none;"({/if})>
+                                <h5 class="card-header">系統使用空間</h5>
                                 <div class="card-body">
                                     <p class="card-text">
                                         <div id="test-circle1"></div>
