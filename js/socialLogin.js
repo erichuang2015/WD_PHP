@@ -10,11 +10,27 @@ window.fbAsyncInit = function() {
 };
 
 (function(d, s, id) {
+    var lang = "zh-TW";
+    switch(_lang) {
+        case "en":
+            lang = "en_US";
+            break;
+        case "ja":
+        case "jp":
+            lang = "ja_JP";
+            break;
+        case "ko":
+        case "kr":
+            lang = "ko_KR";
+            break;
+        default:
+            lang = _lang[0]+_lang[1]+"_"+(_lang[3]?_lang[3].toUpperCase():"")+(_lang[4]?_lang[4].toUpperCase():"")
+    }
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) { return; }
     js = d.createElement(s);
     js.id = id;
-    js.src = "//connect.facebook.net/"+_lang[0]+_lang[1]+"_"+_lang[3].toUpperCase()+_lang[4].toUpperCase()+"/sdk.js"; //FB的多國一定要語言_大寫區碼 zh-TW ja_JP
+    js.src = "//connect.facebook.net/"+lang+"/sdk.js"; //FB的多國一定要語言_大寫區碼 zh-TW ja_JP
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 

@@ -38,7 +38,13 @@
             selector: "#tinemceEditor({$_I_})",
             // selector: "textarea",
             // auto_focus: "tinemceEditor({$_I_})",
-            // language: "({$lang})",
+            ({if $lang=="zh-cn" || $lang=="zh-tw"})
+                language: "({$lang})",
+            ({else if $lang=="ja-jp"})
+                language: "ja",
+            ({else if $lang=="ko-kr"})
+                language: "ko",
+            ({/if})
             theme: "modern",
             //套件
             plugins :[

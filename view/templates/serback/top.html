@@ -129,7 +129,7 @@
                                     ({section name=k loop=$menu[2]})
                                         ({if $menu[1][j].id == $menu[2][k].parent})
                                         ({if $menu[2][k].url!="systemMenu" || $member.account=="vipadmin"})
-                                            <li><a href="({$web.serback_url})/({$menu[2][k].url})">({$console->getLabel($menu[2][k].name)})</a></li>
+                                            <li><a href="({$web.serback_url})/({$menu[2][k].url})">({$console->getLabel($menu[2][k].name)})({if $menu[2][k].features=="_other_class"}) - ({$console->getLabel("CLASS")})({/if})</a></li>
                                         ({/if})
                                         ({/if})
                                     ({/section})
@@ -156,7 +156,13 @@
                 </ol>
             </nav>
             ({if $switch.buttonBox!=0})
-                <div class="text-right mb-3">
+                <style>
+                    #btnBox { display: block; }
+                    @media only screen and (min-width:768px) {
+                        #btnBox { display: none; }
+                    }
+                </style>
+                <div class="text-right mb-3" id="btnBox">
                     <div class="btn-group">
                         ({if $switch.redoButton!=0})
                             <a class="btn btn-outline-secondary" href="javascript:;" onclick="({if $data.redoOnClick})({$data.redoOnClick})({/if})"><span class="glyphicon glyphicon-repeat"></span> ({$console->getLabel('REDO')})</a>

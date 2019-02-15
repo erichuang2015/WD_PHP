@@ -1,4 +1,3 @@
-
 <form action="" method="POST" enctype="multipart/form-data">
     <div class="form-box clearfix">
         <!-- 表單 -->
@@ -14,42 +13,35 @@
             })
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <input type="({$data.one.dataType[$k]})" name="key({$k})" placeholder="({$v})" ({if $data.one.dataRequired[$k]})required({/if}) class="input-main-style01" data-text="({$v})" ({if $data.one.dataType[$k] == "email"})data-check="Email"({/if})>
-                ({if "姓名"==$v})
-                    <label class="form-icon"><i class="fa fa-address-book-o" aria-hidden="true"></i></label>
-                ({else if "電話"==$v})
-                    <label class="form-icon"><i class="fa fa-phone" aria-hidden="true"></i></label>
-                ({else if "E-MAIL"==$v})
-                    <label class="form-icon"><i class="fa fa-envelope" aria-hidden="true"></i></label>
-                ({/if})
             </div>
             ({else if $data.one.dataType[$k] == "radio"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
-                <div class="input-main-style01">
+                <div class="input-main-style04">
                     <input type="hidden" name="key({$k})" value="">
                     ({section name=i loop=$data.one.dataOption[$k]})
-                        <input type="radio" name="key({$k})" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})
+                        <label><input type="radio" name="key({$k})" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})</label>
                     ({/section})
                 </div>
             </div>
             ({else if $data.one.dataType[$k] == "checkbox"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
-                <div class="input-main-style01">
+                <div class="input-main-style04">
                     <input type="hidden" name="key({$k})" value="">
                     ({section name=i loop=$data.one.dataOption[$k]})
-                        <input type="checkbox" name="key({$k})[]" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})
+                        <label><input type="checkbox" name="key({$k})[]" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})</label>
                     ({/section})
                 </div>
             </div>
             ({else if $data.one.dataType[$k] == "select"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
-                <div class="input-main-style01">
-                    <select name="key({$k})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})>
-                        <option value="">請選擇</option>
+                <!-- <div class="input-main-style01"> -->
+                    <select class="input-main-style01" name="key({$k})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})>
+                        <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
                         ({section name=i loop=$data.one.dataOption[$k]})
                             <option value="({$data.one.dataOption[$k][i]})">({$data.one.dataOption[$k][i]})</option>
                         ({/section})
                     </select>
-                </div>
+                <!-- </div> -->
             </div>
             ({else if $data.one.dataType[$k] == "address"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
@@ -64,8 +56,8 @@
                         ({if $data.one.dataRequired[$k]})
                             $('#twzipcode({$k})').find('select').attr('required', true);
                         ({/if})
-                        $('#twzipcode({$k})').find('select[name="key({$k})[0]"]').attr('data-text', "聯絡地址-縣市");
-                        $('#twzipcode({$k})').find('select[name="key({$k})[1]"]').attr('data-text', "聯絡地址-鄉鎮市區");
+                        $('#twzipcode({$k})').find('select[name="key({$k})[0]"]').attr('data-text', "({$v})-({$console->getLabel("COUNTY")})");
+                        $('#twzipcode({$k})').find('select[name="key({$k})[1]"]').attr('data-text', "({$v})-({$console->getLabel("TOWNSHIP_URBAN_AREA")})");
                     </script>
                 </div>
             </div>
@@ -82,15 +74,15 @@
             <script src='https://www.google.com/recaptcha/api.js'></script>
             <div class="g-recaptcha" data-sitekey="({$web.reCAPTCHASiteKey})" data-callback="formSubmit" data-size="invisible" data-badge="inline"></div>
         ({else})
-            <div class="opinion clearfix">
-                <input type="text" placeholder="請輸入驗證碼" name="verifycode" data-text="驗證碼" class="input-main-style03" required>
+            <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$console->getLabel("VERIFYCODE_")}) * ：</span> -->
+                <input type="text" placeholder="({$console->getLabel("VERIFYCODE")})" name="verifycode" data-text="({$console->getLabel("VERIFYCODE_")})" class="input-main-style02" required>
                 <img src="({$web.main_path})/verifycode.php" width="auto" height="31" class="code" name="verifycode" onclick="$(this).attr('src',$(this).attr('src'));"/>
             </div>
         ({/if})
 
         <div class="cart-btn">
-            <input type="reset" class="btn-reset" value="重新填寫">
-            <input type="button" class="btn-send" value="確認送出" onclick="({if $web.recaptchaValidation})grecaptcha.reset();grecaptcha.execute();({else})formSubmit(0);({/if})return false;">
+            <a class="btn-send" href="javascript:;" onclick="({if $web.recaptchaValidation})grecaptcha.reset();grecaptcha.execute();({else})formSubmit(0);({/if})return false;">({$console->getLabel("SUBMIT_FORM")})</a>
+            <a class="btn-reset" href="javascript:;" onclick="formReset();" >({$console->getLabel("RESET_FORM")})</a>
         </div>
     </div>
     ({$console->getToken()})
