@@ -74,9 +74,10 @@
 
 		case 'check':
 
+			$link = isset($_SESSION[FRAME_NAME]["MEMBER_BACK_URI"])?$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] : MEMBER_PATH.'detail';
 			if(isset($_GET['uID'])){
 				$member->reciveEmail($_GET['uID'],$_GET['auth']);
-				$console->alert($member->message,MEMBER_PATH."login");
+				$console->alert($member->message,$link);
 			}
 
 			break;
