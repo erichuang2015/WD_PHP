@@ -63,14 +63,14 @@ if(isset($console->path[1])){
 					if($_SERVER["SERVER_NAME"]=="localhost" || $_SERVER["SERVER_NAME"]=="127.0.0.1"){
 						$console->conn->Execute("create database ".$dbData." default character set utf8mb4 collate utf8mb4_general_ci");
 					}else{
-						if(!$cPanel->addSubDomain($_POST["subDomain"])){
-							$console->alert($cPanel->message,-1);
-						}
-
 						if($_POST["addonDomain"]){
 							if(!$cPanel->addAddonDomain($_POST["subDomain"],$_POST["addonDomain"])){
 								$console->alert($cPanel->message,-1);
 							}
+						}else{
+    						if(!$cPanel->addSubDomain($_POST["subDomain"])){
+    							$console->alert($cPanel->message,-1);
+    						}
 						}
 
 						if(!$cPanel->addDatabase($_POST["subDomain"])){
@@ -127,6 +127,10 @@ if(isset($console->path[1])){
 					$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
 				}
 				
+				//新增郵件帳號
+				$emailPwd = md5(DATE).md5(DATE);
+				$cPanel->addEmailUser($_POST["subDomain"]."@".MAIN_SERVER_NAME,$emailPwd);
+
 				if($tempId = $basic->setData($_POST,false,$checkArray,$requiredArray)){
 					$dataPath = "data/".($tempId+10000)."/";
 					recurse_copy(APP_PATH."data/10000/",APP_PATH.$dataPath);

@@ -1063,6 +1063,16 @@ namespace MTsung{
 			$value = $value?"//img.youtube.com/vi/".$value."/sddefault.jpg":"";
 			return $value;
 		}
+
+
+		/**
+		 * 換行轉<br>
+		 * @param  [type] $text [description]
+		 * @return [type]       [description]
+		 */
+		function newline($text){
+			return str_replace("\n","<br>",str_replace("\r\n","<br>",$text));
+		}
 	}
 }
 

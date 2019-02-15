@@ -48,7 +48,7 @@ if($_FILES){
 				continue;
 			}
 
-			if(!preg_match("/[^a-zA-Z0-9_\-~@. ]/",$value1)){
+			if(!preg_match("/[^a-zA-Z0-9_\-~@. +]/",$value1)){
 				move_uploaded_file($value["tmp_name"][$key1],$dirPath."/".$value1);
 			}else{
                 $destination = $dirPath."/".str_replace('.',"",microtime(true)).".".$MIME;
