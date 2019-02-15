@@ -163,6 +163,12 @@
 			break;
 
 		case '2':
+			//判斷登入
+			if(!$member->isLogin() && !$console->webSetting->getValue("noLoginPostOrder")){
+				$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] = $_SERVER["REQUEST_URI"];
+				$console->linkTo(WEB_PATH.$lang_url."/member/login");
+				exit;
+			}
 			try {
 				if(is_array($data["order"]["paymentTitle"]) || is_array($data["order"]["shipmentTitle"]) || count($data["orderList"])<1){
 					$console->linkto(SHOPPING_PATH);

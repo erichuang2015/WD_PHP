@@ -98,6 +98,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("NO_LOGIN_POST_ORDER")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="noLoginPostOrder" value="0">
+                                <input type="checkbox" name="noLoginPostOrder" class="onoffswitch-checkbox" id="noLoginPostOrder" value="1" ({if $data.one.noLoginPostOrder==1})checked({/if})>
+                                <label class="onoffswitch-label" for="noLoginPostOrder"></label>
+                            </div>
+                        </div>
+                    </div>
                     ({if $web.pointCheck})
                         <hr>
                         <div class="form-row">
