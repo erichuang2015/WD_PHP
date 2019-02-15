@@ -57,6 +57,7 @@
 	$web_set['main_path'] = WEB_PATH;
 	$web_set['serback_path'] = SERBACK_PATH;
 	$web_set['data_path'] = WEB_PATH.DATA_PATH;
+	if($web_set['data_path'][0]!="/") $web_set['data_path'] = "/".$web_set['data_path'];
 
 	//完整網址(不含控制器)
 	$web_set['http_path'] = HTTP_PATH;
