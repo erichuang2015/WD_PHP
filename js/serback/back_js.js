@@ -229,6 +229,9 @@ function searchMenu(value){
 	    	$(this).parent().parent().find("a:eq(0)").attr("aria-expanded","true");
 		});
 	// }
+	$("#sidebar .active").highlite({
+        text: value
+    });
 }
 /**
  * 拖曳排序
