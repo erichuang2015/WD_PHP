@@ -41,7 +41,7 @@
     <nav class="navbar fixed-top navbar-dark" style="background-color:#192e5b;">
         <div>
             <a href="({$web.serback_url})/index"><img src="({$web.icon})" height="35"></a>
-            <a class="navbar-brand nav-title" href="({$web.serback_url})/index">({$web.title}) ({$console->getLabel('LOGIN_TITEL')})</a>
+            <a class="navbar-brand nav-title" href="({$web.serback_url})/index"><!-- ({$web.title}) --> ({$console->getLabel('LOGIN_TITEL')})</a>
         </div>
         <div class="btn-group">
             ({if $switch.buttonBox!=0})
@@ -213,17 +213,32 @@
                             <div class="input-group-append">
                                 <span class="input-group-text">({$console->getLabel("STATUS")})</span>
                             </div>
-                            <select name="status"　>
+                            <select name="status"　 class="form-control">
                                 <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                 <option value="1" ({if isset($smarty.get.status) && $smarty.get.status=='1'})selected({/if})>({$console->getLabel("STATUS_1")})</option>
                                 <option value="0" ({if isset($smarty.get.status) && $smarty.get.status=='0'})selected({/if})>({$console->getLabel("STATUS_0")})</option>
                             </select>
                         </div>
+                        ({if $data.class.list})
+                            <div class="input-group-append">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">({$console->getLabel("CLASS")})</span>
+                                </div>
+                                <select class="form-control" name="class" >
+                                    <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
+                                    ({if $data.class.list})
+                                        ({section name=i loop=$data.class.list})
+                                            <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" <!-- ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) --> ({if $data.class.list[i].id==$smarty.get.class})selected({/if})>({$data.class.list[i].name})</option>
+                                        ({/section})
+                                    ({/if})
+                                </select>
+                            </div>
+                        ({/if})
                         <div class="input-group-append">
                             <div class="input-group-append">
                                 <span class="input-group-text">({$console->getLabel("PAGE_DATA_COUNT")})</span>
                             </div>
-                            <select name="per">
+                            <select name="per" class="form-control">
                                 <option value="" selected>({$console->getLabel("PLEASE_CHOOSE")})</option>
                                 <option value="10" ({if isset($smarty.get.per) && $smarty.get.per=='10'})selected({/if})>10</option>
                                 <option value="20" ({if isset($smarty.get.per) && $smarty.get.per=='20'})selected({/if})>20</option>
