@@ -41,7 +41,7 @@
     <nav class="navbar fixed-top navbar-dark" style="background-color:#192e5b;">
         <div>
             <a href="({$web.serback_url})/index"><img src="({$web.icon})" height="35"></a>
-            <a class="navbar-brand nav-title" href="({$web.serback_url})/index"><!-- ({$web.title}) --> ({$console->getLabel('LOGIN_TITEL')})</a>
+            <a class="navbar-brand nav-title" href="({$web.serback_url})/index">({$web.title|truncate:11:"...":true}) ({$console->getLabel('LOGIN_TITEL')})</a>
         </div>
         <div class="btn-group">
             ({if $switch.buttonBox!=0})

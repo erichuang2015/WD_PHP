@@ -122,7 +122,7 @@
 					}else{
 						$data["oneClass"] = $data["class"][0];
 					}
-					$data["oneClass"] = $console->urlKey($data["oneClass"]);
+					$data["one"] = $data["oneClass"] = $console->urlKey($data["oneClass"]);
 					if($data["oneClass"]["id"]!=0){
 						$_GET["class"] = $data["oneClass"]["id"];
 					}

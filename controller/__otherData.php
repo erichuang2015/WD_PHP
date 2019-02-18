@@ -14,12 +14,13 @@
 			if(!$value) continue;
 
 			if($features = $menu->getData("where tablesName=?",array($value))){
-				$explodeArray = getExplode($features[0]);
+				$features = $features[0];
+				$explodeArray = getExplode($features);
+				$search = getSystemKey($features,'search');
+				$youtube = getSystemKey($features,'youtube');
+				$imageModule = getSystemKey($features,'imageModule');
 			}
 
-			$search = getSystemKey($features[0],'search');
-			$youtube = getSystemKey($features[0],'youtube');
-			$imageModule = getSystemKey($features[0],'imageModule');
 
 			if($console->isTables($value)){
 				$$value = new MTsung\dataList($console,PREFIX.$value,$lang);

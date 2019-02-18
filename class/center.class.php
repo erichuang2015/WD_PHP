@@ -256,7 +256,7 @@ namespace MTsung{
 		 * @param  integer $pageViewMax 頁碼顯示N個
 		 * @return [type]               [description]
 		 */
-		function getListData($whereSql='',$searchKey=array("name"),$per=15,$pageViewMax=5){
+		function getListData($whereSql='',$searchKey=array("name"),$per=15,$pageViewMax=5,$queryName='page'){
 
 			if(isset($_GET["per"]) && is_numeric($_GET["per"]) && ($_GET["per"] > 0)){
 				$per = $_GET["per"];
@@ -264,7 +264,7 @@ namespace MTsung{
 
 			
 			$whereSql = $this->getSqlWhere($searchKey,strpos($whereSql,"class like")===false).$whereSql;
-			$this->pageNumber = new pageNumber($this->console,'select * from '.$this->table." ".$whereSql,$per,$pageViewMax);
+			$this->pageNumber = new pageNumber($this->console,'select * from '.$this->table." ".$whereSql,$per,$pageViewMax,$queryName);
 			return $this->getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$this->pageNumber->getPer());
 		}
 
