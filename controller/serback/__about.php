@@ -13,6 +13,7 @@ if($temp){
 					"dataType",
 					"dataKey",
 					"dataCount",
+					"dataFa",
 					"dataExtension",
 					"dataSearch",
 					"dataSuggestText",
@@ -98,6 +99,7 @@ $data["typeOption"] = array(
 $explodeArray[] = "dataName";
 $explodeArray[] = "dataType";
 $explodeArray[] = "dataOption";
+$explodeArray[] = "dataFa";
 $explodeArray[] = "dataRequired";
 $explodeArray[] = "class";
 $explodeArray[] = "specificationsID";

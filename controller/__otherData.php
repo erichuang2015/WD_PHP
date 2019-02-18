@@ -76,6 +76,7 @@
 						"dataType",
 						"dataKey",
 						"dataCount",
+						"dataFa",
 						"dataExtension",
 						"dataSearch",
 						"dataSuggestText",
@@ -113,6 +114,7 @@
 			$explodeArray[] = "dataName";
 			$explodeArray[] = "dataType";
 			$explodeArray[] = "dataOption";
+			$explodeArray[] = "dataFa";
 			$explodeArray[] = "dataRequired";
 		}
 		return $explodeArray;
