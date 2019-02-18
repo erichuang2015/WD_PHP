@@ -198,7 +198,7 @@ INSERT INTO `database_setting` (`id`,`name`,`detail`) VALUES
 ('8','smtpPassword',''),
 ('9','sizeSwitch','1'),
 ('10','webMaxSize','1099511627776'),
-('11','uploadMaxSize','52428800'),
+('11','uploadMaxSize','104857600'),
 ('12','outputMaxSize','52428800'),
 ('13','sqlMaxSize','104857600'),
 ('14','reCAPTCHASiteKey','6Lc57HIUAAAAAIVxZM3_5vXLk5eOJCdDX6CzYTJb'),

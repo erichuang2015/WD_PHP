@@ -28,6 +28,11 @@ namespace MTsung{
 			$this->table = $table;
 			$this->checkTable();
 			// $this->redoData();
+			
+			//刪除超過30天的資料
+			$day = 30;
+			$rmDate = date('Y-m-d H:i:s',strtotime(DATE)-(86400*$day));
+			$this->conn->Execute("delete from ".$this->table." where create_date<'".$rmDate."'");
 		}
 
 		/**
