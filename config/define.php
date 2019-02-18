@@ -30,7 +30,6 @@
 		define('HTTP_PATH',HTTP.$_SERVER['HTTP_HOST'].WEB_PATH.'/');
 	}
 	define('CONTROLLER_PATH',APP_PATH.'controller/');
-	define('LANGUAGE_PATH',APP_PATH.'language/');
 	define('INCLUDE_PATH',APP_PATH.'include/');
 
 ?>

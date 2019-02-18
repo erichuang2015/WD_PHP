@@ -149,4 +149,6 @@
 	if(!is_dir(APP_PATH.DATA_PATH.'fonts/')) mkdir(APP_PATH.DATA_PATH.'fonts/');
 	if(!is_dir(APP_PATH.DATA_PATH.'svg/')) mkdir(APP_PATH.DATA_PATH.'svg/');
 	if(!is_dir(APP_PATH.DATA_PATH.'view/')) mkdir(APP_PATH.DATA_PATH.'view/');
+	
+	define('LANGUAGE_PATH',APP_PATH.DATA_PATH.'language/');
 ?>
