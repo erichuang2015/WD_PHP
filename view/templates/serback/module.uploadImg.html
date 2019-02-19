@@ -382,15 +382,15 @@
                     ({if isset($module.uploadImg[$_I_].suggestText)})
                         ({assign var=ratio value="*"|explode:$module.uploadImg[$_I_].suggestText})
                         ({if isset($ratio[1])})
-                            aspectRatio: ({$ratio[0]})/({$ratio[1]}),//固定比例 *
+                            aspectRatio: ({(int)$ratio[0]})/({(int)$ratio[1]}),//固定比例 *
                         ({else})
                             ({assign var=ratio value="x"|explode:$module.uploadImg[$_I_].suggestText})
                             ({if isset($ratio[1])})
-                                aspectRatio: ({$ratio[0]})/({$ratio[1]}),//固定比例 x
+                                aspectRatio: ({(int)$ratio[0]})/({(int)$ratio[1]}),//固定比例 x
                             ({else})
                                 ({assign var=ratio value=":"|explode:$module.uploadImg[$_I_].suggestText})
                                 ({if isset($ratio[1])})
-                                    aspectRatio: ({$ratio[0]})/({$ratio[1]}),//固定比例 :
+                                    aspectRatio: ({(int)$ratio[0]})/({(int)$ratio[1]}),//固定比例 :
                                 ({else})
                                     
                                 ({/if})

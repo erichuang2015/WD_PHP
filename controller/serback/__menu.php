@@ -84,6 +84,5 @@ $data["typeOption"] = array(
 	"googleMap" => "google地圖",
 	"search" => "搜尋模組",
 	"status" => "開關模組",
-	"youtube" => "youtube連結",
-	"address" => "地址選擇模組"
+	"youtube" => "youtube連結"
 );
