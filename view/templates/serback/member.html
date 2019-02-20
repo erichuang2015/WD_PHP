@@ -153,8 +153,83 @@
                                 <input type="email" name="email" class="form-control" value="({$data.one.email})" autocomplete="email" data-check="Email" data-text="({$console->getLabel('EMAIL')})" required>
                             </div>
                         </div>
-                        
-                        ({include "__field.html"})
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('ADDRESS')})</label>
+                                <div class="form-inline" id="twzipcode" ></div>
+                                <script>
+                                    $('#twzipcode').twzipcode({
+                                        'css': ['form-control', 'form-control'],
+                                        'countyName': 'address[0]',
+                                        'districtName': 'address[1]',
+                                        'zipcodeName': 'address[2]',
+                                        'zipcodeIntoDistrict': true,
+                                        'countySel'   : '({$data.one.address[0]})',
+                                        'districtSel' : '({$data.one.address[1]})',
+                                        'zipcodeSel' : '({$data.one.address[2]})'
+                                    });
+                                    // $('#twzipcode').find('select').attr('required', true);
+                                </script>
+                                <input type="text" name="address[3]" class="form-control" value="({$data.one.address[3]})">
+                            </div>
+                        </div>
+
+({assign var="addressI" value=0})
+({section name=i loop=$data.system.dataType})
+
+    ({if $data.system.dataType[i] == "text" || $data.system.dataType[i] == "date"})
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>({$console->getLabel($data.system.dataName[i])})</label>
+                <input type="text" name="({$data.system.dataKey[i]})" class="form-control" value="({$data.one[$data.system.dataKey[i]]})" data-text="({$console->getLabel($data.system.dataName[i])})">
+                <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
+            </div>
+        </div>
+    ({else if $data.system.dataType[i] == "select" || $data.system.dataType[i] == "radio" || $data.system.dataType[i] == "checkbox"})
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>({$console->getLabel($data.system.dataName[i])})</label>
+                <select name="({$data.system.dataKey[i]})" class="form-control" data-type="chosen" ({if $data.system.dataType[i] == "checkbox"})multiple({/if})>
+                    <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                    ({section name=j loop=$data.system.dataOption[i]})
+                        <option value="({$data.system.dataOption[i][j]})" ({if $data.one[$data.system.dataKey[i]]==$data.system.dataOption[i][j]})selected({/if})>({$data.system.dataOption[i][j]})</option>
+                    ({/section})
+                </select>
+            </div>
+        </div>
+    ({else if $data.system.dataType[i] == "address"})
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>({$console->getLabel($data.system.dataName[i])})</label>
+                <div class="form-inline" id="twzipcode({$addressI})"></div>
+                <script>
+                    $('#twzipcode({$addressI})').twzipcode({
+                        'css': ['form-control', 'form-control'],
+                        'countyName': '({$data.system.dataKey[i]})[0]',
+                        'districtName': '({$data.system.dataKey[i]})[1]',
+                        'zipcodeName': '({$data.system.dataKey[i]})[2]',
+                        'zipcodeIntoDistrict': true,
+                        'countySel'   : '({$data.one[$data.system.dataKey[i]][0]})',
+                        'districtSel' : '({$data.one[$data.system.dataKey[i]][1]})',
+                        'zipcodeSel' : '({$data.one[$data.system.dataKey[i]][2]})'
+                    });
+                    // $('#twzipcode({$addressI})').find('select').attr('required', true);
+                </script>
+                <input type="text" name="({$data.system.dataKey[i]})[3]" class="form-control" value="({$data.one[$data.system.dataKey[i]][3]})">
+            </div>
+        </div>
+        ({assign var="addressI" value=$addressI+1})
+    ({else if $data.system.dataType[i] == "date"})
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>({$console->getLabel($data.system.dataName[i])})</label>
+                <input type="date" name="({$data.system.dataKey[i]})" class="form-control" data-text="({$console->getLabel($data.system.dataName[i])})" value="({$data.one[$data.system.dataKey[i]]})" >
+                <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
+            </div>
+        </div>
+    ({/if})
+({/section})
                         
                         <div class="form-row">
                             <div class="col-md-4 mb-3">

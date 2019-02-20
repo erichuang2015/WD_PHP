@@ -234,7 +234,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-1 col-form-label">({$console->getLabel("DESHPRICE")})</label>
                                 <div class="col-sm-5">
-                                    <input type="text" readonly class="form-control" value="({$data.order.deshprice}) ({$console->getLabel("DESHPRICE_UNIT")})">
+                                    <input type="text" readonly class="form-control" value="({$data.order.deshprice})">
                                 </div>
                             </div>
                         ({/if})
@@ -416,6 +416,7 @@
                             </div>
                         </div>
 
+                        ({if isset($data.order.formData.CVSStoreID)})
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label">({$console->getLabel("PRINT_BILL")})</label>
                             <div class="col-sm-5">
@@ -431,6 +432,7 @@
                                 <small class="text-muted">({$console->getLabel('RE_CREATE_ORDER_SMALL')})</small>
                             </div>
                         </div>
+                        ({/if})
 
                         <hr>
                         ({if isset($data.order.formData.CVSStoreID)})
@@ -465,13 +467,6 @@
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverName})">
                             </div>
                         </div>
-
-<!--                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$console->getLabel("RECEIVER_PHONE")})</label>
-                            <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverPhone})">
-                            </div>
-                        </div> -->
                         
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label">({$console->getLabel("RECEIVER_CELLPHONE")})</label>
@@ -563,6 +558,16 @@
 
                         <hr>
 
+({if $data.system.dataType.0})
+    ({section name=i loop=$data.system.dataType})
+        <div class="form-group row">
+            <label class="col-sm-1 col-form-label">({$console->getLabel($data.system.dataName[i])})</label>
+            <div class="col-sm-5">
+                <input type="text" readonly class="form-control" value="({$data.order.formData[$data.system.dataKey[i]]|replace:'|__|':','})">
+            </div>
+        </div>
+    ({/section})
+({/if})
                         <small class="text-muted">
                             ({$console->getLabel('CREATE_DATE')})
                             ({$data.order.create_date});

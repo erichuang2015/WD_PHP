@@ -69,6 +69,8 @@ if(isset($_GET["ajax"]) && $_GET["ajax"]){
 }
 //ajax
 
+include_once(CONTROLLER_PATH.'serback/__about.php');
+
 //付款方式
 $paymentStatus = $order->getPaymentMethodArray();
 $data["paymentMethod"] = array();

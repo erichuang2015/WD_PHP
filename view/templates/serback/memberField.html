@@ -1,0 +1,100 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="list" href="#list-form-data">({$console->getLabel("DETAIL")})</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                <!-- 表單資料 -->
+                <div class="card-body tab-pane fade show active" id="list-form-data">
+                    <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_DATA')})" onclick="addFormData();">
+                    <div class="form-row form-inline" id="specifications_div" >
+                        <input type="hidden" name="dataName">
+                        <input type="hidden" name="dataKey">
+                        <input type="hidden" name="dataType">
+                        <input type="hidden" name="dataFa">
+                        <input type="hidden" name="dataOption">
+                        <input type="hidden" name="dataRequired">
+                        ({section name=i loop=$data.one.dataName})
+                            <div class="col-md-12 mb-3 specifications-div">
+                                <span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="({$data.one.dataName[i]})" required>
+                                <span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="({$data.one.dataKey[i]})" data-check="Only" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');" autocomplete="off">
+                                <span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">
+                                    ({foreach from=$data.typeOption key=k item=v})
+                                        <option value="({$k})" ({if $k==$data.one.dataType[i]})selected({/if})>({$console->getLabel($v)})</option>
+                                    ({/foreach})
+                                </select>
+                                
+                                <span class="option_div" ({if !($data.one.dataType[i]=="select" || $data.one.dataType[i]=="radio" || $data.one.dataType[i]=="checkbox")})style="display:none"({/if})>
+                                    <span> ({$console->getLabel('OPTION')})：</span><textarea class="form-control" name="dataOption[]" data-text="({$console->getLabel('OPTION')})" placeholder="data1,data2">({$data.one.dataOption[i]})</textarea>
+                                </span> 
+                                
+                                <span> ({$console->getLabel('REQUIRED')})：</span><select type="text" class="form-control" name="dataRequired[]">
+                                    <option value="0" ({if !$data.one.dataRequired[i]})selected({/if})>({$console->getLabel("_NO")})</option>
+                                    <option value="1" ({if $data.one.dataRequired[i]})selected({/if})>({$console->getLabel("_YES")})</option>
+                                </select>
+                                <span> fa：</span><input type="text" class="form-control" name="dataFa[]" value="({$data.one.dataFa[i]})">
+                                <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
+                            </div>
+                        ({/section})
+                    </div>
+                    <small class="text-muted">
+                        ({$console->getLabel('CREATE_DATE')})
+                        ({$data.one.create_date})(({$data.one.create_user}));
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                <script>
+                    var checkboxI=0;
+                    function addFormData(){
+                        $('#specifications_div').append(''+
+                        '<div class="col-md-12 mb-3 specifications-div">'+
+                            '<span> ({$console->getLabel('LANGUAGE_KEY')})：</span><input type="text" class="form-control" name="dataName[]" data-text="({$console->getLabel('LANGUAGE_KEY')})" value="" required>'+
+                            '<span> ({$console->getLabel('KEY')})：</span><input type="text" class="form-control" name="dataKey[]" data-text="({$console->getLabel('KEY')})" value="" data-check="Only" required autocomplete="off" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,\'\');" onblur="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,\'\');">'+
+                            '<span> ({$console->getLabel('TYPE')})：</span><select type="text" class="form-control" name="dataType[]" onchange="selectType(this);">'+
+                                ({foreach from=$data.typeOption key=k item=v})
+                                    '<option value="({$k})">({$console->getLabel($v)})</option>'+
+                                ({/foreach})
+                            '</select>'+
+                            '<span class="option_div" style="display:none">'+
+                                '<span> ({$console->getLabel('OPTION')})：</span><textarea class="form-control" name="dataOption[]" data-text="({$console->getLabel('OPTION')})" placeholder="data1,data2"></textarea>'+
+                            '</span> '+
+                            '<span> ({$console->getLabel('REQUIRED')})：</span><select type="text" class="form-control" name="dataRequired[]">'+
+                                '<option value="0">({$console->getLabel("_NO")})</option>'+
+                                '<option value="1">({$console->getLabel("_YES")})</option>'+
+                            '</select>'+
+                            '<span> fa：</span><input type="text" class="form-control" name="dataFa[]" value="">'+
+                            '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
+                        '</div>');
+                        checkboxI++;
+                    }
+                    $(function(){
+                        $('#specifications_div').sortable({
+                            animation: 200,
+                            items: '.specifications-div'
+                        });
+                    });
+                    function selectType(data){
+                        var temp = ["select","radio","checkbox"];
+                        if(temp.indexOf($(data).val())>-1){
+                            $(data).parent().find(".option_div").show();
+                        }else{
+                            $(data).parent().find(".option_div").hide();
+                        }
+                    }
+                </script>
+
+
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+({include file='foor.html'})

@@ -1,6 +1,10 @@
 <?php
 if($console->path[0]=="member"){
-	$temp = $menu->getData("where url='member' and (features!='' or features IS NOT NULL)");
+	$tempField = new MTsung\dataList($console,PREFIX."memberField","");
+	$temp = $tempField->getData();
+}else if($console->path[0]=="order"){
+	$tempField = new MTsung\dataList($console,PREFIX."orderField","");
+	$temp = $tempField->getData();
 }else{
 	$temp = $menu->getData("where url='".$console->path[0]."/".$console->path[1]."' and (features!='' or features IS NOT NULL)");
 	$designName = "__about";
@@ -14,6 +18,7 @@ if($temp){
 					"dataKey",
 					"dataCount",
 					"dataFa",
+					"dataOption",
 					"dataExtension",
 					"dataSearch",
 					"dataSuggestText",
@@ -26,6 +31,11 @@ if($temp){
 			$temp[$value] = explode("|__|", $temp[$value]);
 	}
 	
+	if(is_array($temp["dataOption"])){
+		foreach ($temp["dataOption"] as $key => $value) {
+			$temp["dataOption"][$key] = explode(",", $value);
+		}
+	}
 
 	$imgI = $fileI = $aceI = 0;
 	foreach ($temp["dataType"] as $key => $value) {

@@ -46,7 +46,7 @@ if($data["allow"]){
 
 //保留字
 $ReservedWord= array("id","name","urlKey","originalPrice","specialPrice","memberPrice","specificationsID","specifications","stock","maxCount","addProduct","addProductSpecifications","addProductMaxCount","addProductMoney","suggestProduct","sort","status","create_date","update_date","create_user","update_user","pictureAlt","pageTitle","pageMeta","next","point","account","password","groupID","fbID","fbName","fbEmail","fbPicture","googleID","googleName","googleEmail","googlePicture","lineID","lineName","lineEmail","linePicture","page");
-if(isset($_POST["dataKey"])){
+if(isset($_POST["dataKey"]) && is_array($_POST["dataKey"])){
 	foreach ($_POST["dataKey"] as $key => $value) {
 		if(in_array($value,$ReservedWord)){
 			$console->alert($console->getMessage("RESERVED_WORD",array($value)),-1);
@@ -64,7 +64,9 @@ $data["featuresList"] = array(
 	"class/product" => "商品分類",
 	"basic/product" => "商品",
 	"member" => "會員列表",
+	"memberField" => "會員自訂欄位",
 	"order" => "訂單列表",
+	"orderField" => "訂單自訂欄位",
 	"memberLog/member" => "帳號紀錄",
 	"setting/web" => "網站設定",
 	"setting/payment" => "付款方式設定",
@@ -78,7 +80,7 @@ $data["typeOption"] = array(
 	"textarea" => "多行文字欄位",
 	"color" => "顏色選擇欄位",
 	"date" => "日期選擇欄位",
-	"aceEditor" => "HTML編輯器",
+	"aceEditor" => "HTML編輯器",//<<打錯 其實是tinyMceEditor
 	"imageModule" => "上傳圖片模組",
 	"fileModule" => "上傳檔案模組",
 	"googleMap" => "google地圖",
