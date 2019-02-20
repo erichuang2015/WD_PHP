@@ -333,8 +333,17 @@
                             <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_DATA')})" onclick="addFormData();">
                             <div class="form-row form-inline" id="specifications_div" >
                                 <input type="hidden" name="dataName">
+                                <input type="hidden" name="dataKey">
                                 <input type="hidden" name="dataType">
+                                <input type="hidden" name="dataCount">
                                 <input type="hidden" name="dataOption">
+                                <input type="hidden" name="dataSearch">
+                                <input type="hidden" name="dataExtension">
+                                <input type="hidden" name="dataSuggestText">
+                                <input type="hidden" name="dataTextOther">
+                                <input type="hidden" name="dataTextOtherText">
+                                <input type="hidden" name="dataTextareaOther">
+                                <input type="hidden" name="dataTextareaOtherText">
                                 <input type="hidden" name="dataRequired">
                                 ({section name=i loop=$data.one.dataName})
                                     <div class="col-md-12 mb-3 specifications-div">

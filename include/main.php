@@ -1069,6 +1069,8 @@ namespace MTsung{
 		 * 換行轉<br>
 		 * @param  [type] $text [description]
 		 * @return [type]       [description]
+		 *
+		 * 可棄用 使用 nl2br
 		 */
 		function newline($text){
 			return str_replace("\n","<br>",str_replace("\r\n","<br>",$text));
