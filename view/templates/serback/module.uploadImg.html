@@ -316,15 +316,16 @@
         // }
     </script>
 
-    <div id="dropDIV({$_I_})" ondragover="dragoverHandler({$_I_})(event)" ondrop="dropHandler({$_I_})(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" onclick="document.getElementById('ff({$_I_})').click();" ({if $module.uploadImg[$_I_].max<=1})style="display: none;"({/if})>
+    <div id="dropDIV({$_I_})" ondragover="dragoverHandler({$_I_})(event)" ondrop="dropHandler({$_I_})(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" onclick="document.getElementById('ff({$_I_})').click();" >
+        <!-- ({if $module.uploadImg[$_I_].max<=1})style="display: none;"({/if}) -->
         ({$label_back.IMG_DROP})
         ({if isset($module.uploadImg[$_I_].suggestText)})
         <br>({$label_back.SUGGEST_SIZE})({$module.uploadImg[$_I_].suggestText})
         ({/if})
         <div id="up_progress({$_I_})"></div>
         ({if $module.uploadImg[$_I_].max>1})
-            <input type="file" class="form-control-file" id="ff({$_I_})" multiple onchange="dropHandler({$_I_})('',0);" style="display: none;" />
         ({/if})
+            <input type="file" class="form-control-file" id="ff({$_I_})" multiple onchange="dropHandler({$_I_})('',0);" style="display: none;" />
     </div>
     <input type="hidden" name="({$module.uploadImg[$_I_].name})" value="">
     ({if isset($module.uploadImg[$_I_].textOther)})
@@ -334,10 +335,10 @@
     ({/if})
     <div id="imgDIV({$_I_})"></div>
     ({if $module.uploadImg[$_I_].max<=1})
-        <div class="custom-file">
+        <!-- <div class="custom-file">
             <input type="file" class="custom-file-input" id="ff({$_I_})" onchange="dropHandler({$_I_})('',0);">
             <label class="custom-file-label" for="ff({$_I_})">({$label_back.CHANGE_FILE})</label>
-        </div>
+        </div> -->
     ({/if})
 
     <!-- 剪裁 -->

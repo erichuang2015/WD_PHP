@@ -1,0 +1,123 @@
+({literal})
+網址/({$console->path[0]})/({$console->path[1]})/.....類推
+path[0] = 別名
+path[0] 不含語系代碼
+
+語系label取得方式 ({$console->getLabel("設定的label代碼")})
+
+
+列表資料取得(列表需要圖片的話用限制1張)
+({section name=i loop=$data.list})
+	有分類的網址 = ({$web.main_url})/({$console->path[0]})/({$data.list[i].class.0.urlKey})/({$data.list[i].urlKey})
+			或  = ({$web.main_url})/({$console->path[0]})/detail/({$data.list[i].urlKey})
+
+	沒分類的網址 = ({$web.main_url})/({$console->path[0]})/({$data.list[i].urlKey})
+({/section})
+
+
+選擇的資料
+({$data.one.name})
+({$data.one.class.0}) << 會自動代入class資料
+
+取得分類(列表需要圖片的話用限制1張)
+({section name=i loop=$data.class})
+
+({/section})
+
+所有分類
+網址/$console->path[0]/all
+
+選擇的class
+({$data.oneClass.name})
+
+
+
+其他資料選擇 假設是選about
+
+({$data.about.0})  << 一定是array
+
+(其他資料會帶出全部 沒分頁)
+
+如果要全部頁面都取得的資料 在top.html的其他資料選取
+
+----------------------------------------
+
+後台是使用textarea時前台輸出使用 ({變數|nl2br})
+套用時發現html tag直接顯示出來的話使用 ({變數|htmlspecialchars_decode})
+
+如果有時間要formate 
+年
+({變數|date_format:"%Y"}) 2019
+({變數|date_format:"%y"}) 19
+月
+({變數|date_format:"%b"}) JAN
+({變數|date_format:"%m"}) 01
+日
+({變數|date_format:"%d"}) 31
+
+----------------------------------------
+
+圖片的縮圖 
+({變數_min})
+
+youtube的縮圖
+({變數_img})
+
+換頁變數
+({$data.page})
+
+字數限制
+({變數|truncate:數字:"替代文字":true})
+
+
+----------------------------------------
+檔案/圖片 上傳 單/多 行自定欄位
+
+假設設定picture
+Alt,Href
+
+使用時是用
+picture[i]
+pictureAlt[i]
+pictureHref[i]
+----------------------------------------
+
+({section name=i loop=$data.class})
+    <li><a href="({$web.main_url})/({$console->path[0]})/({$data.class[i].urlKey})" ({if $data.class[i].id==$data.oneClass.id})class="current"({/if})>({$data.class[i].name})</a></li>
+
+    下一層 
+    ({section name=j loop=$data.class[i].next})
+	    下下一層 
+	    ({section name=k loop=$data.class[i].next[j].next})
+	    	....
+		({/section})
+	({/section})
+
+({/section})
+
+
+
+----------------------------------------
+
+表單引入
+({include "module/form.html"})
+
+FB 留言討論 外掛
+({include "module/fbComments.html"})
+
+FB 讚 分享網址 外掛
+({include "module/fbLike.html"})
+
+FB 聊天室 外掛
+({include "module/fbMsg.html"})
+
+FB 儲存連結 外掛
+({include "module/fbSave.html"})
+
+崁入FB影片 外掛
+({$data.one.fbVideo}) << 是抓取這個變數
+({include "module/fbVideo.html"})
+
+GOOGLE翻譯 外掛
+({include "module/googleTranslate.html"})
+({/literal})

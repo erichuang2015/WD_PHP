@@ -299,15 +299,16 @@
         // }
     </script>
 
-    <div id="dropFileDIV({$_I_})" ondragover="dragoverHandlerFile({$_I_})(event)" ondrop="dropHandlerFile({$_I_})(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" onclick="document.getElementById('ff1({$_I_})').click();" ({if $module.uploadFile[$_I_].max<=1})style="display: none;"({/if})>
+    <div id="dropFileDIV({$_I_})" ondragover="dragoverHandlerFile({$_I_})(event)" ondrop="dropHandlerFile({$_I_})(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" onclick="document.getElementById('ff1({$_I_})').click();" >
+        <!-- ({if $module.uploadFile[$_I_].max<=1})style="display: none;"({/if}) -->
         ({$console->getLabel("FILE_DROP")})
         ({if isset($module.uploadFile[$_I_].suggestText)})
         <br>({$module.uploadFile[$_I_].suggestText})
         ({/if})
         <div id="up_progressFile({$_I_})"></div>
         ({if $module.uploadFile[$_I_].max>1})
-            <input type="file" class="form-control-file" id="ff1({$_I_})" multiple onchange="dropHandlerFile({$_I_})('',0);" style="display: none;" />
         ({/if})
+            <input type="file" class="form-control-file" id="ff1({$_I_})" multiple onchange="dropHandlerFile({$_I_})('',0);" style="display: none;" />
     </div>
     <input type="hidden" name="({$module.uploadFile[$_I_].name})" value="">
     ({if isset($module.uploadFile[$_I_].textOther)})
@@ -317,10 +318,10 @@
     ({/if})
     <div id="fileDIV({$_I_})"></div>
     ({if $module.uploadFile[$_I_].max<=1})
-        <div class="custom-file">
+        <!-- <div class="custom-file">
             <input type="file" class="custom-file-input" id="ff1({$_I_})" onchange="dropHandlerFile({$_I_})('',0);">
             <label class="custom-file-label" for="ff1({$_I_})">({$console->getLabel("CHANGE_FILE")})</label>
-        </div>
+        </div> -->
     ({/if})
 
     <!-- 上傳圖片模組 end -->

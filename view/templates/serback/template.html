@@ -13,10 +13,16 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("EDIT")})</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-test">({$console->getLabel("TEST")})</a>
+                        </li>
                     ({/if})
                     ({if $switch.addList!=0})
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="list" href="#list-add">({$console->getLabel("ADD")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-test">({$console->getLabel("TEST")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -163,7 +169,13 @@
                             </div>
                         </div>
                     ({/if})
-
+                    <div class="card-body tab-pane fade" id="list-test">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" readonly rows="60">({include file="description"})</textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </div>
     </div>
