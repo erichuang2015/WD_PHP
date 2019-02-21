@@ -58,8 +58,6 @@
 	//必填欄位
 	$requiredArray = array_merge(array("name","email"),$data["system"]["dataRequiredKey"]);
 
-	print_r($checkArray);exit;
-
 
 
 	switch ($type) {
@@ -357,4 +355,6 @@
 
 	$designName = $console->path[0]."_".$type;
 
-?>
+
+
+	print_r($data);exit;
