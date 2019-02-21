@@ -4,6 +4,7 @@
 !/images/GOOGLE_LOGO.png
 !/images/LINE_LOGO.png
 !/images/ProfilePicture.jpg
+!/images/nodata.jpg
 /upload/*
 !/upload/.htaccess
 /output
