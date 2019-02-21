@@ -22,46 +22,96 @@
 	}
 	
 
+	$tempField = new MTsung\dataList($console,PREFIX."memberField","");
+	if($tempSystem = $tempField->getData()){
+		$tempSystem = $tempSystem[0];
+		foreach (array(
+						"dataName",
+						"dataType",
+						"dataKey",
+						"dataCount",
+						"dataFa",
+						"dataRequired",
+						"dataOption",
+					) as $key => $value) {
+				$tempSystem[$value] = explode("|__|", $tempSystem[$value]);
+		}
+		
+		if(is_array($tempSystem["dataOption"])){
+			foreach ($tempSystem["dataOption"] as $key => $value) {
+				$tempSystem["dataOption"][$key] = explode(",", $value);
+			}
+		}
+
+		$data["system"] = $tempSystem;
+
+		//必填欄位
+		foreach ($data["system"]["dataKey"] as $key => $value) {
+			if($data["system"]["dataRequired"][$key]){
+				$data["system"]["dataRequiredKey"][] = $value;
+			}
+		}
+	}
+
+	//白名單欄位
+	$checkArray = array_merge(array("name","email"),$data["system"]["dataKey"]);
+	//必填欄位
+	$requiredArray = array_merge(array("name","email"),$data["system"]["dataRequiredKey"]);
+
+	print_r($checkArray);exit;
+
+
+
 	switch ($type) {
 
 		case 'join':
 
 			//前往註冊頁面 帶資料
-			// if(isset($_GET["socialLogin"]) && isset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN'])){
-			// 	if(!$_POST){
-			// 		$console->alert($console->getMessage("JOIN_IN_SOCIAL"),"NO");
-			// 	}
-			// 	$data["socialData"] = $_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN'];
+			if(isset($_GET["socialLogin"]) && isset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN'])){
+				if(!$_POST){
+					$console->alert($console->getMessage("JOIN_IN_SOCIAL"),"NO");
+				}
+				$data["socialData"] = $_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN'];
 
-			// 	if($_POST){
-			// 		$socialName = strtolower($_GET['socialLogin']);
-			// 		$_POST[$socialName."ID"] = $data["socialData"]["id"];
-			// 		$_POST[$socialName."Name"] = $data["socialData"]["name"];
-			// 		$_POST[$socialName."Email"] = $data["socialData"]["email"];
-			// 		$_POST[$socialName."Picture"] = $data["socialData"]["picture"];
-			// 		if (!$_POST["email"]) {
-			// 			$_POST["email"] = $_POST["account"];
-			// 		}
-			// 		unset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']);
-			// 		$_POST["emailCheck"] = MTsung\emailCheckType::CHECK_OK;
+				if($_POST){
+					$socialName = strtolower($_GET['socialLogin']);
+					$_POST[$socialName."ID"] = $data["socialData"]["id"];
+					$_POST[$socialName."Name"] = $data["socialData"]["name"];
+					$_POST[$socialName."Email"] = $data["socialData"]["email"];
+					$_POST[$socialName."Picture"] = $data["socialData"]["picture"];
+					if (!$_POST["email"]) {
+						$_POST["email"] = $_POST["account"];
+					}
+					unset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']);
 
-			// 		if($member->addUser($_POST,false) === true){
-			// 			$member->login($_POST['account'],$_POST['password']);
-			// 			$console->alert($member->message,MEMBER_PATH.'detail');
-			// 		}else{
-			// 			$console->alert($member->message,-1);
-			// 		}
-			// 	}
-			// }
+					$checkArray = array_merge(
+						$checkArray,
+						array(
+							"emailCheck",
+							$socialName."ID",
+							$socialName."Name",
+							$socialName."Email",
+							$socialName."Picture"
+						)
+					);
+
+					if($member->addUser($_POST,MTsung\emailCheckType::CHECK_OK,$checkArray,$requiredArray) === true){
+						$member->login($_POST['account'],$_POST['password']);
+						$console->alert($member->message,MEMBER_PATH.'detail');
+					}else{
+						$console->alert($member->message,-1);
+					}
+				}
+			}
 
 			if($_POST){
 				if (!$_POST["email"]) {
 					$_POST["email"] = $_POST["account"];
 				}
-				if($member->addUser($_POST,$console->webSetting->getValue("emailCheck")) === true){
+				if($member->addUser($_POST,$console->webSetting->getValue("emailCheck"),$checkArray,$requiredArray) === true){
 					$temp = $member->login($_POST['account'],$_POST['password']);
 					if($temp === true){
-						$console->linkTo($link);
+						$console->linkTo(MEMBER_PATH.'detail');
 					}else{
 						$member->checkEmail($temp,MEMBER_PATH."login");
 					}
@@ -125,8 +175,17 @@
 					// if (!$info["account"]) {
 					// 	$info["account"] = $info[$socialName."ID"];
 					// }
-
-					// if($member->addUser($info,false) === true){
+					// $checkArray = array_merge(
+					// 	$checkArray,
+					// 	array(
+					// 		"emailCheck",
+					// 		$socialName."ID",
+					// 		$socialName."Name",
+					// 		$socialName."Email",
+					// 		$socialName."Picture"
+					// 	)
+					// );
+					// if($member->addUser($info,false,$checkArray) === true){
 					// 	$member->login($info['account'],$info['password']);
 					// 	$console->alert($member->message,MEMBER_PATH.'detail');
 					// }else{
@@ -140,7 +199,7 @@
 					// }
 
 					//前往註冊頁面 帶資料
-					// $console->linkTo(MEMBER_PATH."join?".explode("?",$_SERVER["REQUEST_URI"])[1]);
+					$console->linkTo(MEMBER_PATH."join?".explode("?",$_SERVER["REQUEST_URI"])[1]);
 				}
 
 				unset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']);
@@ -164,7 +223,10 @@
 		case 'detail':
 
 			if($_POST){
-				$temp = $member->setUser($member->getInfo("id"),$_POST,array('name','phone','address'),array('name','phone','address'));
+				if (!$_POST["email"]) {
+					$_POST["email"] = $_POST["account"];
+				}
+				$temp = $member->setUser($member->getInfo("id"),$_POST,$checkArray,$requiredArray);
 				if($temp){
 					$console->alert($member->message,MEMBER_PATH.$type);
 				}else{
@@ -195,12 +257,12 @@
 		case 'password':
 
 			if($_POST){
-				if(true === $member->login($member->getInfo("account"),$_POST['password'])){
+				// if(true === $member->login($member->getInfo("account"),$_POST['password'])){
 					$temp = $member->setUser($member->getInfo("id"),$_POST,array('checkNewPassword','newPassword'),array('checkNewPassword','newPassword'));
 					if($temp){
 						$console->alert($member->message,MEMBER_PATH.$type);
 					}
-				}
+				// }
 				$console->alert($member->message,-1);
 			}
 

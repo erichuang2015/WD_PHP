@@ -27,12 +27,19 @@
 	include_once(APP_PATH.'class/watermark.class.php');				//浮水印
 	include_once(APP_PATH.'class/imgCompress.class.php');			//圖片壓縮
 	include_once(APP_PATH.'class/ECPay.class.php');					//綠界
-	include_once(APP_PATH.'class/ECPayLog.class.php');				//綠界
+	include_once(APP_PATH.'class/ECPayLog.class.php');				//綠界log
+
+	include_once(APP_PATH.'class/pay.class.php');					//金流
+	include_once(APP_PATH.'class/payLog.class.php');				//金流log
+	include_once(APP_PATH.'class/payFisc.class.php');				//財金公司國際
+
 	include_once(APP_PATH.'class/csv.class.php');					//csv
 	include_once(APP_PATH.'class/analytics.class.php');				//analytics
 	include_once(APP_PATH.'class/cPanel.class.php');				//cPanel
 	include_once(APP_PATH.'class/fcm.class.php');					//fcm 推播
 	include_once(APP_PATH.'include/main.php');						//核心
+
+
 
 	$design = new MTsung\design();
 	$console = new MTsung\main($conn,$design,$setting);

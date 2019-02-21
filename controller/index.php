@@ -9,6 +9,9 @@
 		if(is_file($fileName)){
 			$console->HTTPStatusCode("301",HTTP_PATH.$fileName);
 		}else{
+			if(is_file(APP_PATH."images/nodata.jpg")){
+				$console->HTTPStatusCode("301",HTTP_PATH."images/nodata.jpg");
+			}
 			$console->to404($data);
 		}
 		exit;
