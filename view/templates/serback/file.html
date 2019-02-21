@@ -35,7 +35,7 @@
                         }
                     </style>
                         <div class="card-body tab-pane fade show active" id="list-list">
-                            <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" style="border:dashed 5px gray;"  onclick="document.getElementById('ff({$_I_})').click();">({$console->getLabel("FILE_DROP")})
+                            <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)" ondragenter="this.style.border = 'dashed 5px orange';" ondragleave="this.style.border = 'dashed 5px gray';" style="border:dashed 5px gray;"  onclick="document.getElementById('ff({$_I_})').click();">({$console->getLabel("FILE_DROP")})<br>Zip file is automatically decompressed.
                             <div id="up_progress"></div></div>
                             <input type="file" class="form-control-file" id="ff" multiple onchange="dropHandler('',0);" style="display: none;" />
                             <table class="table table-striped">

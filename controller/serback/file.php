@@ -48,16 +48,24 @@ if($_FILES){
 				continue;
 			}
 
-			if(!preg_match("/[^a-zA-Z0-9_\-~@. +]/",$value1)){
-				move_uploaded_file($value["tmp_name"][$key1],$dirPath."/".$value1);
+
+			if (strtolower($MIME)=='zip'){//解壓縮
+				include_once(APP_PATH."include/pclzip/pclzip.lib.php");
+				$pclZip = new PclZip($value["tmp_name"][$key1]);
+				$pclZip->extract(PCLZIP_OPT_PATH,$dirPath."/");
 			}else{
-                $destination = $dirPath."/".str_replace('.',"",microtime(true)).".".$MIME;
-                $i=0;//避免無窮迴圈
-                while(is_file($destination) && ($i++)<10000){
-                	$destination = $dirPath."/".str_replace('.',"",microtime(true)).".".$MIME;
-                }
-				move_uploaded_file($value["tmp_name"][$key1],$destination);
+				if(!preg_match("/[^a-zA-Z0-9_\-~@. +]/",$value1)){
+					move_uploaded_file($value["tmp_name"][$key1],$dirPath."/".$value1);
+				}else{
+	                $destination = $dirPath."/".str_replace('.',"",microtime(true)).".".$MIME;
+	                $i=0;//避免無窮迴圈
+	                while(is_file($destination) && ($i++)<10000){
+	                	$destination = $dirPath."/".str_replace('.',"",microtime(true)).".".$MIME;
+	                }
+					move_uploaded_file($value["tmp_name"][$key1],$destination);
+				}
 			}
+
 		}
 	}
 	exit;
@@ -110,6 +118,7 @@ if(!is_dir($dirPath)){//編輯
     		if(!in_array($member->getInfo("account"),$allowUser)){
 				$console->alert($console->getMessage("MIME_ERROR"),-1);
     		}
+    	case 'sql':
     	case 'text':
     	case 'txt':
     	case 'html':
@@ -154,8 +163,8 @@ if(!is_dir($dirPath)){//編輯
     			// $temp["date"] = date("Y-m-d H:i:s", filemtime($allPath));
     			$temp["isImg"] = false;
     		}else{
-    			$temp["size"] = $console->formatSize(filesize($allPath));
-    			$temp["date"] = date("Y-m-d H:i:s", filemtime($allPath));
+    			$temp["size"] = @$console->formatSize(filesize($allPath));
+    			$temp["date"] = @date("Y-m-d H:i:s", filemtime($allPath));
     			$temp["isImg"] = isImage($allPath);
     		}
     		$data["list"][] = $temp;
@@ -166,6 +175,9 @@ if(!is_dir($dirPath)){//編輯
 	    return ($a['isDir'] < $b['isDir']) ? 1 : -1;
 	});
     closedir ($dh);
+    if($data["list"][0]["name"]!="../" && $console->path[1]){
+    	array_unshift($data["list"],array("isDir" => true,"name" => "../"));
+    }
 
     $data["dirPath"] = $dir;
 	$switch["deleteButton"] = 1;
