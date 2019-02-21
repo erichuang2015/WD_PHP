@@ -14,7 +14,15 @@
 			}
 			$console->to404($data);
 		}
-		exit;
+	}
+	if($console->path[0] == "data"){
+		$fileName = APP_PATH.explode("?",substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI'])))[0];
+		if(!is_file($fileName)){
+			if(is_file(APP_PATH."images/nodata.jpg")){
+				$console->HTTPStatusCode("301",HTTP_PATH."images/nodata.jpg");
+			}
+			$console->to404($data);
+		}
 	}
 
 
