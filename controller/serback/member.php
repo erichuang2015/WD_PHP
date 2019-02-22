@@ -50,6 +50,21 @@ if(isset($console->path[1])){
 								}
 							}
 						}
+
+						//定單列表
+						$order = new MTsung\shoppingCart($console,$memberList,'',PREFIX."shopping_cart",$settingLang);
+						$data["one"]["orderList_"] = $order->getData("where step>1 and memberId=? and status=1 order by orderNumber desc",array($data["one"]["id"]));
+						$data["shipmentTitle"] = $order->getShipmentTitle();
+						$data["shipmentStatus"] = array(
+							MTsung\shipmentStatusType::NO => "<font color='red'>".$console->getLabel("SHIPMENT_STATUS_TYPE_NO")."</font>",
+							MTsung\shipmentStatusType::OK => "<font color='blue'>".$console->getLabel("SHIPMENT_STATUS_TYPE_OK")."</font>",
+						);
+						$data["paymentTitle"] = $order->getPaymentTitle();
+						$data["paymentStatus"] = array(
+							MTsung\paymentStatusType::NO => "<font color='red'>".$console->getLabel("PAYMENT_STATUS_TYPE_NO")."</font>",
+							MTsung\paymentStatusType::OK => "<font color='blue'>".$console->getLabel("PAYMENT_STATUS_TYPE_OK")."</font>",
+						);
+
 					}else{
 						$console->alert($memberList->message,$data["listUrl"]);
 					}

@@ -13,6 +13,11 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="list" href="#list-edit">({$console->getLabel("DETAIL")})</a>
                         </li>
+                        ({if $switch.editList!=0})
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="list" href="#list-order">({$console->getLabel("ORDERS")})</a>
+                            </li>
+                        ({/if})
                     ({/if})
                 </ul>
             </div>
@@ -250,6 +255,36 @@
                             ({$data.one.update_date})(({$data.one.update_user}))
                         </small>
                     </div>
+                    ({if $switch.editList!=0})
+
+                        <div class="card-body tab-pane fade" id="list-order">
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">({$console->getLabel("ORDER_NUMBER")})</th>
+                                        <th scope="col">({$console->getLabel("PAYMENT_METHOD")})</th>
+                                        <th scope="col">({$console->getLabel("SHIPMENT_METHOD")})</th>
+                                        <th scope="col">({$console->getLabel("PAYMENT_STATUS")})</th>
+                                        <th scope="col">({$console->getLabel("SHIPMENT_STATUS")})</th>
+                                        <th scope="col">({$console->getLabel("TOTAL")})</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ({section name=i loop=$data.one.orderList_})
+                                        <tr>
+                                            <td ><a href="({$web.serback_url})/order/edit/({$data.one.orderList_[i].id})">({$data.one.orderList_[i].orderNumber})</a></td>
+                                            <td >({$data["paymentTitle"][$data.one.orderList_[i].paymentMethod]})</td>
+                                            <td >({$data["shipmentTitle"][$data.one.orderList_[i].shipmentMethod]})</td>
+                                            <td >({$data["paymentStatus"][$data.one.orderList_[i].paymentStatus]})</td>
+                                            <td >({$data["shipmentStatus"][$data.one.orderList_[i].shipmentStatus]})</td>
+                                            <td >$ ({$data.one.orderList_[i].total+$data.one.orderList_[i].freight})</td>
+                                        </tr>
+                                    ({/section})
+                                </tbody>
+                            </table>
+                        </div>
+                    ({/if})
                 ({/if})
 
             </div>
