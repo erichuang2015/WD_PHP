@@ -76,6 +76,9 @@ if($_POST && $console->path[count($console->path)-1]=="delete" && isset($_POST["
 	$data["listUrl"] = str_replace('/delete',"/",$data["listUrl"]);
 	$dirPath = str_replace('/delete',"/",$dirPath);
 	foreach ($_POST["checkElement"] as $key => $value) {
+		if(strpos($value,'../')!==false || strpos($value,'..\\')!==false){
+			continue;
+		}
 		if(is_dir($dirPath.$value)){
 			delTree($dirPath.$value);
 		}else{
