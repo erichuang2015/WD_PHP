@@ -198,8 +198,10 @@
                             $(function(){
                                 ({if $console->path[0]=="form"})
                                     $('.ui-sortable tr').find("td:eq(1),td:eq(2),td:eq(3),td:eq(4),td:eq(5)").unhighlight().highlight("({$smarty.get.searchKeyWord})".split(" "));
-                                ({else})
+                                ({else if $console->path[0]=="member"})
                                     $('.ui-sortable tr').find("td:eq(1),td:eq(2),td:eq(3)").unhighlight().highlight("({$smarty.get.searchKeyWord})".split(" "));
+                                ({else})
+                                    $('.ui-sortable tr').find("td:eq(1)").unhighlight().highlight("({$smarty.get.searchKeyWord})".split(" "));
                                 ({/if})
                             });
                         </script>

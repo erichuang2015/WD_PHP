@@ -205,7 +205,7 @@ if(isset($console->path[1])){
 	}
 
 
-	$searchKey = array("orderNumber");
+	$searchKey = array("orderNumber","formData");
 	$data["list"] = $order->getListData($sql." and step>1 order by orderNumber desc",$searchKey);
 	$data["total"] = (int)$console->conn->getRow("select sum(total+freight) from ".$order->table." ".$order->getSqlWhere($searchKey).$sql." and step>1")[0];
 

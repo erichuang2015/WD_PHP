@@ -295,11 +295,11 @@ namespace MTsung{
 				}
 				
 				if($_GET["startDate"]){
-					$sql .= " and create_date>'".$_GET["startDate"]."' ";
+					$sql .= " and update_date>'".$_GET["startDate"]."' ";
 				}
 
 				if($_GET["endDate"]){
-					$sql .= " and create_date<'".$_GET["endDate"]."' ";
+					$sql .= " and update_date<'".$_GET["endDate"]."' ";
 				}
 
 				if($_GET["status"] != ''){
