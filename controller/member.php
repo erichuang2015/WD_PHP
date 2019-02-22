@@ -21,7 +21,7 @@
 		exit;
 	}
 	
-
+	//自訂欄位
 	$tempField = new MTsung\dataList($console,PREFIX."memberField","");
 	if($tempSystem = $tempField->getData()){
 		$tempSystem = $tempSystem[0];
@@ -43,20 +43,20 @@
 			}
 		}
 
-		$data["system"] = $tempSystem;
+		$data["otherField"] = $tempSystem;
 
 		//必填欄位
-		foreach ($data["system"]["dataKey"] as $key => $value) {
-			if($data["system"]["dataRequired"][$key]){
-				$data["system"]["dataRequiredKey"][] = $value;
+		foreach ($data["otherField"]["dataKey"] as $key => $value) {
+			if($data["otherField"]["dataRequired"][$key]){
+				$data["otherField"]["dataRequiredKey"][] = $value;
 			}
 		}
 	}
 
 	//白名單欄位
-	$checkArray = array_merge(array("name","email"),$data["system"]["dataKey"]);
+	$checkArray = array_merge(array("name","email"),$data["otherField"]["dataKey"]);
 	//必填欄位
-	$requiredArray = array_merge(array("name","email"),$data["system"]["dataRequiredKey"]);
+	$requiredArray = array_merge(array("name","email"),$data["otherField"]["dataRequiredKey"]);
 
 
 

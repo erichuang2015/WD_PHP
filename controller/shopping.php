@@ -158,6 +158,43 @@
 	}
 	//ajax
 
+
+	//自訂欄位
+	$tempField = new MTsung\dataList($console,PREFIX."orderField","");
+	if($tempSystem = $tempField->getData()){
+		$tempSystem = $tempSystem[0];
+		foreach (array(
+						"dataName",
+						"dataType",
+						"dataKey",
+						"dataCount",
+						"dataFa",
+						"dataRequired",
+						"dataOption",
+					) as $key => $value) {
+				$tempSystem[$value] = explode("|__|", $tempSystem[$value]);
+		}
+		
+		if(is_array($tempSystem["dataOption"])){
+			foreach ($tempSystem["dataOption"] as $key => $value) {
+				$tempSystem["dataOption"][$key] = explode(",", $value);
+			}
+		}
+
+		$data["otherField"] = $tempSystem;
+
+		//必填欄位
+		foreach ($data["otherField"]["dataKey"] as $key => $value) {
+			if($data["otherField"]["dataRequired"][$key]){
+				$data["otherField"]["dataRequiredKey"][] = $value;
+			}
+		}
+	}
+
+	//必填欄位
+	$requiredArray = array_merge(array("ReceiverName","BuyName","ReceiverEmail","BuyEmail","ReceiverAddress","BuyAddress","ReceiverCellPhone","BuyPhone"),$data["otherField"]["dataRequiredKey"]);
+
+
 	switch ($step) {
 		case '1':
 			break;
