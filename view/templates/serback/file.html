@@ -149,4 +149,9 @@
     </div>
     ({$console->getToken()})
 </form>
+({if $switch.listList!=0})
+    <nav class="navbar">
+        　({$data.pageNumber->getHTML('bootstrap')})
+    </nav>
+({/if})
 ({include file='foor.html'})

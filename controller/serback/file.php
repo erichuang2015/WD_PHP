@@ -182,6 +182,17 @@ if(!is_dir($dirPath)){//編輯
     	array_unshift($data["list"],array("isDir" => true,"name" => "../"));
     }
 
+    if($data["list"]){
+		$data["pageNumber"] = $pageNumber = new MTsung\pageNumber($console,$data["list"],5);
+	    $temp = array();
+	    $end = $pageNumber->getDataStart()+$pageNumber->getPer();
+	    $end = ($end>$pageNumber->getDataCount())?$pageNumber->getDataCount():$end;
+	    for ($i = $pageNumber->getDataStart(); $i < $end ; $i++) { 
+	    	$temp[] = $data["list"][$i];
+	    }
+	    $data["list"] = $temp;
+    }
+
     $data["dirPath"] = $dir;
 	$switch["deleteButton"] = 1;
 	$switch["listList"] = 1;

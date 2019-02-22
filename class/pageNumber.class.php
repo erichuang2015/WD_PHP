@@ -28,17 +28,22 @@ namespace MTsung{
 			$this->pageViewMax = $pageViewMax;
 			$this->queryName = $queryName; 
 
-			// 取得筆數
-			if(!strpos($sql,'count(*)')){
-				$sql = str_replace('*','count(*)',$sql);
-			}
+			//不是sql的話
+			if(is_array($sql)){
+    			$this->dataCount = count($sql);
+			}else{
+				// 取得筆數
+				if(!strpos($sql,'count(*)')){
+					$sql = str_replace('*','count(*)',$sql);
+				}
 
-			if($temp = $this->conn->GetArray($sql)){
-    			if(count($temp)>1){
-    				$this->dataCount = count($temp);
-    			}else{
-    				$this->dataCount = $temp[0][0];
-    			}
+				if($temp = $this->conn->GetArray($sql)){
+	    			if(count($temp)>1){
+	    				$this->dataCount = count($temp);
+	    			}else{
+	    				$this->dataCount = $temp[0][0];
+	    			}
+				}
 			}
 			if($this->per == 0){
 				$this->per = $this->dataCount;
