@@ -41,7 +41,10 @@
 			exit;
 		}
 
-		$_SESSION[FRAME_NAME]["rmSrc"][] = str_replace(WEB_PATH."/".UPLOAD_PATH,"",$_GET['rmSrc']);
+		$_GET["rmSrc"] = str_replace(WEB_PATH,"",$_GET["rmSrc"]);
+		$_GET["rmSrc"] = str_replace(DATA_PATH,"",$_GET["rmSrc"]);
+		$_GET["rmSrc"] = str_replace('upload/',"",$_GET["rmSrc"]);
+		$_SESSION[FRAME_NAME]["rmSrc"][] = $_GET['rmSrc'];
 		echo true;
 		exit;
 
@@ -338,7 +341,10 @@
 			$_GET['src'] = str_replace('../',"",$_GET['src']);
 			$_GET['src'] = str_replace('..\\',"",$_GET['src']);
 		}
-		$_GET['src'] = $path = APP_PATH.DATA_PATH.$_GET['src'];
+		$_GET['src'] = str_replace(WEB_PATH,"",$_GET['src']);
+		$_GET['src'] = str_replace(DATA_PATH,"",$_GET['src']);
+		$_GET['src'] = str_replace('upload/',"",$_GET['src']);
+		$_GET['src'] = $path = APP_PATH.DATA_PATH."upload/".$_GET['src'];
 
 		$temp = explode(".",$_GET["src"]);
 		$type = strtolower(end($temp));
