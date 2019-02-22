@@ -183,7 +183,7 @@ if(!is_dir($dirPath)){//編輯
     }
 
     if($data["list"]){
-		$data["pageNumber"] = $pageNumber = new MTsung\pageNumber($console,$data["list"],5);
+		$data["pageNumber"] = $pageNumber = new MTsung\pageNumber($console,$data["list"],40);
 	    $temp = array();
 	    $end = $pageNumber->getDataStart()+$pageNumber->getPer();
 	    $end = ($end>$pageNumber->getDataCount())?$pageNumber->getDataCount():$end;
