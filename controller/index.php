@@ -40,7 +40,7 @@
 		}
 		$temp = $tempSort;
 		foreach ($temp as $key => $value) {
-			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && (!$web_set["titlePrefix"] || ($web_set["titlePrefix"] && $value["features"]!="_other_calss"))){
+			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && ($value["features"]!="_other_calss") && !$web_set["titlePrefix"]){
 				$web_set["titlePrefix"] = $console->getLabel(trim(explode("-",$value["name"])[0]));
 			}
 
@@ -76,6 +76,7 @@
 							if(!$data["one"] = $basic->getOne("and (id=? or urlKey=?) ".$findClassSql,array($key,$key),$explodeArray)){
 								$console->to404($data);
 							}
+							$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
 							if(isset($data["one"]["class"]) && $class){
 								foreach ($data["one"]["class"] as $oneKey => $oneValue) {
 									$data["one"]["class"][$oneKey] = $class->getData("where id='".$oneValue."'")[0];
@@ -105,6 +106,7 @@
 							if(!$data["one"] = $basic->getOne("and (id=? or urlKey=?) ",array($key,$key),$explodeArray)){
 								$console->to404($data);
 							}
+							$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
 						}
 						$data["list"] = $basic->getListData("and status='1' order by sort",explode("|__|", $value["dataKey"]),$value["count"]);
 						$data["page"] = $basic->pageNumber->getHTML1();
@@ -135,6 +137,7 @@
 					}
 					$data["one"] = $data["oneClass"] = $console->urlKey($data["oneClass"]);
 					if($data["oneClass"]["id"]!=0){
+						$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
 						$_GET["class"] = $data["oneClass"]["id"];
 					}
 
