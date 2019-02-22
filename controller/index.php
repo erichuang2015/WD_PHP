@@ -4,10 +4,11 @@
 
 	//404檔案路徑轉換
 	$dirArray = array("css","js","images","fonts","svg","upload");
+	$tempRequest = explode("?",substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI'])));
 	if(in_array($console->path[0], $dirArray)){
-		$fileName = DATA_PATH.explode("?",substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI'])))[0];
+		$fileName = DATA_PATH.$tempRequest[0];
 		if(is_file($fileName)){
-			$console->HTTPStatusCode("301",HTTP_PATH.$fileName);
+			$console->HTTPStatusCode("301",HTTP_PATH.$fileName."?".$tempRequest[1]);
 		}else{
 			if(is_file(APP_PATH."images/nodata.jpg")){
 				$console->HTTPStatusCode("301",HTTP_PATH."images/nodata.jpg");
@@ -16,7 +17,7 @@
 		}
 	}
 	if($console->path[0] == "data"){
-		$fileName = APP_PATH.explode("?",substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI'])))[0];
+		$fileName = APP_PATH.$tempRequest[0];
 		if(!is_file($fileName)){
 			if(is_file(APP_PATH."images/nodata.jpg")){
 				$console->HTTPStatusCode("301",HTTP_PATH."images/nodata.jpg");

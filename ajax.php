@@ -338,8 +338,7 @@
 			$_GET['src'] = str_replace('../',"",$_GET['src']);
 			$_GET['src'] = str_replace('..\\',"",$_GET['src']);
 		}
-		$_GET['src'] = str_replace(WEB_PATH.'/'.UPLOAD_PATH,"",$_GET['src']);
-		$_GET['src'] = $path = APP_PATH.UPLOAD_PATH.str_replace(UPLOAD_PATH,"",$_GET['src']);
+		$_GET['src'] = $path = APP_PATH.DATA_PATH.$_GET['src'];
 
 		$temp = explode(".",$_GET["src"]);
 		$type = strtolower(end($temp));
