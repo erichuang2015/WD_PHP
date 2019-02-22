@@ -120,9 +120,9 @@
 					//class
 					if(isset($console->path[1])){
 						//網址轉換
-						if($console->path[1] == "detail"){
+						if($console->path[1] == "detail" || $console->path[1] == "0"){
 							$key = $console->path[2];
-							$console->HTTPStatusCode(301,WEB_PATH."/".$console->path[0]."/".explode("|__|",$product->getOne("and (id=? or urlKey=?)",array($key,$key))["class"])[0]."/".$key);
+							$console->HTTPStatusCode(301,WEB_PATH."/".$console->path[0]."/".explode("|__|",$basic->getOne("and (id=? or urlKey=?)",array($key,$key))["class"])[0]."/".$key);
 							exit;
 						}else if($console->path[1] == "all"){
 							$data["oneClass"]["id"] = 0;
