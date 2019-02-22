@@ -233,16 +233,7 @@
 				}
 				
 				if($_POST){
-					if($order->setFormData($_POST,'',array(
-						"ReceiverName",
-						"BuyName",
-						"ReceiverEmail",
-						"BuyEmail",
-						"ReceiverAddress",
-						"BuyAddress",
-						"ReceiverCellPhone",
-						"BuyPhone",
-					))){
+					if($order->setFormData($_POST,'',$requiredArray)){
 						$console->alert($order->message,-1);
 					}
 
