@@ -2,6 +2,10 @@
 
 include_once(CONTROLLER_PATH.'serback/__menu.php');
 
+if($_POST["alias"]){
+	$_POST["alias"] = strtolower($_POST["alias"]);
+}
+
 if(isset($console->path[1])){
 //動作
 	switch ($console->path[1]) {
