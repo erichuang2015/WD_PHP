@@ -320,7 +320,7 @@
         <!-- ({if $module.uploadImg[$_I_].max<=1})style="display: none;"({/if}) -->
         ({$label_back.IMG_DROP})
         ({if isset($module.uploadImg[$_I_].suggestText)})
-        <br>({$label_back.SUGGEST_SIZE})({$module.uploadImg[$_I_].suggestText})
+        <br>({if $module.uploadImg[$_I_].suggestText})({$label_back.SUGGEST_SIZE})({$module.uploadImg[$_I_].suggestText})({/if})
         ({/if})
         <div id="up_progress({$_I_})"></div>
         ({if $module.uploadImg[$_I_].max>1})
