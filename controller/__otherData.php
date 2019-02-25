@@ -2,7 +2,7 @@
 	//其他資料
 	$menu = new MTsung\menu($console,PREFIX."menu");
 	$fileTemplate = new MTsung\fileTemplate($console);
-	$temp = $console->conn->getRow($console->conn->Prepare("select * from ".$fileTemplate->table." where name=? and type='web'"),array($console->path[0].".html"));
+	$temp = $console->conn->getRow($console->conn->Prepare("select * from ".$fileTemplate->table." where name=? and type='web'"),array($console->controller.".html"));
 	$temp["useTables"] = explode("|__|", $temp["useTables"]);
 	//全域其他資料
 	$temp1 = $console->conn->getRow("select * from ".$fileTemplate->table." where name='top.html' and type='web'");
