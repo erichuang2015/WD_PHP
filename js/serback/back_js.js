@@ -201,6 +201,16 @@ $(function() {
 		$(this).chosen({search_contains: true});
 	});
 
+    $('input[data-type="pickadate"]').each(function(index,obj){
+		$(this).pickadate({
+			format: 'yyyy-mm-dd',
+			formatSubmit: 'yyyy-mm-dd',
+            selectMonths: true,
+            selectYears: true,
+            selectYears: 200
+		});
+	});
+
     $('img[data-type="blowup"]').each(function(index,obj){
 		$(this).blowup();
 	});

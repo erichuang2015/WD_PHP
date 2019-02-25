@@ -84,7 +84,9 @@
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label>({$console->getLabel($data.system.dataName[i])})</label>
-                <input type="date" name="({$data.system.dataKey[i]})" class="form-control" data-text="({$console->getLabel($data.system.dataName[i])})" value="({$data.one[$data.system.dataKey[i]]})" >
+                <div class="input-group">
+                    <input type="text" data-type="pickadate" name="({$data.system.dataKey[i]})" class="form-control" data-text="({$console->getLabel($data.system.dataName[i])})" value="({$data.one[$data.system.dataKey[i]]})" placeholder="click">
+                </div>
                 <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
             </div>
         </div>
