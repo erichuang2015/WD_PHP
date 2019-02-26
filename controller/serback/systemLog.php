@@ -55,7 +55,7 @@ if(isset($console->path[1])){
 //列表頁
 
 	//搜尋key
-	$searchKey = array("id","language","dataTable","url","update_user","IP");
+	$searchKey = array("id","language","dataTable","url","create_user","IP");
 	$data["list"] = $systemLog->getListLog("order by id desc",$searchKey);
 
 	if($data["list"]){
