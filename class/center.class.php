@@ -169,6 +169,7 @@ namespace MTsung{
 				if(in_array("step", $this->getField())){
 					$data["step"] = 0;
 				}
+				$data["create_date"] = $data["update_date"] = DATE;
 				$data["create_user"] = $data["update_user"];
 				if($this->conn->AutoExecute($this->table,$data,"INSERT")){
 
