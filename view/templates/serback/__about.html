@@ -6,7 +6,7 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     ({if $switch.listList!=0})
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
+                            <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})<!-- (({$data.pageNumber->getDataCount()})({$console->getLabel("PAGE_LABEL3")}) --></a>
                         </li>
                         ({if $console->path[0]=="basic" && $console->path[1]=="product"})
                             <li class="nav-item">
