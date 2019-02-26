@@ -8,7 +8,7 @@
 namespace MTsung{
 
 
-	class payFisc extends pay{
+	class payFiscPay extends pay{
 		var $serviceURL;
 		var $returnURL = HTTP_PATH."payResponse/fisc";
 		var $merchantID;
