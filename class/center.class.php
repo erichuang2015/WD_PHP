@@ -578,12 +578,12 @@ namespace MTsung{
 			if(!in_array("sort", $this->getField()) || $this->isTree){
 				return false;
 			}
-			$this->conn->Execute("set @j:=0;");
-			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && !$isInsert){
+			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
+				$this->conn->Execute("set @j:=0;");
 				$this->conn->Execute("update ".$this->tableSort." set sort=@j:=@j+1 where classID='".$_GET["class"]."' order by sort");
-			}else{
-				$this->conn->Execute("update ".$this->table." set sort=@j:=@j+1 order by sort");
 			}
+			$this->conn->Execute("set @k:=0;");
+			$this->conn->Execute("update ".$this->table." set sort=@k:=@k+1 order by sort");
 		}
 
 		/**
