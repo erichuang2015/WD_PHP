@@ -16,6 +16,18 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="list" href="#list-test">({$console->getLabel("DESCRIPTION")})</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-top">({$console->getLabel("上板範例")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-index">({$console->getLabel("首頁範例")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-page">({$console->getLabel("無分類資料頁範例")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-page1">({$console->getLabel("有分類資料頁範例")})</a>
+                        </li>
                     ({/if})
                     ({if $switch.addList!=0})
                         <li class="nav-item">
@@ -23,6 +35,18 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="list" href="#list-test">({$console->getLabel("DESCRIPTION")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-top">({$console->getLabel("上板範例")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-index">({$console->getLabel("首頁範例")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-page">({$console->getLabel("無分類資料頁範例")})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-page1">({$console->getLabel("有分類資料頁範例")})</a>
                         </li>
                     ({/if})
                 </ul>
@@ -172,7 +196,35 @@
                     <div class="card-body tab-pane fade" id="list-test">
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <textarea class="form-control" readonly rows="60">({include file="description"})</textarea>
+                                <textarea class="form-control" readonly rows="60">({include file="example/description.html"})</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body tab-pane fade" id="list-top">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" readonly rows="60">({include file="example/top.html"})</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body tab-pane fade" id="list-index">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" readonly rows="60">({include file="example/index.html"})</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body tab-pane fade" id="list-page">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" readonly rows="60">({include file="example/page.html"})</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body tab-pane fade" id="list-page1">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" readonly rows="60">({include file="example/page1.html"})</textarea>
                             </div>
                         </div>
                     </div>

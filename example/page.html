@@ -1,0 +1,28 @@
+({literal})
+
+沒分類的頁面
+
+
+列表
+({section name=i loop=$data.list})
+    ({$data.list[i].name})
+    ({$web.main_url})/({$console->path[0]})/({$data.list[i].urlKey})
+({/section})
+
+
+內頁
+({$data.one.name})
+({$data.one.detail})
+
+
+
+({if !$console->path[1]})
+    列表頁
+
+    分頁
+    ({$data.page})
+({else})
+    內頁
+({/if})
+
+({/literal})

@@ -1,0 +1,30 @@
+({literal})
+
+EDM
+({section name=i loop=$data.edm.0.picture})
+	({$data.edm.0.picture[i]})
+	({$data.edm.0.pictureHref[i]})
+	({$data.edm.0.pictureAlt[i]})
+	({$data.edm.0.pictureTitle[i]})
+({/section})
+
+最新消息(限制6筆)
+({section name=i loop=$data.news max=6})
+	沒分類時
+	<li><a href="({$web.main_url})/news/({$data.news[i].urlKey})">({$data.news[i].name})</a></li>
+	有分類時
+	<li><a href="({$web.main_url})/news/detail/({$data.news[i].urlKey})">({$data.news[i].name})</a></li>
+({/section})
+
+搜尋模組
+({section name=i loop=$data.indexProduct.0.detail})
+	列表圖片只能限制1張
+	({$data.indexProduct.0.detail[i].pictureList})
+	({$data.indexProduct.0.detail[i].pictureListAlt})
+	({$data.indexProduct.0.detail[i].pictureListTitle})
+	({$data.indexProduct.0.detail[i].name})
+	({$data.indexProduct.0.detail[i].memo})
+	({$web.main_url})/product/({$data.indexProduct.0.detail[i].urlKey})
+({/section})
+	
+({/literal})

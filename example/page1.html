@@ -1,0 +1,50 @@
+({literal})
+    	
+    有分類的頁面
+
+    分類
+    ({section name=i loop=$data.class})
+        <li><a href="({$web.main_url})/({$console->path[0]})/({$data.class[i].urlKey})" ({if $data.class[i].id==$data.oneClass.id})class="current"({/if})>({$data.class[i].name})</a></li>
+
+        下一層 
+        ({section name=j loop=$data.class[i].next})
+            <li><a href="({$web.main_url})/({$console->path[0]})/({$data.class[i].next[j].urlKey})" ({if $data.class[i].next[j].id==$data.oneClass.id})class="current"({/if})>({$data.class[i].next[j].name})</a></li>
+
+            下下一層 
+            ({section name=k loop=$data.class[i].next[j].next})
+                ....
+            ({/section})
+        ({/section})
+
+    ({/section})
+
+
+    分類內頁
+    ({$data.oneClass.name})
+    ({$data.oneClass.detail})
+
+
+
+    資料列表
+    ({section name=i loop=$data.list})
+        ({$data.list[i].name})
+        ({$web.main_url})/({$console->path[0]})/({$data.list[i].class.0.urlKey})/({$data.list[i].urlKey})
+    ({/section})
+
+
+    資料內頁
+    ({$data.one.name})
+    ({$data.one.detail})
+
+
+
+    ({if !$console->path[2]})
+        列表頁
+
+        分頁
+        ({$data.page})
+    ({else})
+        內頁
+    ({/if})
+
+({/literal})
