@@ -80,7 +80,7 @@
 							$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
 							if(isset($data["one"]["class"]) && $class){
 								foreach ($data["one"]["class"] as $oneKey => $oneValue) {
-									$data["one"]["class"][$oneKey] = $class->getData("where id='".$oneValue."'")[0];
+									$data["one"]["class"][$oneKey] = $console->urlKey($class->getData("where id='".$oneValue."'")[0]);
 								}
 							}
 							if($console->path[0] == "product"){//產品金額
@@ -95,7 +95,7 @@
 								if(isset($data["list"][$listKey]["class"]) && $class){
 									$data["list"][$listKey]["class"] = explode("|__|",$listValue["class"]);
 									foreach ($data["list"][$listKey]["class"] as $listKey1 => $listValue1) {
-										$data["list"][$listKey]["class"][$listKey1] = $class->getData("where id='".$listValue1."'")[0];
+										$data["list"][$listKey]["class"][$listKey1] = $console->urlKey($class->getData("where id='".$listValue1."'")[0]);
 									}
 								}
 							}
@@ -111,6 +111,12 @@
 						}
 						$data["list"] = $basic->getListData("and status='1' order by sort",explode("|__|", $value["dataKey"]),$value["count"]);
 						$data["page"] = $basic->pageNumber->getHTML1();
+						
+						//預設第一筆
+						if(!$data["one"]){
+							$key = $data["list"][0]["id"];
+						    $data["one"] = $basic->getOne("and (id=? or urlKey=?) ",array($key,$key),$explodeArray);
+						}
 					}
 					break;
 				case 'class/product':
@@ -250,9 +256,11 @@
 					}
 				}
 
-				foreach ($data["one"]["dataOption"] as $key => $value) {
-					$data["one"]["dataOption"][$key] = explode(",", $value);
-				}
+                if($data["one"]["dataOption"]){
+    				foreach ($data["one"]["dataOption"] as $key => $value) {
+    					$data["one"]["dataOption"][$key] = explode(",", $value);
+    				}
+                }
 			}
 		}
 	}
