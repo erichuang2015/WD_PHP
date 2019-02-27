@@ -163,41 +163,44 @@
 					unset($_SESSION[FRAME_NAME][$socialPrefix.'_LOGIN']);
 
 					//直接自動註冊
-					// $socialName = strtolower($_GET['socialLogin']);
-					// $info[$socialName."ID"] = $tempSocialInfo["id"];
-					// $info["name"] = $info[$socialName."Name"] = $tempSocialInfo["name"];
-					// $info["account"] = $info["email"] = $info[$socialName."Email"] = $tempSocialInfo["email"];
-					// $info[$socialName."Picture"] = $tempSocialInfo["picture"];
-					// $info['password'] = $info["checkPassword"] = strtoupper(base_convert(microtime(true),10,36));
-					// $info["emailCheck"] = MTsung\emailCheckType::CHECK_OK;
-					// if (!$info["account"]) {
-					// 	$info["account"] = $info[$socialName."ID"];
-					// }
-					// $checkArray = array_merge(
-					// 	$checkArray,
-					// 	array(
-					// 		"emailCheck",
-					// 		$socialName."ID",
-					// 		$socialName."Name",
-					// 		$socialName."Email",
-					// 		$socialName."Picture"
-					// 	)
-					// );
-					// if($member->addUser($info,false,$checkArray) === true){
-					// 	$member->login($info['account'],$info['password']);
-					// 	$console->alert($member->message,MEMBER_PATH.'detail');
-					// }else{
-					// 	if(!$tempCheckEmail = $member->conn->GetRow($member->conn->Prepare("select * from ".$member->table." where account=? "),array($info["account"]))){
-					// 		$console->alert($member->message,-1);
-					// 	}
-					// 	//如果有該email帳號自動榜定
-					// 	if($member->link($tempCheckEmail["id"],$_GET["socialLogin"],$tempSocialInfo)){
-					// 		$temp = $member->socialLogin($_GET["socialLogin"],$tempSocialInfo["id"]);
-					// 	}
-					// }
+					$socialName = strtolower($_GET['socialLogin']);
+					$info[$socialName."ID"] = $tempSocialInfo["id"];
+					$info["name"] = $info[$socialName."Name"] = $tempSocialInfo["name"];
+					$info["account"] = $info["email"] = $info[$socialName."Email"] = $tempSocialInfo["email"];
+					$info[$socialName."Picture"] = $tempSocialInfo["picture"];
+					$info['password'] = $info["checkPassword"] = strtoupper(base_convert(microtime(true),10,36));
+					$info["emailCheck"] = MTsung\emailCheckType::CHECK_OK;
+					if (!$info["account"]) {
+						$info["account"] = $info[$socialName."ID"];
+					}
+					$checkArray = array_merge(
+						$checkArray,
+						array(
+							"emailCheck",
+							$socialName."ID",
+							$socialName."Name",
+							$socialName."Email",
+							$socialName."Picture"
+						)
+					);
+					if($member->addUser($info,false,$checkArray) === true){
+						$member->login($info['account'],$info['password']);
+						$console->alert($member->message,MEMBER_PATH.'detail');
+					}else{
+						$console->alert($member->message,-1);
+
+
+						//特殊功能 如果有該email帳號自動榜定
+						if(!$tempCheckEmail = $member->conn->GetRow($member->conn->Prepare("select * from ".$member->table." where account=? "),array($info["account"]))){
+							$console->alert($member->message,-1);
+						}
+						if($member->link($tempCheckEmail["id"],$_GET["socialLogin"],$tempSocialInfo)){
+							$temp = $member->socialLogin($_GET["socialLogin"],$tempSocialInfo["id"]);
+						}
+					}
 
 					//前往註冊頁面 帶資料
-					$console->linkTo(MEMBER_PATH."join?".explode("?",$_SERVER["REQUEST_URI"])[1]);
+					// $console->linkTo(MEMBER_PATH."join?".explode("?",$_SERVER["REQUEST_URI"])[1]);
 				}
 
 				unset($_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN']);
@@ -220,13 +223,16 @@
 
 		case 'detail':
 
+			$link = isset($_SESSION[FRAME_NAME]["MEMBER_BACK_URI"])?$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] : MEMBER_PATH.'detail';
+
 			if($_POST){
 				if (!$_POST["email"]) {
 					$_POST["email"] = $_POST["account"];
 				}
 				$temp = $member->setUser($member->getInfo("id"),$_POST,$checkArray,$requiredArray);
 				if($temp){
-					$console->alert($member->message,MEMBER_PATH.$type);
+					unset($_SESSION[FRAME_NAME]["MEMBER_BACK_URI"]);
+					$console->alert($member->message,$link);
 				}else{
 					$console->alert($member->message,-1);
 				}
