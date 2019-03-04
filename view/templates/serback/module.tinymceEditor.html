@@ -55,6 +55,18 @@
             //工具列
             toolbar: 'undo redo | cut copy paste | styleselect | fontselect | forecolor backcolor | bold italic | underline strikethrough | subscript  superscript removeformat formats | link image media CKFinderOpen advlist autolink charmap | print preview | code',
 
+            //yt影片RWD
+            media_url_resolver: function (data, resolve/*, reject*/) {
+                if (data.url.indexOf('youtu') !== -1) {
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var newUrl = data.url.match(regExp);
+                var embedHtml = '<div style="position: relative;padding-bottom: 56.25%;padding-top: 30px;height: 0;overflow: hidden;"><iframe src="//www.youtube.com/embed/' + newUrl[2] +'" width="400" height="400" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;"></iframe></div>';
+                resolve( {html: embedHtml});
+                } else {
+                resolve( {html: ''});
+                }
+            },
+            
             //圖片上傳
             convert_urls:false,
             images_upload_handler: function (blobInfo, success, failure) {
