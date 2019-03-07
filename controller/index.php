@@ -2,7 +2,7 @@
 	include_once('header.php');
 	include_once('__otherData.php');
 
-	$statusSql = " and status='1' and (release_date<='".DATE."' or expire_date is null) and (expire_date>='".DATE."' or release_date is null) ";
+	$statusSql = " and status='1' and (release_date<='".DATE."' or release_date is null) and (expire_date>='".DATE."' or expire_date is null) ";
 
 	//404檔案路徑轉換
 	$dirArray = array("css","js","images","fonts","svg","upload");
@@ -171,19 +171,19 @@
 			if($data["one"]){
 				foreach ($data["one"] as $keyOne => $valueOne) {
 					//搜尋模組的內容 不做字串陣列轉換
-					if(isset($search[$keyOne])){
+					if(isset($search[$keyOne]) && $data["one"][$keyOne]){
 						$basicOne = new MTsung\dataList($console,PREFIX.$search[$keyOne],$lang);
 						foreach ($data["one"][$keyOne] as $keyOne1 => $valueOne1) {
 							$data["one"][$keyOne][$keyOne1] = $console->urlKey($basicOne->getOne("and id=?",array($valueOne1)));
 						}
 					}
 					//YT連結轉換
-					if(isset($youtube[$keyOne])){
+					if(isset($youtube[$keyOne]) && $data["one"][$keyOne]){
 						$data["one"][$keyOne] = $console->youtubeLink($valueOne);
 						$data["one"][$keyOne."_img"] = $console->youtubeImg($valueOne);
 					}
 					//圖片縮圖網址
-					if(isset($imageModule[$keyOne])){
+					if(isset($imageModule[$keyOne]) && $data["one"][$keyOne]){
 						if($data["one"][$keyOne."__min"] = $valueOne){
 							foreach ($data["one"][$keyOne."__min"] as $key3 => $value3) {
 								$imgTemp = explode(".",$value3);

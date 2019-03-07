@@ -36,19 +36,19 @@
 
 						foreach ($data[$value][$key1] as $key2 => $value2) {
 							//搜尋模組的內容 不做字串陣列轉換
-							if(isset($search[$key2])){
+							if(isset($search[$key2]) && $data[$value][$key1][$key2]){
 								$basicOne = new MTsung\dataList($console,PREFIX.$search[$key2],$lang);
 								foreach ($data[$value][$key1][$key2] as $keyOne => $valueOne) {
 									$data[$value][$key1][$key2][$keyOne] = $console->urlKey($basicOne->getOne("and id=?",array($valueOne)));
 								}
 							}
 							//YT連結轉換
-							if(isset($youtube[$key2])){
+							if(isset($youtube[$key2]) && $data[$value][$key1][$key2]){
 								$data[$value][$key1][$key2] = $console->youtubeLink($value2);
 								$data[$value][$key1][$key2."_img"] = $console->youtubeImg($value2);
 							}
 							//圖片縮圖網址
-							if(isset($imageModule[$key2])){
+							if(isset($imageModule[$key2]) && $data[$value][$key1][$key2]){
 								if($data[$value][$key1][$key2."__min"] = $value2){
 									foreach ($data[$value][$key1][$key2."__min"] as $key3 => $value3) {
 										$imgTemp = explode(".",$value3);
