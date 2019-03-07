@@ -133,7 +133,7 @@ namespace MTsung{
 
                     //縮圖產生
                     $array = array('image/jpeg', 'image/png', 'image/bmp');
-                    if(in_array($file["type"], $array)){
+                    if(in_array($file["type"], $array) && !isset($_GET["isTinyMCE"])){
                         (new imgCompress($destination))->thumbnail();
                     }
                     //縮圖產生
