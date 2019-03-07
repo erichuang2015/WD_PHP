@@ -36,6 +36,8 @@ namespace MTsung{
 
 					  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
 					  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=開啟,0=關閉',
+					  `release_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '上架時間',
+					  `expire_date` timestamp COMMENT '下架時間',
 					  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
 					  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最後修改時間',
 					  `create_user` varchar(191) NOT NULL COMMENT '創建人',
@@ -47,6 +49,12 @@ namespace MTsung{
 				$this->conn->Execute("
 					CREATE INDEX INDEX_NAME ON `".$this->table." (name);
 				");
+			}
+			if(!in_array("release_date", $this->getField())){
+				$this->conn->Execute("ALTER TABLE ".$table." ADD release_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '上架時間'");
+			}
+			if(!in_array("expire_date", $this->getField())){
+				$this->conn->Execute("ALTER TABLE ".$table." ADD expire_date TIMESTAMP COMMENT '下架時間'");
 			}
 		}
 	}

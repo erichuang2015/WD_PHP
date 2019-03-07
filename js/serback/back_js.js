@@ -210,6 +210,10 @@ $(function() {
             selectYears: 200
 		});
 	});
+	
+    $('input[data-type="pickatime"]').each(function(index,obj){
+		$(this).pickatime();
+	});
 
     $('img[data-type="blowup"]').each(function(index,obj){
 		$(this).blowup();

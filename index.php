@@ -46,6 +46,3 @@
 	$webSetting = new MTsung\webSetting($console,PREFIX."web_setting",$_SESSION[FRAME_NAME]['language'.$console->langSessionName]);//前端輸出用
 	$console->setWebSetting($webSetting);
 	$console->loadController();
-
-
-?>

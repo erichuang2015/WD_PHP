@@ -310,6 +310,25 @@
                         ({/if})
                     ({/if})
 
+                    ({if $data.system.releaseAndExpire})
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("RELEASE_DATE")})</label>
+                                <div class="input-group">
+                                    <input type="text" data-type="pickadate" name="release_date" class="form-control" data-text="({$console->getLabel("RELEASE_DATE")})" value="({if $data.one.release_date})({$data.one.release_date})({else})({$web.date|date_format:"%Y-%m-%d"})({/if})" placeholder="click">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("EXPIRE_DATE")})</label>
+                                <div class="input-group">
+                                    <input type="text" data-type="pickadate" name="expire_date" class="form-control" data-text="({$console->getLabel("EXPIRE_DATE")})" value="({$data.one.expire_date})" placeholder="click">
+                                </div>
+                            </div>
+                        </div>
+                    ({/if})
+
                     ({include "__field.html"})
                     
                     <div class="form-row">

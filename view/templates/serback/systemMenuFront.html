@@ -168,6 +168,17 @@
                             </div>
                         </div>
 
+                        <div class="form-row" id="div_form1">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("RELEASE_AND_EXPIRE")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="releaseAndExpire" value="0">
+                                    <input type="checkbox" name="releaseAndExpire" class="onoffswitch-checkbox" id="releaseAndExpire" value="1" ({if $data.one.releaseAndExpire})checked({/if})>
+                                    <label class="onoffswitch-label" for="releaseAndExpire"></label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-row" id="div_shipment">
                             <div class="col-md-3 mb-3">
                                 <label>({$console->getLabel("MAILING")})</label>
@@ -498,8 +509,10 @@
                                 var temp = ["_other_basic","_other_basicOne","_other_class","class/product","basic/product"];
                                 if(temp.indexOf($(obj).val())>-1){
                                     $("#div_form").show();
+                                    $("#div_form1").show();
                                 }else{
                                     $("#div_form").hide();
+                                    $("#div_form1").hide();
                                 }
                                 var temp = ["setting/shipment"];
                                 if(temp.indexOf($(obj).val())>-1){
