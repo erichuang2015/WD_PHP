@@ -2,6 +2,8 @@
 	include_once('header.php');
 	include_once('__otherData.php');
 
+	$statusSql = " and status='1' and (release_date<='".DATE."' or expire_date is null) and (expire_date>='".DATE."' or release_date is null) ";
+
 	//404檔案路徑轉換
 	$dirArray = array("css","js","images","fonts","svg","upload");
 	$tempRequest = explode("?",substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI'])));
@@ -90,7 +92,7 @@
 						if(isset($console->path[1]) && $console->path[1]=="all"){
 							$findClassSql = "";
 						}
-						if($data["list"] = $basic->getListData("and status='1' ".$findClassSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"])){
+						if($data["list"] = $basic->getListData($statusSql.$findClassSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"])){
 							foreach ($data["list"] as $listKey => $listValue) {
 								if(isset($data["list"][$listKey]["class"]) && $class){
 									$data["list"][$listKey]["class"] = explode("|__|",$listValue["class"]);
@@ -109,7 +111,7 @@
 							}
 							$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
 						}
-						$data["list"] = $basic->getListData("and status='1' order by sort",explode("|__|", $value["dataKey"]),$value["count"]);
+						$data["list"] = $basic->getListData($statusSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"]);
 						$data["page"] = $basic->pageNumber->getHTML1();
 						
 						//預設第一筆
@@ -122,7 +124,7 @@
 				case 'class/product':
 				case '_other_class':
 					$class = new MTsung\dataClass($console,PREFIX.$console->path[0]."_class",$lang);
-					$data["class"] = $class->getData("where status='1' order by step",array(),$explodeArray);
+					$data["class"] = $class->getData("where 1=1 ".$statusSql." order by step",array(),$explodeArray);
 					//class
 					if(isset($console->path[1])){
 						//網址轉換
