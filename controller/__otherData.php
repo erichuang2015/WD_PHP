@@ -24,7 +24,8 @@
 
 			if($console->isTables($value)){
 				$$value = new MTsung\dataList($console,PREFIX.$value,$lang);
-				if($data[$value] = $$value->getData("where status=1 order by sort",array(),$explodeArray)){
+				//limit 50 取全部會佔用太多記憶體
+				if($data[$value] = $$value->getData("where status=1 order by sort limit 50",array(),$explodeArray)){
 					foreach ($data[$value] as $key1 => $value1) {
 						$data[$value][$key1] = array_map(function($v){
 							if(!is_array($v)){
