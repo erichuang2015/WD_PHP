@@ -259,6 +259,8 @@ namespace MTsung{
 		 */
 		function getListData($whereSql='',$searchKey=array("name"),$per=15,$pageViewMax=5,$queryName='page'){
 
+			$searchKey[] = "name";
+
 			if(isset($_GET["per"]) && is_numeric($_GET["per"]) && ($_GET["per"] > 0)){
 				$per = $_GET["per"];
 			}
