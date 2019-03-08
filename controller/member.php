@@ -54,9 +54,9 @@
 	}
 
 	//白名單欄位
-	$checkArray = array_merge(array("name","email"),$data["otherField"]["dataKey"]?$data["otherField"]["dataKey"]:array());
+	$checkArray = array_merge(array("name","email","account","password","checkPassword","address"),$data["otherField"]["dataKey"]?$data["otherField"]["dataKey"]:array());
 	//必填欄位
-	$requiredArray = array_merge(array("name","email"),$data["otherField"]["dataRequiredKey"]?$data["otherField"]["dataRequiredKey"]:array());
+	$requiredArray = array_merge(array("name"),$data["otherField"]["dataRequiredKey"]?$data["otherField"]["dataRequiredKey"]:array());
 
 
 

@@ -12,12 +12,12 @@ $data["typeOption"] = array(
 	// "textarea" => "FORM_TEXTAREA",
 	// "email" => "FORM_EMAIL",
 	// "password" => "FORM_PASSWORD",
-	"address" => "FORM_ADDRESS",
+	// "address" => "FORM_ADDRESS",
 	"date" => "FORM_DATE",
 	// "file" => "FORM_FILE",
 	"select" => "FORM_SELECT",
-	"radio" => "FORM_RADIO",
-	"checkbox" => "FORM_CHECKBOX",
+	// "radio" => "FORM_RADIO",
+	// "checkbox" => "FORM_CHECKBOX",
 );
 $explodeArray[] = "dataName";
 $explodeArray[] = "dataKey";

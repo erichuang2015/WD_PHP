@@ -1,0 +1,21 @@
+({section name=i loop=$data.otherField.dataType})
+
+    ({if $data.otherField.dataType[i] == "text"})
+        <div class="opinion clearfix"> <span class="opinion-left01">({$console->getLabel($data.otherField.dataName[i])})({if $data.otherField.dataRequired[i]}) * ({/if})</span>
+             <input type="text" name="({$data.otherField.dataKey[i]})" placeholder="({$console->getLabel($data.otherField.dataName[i])})" class="input-main-style01" data-text="({$console->getLabel($data.otherField.dataName[i])})" value="({$member[$data.otherField.dataKey[i]]})" ({if $data.otherField.dataRequired[i]})required({/if})>
+        </div>
+    ({else if $data.otherField.dataType[i] == "select"})
+        <div class="opinion"> <span class="opinion-left01">({$console->getLabel($data.otherField.dataName[i])})({if $data.otherField.dataRequired[i]}) * ({/if})</span>
+            <select name="({$data.otherField.dataKey[i]})" data-text="({$console->getLabel($data.otherField.dataName[i])})" ({if $data.one.dataRequired[i]})required({/if})  class="input-main-style01">
+                <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                ({section name=j loop=$data.otherField.dataOption[i]})
+                    <option value="({$data.otherField.dataOption[i][j]})" ({if $member[$data.otherField.dataKey[i]]==$data.otherField.dataOption[i][j]})selected({/if})>({$data.otherField.dataOption[i][j]})</option>
+                ({/section})
+            </select>
+        </div>
+    ({else if $data.otherField.dataType[i] == "date"})
+        <div class="opinion clearfix"> <span class="opinion-left01">({$console->getLabel($data.otherField.dataName[i])})({if $data.otherField.dataRequired[i]}) * ({/if})</span>
+             <input type="date" name="({$data.otherField.dataKey[i]})" placeholder="({$console->getLabel($data.otherField.dataName[i])})" class="input-main-style01" data-text="({$console->getLabel($data.otherField.dataName[i])})" value="({$member[$data.otherField.dataKey[i]]})" ({if $data.otherField.dataRequired[i]})required({/if})>
+        </div>
+    ({/if})
+({/section})
