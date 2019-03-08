@@ -247,7 +247,7 @@ namespace MTsung{
 					$data[$key]["next"] = $this->getTree($this->getData("where parent='".$value["id"]."'"));
 				}
 			}
-			return $data;
+			return $this->console->urlKey($data);
 		}
 	}
 }
