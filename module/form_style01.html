@@ -1,0 +1,80 @@
+<form action="" method="POST" enctype="multipart/form-data">
+    <!-- 表單 -->
+    ({foreach from=$data.one.dataName key=k item=v})
+        ({if $data.one.dataType[$k] == "text" ||
+        $data.one.dataType[$k] == "email" ||
+        $data.one.dataType[$k] == "password" ||
+        $data.one.dataType[$k] == "date" ||
+        $data.one.dataType[$k] == "file"
+        })
+        <div class="opinion"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})</span>
+            <input type="({$data.one.dataType[$k]})" name="key({$k})" placeholder="({$v})" ({if $data.one.dataRequired[$k]})required({/if}) class="input-main-style01" data-text="({$v})" ({if $data.one.dataType[$k] == "email"})data-check="Email"({/if})>
+        </div>
+        ({else if $data.one.dataType[$k] == "radio"})
+        <div class="opinion"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})</span>
+            <div class="input-main-style01">
+                <input type="hidden" name="key({$k})" value="">
+                ({section name=i loop=$data.one.dataOption[$k]})
+                    <label><input type="radio" name="key({$k})" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})</label>
+                ({/section})
+            </div>
+        </div>
+        ({else if $data.one.dataType[$k] == "checkbox"})
+        <div class="opinion"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})</span>
+            <div class="input-main-style01">
+                <input type="hidden" name="key({$k})" value="">
+                ({section name=i loop=$data.one.dataOption[$k]})
+                    <label><input type="checkbox" name="key({$k})[]" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})</label>
+                ({/section})
+            </div>
+        </div>
+        ({else if $data.one.dataType[$k] == "select"})
+        <div class="opinion"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})</span>
+            <select name="key({$k})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})  class="input-main-style01">
+                <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
+                ({section name=i loop=$data.one.dataOption[$k]})
+                    <option value="({$data.one.dataOption[$k][i]})">({$data.one.dataOption[$k][i]})</option>
+                ({/section})
+            </select>
+        </div>
+        ({else if $data.one.dataType[$k] == "address"})
+        <div class="opinion"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})</span>
+            <div class="input-main-select" id="twzipcode({$k})">
+                <script>
+                    $('#twzipcode({$k})').twzipcode({
+                        'countyName': 'key({$k})[0]',
+                        'districtName': 'key({$k})[1]',
+                        'zipcodeName': 'key({$k})[2]',
+                        'zipcodeIntoDistrict': true
+                    });
+                    ({if $data.one.dataRequired[$k]})
+                        $('#twzipcode({$k})').find('select').attr('required', true);
+                    ({/if})
+                    $('#twzipcode({$k})').find('select[name="key({$k})[0]"]').attr('data-text', "({$v})-({$console->getLabel("COUNTY")})");
+                    $('#twzipcode({$k})').find('select[name="key({$k})[1]"]').attr('data-text', "({$v})-({$console->getLabel("TOWNSHIP_URBAN_AREA")})");
+                </script>
+                <input type="({$data.one.dataType[$k]})" name="key({$k})[2]" placeholder="({$v})" ({if $data.one.dataRequired[$k]})required({/if}) class="input-main-style03" data-text="({$v})">
+            </div>
+        </div>
+        ({else if $data.one.dataType[$k] == "textarea"})
+        <div class="opinion"> <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})</span>
+            <textarea rows="5" class="input-main-style01" name="key({$k})" placeholder="({$v})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})></textarea>
+        </div>
+        ({/if})
+    ({/foreach})
+    ({if $web.recaptchaValidation})
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <div class="g-recaptcha" data-sitekey="({$web.reCAPTCHASiteKey})" data-callback="formSubmit" data-size="invisible" data-badge="inline"></div>
+    ({else})
+        <div class="opinion"> <span class="opinion-left01">({$console->getLabel("VERIFYCODE_")}) * </span>
+            <input type="text" placeholder="({$console->getLabel("VERIFYCODE")})" name="verifycode" data-text="({$console->getLabel("VERIFYCODE_")})" class="input-main-style02" required>
+            <img src="({$web.main_path})/verifycode.php" width="auto" height="31" class="code" name="verifycode" onclick="$(this).attr('src',$(this).attr('src'));"/>
+        </div>
+    ({/if})
+
+    <div class="cart-btn">
+        <a href="javascript:;" class="btn-reset" onclick="formReset(0);">({$console->getLabel("RESET_FORM")})</a>
+        <a href="javascript:;" class="btn-send" onclick="({if $web.recaptchaValidation})grecaptcha.reset();grecaptcha.execute();({else})formSubmit(0);({/if})return false;">({$console->getLabel("SUBMIT_FORM")})</a>
+    </div>
+    ({$console->getToken()})
+</form>
