@@ -25,7 +25,7 @@ function shoppingListReload(shoppingList) {
         if(typeof(shoppingList.length) == "undefined"){
             shoppingList.length = 0;
         }
-        $("#shoppingCountSpan").html("購物車("+(shoppingList.length*1)+")");
+        $("#shoppingCountSpan").html(""+(shoppingList.length*1)+"");
         if(shoppingList.length>0){
             $(shoppingList).each(function(k,v){
                 $('#shoppingListDiv').append($('#cartItemtDiv').html());
@@ -41,7 +41,7 @@ function shoppingListReload(shoppingList) {
                     shoppingRmProduct($(temp).find('.remove'),false);
                 });
             });
-            $('#shoppingListDiv').append('<div class="cart-chkt-btn"><button onclick="javascript:location.href=\'shopping\'"> 訂單結帳 </button></div>');
+            $('#shoppingListDiv').append('<div class="cart-chkt-btn"><button onclick="javascript:location.href=\''+_jsPath+'/shopping\'"> 訂單結帳 </button></div>');
         }else{
             $('#shoppingListDiv').append('<div class="ng-hide"> 你的購物車是空的 </div>');
         }
@@ -148,6 +148,112 @@ function shoppingEditCount($obj) {
 }
 
 /**
+ * 新增加價購商品
+ */
+function shoppingAddAddProduct($obj) {
+    loadingStart();
+    $.ajax({
+        url: _jsPath+"/shopping",
+        type: "GET",
+        data: {
+            ajax: "addAddProduct",
+            productid: $obj.data("productid"),
+            addProductid: $obj.data("addproductid"),
+            specifications: $obj.data("specifications"),
+            count: $obj.val(),
+        },
+        dataType: 'text',
+        success: function(msg) {
+            try {
+                temp = JSON.parse(msg);
+                alert(temp.message);
+                if (!temp.response) {
+                    if(temp.data["toUrl"]){
+                        location.href = temp.data["toUrl"];
+                    }
+                }
+                shoppingListReload(temp.data);
+                loadingStop();
+                window.location.reload();
+                // 左側
+            } catch (e) {
+                alert("error : " + e);
+            }
+        }
+    });
+}
+
+
+/**
+ * 刪除加價購商品
+ */
+function shoppingRmAddProduct($obj,flag) {
+    loadingStart();
+    $.ajax({
+        url: _jsPath+"/shopping",
+        type: "GET",
+        data: {
+            ajax: "rmAddProduct",
+            productid: $obj.data("productid"),
+            addProductid: $obj.data("addproductid"),
+            specifications: $obj.data("specifications")
+        },
+        dataType: 'text',
+        success: function(msg) {
+            try {
+                temp = JSON.parse(msg);
+                if(typeof(flag) == "undefined"){
+                    alert(temp.message);
+                    if (!temp.response) {
+                        loadingStop();
+                        return false;
+                    }
+                    window.location.reload();
+                }
+                window.location.reload();
+                shoppingListReload();
+            } catch (e) {
+                alert("error : " + e);
+            }
+        }
+    });
+}
+
+
+/**
+ * 修改加價購商品數量
+ */
+function shoppingAddEditCount($obj) {
+    loadingStart();
+    $.ajax({
+        url: _jsPath+"/shopping",
+        type: "GET",
+        data: {
+            ajax: "editAddCount",
+            productid: $obj.data("productid"),
+            addProductid: $obj.data("addproductid"),
+            specifications: $obj.data("specifications"),
+            count: $obj.val(),
+        },
+        dataType: 'text',
+        success: function(msg) {
+            try {
+                loadingStop();
+                temp = JSON.parse(msg);
+                if (!temp.response) {
+                    return false;
+                }
+                alert(temp.message);
+                window.location.reload();
+            } catch (e) {
+                alert("error : " + e);
+            }
+        }
+    });
+}
+
+
+/**
  * loading
  */
 function loadingStart(selector,theme){
@@ -185,7 +291,11 @@ $(window).keydown(function(event) {
 });
 
 $(function(){
-    $("img").lazyload();
+    // $("img").lazyload();
+
+    $('table[data-type="basictable"]').each(function(index,obj){
+        $(this).basictable();
+    });
 });
 
 

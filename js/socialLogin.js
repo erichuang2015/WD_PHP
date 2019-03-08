@@ -144,6 +144,8 @@ function attachSignin(element) {
             // alert(_jsMsg["GOOGLE_SIGNIN_ERROR"] + JSON.stringify(error, undefined, 2));
         });
 }
-if(typeof($('#GoogleBtn').val())!="undefined"){
-    startApp();
-}
+$(function(){
+    if(typeof($('#GoogleBtn').val())!="undefined"){
+        startApp();
+    }
+});

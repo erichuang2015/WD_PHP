@@ -226,7 +226,7 @@
 			$link = isset($_SESSION[FRAME_NAME]["MEMBER_BACK_URI"])?$_SESSION[FRAME_NAME]["MEMBER_BACK_URI"] : MEMBER_PATH.'detail';
 
 			if($_POST){
-				if (!$_POST["email"]) {
+				if (!$_POST["email"] && $_POST["account"]) {
 					$_POST["email"] = $_POST["account"];
 				}
 				$temp = $member->setUser($member->getInfo("id"),$_POST,$checkArray,$requiredArray);

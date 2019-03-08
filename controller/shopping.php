@@ -144,6 +144,23 @@
 				$console->outputJson($temp,$order->message,$order->getShoppingCartList());
 				break;
 
+			case 'addAddProduct'://新增加價購商品
+				$temp = $order->addAddProduct($_GET["productid"],$_GET["addProductid"],$_GET["count"],$_GET["specifications"]);
+				$console->outputJson($temp,$order->message,$order->getShoppingCartList());
+				break;
+
+
+			case 'editAddCount'://修改加價購數量
+				$temp = $order->editAddProductCount($_GET["productid"],$_GET["addProductid"],$_GET["count"],$_GET["specifications"]);
+				$console->outputJson($temp,$order->message,$order->getShoppingCartList());
+				break;
+
+
+			case 'rmAddProduct'://刪除加價購商品
+				$temp = $order->rmAddProduct($_GET["productid"],$_GET["addProductid"],$_GET["specifications"]);
+				$console->outputJson($temp,$order->message,$order->getShoppingCartList());
+				break;
+				
 			case 'shoppingList'://取得購物車內容
 				$console->outputJson(true,"",$order->getShoppingCartList());
 				break;
@@ -192,7 +209,7 @@
 	}
 
 	//必填欄位
-	$requiredArray = array_merge(array("ReceiverName","BuyName","ReceiverEmail","BuyEmail","ReceiverAddress","BuyAddress","ReceiverCellPhone","BuyPhone"),$data["otherField"]["dataRequiredKey"]);
+	$requiredArray = array_merge(array("ReceiverName","BuyName","ReceiverEmail","BuyEmail","ReceiverAddress","BuyAddress","ReceiverCellPhone","BuyPhone"),$data["otherField"]["dataRequiredKey"]?$data["otherField"]["dataRequiredKey"]:array());
 
 
 	switch ($step) {
