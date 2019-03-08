@@ -120,4 +120,37 @@ FB 儲存連結 外掛
 
 GOOGLE翻譯 外掛
 ({include "module/googleTranslate.html"})
+
+
+----------------------------------------
+
+ <form action="({$web.main_url})/({$console->path[0]})/all" method="GET" id="search">
+    <input type="text" class="form-control" name="searchKeyWord" placeholder="請輸入產品關鍵字" 
+           value="({if isset($smarty.get.searchKeyWord)})({$smarty.get.searchKeyWord})({/if})" 
+           onkeydown="if (event.keyCode == 13) {$('#search').submit();}"
+	>
+	<a href="javascript:;" onclick="$('#search').submit();"><img src="images/btn-search.png"></a>
+</form>
+
+
+
+({if isset($smarty.get.searchKeyWord)})
+   <h3 class="page-title">搜尋結果</h3>
+    ({if $data.list.0})
+         <div class="pro-search-info">
+             關鍵字 "({$smarty.get.searchKeyWord})" 搜尋結果 ({count($data.list)}) 筆
+        </div>
+    ({else})
+         <div class="pro-search-info">
+             關鍵字 "({$smarty.get.searchKeyWord})" 搜尋不到任何商品
+        </div>
+    ({/if})
+         
+({else})
+   <h3 class="page-title">({$data.oneClass.name})</h3>
+   <div class="pro-store-info">
+     ({$data.oneClass.memo|nl2br})
+   </div>
+({/if})
+
 ({/literal})

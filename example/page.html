@@ -5,6 +5,7 @@
 
 列表
 ({section name=i loop=$data.list})
+    <li><a href="({$web.main_url})/({$console->path[0]})/({$data.list[i].urlKey})" ({if $data.list[i].id==$data.one.id})class="current">({$data.list[i].name})</a></li>
     ({$data.list[i].name})
     ({$web.main_url})/({$console->path[0]})/({$data.list[i].urlKey})
 ({/section})
