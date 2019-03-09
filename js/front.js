@@ -41,7 +41,7 @@ function shoppingListReload(shoppingList) {
                     shoppingRmProduct($(temp).find('.remove'),false);
                 });
             });
-            $('#shoppingListDiv').append('<div class="cart-chkt-btn"><button onclick="javascript:location.href=\''+_jsPath+'/shopping\'"> 訂單結帳 </button></div>');
+            $('#shoppingListDiv').append('<div class="cart-chkt-btn"><button onclick="location.href=\''+_jsPath+'/shopping\'"> 訂單結帳 </button></div>');
         }else{
             $('#shoppingListDiv').append('<div class="ng-hide"> 你的購物車是空的 </div>');
         }
