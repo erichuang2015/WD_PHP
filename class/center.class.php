@@ -298,21 +298,21 @@ namespace MTsung{
 					$sql .= " 1=1 ";
 				}
 				
-				if($_GET["startDate"]){
+				if($_GET["startDate"] && in_array("update_date", $this->getField())){
 					$sql .= " and update_date>'".$_GET["startDate"]."' ";
 				}
 
-				if($_GET["endDate"]){
+				if($_GET["endDate"] && in_array("update_date", $this->getField())){
 					$sql .= " and update_date<'".$_GET["endDate"]."' ";
 				}
 
-				if($_GET["status"] != ''){
+				if($_GET["status"] != '' && in_array("status", $this->getField())){
 					$sql .= " and status='".$_GET["status"]."' ";
 				}
 			}else{
 				$sql = "where 1=1 ";
 			}
-			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && $classFlag){
+			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && $classFlag && in_array("class", $this->getField())){
 				$sql .= $this->findArrayString("class",$_GET["class"]);
 			}
 			if(isset($_GET["stockBelow"]) && is_numeric($_GET["stockBelow"]) && $_GET["stockBelow"] && $_GET["stockBelow"]<1000){

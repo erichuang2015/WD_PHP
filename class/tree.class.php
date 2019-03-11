@@ -129,15 +129,15 @@ namespace MTsung{
 					$sql .= " 1=1 ";
 				}
 				
-				if($_GET["startDate"]){
-					$sql .= " and create_date>'".$_GET["startDate"]."' ";
+				if($_GET["startDate"] && in_array("update_date", $this->getField())){
+					$sql .= " and update_date>'".$_GET["startDate"]."' ";
 				}
 
-				if($_GET["endDate"]){
-					$sql .= " and create_date<'".$_GET["endDate"]."' ";
+				if($_GET["endDate"] && in_array("update_date", $this->getField())){
+					$sql .= " and update_date<'".$_GET["endDate"]."' ";
 				}
 
-				if($_GET["status"] != ''){
+				if($_GET["status"] != '' && in_array("status", $this->getField())){
 					$sql .= " and status='".$_GET["status"]."' ";
 				}
 			}else{
