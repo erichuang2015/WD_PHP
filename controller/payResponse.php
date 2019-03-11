@@ -36,7 +36,7 @@
 	//處理
 	switch ($type) {
 		case 'fisc':
-			$fisc = new MTsung\payFisc(
+			$fisc = new MTsung\payFiscPay(
 				$console->setting->getValue("fiscMerID"),
 				$console->setting->getValue("fiscMerchantID"),
 				$console->setting->getValue("fiscTerminalID")
@@ -46,11 +46,11 @@
 				$console->alert("Check code error.",HTTP_PATH);
 			}
 
-			if($data["status"]==0){//成功
+			if($data["status"]=="0"){//成功
 		        $payLog->setData($data);
 				$payOrder->paymentIsOk($orderNumber);
 				$payOrder->shipment($orderNumber,true);
-				$console->alert($console->getMessage("PAYMENT_COMPLETED")."\n".$payOrder->message,HTTP_PATH."member/order");
+				$console->alert($console->getMessage("PAYMENT_COMPLETED")."\\n".$payOrder->message,HTTP_PATH."member/order");echo 123;
 			}
 
 			$console->alert("error:".$data["errcode"].". ".$data["errDesc"],HTTP_PATH);

@@ -16,6 +16,7 @@ namespace MTsung{
 		var $merchantName;
 		var $rand;
 		var $isTest = true;
+		var $token = "1qaz2wsx3edc4rfv";/** 需到 [特店管理區>安全性作業管理>參數驗證管理] 設定後並請銀行端IT人工放行 **/
 
 		/**
 		 * @param [type] $merID        網站特店自訂代碼(請注意 merID 與 MerchantID 不同)
@@ -52,10 +53,10 @@ namespace MTsung{
 			$data["customize"] = 0;																//不使用客製化授權頁
 			$data["lidm"] = $order["orderNumber"].$this->rand; 									//訂單編號
 			$data["purchAmt"] = $order["total"] + $order["freight"];							//交易金額
-			$data["AuthResURL"] = $this->ReturnURL;												//通知回傳的網址
+			$data["AuthResURL"] = $this->returnURL;												//通知回傳的網址
 	        $data['LocalDate'] = date('Ymd');                       							//交易日期
 	        $data['LocalTime'] = date('His');                       							//交易時間
-			$data["token"] = "ABCDtoken";														//驗證參數
+			$data["token"] = $this->token;														//驗證參數
 	        $data['reqToken'] = $this->getReqToken($data);                       				//交易驗證碼
 
 			$this->formSubmit($this->serviceURL,$data);
@@ -73,7 +74,7 @@ namespace MTsung{
 			$temp = array(
 				$data["lidm"],								//訂單編號
 				$data["purchAmt"],							//交易金額
-				$data["token"],								//驗證參數
+				$this->token,								//驗證參數
 				$data["MerchantID"],						//特店代號
 				$data["TerminalID"],						//端末代號
 				$data["LocalDate"].$data["LocalTime"]		//交易時間
@@ -99,21 +100,21 @@ namespace MTsung{
 				$temp = array(
 					$data["status"],							//授權結果狀態
 					$data["lidm"],								//訂單編號
-					$data["token"],								//驗證參數
+					$this->token,								//驗證參數
 					$data["authCode"],							//授權碼
 					$data["authRespTime"],						//交易回應時間
-					$data["MerchantID"],						//特店代號
-					$data["TerminalID"]							//端末代號
+					$this->merchantID,							//特店代號
+					$this->terminalID							//端末代號
 				);
 			}else{
 				$temp = array(
 					$data["status"],							//授權結果狀態
 					$data["errcode"],							//錯誤碼
 					$data["lidm"],								//訂單編號
-					$data["token"],								//驗證參數
+					$this->token,								//驗證參數
 					$data["authRespTime"],						//交易回應時間
-					$data["MerchantID"],						//特店代號
-					$data["TerminalID"]							//端末代號
+					$this->merchantID,							//特店代號
+					$this->terminalID							//端末代號
 				);
 			}
 
