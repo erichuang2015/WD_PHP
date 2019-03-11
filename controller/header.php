@@ -6,7 +6,7 @@
 	}
 	
 	
-	$dirArray = array("css","js","images","fonts","svg","data","class","config","controller","include","language","module","sessionTemp","view");
+	$dirArray = array("css","js","images","fonts","svg","data","upload","class","config","controller","include","language","module","sessionTemp","view");
 	if(!in_array($console->path[0], $dirArray)){
 		if($console->setting->getValue("analyticsCheck")){
 			$analytics = new MTsung\analytics($console);

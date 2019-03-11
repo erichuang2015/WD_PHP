@@ -2,7 +2,7 @@
 	include_once('header.php');
 	include_once('__otherData.php');
 	
-	$web_set["titlePrefix"] = "會員專區";
+	$web_set["titlePrefix"] = $console->getLabel("MEMBER_CENTRE");
 	
 	define("MEMBER_PATH",WEB_PATH.$lang_url."/".$console->path[0]."/");
 
@@ -54,7 +54,7 @@
 	}
 
 	//白名單欄位
-	$checkArray = array_merge(array("name","email","account","password","checkPassword","address"),$data["otherField"]["dataKey"]?$data["otherField"]["dataKey"]:array());
+	$checkArray = array_merge(array("name","email","account","password","checkPassword","address","cellPhone","phone"),$data["otherField"]["dataKey"]?$data["otherField"]["dataKey"]:array());
 	//必填欄位
 	$requiredArray = array_merge(array("name"),$data["otherField"]["dataRequiredKey"]?$data["otherField"]["dataRequiredKey"]:array());
 

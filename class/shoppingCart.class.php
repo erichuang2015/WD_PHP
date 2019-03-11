@@ -1278,7 +1278,7 @@ namespace MTsung{
 		 */
 		function sendMail($orderNumber,$mailType){
 			//自訂欄位
-			$tempField = new MTsung\dataList($this->console,PREFIX."orderField","");
+			$tempField = new dataList($this->console,PREFIX."orderField","");
 			if($tempSystem = $tempField->getData()){
 				$tempSystem = $tempSystem[0];
 				foreach (array(

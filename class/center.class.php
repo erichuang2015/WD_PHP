@@ -258,8 +258,9 @@ namespace MTsung{
 		 * @return [type]               [description]
 		 */
 		function getListData($whereSql='',$searchKey=array("name"),$per=15,$pageViewMax=5,$queryName='page'){
-
-			$searchKey[] = "name";
+			if(in_array("name", $this->getField())){
+				$searchKey[] = "name";
+			}
 
 			if(isset($_GET["per"]) && is_numeric($_GET["per"]) && ($_GET["per"] > 0)){
 				$per = $_GET["per"];
@@ -371,7 +372,7 @@ namespace MTsung{
 				}
 				usort($temp, array($this, 'classSort'));
 			}
-			if(strpos($whereSql,"limit") && isset(explode(",",explode("limit ",$whereSql)[1])[1])){
+			if(strpos($whereSql,"limit") && isset(explode(",",explode("limit ",$whereSql)[1])[1]) && $temp){
 				$temp = array_slice($temp,$count[0],$count[1]);
 			}
 			// print_r($whereSql);
