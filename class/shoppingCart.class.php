@@ -1277,6 +1277,39 @@ namespace MTsung{
 		 * @return [type]       			失敗為false
 		 */
 		function sendMail($orderNumber,$mailType){
+			//自訂欄位
+			$tempField = new MTsung\dataList($this->console,PREFIX."orderField","");
+			if($tempSystem = $tempField->getData()){
+				$tempSystem = $tempSystem[0];
+				foreach (array(
+								"dataName",
+								"dataType",
+								"dataKey",
+								"dataCount",
+								"dataFa",
+								"dataRequired",
+								"dataOption",
+							) as $key => $value) {
+						$tempSystem[$value] = explode("|__|", $tempSystem[$value]);
+				}
+				
+				if(is_array($tempSystem["dataOption"])){
+					foreach ($tempSystem["dataOption"] as $key => $value) {
+						$tempSystem["dataOption"][$key] = explode(",", $value);
+					}
+				}
+
+				$data["otherField"] = $tempSystem;
+
+				//必填欄位
+				foreach ($data["otherField"]["dataKey"] as $key => $value) {
+					if($data["otherField"]["dataRequired"][$key]){
+						$data["otherField"]["dataRequiredKey"][] = $value;
+					}
+				}
+			}
+
+
 			$order = $this->getOrder($orderNumber);
 			$orderList = $this->orderListReload($this->getOrderList($orderNumber));
 
@@ -1354,7 +1387,7 @@ namespace MTsung{
 				$mail = new phpMailer($this->console);
 				$mail->setMailTitle($title);
 				$mail->setMailAddress($email);
-				$mail->setMailBody($templates,array("data" => $data,"member" => $member ,"order" => $order , "orderList" => $orderList));
+				$mail->setMailBody($templates,array("console" => $this->console,"data" => $data,"member" => $member ,"order" => $order , "orderList" => $orderList));
 				return $mail->sendMail('','');
 			}else{
 				return false;
