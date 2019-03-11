@@ -30,7 +30,7 @@ function shoppingListReload(shoppingList) {
             $(shoppingList).each(function(k,v){
                 $('#shoppingListDiv').append($('#cartItemtDiv').html());
                 var temp = $('#shoppingListDiv').find('div.cart-item:last');
-                $(temp).find('.product-link').attr('href', 'products/detail/' + v.productId);
+                $(temp).find('.product-link').attr('href', _jsPath+'/product/detail/' + v.productId);
                 $(temp).find('img').attr('src', v.picture);
                 $(temp).find('.title').html(v.name);
                 $(temp).find('.ng-scope').html('數量：' + v.count);
@@ -252,6 +252,34 @@ function shoppingAddEditCount($obj) {
     });
 }
 
+/**
+ * 使用紅利
+ */
+function usePoint(point) {
+    loadingStart();
+    $.ajax({
+        url: _jsPath+"/shopping",
+        type: "GET",
+        data: {
+            ajax: "usePoint",
+            point: point,
+        },
+        dataType: 'text',
+        success: function(msg) {
+            try {
+                loadingStop();
+                temp = JSON.parse(msg);
+                if (!temp.response) {
+                    alert(temp.message);
+                    return false;
+                }
+                window.location.reload();
+            } catch (e) {
+                alert("error : " + e);
+            }
+        }
+    });
+}
 
 /**
  * loading

@@ -598,18 +598,18 @@
                                         <th scope="row">({$data.orderList[i].productId})</th>
                                         <td><img style="max-height: 45px; max-width: 45px;" src="({$data.orderList[i].picture})"></td>
                                         <td>({$data.orderList[i].name})</td>
-                                        <td>({$data.orderList[i].specifications})</td>
+                                        <td>({$data.orderList[i].specificationsName})</td>
                                         <td>({$data.orderList[i].price})</td>
                                         <td>({$data.orderList[i].count})</td>
                                         <td>({$data.orderList[i].price*$data.orderList[i].count})</td>
                                     </tr>
-                                    ({if isset($data.orderList.addList)})
-                                        ({section name=j loop=$data.orderList.addList})
+                                    ({if isset($data.orderList[i].addList)})
+                                        ({section name=j loop=$data.orderList[i].addList})
                                             <tr>
-                                                <th scope="row">({$data.orderList[i].addList[j].productId})</th>
+                                                <th scope="row">+({$data.orderList[i].addList[j].productId})</th>
                                                 <td><img style="max-height: 45px; max-width: 45px;" src="({$data.orderList[i].addList[j].picture})"></td>
                                                 <td>({$data.orderList[i].addList[j].name})</td>
-                                                <td>({$data.orderList[i].addList[j].specifications})</td>
+                                                <td>({$data.orderList[i].addList[j].specificationsName})</td>
                                                 <td>({$data.orderList[i].addList[j].price})</td>
                                                 <td>({$data.orderList[i].addList[j].count})</td>
                                                 <td>({$data.orderList[i].addList[j].price*$data.orderList[i].addList[j].count})</td>

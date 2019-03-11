@@ -335,6 +335,38 @@
 				$data["list"] = $order->getListData(" and memberId='".$member->getInfo("id")."' and step>1 and status='1' order by orderNumber desc",$searchKey);
 			}
 
+			//自訂欄位
+			$tempField = new MTsung\dataList($console,PREFIX."orderField","");
+			if($tempSystem = $tempField->getData()){
+				$tempSystem = $tempSystem[0];
+				foreach (array(
+								"dataName",
+								"dataType",
+								"dataKey",
+								"dataCount",
+								"dataFa",
+								"dataRequired",
+								"dataOption",
+							) as $key => $value) {
+						$tempSystem[$value] = explode("|__|", $tempSystem[$value]);
+				}
+				
+				if(is_array($tempSystem["dataOption"])){
+					foreach ($tempSystem["dataOption"] as $key => $value) {
+						$tempSystem["dataOption"][$key] = explode(",", $value);
+					}
+				}
+
+				$data["orderOtherField"] = $tempSystem;
+
+				//必填欄位
+				foreach ($data["orderOtherField"]["dataKey"] as $key => $value) {
+					if($data["orderOtherField"]["dataRequired"][$key]){
+						$data["orderOtherField"]["dataRequiredKey"][] = $value;
+					}
+				}
+			}
+
 			break;
 			
 		case 'payment'://付款
