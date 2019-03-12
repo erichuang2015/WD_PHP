@@ -4,6 +4,12 @@
 
 	$statusSql = " and status='1' and (release_date<='".DATE."' or release_date is null) and (expire_date>='".DATE."' or expire_date is null) ";
 
+	$breadcruI = 0;
+	$breadcru[$breadcruI++] = array(
+		"name" => $console->getLabel("INDEX"),
+		"url" => "/"
+	);
+
 	//404檔案路徑轉換
 	$dirArray = array("css","js","images","fonts","svg","upload");
 	$tempRequest = explode("?",substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI'])));
@@ -45,6 +51,10 @@
 		foreach ($temp as $key => $value) {
 			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && ($value["features"]!="_other_calss") && !$web_set["titlePrefix"]){
 				$web_set["titlePrefix"] = $console->getLabel(trim(explode("-",$value["name"])[0]));
+				$breadcru[$breadcruI++] = array(
+					"name" => $console->getLabel(trim(explode("-",$value["name"])[0])),
+					"url" => "/".$console->path[0]
+				);
 			}
 
 			//取得搜尋功能的鍵值與使用功能別名
@@ -80,6 +90,10 @@
 								$console->to404($data);
 							}
 							$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
+							$breadcru[$breadcruI++] = array(
+								"name" => $data["one"]["name"],
+								"url" => "/".$console->path[0]."/".$console->path[1]."/".$console->path[2]
+							);
 							if(isset($data["one"]["class"]) && $class){
 								foreach ($data["one"]["class"] as $oneKey => $oneValue) {
 									$data["one"]["class"][$oneKey] = $console->urlKey($class->getData("where id='".$oneValue."'")[0]);
@@ -110,6 +124,10 @@
 								$console->to404($data);
 							}
 							$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
+							$breadcru[$breadcruI++] = array(
+								"name" => $data["one"]["name"],
+								"url" => "/".$console->path[0]."/".$console->path[1]
+							);
 						}
 						$data["list"] = $basic->getListData($statusSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"]);
 						$data["page"] = $basic->pageNumber->getHTML1();
@@ -147,6 +165,10 @@
 					$data["one"] = $data["oneClass"] = $console->urlKey($data["oneClass"]);
 					if($data["oneClass"]["id"]!=0){
 						$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
+						$breadcru[$breadcruI++] = array(
+							"name" => $data["one"]["name"],
+							"url" => "/".$console->path[0]."/".$console->path[1]
+						);
 						$_GET["class"] = $data["oneClass"]["id"];
 					}
 
@@ -267,4 +289,5 @@
 		}
 	}
 	
+	// print_r($breadcru);exit;
 	// print_r($data);exit;
