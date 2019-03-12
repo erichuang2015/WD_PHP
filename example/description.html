@@ -153,4 +153,10 @@ GOOGLE翻譯 外掛
    </div>
 ({/if})
 
+<!--麵包屑-->
+<ol class="breadcrumb"> 
+    ({section name=i loop=$breadcru})
+        <a href="({$breadcru[i].url})">({$breadcru[i].name})</a> /
+    ({/section})
+</ol>
 ({/literal})
