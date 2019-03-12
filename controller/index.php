@@ -49,13 +49,15 @@
 		}
 		$temp = $tempSort;
 		foreach ($temp as $key => $value) {
-			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && ($value["features"]!="_other_calss") && !$web_set["titlePrefix"]){
+			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && ($value["features"]!="_other_calss") && ($value["features"]!="class/product") && !$web_set["titlePrefix"]){
 				$web_set["titlePrefix"] = $console->getLabel(trim(explode("-",$value["name"])[0]));
 				$breadcru[$breadcruI++] = array(
 					"name" => $console->getLabel(trim(explode("-",$value["name"])[0])),
 					"url" => "/".$console->path[0]
 				);
 			}
+		}
+		foreach ($temp as $key => $value) {
 
 			//取得搜尋功能的鍵值與使用功能別名
 			$search = getSystemKey($value,'search');
@@ -288,6 +290,6 @@
 			}
 		}
 	}
-	
+
 	// print_r($breadcru);exit;
 	// print_r($data);exit;
