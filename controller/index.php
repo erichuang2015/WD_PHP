@@ -2,7 +2,7 @@
 	include_once('header.php');
 	include_once('__otherData.php');
 
-	$statusSql = " and status='1' and (release_date<='".DATE."' or release_date is null) and (expire_date>='".DATE."' or expire_date is null) ";
+	$statusSql = " and status='1' and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ";
 
 	$breadcruI = 0;
 	$breadcru[$breadcruI++] = array(
