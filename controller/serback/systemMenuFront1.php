@@ -145,7 +145,7 @@ function getInputData($systemMenu,$autoId=''){
 			if($temp){
 				foreach ($temp as $key => $value) {
 					if($value["features"]=="_other_class"){
-						$inputData["id"] = $value["id"];
+						$inputData["id"] = $temp[0]["id"];
 						$inputData["features"] = "_other_class";
 						$inputData["dataName"][0] = "內容";
 						$inputData["dataKey"][0] = "detail";
@@ -154,7 +154,7 @@ function getInputData($systemMenu,$autoId=''){
 						$addId = $systemMenu->setData($inputData);
 
 					}else if($value["features"]=="_other_basic"){
-						$inputData["id"] = $value["id"];
+						$inputData["id"] = $temp[0]["id"];
 						$inputData["releaseAndExpire"] = 1;//上下架功能
 						$inputData["features"] = "_other_basic";
 						$inputData["dataName"][0] = "內容";
@@ -207,7 +207,7 @@ function getInputData($systemMenu,$autoId=''){
 			if($temp){
 				foreach ($temp as $key => $value) {
 					if($value["features"]=="_other_basicOne"){
-						$inputData["id"] = $value["id"];
+						$inputData["id"] = $temp[0]["id"];
 						$inputData["formData"] = 1;//表單資料
 						$inputData["features"] = "_other_basicOne";
 						$inputData["dataName"][0] = "內容";
@@ -221,7 +221,7 @@ function getInputData($systemMenu,$autoId=''){
 
 
 					}else if($value["features"]=="_other_form"){
-						$inputData["id"] = $value["id"];
+						$inputData["id"] = $temp[0]["id"];
 						$inputData["parent"] = 97;
 						$inputData["features"] = "_other_form";
 						$inputData["url"] = "form/".$inputData["alias"];

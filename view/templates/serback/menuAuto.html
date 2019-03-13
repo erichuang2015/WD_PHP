@@ -94,6 +94,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("FEATURES")})</label>
+                                <input type="hidden" name="features" value="({$data.one.features})">
                                 <div class="form-group">
                                     <select class="form-control" name="features" data-type="chosen" data-text="({$console->getLabel("FEATURES")})" onchange="selectFeatures(this);" required ({if $switch.editList!=0})disabled({/if})>
                                         <option value="">({$console->getLabel("PLEASE_CHOOSE")})</option>
