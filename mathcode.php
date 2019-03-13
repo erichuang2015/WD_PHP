@@ -20,10 +20,10 @@ if (is_file(COUNT_FILE_NAME)){
 	$mydata = file_get_contents(COUNT_FILE_NAME);
 }
 
-// if(!isset($_COOKIE["vCount"])){
-// 	file_put_contents(COUNT_FILE_NAME,++$mydata);
-// 	setcookie("vCount", "1", time()+3600);//3600秒算一次
-// }
+if($_GET["noSql"] && !isset($_COOKIE["vCount"])){
+	file_put_contents(COUNT_FILE_NAME,++$mydata);
+	setcookie("vCount", "1", time()+3600);//3600秒算一次
+}
 
 
 $all_len = '8';									//--字段總長度 (auto則自動)
