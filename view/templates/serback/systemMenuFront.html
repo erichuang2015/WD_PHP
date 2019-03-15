@@ -385,9 +385,9 @@
 
                                         <span class="count_div" ({if !($data.one.dataType[i]=="imageModule" || $data.one.dataType[i]=="fileModule")})style="display:none"({/if})>
 
-                                            <br><br><span> ({$console->getLabel('TEXT_OTHER')})：</span><textarea class="form-control" name="dataTextOther[]" data-text="({$console->getLabel('TEXT_OTHER')})" placeholder="Href,Alt">({$data.one.dataTextOther[i]})</textarea>
+                                            <br><br><span> ({$console->getLabel('TEXT_OTHER')})：</span><textarea class="form-control" name="dataTextOther[]" data-text="({$console->getLabel('TEXT_OTHER')})" placeholder="Href,Alt" onkeyup="this.value=this.value.replace(/ /g,'');">({$data.one.dataTextOther[i]})</textarea>
                                             <span> ({$console->getLabel('TEXT_OTHER_TEXT')})：</span><textarea class="form-control" name="dataTextOtherText[]" data-text="({$console->getLabel('TEXT_OTHER_TEXT')})" placeholder="TEXT,文字">({$data.one.dataTextOtherText[i]})</textarea>
-                                            <span> ({$console->getLabel('TEXT_AREAOTHER')})：</span><textarea class="form-control" name="dataTextareaOther[]" data-text="({$console->getLabel('TEXT_AREAOTHER')})" placeholder="Href,Alt">({$data.one.dataTextareaOther[i]})</textarea>
+                                            <span> ({$console->getLabel('TEXT_AREAOTHER')})：</span><textarea class="form-control" name="dataTextareaOther[]" data-text="({$console->getLabel('TEXT_AREAOTHER')})" placeholder="Href,Alt" onkeyup="this.value=this.value.replace(/ /g,'');">({$data.one.dataTextareaOther[i]})</textarea>
                                             <span> ({$console->getLabel('TEXT_AREAOTHER_TEXT')})：</span><textarea class="form-control" name="dataTextareaOtherText[]" data-text="({$console->getLabel('TEXT_AREAOTHER_TEXT')})" placeholder="TEXT,文字">({$data.one.dataTextareaOtherText[i]})</textarea>
                                         </span>
 
@@ -426,9 +426,9 @@
                                     '</span> '+
                                     '<span> ({$console->getLabel('SUGGEST_TEXT')})：</span><input type="text" class="form-control" name="dataSuggestText[]" data-text="({$console->getLabel('SUGGEST_TEXT')})" value=""  autocomplete="off" >'+
                                     '<span class="count_div" style="display:none">'+
-                                        '<br><br><span> ({$console->getLabel('TEXT_OTHER')})：</span><textarea class="form-control" name="dataTextOther[]" data-text="({$console->getLabel('TEXT_OTHER')})" placeholder="Href,Alt"></textarea>'+
+                                        '<br><br><span> ({$console->getLabel('TEXT_OTHER')})：</span><textarea class="form-control" name="dataTextOther[]" data-text="({$console->getLabel('TEXT_OTHER')})" placeholder="Href,Alt"  onkeyup="this.value=this.value.replace(/ /g,\'\');"></textarea>'+
                                         '<span> ({$console->getLabel('TEXT_OTHER_TEXT')})：</span><textarea class="form-control" name="dataTextOtherText[]" data-text="({$console->getLabel('TEXT_OTHER_TEXT')})" placeholder="TEXT,文字"></textarea>'+
-                                        '<span> ({$console->getLabel('TEXT_AREAOTHER')})：</span><textarea class="form-control" name="dataTextareaOther[]" data-text="({$console->getLabel('TEXT_AREAOTHER')})" placeholder="Href,Alt"></textarea>'+
+                                        '<span> ({$console->getLabel('TEXT_AREAOTHER')})：</span><textarea class="form-control" name="dataTextareaOther[]" data-text="({$console->getLabel('TEXT_AREAOTHER')})" placeholder="Href,Alt" onkeyup="this.value=this.value.replace(/ /g,\'\');"></textarea>'+
                                         '<span> ({$console->getLabel('TEXT_AREAOTHER_TEXT')})：</span><textarea class="form-control" name="dataTextareaOtherText[]" data-text="({$console->getLabel('TEXT_AREAOTHER_TEXT')})" placeholder="TEXT,文字"></textarea>'+
                                     '</span> '+
                                     '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
