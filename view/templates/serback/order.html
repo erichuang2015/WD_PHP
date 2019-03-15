@@ -19,7 +19,7 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="list" href="#list-product">({$console->getLabel("PRODUCT")|cat:$console->getLabel("LIST")})</a>
                         </li>
-                        ({if isset($data.order.formData.CVSStoreID)})
+                        ({if $data.orderECPayLog})
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="list" href="#list-ecpay-log">({$console->getLabel("ECPAY_LOGS")})</a>
                             </li>
