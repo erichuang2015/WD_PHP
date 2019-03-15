@@ -139,7 +139,7 @@ if(isset($console->path[1])){
 					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."images' WHERE url='file/images'");
 					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."js' WHERE url='file/js'");
 					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."output' WHERE url='file/output'");
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."svg' WHERE url='file/svg'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."' WHERE url='file/svg'");
 					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."upload' WHERE url='file/upload'");
 
 					$tempConn->Execute("UPDATE database_setting SET detail='ssl' WHERE name='smtpSMTPSecure'");
