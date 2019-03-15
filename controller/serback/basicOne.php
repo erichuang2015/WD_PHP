@@ -45,6 +45,7 @@ if(isset($module["uploadImg"])){
 if($_POST){
 	if($basicOne->getData("where id=?",array("1"))[0]){
 		$_POST["id"] = 1;
+		$_POST["sort"] = 0;//解決多筆轉單筆
 	}
 	if($basicOne->setData($_POST,false,$checkArray,$requiredArray)){
 		$console->alert($basicOne->message,$_SERVER["REQUEST_URI"]);
