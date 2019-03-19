@@ -33,7 +33,7 @@
                             ({section name=i loop=$orderList})
                                 <tr>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">ID ({$orderList[i].productId})</td>
-                                    <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;"><!-- <img style="max-height: 45px; max-width: 45px;" src="({$data.webUrl})({$orderList[i].picture})"> -->({$orderList[i].name})(({orderList[i].specificationsName}))</td>
+                                    <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;"><!-- <img style="max-height: 45px; max-width: 45px;" src="({$data.webUrl})({$orderList[i].picture})"> -->({$orderList[i].name})(({$orderList[i].specificationsName}))</td>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$orderList[i].count})</td>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$orderList[i].price})</td>
                                 </tr>
@@ -41,7 +41,7 @@
                                     ({section name=j loop=$orderList[i].addList})
                                         <tr>
                                             <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">+  ({$orderList[i].addList[j].productId})</td>
-                                            <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;"><!-- <img style="max-height: 45px; max-width: 45px;" src="({$data.webUrl})({$orderList[i].addList[j].picture})"> -->({$orderList[i].addList[j].name})(({orderList[i].addList[j].specificationsName}))</td>
+                                            <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;"><!-- <img style="max-height: 45px; max-width: 45px;" src="({$data.webUrl})({$orderList[i].addList[j].picture})"> -->({$orderList[i].addList[j].name})(({$orderList[i].addList[j].specificationsName}))</td>
                                             <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$orderList[i].addList[j].count})</td>
                                             <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$orderList[i].addList[j].price})</td>
                                         </tr>
