@@ -67,7 +67,7 @@ namespace MTsung{
 		 * @return [type]          [description]
 		 */
 		public function getPrice($id,$isLogin=false){
-			$temp = $this->getData("where id=? and status=1",array($id))[0];
+			$temp = $this->getData("where id=? and status=1 and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ",array($id))[0];
 			if($temp){
 				$price = 0;
 				if($isLogin && $temp["memberPrice"]>0){
@@ -114,7 +114,7 @@ namespace MTsung{
 		 * @return
 		 */
 		public function getProduct($id,$isGetAdd=false){
-			$temp = $this->getData("where id=? and status=1",array($id))[0];
+			$temp = $this->getData("where id=? and status=1 and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ",array($id))[0];
 			if($temp){
 				$temp["class"] = explode("|__|",$temp["class"]);//分類
 				$temp["picture"] = explode("|__|",$temp["picture"]);//圖片
@@ -154,7 +154,7 @@ namespace MTsung{
 		 *         					)
 		 */
 		public function getAddProduct($id){
-			$temp = $this->getData("where id=? and status=1",array($id))[0];
+			$temp = $this->getData("where id=? and status=1 and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ",array($id))[0];
 			if($temp["addProduct"]){
 				$temp["addProduct"] = explode("|__|", $temp["addProduct"]);
 				$temp["addProductSpecifications"] = explode("|__|", $temp["addProductSpecifications"]);
@@ -190,7 +190,7 @@ namespace MTsung{
 		 * @return [type]                 [description]
 		 */
 		public function getSpecificationsName($id,$specifications){
-			$temp = $this->getData("where id=? and status=1",array($id))[0];
+			$temp = $this->getData("where id=? and status=1 and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ",array($id))[0];
 			if($temp["specifications"]){
 				$temp["specificationsID"] = explode("|__|", $temp["specificationsID"]);
 				$temp["specifications"] = explode("|__|", $temp["specifications"]);
