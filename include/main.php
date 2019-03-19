@@ -483,7 +483,7 @@ namespace MTsung{
 			}
 
 
-		    $message = str_replace(array("\r", "\n", "\r\n", "\n\r"), '', $message);
+		    $message = addslashes(str_replace(array("\r", "\n", "\r\n", "\n\r"), '', $message));
 			echo "<meta http-equiv=Content-Type content=text/html; charset=utf-8>";
 			echo "<script language=\"JavaScript\" type=\"text/JavaScript\">window.addEventListener('load',function(){";
 			if($message){
