@@ -56,6 +56,17 @@
 			$conn->Execute("create database ".$dbData." default character set utf8mb4 collate utf8mb4_general_ci");
 			$conn->Connect($dbHost,$dbUser,$dbPass,$dbData);
 
+			//關閉嚴格模式
+			$conn->Execute("SET sql_mode = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+			//設定utf8mb4編碼
+			$conn->Execute("SET NAMES utf8mb4;");
+			$conn->Execute("SET CHARACTER_SET_CLIENT=utf8mb4;");
+			$conn->Execute("SET CHARACTER_SET_RESULTS=utf8mb4;");
+			$conn->Execute("SET CHARACTER_SET_CONNECTION=utf8mb4;");
+			//時區
+			$conn->Execute("SET GLOBAL time_zone = '+08:00';");
+			$conn->Execute("SET time_zone = '+08:00';");
+			
 			ignore_user_abort(true);
 			set_time_limit(0);
 			ini_set("memory_limit",-1);
