@@ -162,7 +162,7 @@ namespace MTsung{
 				$temp["addProductMoney"] = explode("|__|", $temp["addProductMoney"]);
 				$addProduct = $idAndSpecifications = $maxCount = array();
 				foreach ($temp["addProduct"] as $key => $value) {
-					if(!$this->getData("where id=? and status=1",array($value))){
+					if(!$this->getData("where id=? and status=1 and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ",array($value))){
 						continue;
 					}
 					$addProductId[] = $value;
