@@ -25,7 +25,7 @@
 			if($console->isTables($value)){
 				$$value = new MTsung\dataList($console,PREFIX.$value,$lang);
 				//limit 50 取全部會佔用太多記憶體
-				if($data[$value] = $$value->getData("where status=1 and (release_date<='".DATE."' or expire_date is null) and (expire_date>='".DATE."' or release_date is null) order by sort limit 50",array(),$explodeArray)){
+				if($data[$value] = $$value->getData("where 1=1 ".$statusSql." order by sort limit 50",array(),$explodeArray)){
 					foreach ($data[$value] as $key1 => $value1) {
 						$data[$value][$key1] = array_map(function($v){
 							if(!is_array($v)){
