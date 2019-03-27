@@ -399,14 +399,14 @@ namespace MTsung{
 							if(isset($valueM["textOther"])){
 								foreach ($valueM["textOther"] as $valueM1) {
 									if(isset($temp[$key][$valueM["name"].$valueM1])){
-										$temp[$key][$valueM["name"].$valueM1] = json_encode(explode("|__|", $temp[$key][$valueM["name"].$valueM1]));
+										$temp[$key][$valueM["name"].$valueM1] = json_encode(explode("|__|", htmlspecialchars_decode($temp[$key][$valueM["name"].$valueM1])),JSON_HEX_QUOT);
 									}
 								}
 							}
 							if(isset($valueM["textareaOther"])){
 								foreach ($valueM["textareaOther"] as $valueM1) {
 									if(isset($temp[$key][$valueM["name"].$valueM1])){
-										$temp[$key][$valueM["name"].$valueM1] = json_encode(explode("|__|", $temp[$key][$valueM["name"].$valueM1]));
+										$temp[$key][$valueM["name"].$valueM1] = json_encode(explode("|__|", htmlspecialchars_decode($temp[$key][$valueM["name"].$valueM1])),JSON_HEX_QUOT);
 									}
 								}
 							}
@@ -422,14 +422,14 @@ namespace MTsung{
 							if(isset($valueF["textOther"])){
 								foreach ($valueF["textOther"] as $valueF1) {
 									if(isset($temp[$key][$valueF["name"].$valueF1])){
-										$temp[$key][$valueF["name"].$valueF1] = json_encode(explode("|__|", $temp[$key][$valueF["name"].$valueF1]));
+										$temp[$key][$valueF["name"].$valueF1] = json_encode(explode("|__|", htmlspecialchars_decode($temp[$key][$valueF["name"].$valueF1])),JSON_HEX_QUOT);
 									}
 								}
 							}
 							if(isset($valueF["textareaOther"])){
 								foreach ($valueF["textareaOther"] as $valueF1) {
 									if(isset($temp[$key][$valueF["name"].$valueF1])){
-										$temp[$key][$valueF["name"].$valueF1] = json_encode(explode("|__|", $temp[$key][$valueF["name"].$valueF1]));
+										$temp[$key][$valueF["name"].$valueF1] = json_encode(explode("|__|", htmlspecialchars_decode($temp[$key][$valueF["name"].$valueF1])),JSON_HEX_QUOT);
 									}
 								}
 							}

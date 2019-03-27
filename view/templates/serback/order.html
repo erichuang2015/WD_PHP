@@ -48,8 +48,8 @@
                                         <th scope="col">({$console->getLabel("SHIPMENT_STATUS")})</th>
                                         <th scope="col">({$console->getLabel("TOTAL")})($ ({$data.total}))</th>
                                         <th scope="col">({$console->getLabel("STATUS")})</th>
-                                        <!-- <th scope="col">({$console->getLabel("CREATE_DATE")})</th> -->
-                                        <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
+                                        <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                        <!-- <th scope="col">({$console->getLabel("UPDATE_DATE")})</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,12 +86,12 @@
                                                     <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
                                                 </div>
                                             </td>
-                                            <!-- <td >
-                                                ({$data.list[i].create_date})
-                                            </td> -->
                                             <td >
-                                                ({$data.list[i].update_date})(({$data.list[i].update_user}))
+                                                ({$data.list[i].create_date})
                                             </td>
+                                            <!-- <td >
+                                                ({$data.list[i].update_date})(({$data.list[i].update_user}))
+                                            </td> -->
                                         </tr>
 
                                     ({/section})
