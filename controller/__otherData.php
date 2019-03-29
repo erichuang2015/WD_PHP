@@ -58,6 +58,12 @@
 								}
 							}
 						}
+						
+		                if($data[$value][$key1]["dataOption"]){
+		    				foreach ($data[$value][$key1]["dataOption"] as $keyOption => $valueOption) {
+		    					$data[$value][$key1]["dataOption"][$keyOption] = explode(",", $valueOption);
+		    				}
+		                }
 					}
 				}
 				$data[$value] = $console->urlKey($data[$value]);

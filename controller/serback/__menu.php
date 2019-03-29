@@ -29,9 +29,9 @@ $data["maxFloor"] = $systemMenu->getMaxFloor();
 //限制最大層數 (0開始算)
 $data["addMaxFloor"] = 2;
 
-if(isset($_POST["name"])){
-	$_POST["name"] = strtoupper($_POST["name"]);
-}
+// if(isset($_POST["name"])){
+// 	$_POST["name"] = strtoupper($_POST["name"]);
+// }
 
 //有權限操作的id
 $start = $systemMenu->getData("where id='1'")[0]["step"];//前台id必須為1

@@ -111,7 +111,7 @@
                         <div class="form-row" id="div_alias">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("ALIAS")})</label>
-                                <input type="text" class="form-control" name="alias" value="({$data.one.alias})" data-text="({$console->getLabel("ALIAS")})" required onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'');">
+                                <input type="text" class="form-control" name="alias" value="({$data.one.alias})" data-text="({$console->getLabel("ALIAS")})" required onkeyup="this.value=this.value.replace(/-/g,'_').replace(/[^a-zA-Z0-9_]/g,'').toLowerCase();">
                             </div>
                         </div>
 
