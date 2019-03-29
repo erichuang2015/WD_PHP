@@ -59,7 +59,8 @@ if(isset($console->path[1])){
 					$console->alert($console->getMessage("NOT_AUTHORITY"),$data["listUrl"]);
 				}
 
-				if($systemMenu->setData($_POST)){
+				if($addId = $systemMenu->setData($_POST)){
+					$console->conn->Execute("UPDATE ".PREFIX.'admin_group'." SET auth=CONCAT(auth,',".$addId."') where id=1");
 					$console->alert($systemMenu->message,$data["listUrl"]);
 				}else{
 					$console->alert($systemMenu->message,-1);
