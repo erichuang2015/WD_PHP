@@ -9,6 +9,12 @@ if(!in_array($console->path[1],$disallowArray) && !in_array($member->getInfo("ac
 	exit;
 }
 
+
+if(($_POST||$_FILES) && $console->path[1]=="module" &&!in_array($member->getInfo("account"),$allowUser)){
+	$console->alert($console->getMessage("NOT_AUTHORITY"),-1);
+	exit;
+}
+
 $switch["buttonBox"] = 1;
 
 $module["aceEditor"]["name"] = '_aceEditor';//POST欄位名稱，不可使用"aceEditor"

@@ -14,7 +14,7 @@
 	//404檔案路徑轉換
 	$dirArray = array("css","js","images","fonts","svg","upload");
 	$tempRequest = explode("?",substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI'])));
-	if(in_array($console->path[0], $dirArray)){
+	if(in_array($console->controller, $dirArray)){
 		$fileName = DATA_PATH.$tempRequest[0];
 		if(is_file($fileName)){
 			$console->HTTPStatusCode("301",HTTP_PATH.$fileName."?".$tempRequest[1]);
@@ -25,7 +25,7 @@
 			$console->to404($data);
 		}
 	}
-	if($console->path[0] == "data"){
+	if($console->controller == "data"){
 		$fileName = APP_PATH.$tempRequest[0];
 		if(!is_file($fileName)){
 			if(is_file(APP_PATH."images/nodata.jpg")){
@@ -39,7 +39,7 @@
 	//該頁資料載入
 	$menu = new MTsung\menu($console,PREFIX."menu");
 
-	if($temp = $menu->getData("where alias=? and status=1",array($console->path[0]))){
+	if($temp = $menu->getData("where alias=? and status=1",array($console->controller))){
 		$tempSort = array();
 		foreach ($temp as $keySort => $valueSort) {//把class放到最前面
 			if ($valueSort["features"]=="_other_class"){
@@ -50,11 +50,11 @@
 		}
 		$temp = $tempSort;
 		foreach ($temp as $key => $value) {
-			if(($console->path[0]!="index") && ($value["features"]!="_other_form") && ($value["features"]!="_other_calss") && ($value["features"]!="class/product") && !$web_set["titlePrefix"]){
+			if(($console->controller!="index") && ($value["features"]!="_other_form") && ($value["features"]!="_other_calss") && ($value["features"]!="class/product") && !$web_set["titlePrefix"]){
 				$web_set["titlePrefix"] = $console->getLabel(trim(explode("-",$value["name"])[0]));
 				$breadcru[$breadcruI++] = array(
 					"name" => $console->getLabel(trim(explode("-",$value["name"])[0])),
-					"url" => "/".$console->path[0]
+					"url" => "/".$console->controller
 				);
 			}
 		}
@@ -76,7 +76,7 @@
 			$explodeArray[] = "addProductMaxCount";
 			$explodeArray[] = "addProductMoney";
 
-			$basic = new MTsung\dataList($console,PREFIX.$console->path[0],$lang);
+			$basic = new MTsung\dataList($console,PREFIX.$console->controller,$lang);
 			switch ($value["features"]) {
 				case '_other_basicOne':
 
@@ -95,14 +95,14 @@
 							$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
 							$breadcru[$breadcruI++] = array(
 								"name" => $data["one"]["name"],
-								"url" => "/".$console->path[0]."/".$console->path[1]."/".$console->path[2]
+								"url" => "/".$console->controller."/".$console->path[1]."/".$console->path[2]
 							);
 							if(isset($data["one"]["class"]) && $class){
 								foreach ($data["one"]["class"] as $oneKey => $oneValue) {
 									$data["one"]["class"][$oneKey] = $console->urlKey($class->getData("where id='".$oneValue."'")[0]);
 								}
 							}
-							if($console->path[0] == "product"){//產品金額
+							if($console->controller == "product"){//產品金額
 								$data["one"]["price"] = $product->getPrice($data["one"]["id"],$member->isLogin());
 							}
 						}
@@ -129,7 +129,7 @@
 							$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
 							$breadcru[$breadcruI++] = array(
 								"name" => $data["one"]["name"],
-								"url" => "/".$console->path[0]."/".$console->path[1]
+								"url" => "/".$console->controller."/".$console->path[1]
 							);
 						}
 						$data["list"] = $basic->getListData($statusSql." order by sort",explode("|__|", $value["dataKey"]),$value["count"]);
@@ -144,14 +144,14 @@
 					break;
 				case 'class/product':
 				case '_other_class':
-					$class = new MTsung\dataClass($console,PREFIX.$console->path[0]."_class",$lang);
+					$class = new MTsung\dataClass($console,PREFIX.$console->controller."_class",$lang);
 					$data["class"] = $class->getData("where 1=1 ".$statusSql." order by step",array(),$explodeArray);
 					//class
 					if(isset($console->path[1])){
 						//網址轉換
 						if($console->path[1] == "detail" || $console->path[1] == "0"){
 							$key = $console->path[2];
-							$console->HTTPStatusCode(301,WEB_PATH."/".$console->path[0]."/".explode("|__|",$basic->getOne("and (id=? or urlKey=?)",array($key,$key))["class"])[0]."/".$key);
+							$console->HTTPStatusCode(301,WEB_PATH."/".$console->controller."/".explode("|__|",$basic->getOne("and (id=? or urlKey=?)",array($key,$key))["class"])[0]."/".$key);
 							exit;
 						}else if($console->path[1] == "all"){
 							$data["oneClass"]["id"] = 0;
@@ -170,7 +170,7 @@
 						$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
 						$breadcru[$breadcruI++] = array(
 							"name" => $data["one"]["name"],
-							"url" => "/".$console->path[0]."/".$console->path[1]
+							"url" => "/".$console->controller."/".$console->path[1]
 						);
 						$_GET["class"] = $data["oneClass"]["id"];
 					}
@@ -255,7 +255,7 @@
 						$allowMIME = array('image/jpeg', 'image/png', 'image/gif', 'image/bmp' , 'image/x-icon' ,'video/mp4', 'audio/mpeg' , 'audio/mp3' ,'application/pdf' ,'application/msword');
 						$allowExt = array('jpeg', 'jpg', 'bmp', 'gif', 'png' , 'pdf' , 'ico' , 'mp3' , 'mp4');
 						$maxSize = 1048576;//1MB
-						$upload = new MTsung\Upload($allowMIME,$allowExt,$maxSize,false,UPLOAD_PATH.'form/'.$console->path[0]);
+						$upload = new MTsung\Upload($allowMIME,$allowExt,$maxSize,false,UPLOAD_PATH.'form/'.$console->controller);
 						$upload->callUploadFile();
 						$temp = $upload->getDestination();
 						if((!$temp = $upload->getDestination()) && $upload->res['error']){
@@ -272,12 +272,12 @@
 					}
 
 					$input["keyData"] = implode("|__|",$_POST);
-					$form = new MTsung\form($console,PREFIX.$console->path[0]."_form",$lang);
+					$form = new MTsung\form($console,PREFIX.$console->controller."_form",$lang);
 					if($form->setData($input)){
 						$form->sendForm(array(
 							"keyName" => $data["one"]["dataName"],
 							"keyData" => explode("|__|", $input["keyData"])
-						),WEB_PATH."/".$console->path[0]);
+						),WEB_PATH."/".$console->controller);
 					}else{
 						$console->alert($form->message,-1);
 					}
