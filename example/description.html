@@ -153,10 +153,27 @@ GOOGLE翻譯 外掛
    </div>
 ({/if})
 
-<!--麵包屑-->
+麵包屑
 <ol class="breadcrumb"> 
     ({section name=i loop=$breadcru})
         <a href="({$breadcru[i].url})">({$breadcru[i].name})</a> /
     ({/section})
 </ol>
+
+語系select
+({$console->getLanguageArray('html','基本路徑','class名稱')})
+
+
+404頁面 轉跳到首頁
+<script>location.href="({$web.main_url})/index";</script>
+
+
+({if $lang=="zh-tw"})
+    <link href="css/main-ch.css" rel="stylesheet" type="text/css" media="screen">
+({else if $lang=="en-us"})
+    <link href="css/main-en.css" rel="stylesheet" type="text/css" media="screen">
+({else})
+    <link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
+({/if})
+
 ({/literal})
