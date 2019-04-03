@@ -196,39 +196,41 @@
 			}
 
 			
-			if($data["one"]){
-				foreach ($data["one"] as $keyOne => $valueOne) {
-					//搜尋模組的內容 不做字串陣列轉換
-					if(isset($search[$keyOne]) && $data["one"][$keyOne]){
-						$basicOne = new MTsung\dataList($console,PREFIX.$search[$keyOne],$lang);
-						foreach ($data["one"][$keyOne] as $keyOne1 => $valueOne1) {
-							$data["one"][$keyOne][$keyOne1] = $console->urlKey($basicOne->getOne("and id=?",array($valueOne1)));
-						}
-					}
-					//YT連結轉換
-					if(isset($youtube[$keyOne]) && $data["one"][$keyOne]){
-						$data["one"][$keyOne] = $console->youtubeLink($valueOne);
-						$data["one"][$keyOne."_img"] = $console->youtubeImg($valueOne);
-					}
-					//圖片縮圖網址
-					if(isset($imageModule[$keyOne]) && $data["one"][$keyOne]){
-						if($data["one"][$keyOne."__min"] = $valueOne){
-							foreach ($data["one"][$keyOne."__min"] as $key3 => $value3) {
-								$imgTemp = explode(".",$value3);
-								$typeTemp = array_pop($imgTemp);
-								$data["one"][$keyOne."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
+			foreach (array("one","oneClass") as $value__) {
+				if($data[$value__]){
+					foreach ($data[$value__] as $keyOne => $valueOne) {
+						//搜尋模組的內容 不做字串陣列轉換
+						if(isset($search[$keyOne]) && $data[$value__][$keyOne]){
+							$basicOne = new MTsung\dataList($console,PREFIX.$search[$keyOne],$lang);
+							foreach ($data[$value__][$keyOne] as $keyOne1 => $valueOne1) {
+								$data[$value__][$keyOne][$keyOne1] = $console->urlKey($basicOne->getOne("and id=?",array($valueOne1)));
 							}
 						}
-					}
+						//YT連結轉換
+						if(isset($youtube[$keyOne]) && $data[$value__][$keyOne]){
+							$data[$value__][$keyOne] = $console->youtubeLink($valueOne);
+							$data[$value__][$keyOne."_img"] = $console->youtubeImg($valueOne);
+						}
+						//圖片縮圖網址
+						if(isset($imageModule[$keyOne]) && $data[$value__][$keyOne]){
+							if($data[$value__][$keyOne."__min"] = $valueOne){
+								foreach ($data[$value__][$keyOne."__min"] as $key3 => $value3) {
+									$imgTemp = explode(".",$value3);
+									$typeTemp = array_pop($imgTemp);
+									$data[$value__][$keyOne."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
+								}
+							}
+						}
 
-					//非html編輯器跟googlemap htmlspecialchars
-					if(!isset($aceEditor[$keyOne]) && !isset($googleMap[$keyOne]) && $data["one"][$keyOne] && !is_array($data["one"][$keyOne])){
-						$data["one"][$keyOne] = htmlspecialchars($data["one"][$keyOne]);
-					}
+						//非html編輯器跟googlemap htmlspecialchars
+						if(!isset($aceEditor[$keyOne]) && !isset($googleMap[$keyOne]) && $data[$value__][$keyOne] && !is_array($data[$value__][$keyOne])){
+							$data[$value__][$keyOne] = htmlspecialchars($data[$value__][$keyOne]);
+						}
 
-					//textarea
-					if(isset($textarea[$keyOne]) && $data["one"][$keyOne]){
-						$data["one"][$keyOne] = nl2br($data["one"][$keyOne]);
+						//textarea
+						if(isset($textarea[$keyOne]) && $data[$value__][$keyOne]){
+							$data[$value__][$keyOne] = nl2br($data[$value__][$keyOne]);
+						}
 					}
 				}
 			}
