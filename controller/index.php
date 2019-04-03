@@ -229,10 +229,7 @@
     						if(!isset($aceEditor[$keyOne]) && !isset($googleMap[$keyOne]) && $data[$value__][$keyOne] && !is_array($data[$value__][$keyOne])){
     							$data[$value__][$keyOne] = htmlspecialchars($data[$value__][$keyOne]);
     						}
-    					}
-    				}
-    				if($data[$value__]){
-    					foreach ($data[$value__] as $keyOne => $valueOne) {
+
     						//textarea
     						if(isset($textarea[$keyOne]) && $data[$value__][$keyOne]){
     							$data[$value__][$keyOne] = nl2br($data[$value__][$keyOne]);
