@@ -148,7 +148,7 @@
 		$searchTemp1 = array_combine(explode("|__|",$temp["dataKey"]), explode("|__|",$temp["dataSearch"]));
 		if($searchKey = array_keys($searchTemp,$value)){
 			foreach ($searchKey as $keyS => $valueS) {
-				$search[$valueS] = $searchTemp1[$valueS];
+				$search[$valueS] = $searchTemp1[$valueS]?$searchTemp1[$valueS]:"";
 			}
 		}
 		return $search;

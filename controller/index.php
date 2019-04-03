@@ -198,7 +198,7 @@
 			
 			foreach (array("one","oneClass") as $value__) {
 			    if((($value["features"] == "class/product" || $value["features"] == "_other_class") && $value__=="oneClass")
-			    	|| (($value["features"] == "basic/product" || $value["features"] == "_other_basic") && $value__=="one")){
+			    	|| (($value["features"] == "basic/product" || $value["features"] == "_other_basic" || $value["features"] == "_other_basicOne") && $value__=="one")){
 			        
     				if($data[$value__]){
     					foreach ($data[$value__] as $keyOne => $valueOne) {
