@@ -123,6 +123,17 @@ if(isset($console->path[2])){
 				}
 			}
 
+			//copy
+			if(isset($console->path[3]) && is_numeric($console->path[3])){
+				$temp = $basic->getData("where id='".$console->path[3]."'",array(),$explodeArray,$module);
+				if($temp){
+					$data["one"] = $temp[0];
+				}else{
+					$console->alert($basic->message,$data["listUrl"]);
+				}
+				unset($temp);
+			}
+
 
 			$switch["addButton"] = 1;
 			$data["addOnClick"] = "formSubmit();";

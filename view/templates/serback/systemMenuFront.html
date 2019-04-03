@@ -55,7 +55,7 @@
                                             ({else})
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                             ({/if})
-                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({if $console->getLabel($data.list[i].name)})({$console->getLabel($data.list[i].name)})({else})({$data.list[i].name})({/if})</a>
+                                            <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({if $console->getLabel($data.list[i].name)})({$console->getLabel($data.list[i].name)})({else})({$data.list[i].name})({/if})({if $data.list[i].features=="_other_class"}) - ({$console->getLabel("CLASS")})({/if})</a>
                                         </td>
                                         <!-- <td>
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].url})</a>

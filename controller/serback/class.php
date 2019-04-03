@@ -93,6 +93,17 @@ if(isset($console->path[2])){
 					$console->alert($dataClass->message,-1);
 				}
 			}
+			
+			//copy
+			if(isset($console->path[3]) && is_numeric($console->path[3])){
+				$temp = $dataClass->getData("where id='".$console->path[3]."'",array(),$explodeArray,$module);
+				if($temp){
+					$data["one"] = $temp[0];
+				}else{
+					$console->alert($dataClass->message,$data["listUrl"]);
+				}
+				unset($temp);
+			}
 
 
 			$switch["addButton"] = 1;

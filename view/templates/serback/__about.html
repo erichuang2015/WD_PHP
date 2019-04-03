@@ -279,35 +279,19 @@
                     ({/if})
 
                     ({if $data.class.list})
-                        ({if $switch.editList!=0})
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label>({$console->getLabel("CLASS")})</label>
-                                    <div class="form-group">
-                                        <input type="hidden" name="class">
-                                        <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required multiple>
-                                            ({section name=i loop=$data.class.list})
-                                                <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" <!-- ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) --> ({if in_array($data.class.list[i].id,$data.one.class)})selected({/if})>({$data.class.list[i].name})</option>
-                                            ({/section})
-                                        </select>
-                                    </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("CLASS")})</label>
+                                <div class="form-group">
+                                    <input type="hidden" name="class">
+                                    <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required multiple>
+                                        ({section name=i loop=$data.class.list})
+                                            <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" <!-- ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) --> ({if $data.one.class && in_array($data.class.list[i].id,$data.one.class)})selected({/if})>({$data.class.list[i].name})</option>
+                                        ({/section})
+                                    </select>
                                 </div>
                             </div>
-                        ({else})
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label>({$console->getLabel("CLASS")})</label>
-                                    <div class="form-group">
-                                        <input type="hidden" name="class">
-                                        <select class="form-control" name="class[]" data-type="chosen" data-text="({$console->getLabel("CLASS")})" data-placeholder="({$console->getLabel("PLEASE_CHOOSE")})" required multiple>
-                                            ({section name=i loop=$data.class.list})
-                                                <option value="({$data.class.list[i].id})" style="margin-left:({$data.class.list[i].floor})em;" <!-- ({if $data.class.maxFloor>$data.class.list[i].floor})disabled({/if}) -->>({$data.class.list[i].name})</option>
-                                            ({/section})
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        ({/if})
+                        </div>
                     ({/if})
 
                     ({if $data.system.releaseAndExpire})
