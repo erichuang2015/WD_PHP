@@ -39,7 +39,7 @@
 	//該頁資料載入
 	$menu = new MTsung\menu($console,PREFIX."menu");
 
-	if($temp = $menu->getData("where alias=? and status=1",array($console->controller))){
+	if($temp = $menu->getData("where alias=? and status=1 and features!='_other_form'",array($console->controller))){
 		$tempSort = array();
 		foreach ($temp as $keySort => $valueSort) {//把class放到最前面
 			if ($valueSort["features"]=="_other_class"){
@@ -64,6 +64,9 @@
 			$search = getSystemKey($value,'search');
 			$youtube = getSystemKey($value,'youtube');
 			$imageModule = getSystemKey($value,'imageModule');
+			$aceEditor = getSystemKey($value,'aceEditor');
+			$googleMap = getSystemKey($value,'googleMap');
+			$textarea = getSystemKey($value,'textarea');
 
 			$explodeArray = getExplode($value);
 			$explodeArray[] = "class";
@@ -216,6 +219,16 @@
 								$data["one"][$keyOne."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
 							}
 						}
+					}
+
+					//非html編輯器跟googlemap htmlspecialchars
+					if(!isset($aceEditor[$keyOne]) && !isset($googleMap[$keyOne]) && $data["one"][$keyOne] && !is_array($data["one"][$keyOne])){
+						$data["one"][$keyOne] = htmlspecialchars($data["one"][$keyOne]);
+					}
+
+					//textarea
+					if(isset($textarea[$keyOne]) && $data["one"][$keyOne]){
+						$data["one"][$keyOne] = nl2br($data["one"][$keyOne]);
 					}
 				}
 			}
