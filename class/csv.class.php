@@ -27,8 +27,12 @@ namespace MTsung{
 				$csv .= "\"\r\n";
 			}
 
-			header("Content-type: text/x-csv");
+            header('Pragma: no-cache');
+            header('Content-Encoding: UTF-8');
+            header('Expires: 0');
+			header('Content-type: text/csv; charset=UTF-8');
 			header("Content-Disposition: attachment; filename={$filename}.csv");
+			echo "\xEF\xBB\xBF";
 			echo $csv;
 			exit;
 		}
