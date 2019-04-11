@@ -51,10 +51,10 @@
 					$ECPayOrder->paymentIsOk($orderNumber);
 					$ECPayOrder->shipment($orderNumber,true);
 		        }
-
-		        echo '1|OK';
+		        
+		        ob_clean();echo '1|OK';
 		    } catch(Exception $e) {
-		        echo '0|' . $e->getMessage();
+		        ob_clean();echo '0|' . $e->getMessage();
 		    }
 
 			break;
@@ -99,9 +99,9 @@
 				}
 
 
-		        echo '1|OK';
+		        ob_clean();echo '1|OK';
 		    } catch(Exception $e) {
-		        echo '0|' . $e->getMessage();
+		        ob_clean();echo '0|' . $e->getMessage();
 		    }
 
 			break;
@@ -119,9 +119,9 @@
 
 		        //更換門市
 
-		        echo '1|OK';
+		        ob_clean();echo '1|OK';
 		    } catch(Exception $e) {
-		        echo '0|' . $e->getMessage();
+		        ob_clean();echo '0|' . $e->getMessage();
 		    }
 
 			break;
@@ -133,7 +133,7 @@
 		    //             , config='height=800,width=1200,left='+(window.screen.width-1200)/2+',top='+(window.screen.height-800)/2);
 
 
-            echo '
+            ob_clean();echo '
                 <script>
                 	window.opener.mapData=JSON.parse(\''.json_encode($_POST).'\');
                 	window.opener.mapLoad();
@@ -143,7 +143,7 @@
 			break;
 
 		default:
-		    echo '0|Type is Null.';
+		    ob_clean();echo '0|Type is Null.';
 			break;
 	}
 
