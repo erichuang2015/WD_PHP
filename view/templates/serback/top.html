@@ -59,6 +59,9 @@
                         ({if $switch.addButton!=0})
                             <a class="btn btn-outline-light" href="javascript:;" onclick="({if $data.addOnClick})({$data.addOnClick})({/if})"><span class="glyphicon glyphicon-plus"></span> ({$console->getLabel('ADD')})</a>
                         ({/if})
+                        ({if $switch.exportButton!=0})
+                            <a class="btn btn-outline-light" href="({$console->addQuery(['export'=>'1'])})"><span class="glyphicon glyphicon-export"></span> ({$console->getLabel('EXPORT')})</a>
+                        ({/if})
                         ({if $switch.deleteButton!=0})
                             <a class="btn btn-outline-light" href="javascript:;" onclick="formSubmitDelete(({$switch.searchBox}));"><span class="glyphicon glyphicon-remove"></span> ({$console->getLabel('DELETE')})</a>
                         ({/if})
@@ -175,6 +178,9 @@
                         ({/if})
                         ({if $switch.addButton!=0})
                             <a class="btn btn-outline-secondary" href="javascript:;" onclick="({if $data.addOnClick})({$data.addOnClick})({/if})"><span class="glyphicon glyphicon-plus"></span> ({$console->getLabel('ADD')})</a>
+                        ({/if})
+                        ({if $switch.exportButton!=0})
+                            <a class="btn btn-outline-secondary" href="({$console->addQuery(['export'=>'1'])})"><span class="glyphicon glyphicon-export"></span> ({$console->getLabel('EXPORT')})</a>
                         ({/if})
                         ({if $switch.deleteButton!=0})
                             <a class="btn btn-outline-secondary" href="javascript:;" onclick="formSubmitDelete(({$switch.searchBox}));"><span class="glyphicon glyphicon-remove"></span> ({$console->getLabel('DELETE')})</a>
