@@ -150,8 +150,8 @@ namespace MTsung{
 				$this->AddBCC($value);		
 			}
 			if(!$this->Send()){
-				$this->console->alert($this->console->getMessage('MAIL_SEND_ERROR'),'NO');
 				error_log("Send mail error: " . $this->ErrorInfo);
+				$this->console->alert($this->console->getMessage('MAIL_SEND_ERROR'),'NO');
 				return false;
 			}else{
 				if($message1){//msg1優先度高
