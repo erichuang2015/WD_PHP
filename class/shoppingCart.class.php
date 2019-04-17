@@ -1207,7 +1207,7 @@ namespace MTsung{
 				$this->message = $this->console->getMessage('REQURED_NULL');
 				return $temp;			
 			}
-			$this->updateOrder(array("formData"=>json_encode($data)));
+			$this->updateOrder(array("formData"=>json_encode($data,JSON_UNESCAPED_UNICODE)));
 		}
 
 		/**
