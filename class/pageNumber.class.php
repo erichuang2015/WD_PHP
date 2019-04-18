@@ -34,7 +34,8 @@ namespace MTsung{
 			}else{
 				// 取得筆數
 				if(!strpos($sql,'count(*)')){
-					$sql = str_replace('*','count(*)',$sql);
+					// $sql = str_replace('*','count(*)',$sql);
+					$sql = preg_replace('/'.preg_quote('*', '/').'/', 'count(*)', $sql, 1);
 				}
 
 				if($temp = $this->conn->GetArray($sql)){
