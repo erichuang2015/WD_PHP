@@ -95,58 +95,6 @@ namespace MTsung{
 			$this->message = $this->console->getMessage('DELETE_OK');
 			return true;
 		}
-
-		/**
-		 * 取得資料 列表用
-		 * @param  string  $whereSql    while sql
-	 	 * @param  array   $searckKey   keyword搜尋的欄位名稱
-		 * @param  integer $per         每頁幾筆
-		 * @param  integer $pageViewMax 頁碼顯示N個
-		 * @return [type]               [description]
-		 */
-		function getListData($whereSql='',$searckKey=array("name"),$per=15,$pageViewMax=5,$queryName='page'){
-
-			if(isset($_GET["per"]) && is_numeric($_GET["per"]) && ($_GET["per"] > 0)){
-				$per = $_GET["per"];
-			}
-
-			$sql = "";
-			if(isset($_GET["searchKeyWord"])){
-				$sql = "where ";
-				if($_GET["searchKeyWord"]!=''){
-					$temp =  explode(" ",$_GET["searchKeyWord"]);
-					$sql .= " (";
-					foreach ($temp as $key => $value) {
-						if($value!=''){
-							foreach ($searckKey as $key1 => $value1) {
-								$sql .= " ".$value1." LIKE '%".$value."%' or";
-							}
-						}
-					}
-					$sql = substr($sql,0,-2);
-					$sql .= ")";
-				}else{
-					$sql .= " 1=1 ";
-				}
-				
-				if($_GET["startDate"] && in_array("update_date", $this->getField())){
-					$sql .= " and update_date>'".$_GET["startDate"]."' ";
-				}
-
-				if($_GET["endDate"] && in_array("update_date", $this->getField())){
-					$sql .= " and update_date<'".$_GET["endDate"]."' ";
-				}
-
-				if($_GET["status"] != '' && in_array("status", $this->getField())){
-					$sql .= " and status='".$_GET["status"]."' ";
-				}
-			}else{
-				$sql = "where 1=1 ";
-			}
-			$whereSql = $sql.$whereSql;
-			$this->pageNumber = new pageNumber($this->console,'select * from '.$this->table." ".$whereSql,$per,$pageViewMax,$queryName);
-			return parent::getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$per);
-		}
 		
 		/**
 		 * 取得所有子節點
