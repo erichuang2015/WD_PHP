@@ -239,6 +239,58 @@
 			    }
 			}
 
+			if($data["list"]){
+				foreach ($data["list"] as $key1 => $value1) {
+					$data["list"][$key1] = array_map(function($v){
+						if(!is_array($v)){
+							return htmlspecialchars_decode($v);
+						}
+						return $v;
+					},$value1);
+
+					foreach ($data["list"][$key1] as $key2 => $value2) {
+						//搜尋模組的內容 不做字串陣列轉換
+						if(isset($search[$key2]) && $data["list"][$key1][$key2]){
+							$basicOne = new MTsung\dataList($console,PREFIX.$search[$key2],$lang);
+							foreach ($data["list"][$key1][$key2] as $keyOne => $valueOne) {
+								$data["list"][$key1][$key2][$keyOne] = $console->urlKey($basicOne->getOne("and id=?",array($valueOne)));
+							}
+						}
+						//YT連結轉換
+						if(isset($youtube[$key2]) && $data["list"][$key1][$key2]){
+							$data["list"][$key1][$key2] = $console->youtubeLink($value2);
+							$data["list"][$key1][$key2."_img"] = $console->youtubeImg($value2);
+						}
+						//圖片縮圖網址
+						if(isset($imageModule[$key2]) && is_array($data["list"][$key1][$key2])){
+							if($data["list"][$key1][$key2."__min"] = $value2){
+								foreach ($data["list"][$key1][$key2."__min"] as $key3 => $value3) {
+									$imgTemp = explode(".",$value3);
+									$typeTemp = array_pop($imgTemp);
+									$data["list"][$key1][$key2."__min"][$key3] = implode($imgTemp)."_min.".$typeTemp;
+								}
+							}
+						}
+
+						//非html編輯器跟googlemap htmlspecialchars
+						if(!isset($aceEditor[$key2]) && !isset($googleMap[$key2]) && $data["list"][$key1][$key2] && !is_array($data["list"][$key1][$key2])){
+							$data["list"][$key1][$key2] = htmlspecialchars($data["list"][$key1][$key2]);
+						}
+
+						//textarea
+						if(isset($textarea[$key2]) && $data["list"][$key1][$key2]){
+							$data["list"][$key1][$key2] = nl2br($data["list"][$key1][$key2]);
+						}
+					}
+					
+	                if($data["list"][$key1]["dataOption"]){
+	    				foreach ($data["list"][$key1]["dataOption"] as $keyOption => $valueOption) {
+	    					$data["list"][$key1]["dataOption"][$keyOption] = explode(",", $valueOption);
+	    				}
+	                }
+				}
+			}
+
 			if($value["formData"] && $data["one"]){
 
 				if($_POST){
