@@ -81,7 +81,7 @@
                                 ({section name=i loop=$data.one.keyName})
                                     <tr>
                                         <td scope="col">({$data.one.keyName[i]})</td>
-                                        <td>({if strpos($data.one.keyData[i],'/form/') !== false })<a href="({$data.one.keyData[i]})" target="_black">({$data.one.keyData[i]})</a>({else})({$data.one.keyData[i]})({/if})</td>
+                                        <td>({if strpos($data.one.keyData[i],'/form/') !== false })<a href="({$data.one.keyData[i]})" target="_black">({$data.one.keyData[i]})</a>({else})({$data.one.keyData[i]|nl2br})({/if})</td>
                                     </tr>
                                 ({/section})
                             </tbody>
