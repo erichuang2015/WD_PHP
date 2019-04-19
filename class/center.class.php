@@ -720,6 +720,9 @@ namespace MTsung{
 					return $temp;
 				}
 				$sqlArray[] = "%|".$val."|%";
+				$sqlArray[] = "%|".$val."|%";
+				$sqlArray[] = "%|".$val."|%";
+				$sqlArray[] = "%|".$val."|%";
 				return " and (".$row." like ? or ".$row." like ? or ".$row." like ? or ".$row."=?)";
 			}
 
