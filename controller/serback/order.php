@@ -211,7 +211,6 @@ if(isset($console->path[1])){
 			$data["list"][$key]["formData"] = json_decode(htmlspecialchars_decode($value["formData"]),true);
 		}
 	}
-	$data["total"] = (int)$console->conn->getRow("select sum(total+freight) from ".$order->table." ".$order->getSqlWhere($searchKey).$sql." and step>1")[0];
 
 	$data["pageNumber"] = $order->pageNumber;
 

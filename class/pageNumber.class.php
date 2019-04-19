@@ -32,18 +32,23 @@ namespace MTsung{
 			if(is_array($sql)){
     			$this->dataCount = count($sql);
 			}else{
-				// 取得筆數
-				if(!strpos($sql,'count(*)')){
-					// $sql = str_replace('*','count(*)',$sql);
-					$sql = preg_replace('/'.preg_quote('*', '/').'/', 'count(*)', $sql, 1);
-				}
+				//如果已經是總筆數
+				if(is_numeric($sql)){
+					$this->dataCount = $sql;
+				}else{
+					// 取得筆數
+					if(!strpos($sql,'count(*)')){
+						// $sql = str_replace('*','count(*)',$sql);
+						$sql = preg_replace('/'.preg_quote('*', '/').'/', 'count(*)', $sql, 1);
+					}
 
-				if($temp = $this->conn->GetArray($sql)){
-	    			if(count($temp)>1){
-	    				$this->dataCount = count($temp);
-	    			}else{
-	    				$this->dataCount = $temp[0][0];
-	    			}
+					if($temp = $this->conn->GetArray($sql)){
+		    			if(count($temp)>1){
+		    				$this->dataCount = count($temp);
+		    			}else{
+		    				$this->dataCount = $temp[0][0];
+		    			}
+					}
 				}
 			}
 			if($this->per == 0){

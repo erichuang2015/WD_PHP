@@ -266,19 +266,26 @@ namespace MTsung{
 				$per = $_GET["per"];
 			}
 
-			
-			$whereSql = $this->getSqlWhere($searchKey,strpos($whereSql,"class like")===false).$whereSql;
-			$this->pageNumber = new pageNumber($this->console,'select * from '.$this->table." ".$whereSql,$per,$pageViewMax,$queryName);
-			return $this->getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$this->pageNumber->getPer());
+			$sqlArray = array();
+			$whereSql = $this->getSqlWhere($searchKey,strpos($whereSql,"class like")===false,$sqlArray).$whereSql;
+
+			$totalCount = 0;
+			$sql = preg_replace('/'.preg_quote('*', '/').'/', 'count(*)', 'select * from '.$this->table." ".$whereSql, 1);
+			if($temp = $this->conn->GetArray($this->conn->Prepare($sql),$sqlArray)){
+    			$totalCount = $temp[0][0];
+			}
+			$this->pageNumber = new pageNumber($this->console,$totalCount,$per,$pageViewMax,$queryName);
+			return $this->getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$this->pageNumber->getPer(),$sqlArray);
 		}
 
 		/**
-		 * 取得GET組合的sql
+		 * 取得GET組合的sql 防止注碼攻擊
 		 * @param  array   $searchKey [description]
 		 * @param  boolean $classFlag class搜尋
+		 * @param  [type]  &$sqlArray [description]
 		 * @return [type]             [description]
 		 */
-		function getSqlWhere($searchKey=array("name"),$classFlag=true){
+		function getSqlWhere($searchKey=array("name"),$classFlag=true,&$sqlArray){
 			$sql = "";
 			if(isset($_GET["searchKeyWord"])){
 				$sql = "where ";
@@ -288,7 +295,8 @@ namespace MTsung{
 					foreach ($temp as $key => $value) {
 						if($value!='' && $searchKey){
 							foreach ($searchKey as $key1 => $value1) {
-								$sql .= " ".$value1." LIKE '%".$value."%' or";
+								$sql .= " ".$value1." LIKE ? or";
+								$sqlArray[] = "%".$value."%";
 							}
 						}
 					}
@@ -299,21 +307,24 @@ namespace MTsung{
 				}
 				
 				if($_GET["startDate"] && in_array("update_date", $this->getField())){
-					$sql .= " and update_date>'".$_GET["startDate"]."' ";
+					$sql .= " and update_date>? ";
+					$sqlArray[] = $_GET["startDate"];
 				}
 
 				if($_GET["endDate"] && in_array("update_date", $this->getField())){
-					$sql .= " and update_date<'".$_GET["endDate"]."' ";
+					$sql .= " and update_date<? ";
+					$sqlArray[] = $_GET["endDate"];
 				}
 
 				if($_GET["status"] != '' && in_array("status", $this->getField())){
-					$sql .= " and status='".$_GET["status"]."' ";
+					$sql .= " and status=? ";
+					$sqlArray[] = $_GET["status"];
 				}
 			}else{
 				$sql = "where 1=1 ";
 			}
 			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && $classFlag && in_array("class", $this->getField())){
-				$sql .= $this->findArrayString("class",$_GET["class"]);
+				$sql .= $this->findArrayString("class",$_GET["class"],$sqlArray);
 			}
 			if(isset($_GET["stockBelow"]) && is_numeric($_GET["stockBelow"]) && $_GET["stockBelow"] && $_GET["stockBelow"]<1000){
 
@@ -689,11 +700,29 @@ namespace MTsung{
 
 		/**
 		 * 合成陣列字串搜尋sql
-		 * @param  [type] $row [description]
-		 * @param  [type] $val [description]
-		 * @return [type]      [description]
+		 * @param  [type] $row 			[description]
+		 * @param  [type] $val 			[description]
+		 * @param  [type] &$sqlArray 	[description]
+		 * @return [type]      			[description]
 		 */
-		function findArrayString($row,$val){
+		function findArrayString($row,$val,&$sqlArray=""){
+			if($sqlArray){//防止注碼攻擊
+				if(is_array($val)){
+					$temp = " and (";
+					foreach ($val as $key => $value) {
+						$temp .= " ".$row." like ? or ".$row." like ? or ".$row." like ? or ".$row."=? or";
+						$sqlArray[] = "%|".$value."|%";
+						$sqlArray[] = "%|".$value."|%";
+						$sqlArray[] = "%|".$value."|%";
+						$sqlArray[] = "%|".$value."|%";
+					}
+					$temp .= " 0)";
+					return $temp;
+				}
+				$sqlArray[] = "%|".$val."|%";
+				return " and (".$row." like ? or ".$row." like ? or ".$row." like ? or ".$row."=?)";
+			}
+
 			if(is_array($val)){
 				$temp = " and (";
 				foreach ($val as $key => $value) {
