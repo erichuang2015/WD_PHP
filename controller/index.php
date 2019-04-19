@@ -105,9 +105,6 @@
 									$data["one"]["class"][$oneKey] = $console->urlKey($class->getData("where id='".$oneValue."'")[0]);
 								}
 							}
-							if($console->controller == "product"){//產品金額
-								$data["one"]["price"] = $product->getPrice($data["one"]["id"],$member->isLogin());
-							}
 						}
 						if(isset($console->path[1]) && $console->path[1]=="all"){
 							$findClassSql = "";
