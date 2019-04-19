@@ -1,16 +1,6 @@
 <?php 
 	include_once('header.php');
 
-	$statusSql = " and status='1' and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ";
-	
-	include_once('__otherData.php');
-
-	$breadcruI = 0;
-	$breadcru[$breadcruI++] = array(
-		"name" => $console->getLabel("INDEX"),
-		"url" => "/"
-	);
-
 	//404檔案路徑轉換
 	$dirArray = array("css","js","images","fonts","svg","upload");
 	$tempRequest = explode("?",substr($_SERVER['REQUEST_URI'], strlen(WEB_PATH)+1,strlen($_SERVER['REQUEST_URI'])));

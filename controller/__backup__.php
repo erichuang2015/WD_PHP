@@ -43,16 +43,5 @@
 		}
 		$dir->close();
 	}
-
-	// $day = round((strtotime(DATE)-strtotime("2018-7-3"))/3600/24);
-	// $backup = new MTsung\backup($console->conn);
-	// $backup->exportDatabase();
-	//開發定期備份
-	// $day = round((strtotime(DATE)-strtotime("2018-7-3"))/3600/24);
-	// $fileCount = count(glob(APP_PATH."/output/databaseBackup/*.*"));
-	// if($day > $fileCount){
-	// 	$backup = new MTsung\backup($console->conn);
-	// 	$backup->exportDatabase();
-	// }
 	exit;
 ?>

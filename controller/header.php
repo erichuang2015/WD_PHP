@@ -38,3 +38,14 @@
 	//購物內容數量
 	$data["orderCount"] = count($order->getShoppingCartList());
 
+	//狀態sql
+	$statusSql = " and status='1' and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ";
+	//其他資料
+	include_once('__otherData.php');
+
+	//麵包屑
+	$breadcruI = 0;
+	$breadcru[$breadcruI++] = array(
+		"name" => $console->getLabel("INDEX"),
+		"url" => "/"
+	);

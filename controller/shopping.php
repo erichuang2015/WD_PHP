@@ -1,6 +1,5 @@
 <?php 
 	include_once('header.php');
-	include_once('__otherData.php');
 
 	$web_set["titlePrefix"] = $console->getLabel("SHOPPING_CART");
 
