@@ -351,5 +351,8 @@
 		}
 	}
 
+	if($_GET["showData"] == 1){
+		$console->outputJson(true,'',$data);
+	}
 	// print_r($breadcru);exit;
 	// print_r($data);exit;

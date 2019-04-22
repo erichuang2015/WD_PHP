@@ -2,7 +2,7 @@
 /**
  * 後台上板
  */
-if($_POST  && !(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')){
+if($_POST  && !$console->isAjax()){
 	echo "<title>Loading...</title>";
 }
 

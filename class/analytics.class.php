@@ -66,7 +66,7 @@ namespace MTsung{
 		public function addLog(){
 
 			//ajax不算
-			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+			if($this->console->isAjax()){
 				return false;	
 			}
 

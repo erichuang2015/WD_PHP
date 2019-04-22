@@ -478,7 +478,7 @@ namespace MTsung{
 		function alert($message,$url=NULL){
 
 			//ajax
-			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+			if($this->isAjax()){
 				$this->outputJson($url!='-1',$message);
 			}
 
@@ -1074,6 +1074,14 @@ namespace MTsung{
 		 */
 		function newline($text){
 			return str_replace("\n","<br>",str_replace("\r\n","<br>",$text));
+		}
+
+		/**
+		 * 判斷是否為ajax
+		 * @return boolean [description]
+		 */
+		function isAjax(){
+			return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && (strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 		}
 	}
 }
