@@ -127,8 +127,7 @@
 						
 						//預設第一筆
 						if(!$data["one"]){
-							$key = $data["list"][0]["id"];
-						    $data["one"] = $basic->getOne("and (id=? or urlKey=?) ",array($key,$key),$explodeArray);
+						    $data["one"] = $basic->getOne("and id=? ",array($data["list"][0]["id"]),$explodeArray);
 						}
 					}
 					break;
@@ -153,7 +152,7 @@
 						}
 
 					}else{
-						$data["oneClass"] = $data["class"][0];
+						$data["oneClass"] = $class->getOne("and id=?",array($data["class"][0]["id"]),$explodeArray);
 					}
 					$data["one"] = $data["oneClass"] = $console->urlKey($data["oneClass"]);
 					if($data["oneClass"]["id"]!=0){
@@ -182,10 +181,12 @@
 					break;
 			}
 
-			
+			$classFeatures = array("class/product","_other_class");
+			$basicFeatures = array("basic/product","_other_basic","_other_basicOne");
+
 			foreach (array("one","oneClass") as $value__) {
-			    if((($value["features"] == "class/product" || $value["features"] == "_other_class") && $value__=="oneClass")
-			    	|| (($value["features"] == "basic/product" || $value["features"] == "_other_basic" || $value["features"] == "_other_basicOne") && $value__=="one")){
+			    if((in_array($value["features"], $classFeatures) && $value__=="oneClass")
+			    	|| (in_array($value["features"], $basicFeatures) && $value__=="one")){
 			        
     				if($data[$value__]){
     					foreach ($data[$value__] as $keyOne => $valueOne) {
@@ -226,7 +227,7 @@
 			    }
 			}
 
-			if($data["list"]){
+			if($data["list"] && in_array($value["features"], $basicFeatures)){
 				foreach ($data["list"] as $key1 => $value1) {
 					$data["list"][$key1] = array_map(function($v){
 						if(!is_array($v)){
