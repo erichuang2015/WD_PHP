@@ -32,7 +32,7 @@ function shoppingListReload(shoppingList) {
                 var temp = $('#shoppingListDiv').find('div.cart-item:last');
                 $(temp).find('.product-link').attr('href', _jsPath+'/product/detail/' + v.productId);
                 $(temp).find('img').attr('src', v.picture);
-                if(v.specificationsName=="default"){
+                if(v.specificationsName=="default" || v.specificationsName==null){
                     $(temp).find('.title').html(v.name);
                 }else{
                     $(temp).find('.title').html(v.name+'('+v.specificationsName+')');
