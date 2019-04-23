@@ -32,7 +32,11 @@ function shoppingListReload(shoppingList) {
                 var temp = $('#shoppingListDiv').find('div.cart-item:last');
                 $(temp).find('.product-link').attr('href', _jsPath+'/product/detail/' + v.productId);
                 $(temp).find('img').attr('src', v.picture);
-                $(temp).find('.title').html(v.name);
+                if(v.specificationsName=="default"){
+                    $(temp).find('.title').html(v.name);
+                }else{
+                    $(temp).find('.title').html(v.name+'('+v.specificationsName+')');
+                }
                 $(temp).find('.ng-scope').html('數量：' + v.count);
                 $(temp).find('.price-details').html('NT ' + v.price * v.count);
                 $(temp).find('.remove').data("productid",v.productId);
@@ -120,7 +124,7 @@ function shoppingRmProduct($obj,flag) {
  * 修改商品數量
  */
 function shoppingEditCount($obj) {
-    loadingStart();
+    // loadingStart();
     $.ajax({
         url: _jsPath+"/shopping",
         type: "GET",
@@ -132,14 +136,29 @@ function shoppingEditCount($obj) {
         },
         dataType: 'text',
         success: function(msg) {
+            // try {
+            //     loadingStop();
+            //     temp = JSON.parse(msg);
+            //     alert(temp.message);
+            //     if (!temp.response) {
+            //         return false;
+            //     }
+            //     window.location.reload();
+            // } catch (e) {
+            //     alert("error : " + e);
+            // }
             try {
-                loadingStop();
+                // loadingStop();
                 temp = JSON.parse(msg);
-                alert(temp.message);
                 if (!temp.response) {
+                    alert(temp.message);
                     return false;
                 }
-                window.location.reload();
+                if (typeof(shopping_dcoo)!="undefined"){
+                    window.clearTimeout(shopping_dcoo);
+                }
+                shopping_dcoo = window.setTimeout("window.location.reload()",1000);
+                // window.location.reload();
             } catch (e) {
                 alert("error : " + e);
             }
