@@ -56,6 +56,10 @@ function shoppingListReload(shoppingList) {
  * 新增商品
  */
 function shoppingAddProduct($obj) {
+    if(!$obj.data("specifications")){
+        alert('請選擇規格');
+        return false;
+    }
     loadingStart();
     $.ajax({
         url: _jsPath+"/shopping",
@@ -85,6 +89,7 @@ function shoppingAddProduct($obj) {
             }
         }
     });
+    return true;
 }
 
 /**
