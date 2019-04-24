@@ -157,10 +157,30 @@
 					$data["one"] = $data["oneClass"] = $console->urlKey($data["oneClass"]);
 					if($data["oneClass"]["id"]!=0){
 						$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
+
+						//麵包屑
+						$tempBreadcru = array();
+						$parent = $data["one"]["parent"];
+						while ($parent) {
+							$tempClass = $console->urlKey($class->getOne("and id=?",array($parent)));
+							$parent = $tempClass["parent"];
+							array_unshift(
+								$tempBreadcru,
+								array(
+									"name" => $tempClass["name"],
+									"url" => "/".$console->controller."/".$tempClass["urlKey"]
+								)
+							);
+						}
+						foreach ($tempBreadcru as $valueBreadcru) {
+							$breadcru[$breadcruI++] = $valueBreadcru;
+						}
 						$breadcru[$breadcruI++] = array(
 							"name" => $data["one"]["name"],
 							"url" => "/".$console->controller."/".$console->path[1]
 						);
+						//麵包屑
+						
 						$_GET["class"] = $data["oneClass"]["id"];
 					}
 
