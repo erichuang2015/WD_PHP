@@ -1,0 +1,102 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner">
+    <div class="banner-title">
+        會員專區
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<!-- 內容 -->
+<div class="warpper">
+    <!-- 編輯區 -->
+    <div class="main">
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body row">
+            <div class="col-sm-3">
+                <div class="left-menu-title">會員選單</div>
+                <div class="in-left-menu classBox">
+                    <ul class="classLink">
+                        <li><a href="({$web.main_url})/member/detail" class="current">修改會員資料</a></li>
+                        <li><a href="({$web.main_url})/member/order">訂單查詢</a></li>
+                        <li><a href="({$web.main_url})/member/password">修改密碼</a></li>
+                        <li><a href="({$web.main_url})/member/logout">登出</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm">
+                <h3 class="page-title">修改會員資料</h3>
+                <form action="" method="POST">
+                    <div class="form-box">
+                        <div class="opinion clearfix"> <span class="opinion-left01">帳號綁定</span>
+                            ({if $web.googleAuthAppID})
+                                ({if $member.googleID})
+                                    <a href="javascript:;" onclick="if(confirm('確定要解除綁定?')){location.href='({$console->addQuery(['unLink'=>'google'])})'}"><img src="({$member.googlePicture})" height="48" width="48" title="解除綁定"></a>
+                                ({else})
+                                    <a href="javascript:;" id="GoogleBtn"><img src="images/google_icon&48.png" height="48" width="48" title="綁定帳號"></a>
+                                ({/if})
+                            ({/if})
+
+                            ({if $web.fbAuthAppID})
+                                ({if $member.fbID})
+                                    <a href="javascript:;" onclick="if(confirm('確定要解除綁定?')){location.href='({$console->addQuery(['unLink'=>'fb'])})'}"><img src="({$member.fbPicture})" height="48" width="48" title="解除綁定"></a>
+                                ({else})
+                                    <a href="javascript:;" onclick="fbLogin();"><img src="images/facebook_icon&48.png" height="48" width="48" title="綁定帳號"></a>
+                                ({/if})
+                            ({/if})
+
+                            ({if $web.lineAuthClientID})
+                                ({if $member.lineID})
+                                    <a href="javascript:;" onclick="if(confirm('確定要解除綁定?')){location.href='({$console->addQuery(['unLink'=>'line'])})'}"><img src="({$member.linePicture})" height="48" width="48" title="解除綁定"></a>
+                                ({else})
+                                    <a href="javascript:;" onclick="lineLogin();"><img src="/images/LINE_LOGO.png" height="48" width="48" title="綁定帳號"></a>
+                                ({/if})
+                            ({/if})
+                        </div>
+                        <div class="form-box">
+                            <div class="opinion clearfix"> <span class="opinion-left01">帳號</span>
+                                <input type="text" value="({$member.account})" class="input-main-style01" disabled>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">您的姓名 *</span>
+                                <input type="text" placeholder="姓名" name="name" class="input-main-style01" value="({$member.name})" data-text="性名" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">電話號碼 *</span>
+                                <input type="text" placeholder="電話號碼" data-text="電話號碼" class="input-main-style01" name="cellPhone" value="({$member.cellPhone})" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">手機號碼 *</span>
+                                <input type="text" placeholder="手機號碼" data-text="手機號碼" class="input-main-style01" name="phone" value="({$member.phone})" required>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">聯絡地址 *</span>
+                                <div class="input-main-select" id="twzipcode">
+                                    <script>
+                                        $('#twzipcode').twzipcode({
+                                            'css': ['form-control', 'form-control'],
+                                            'countyName': 'address[0]',
+                                            'districtName': 'address[1]',
+                                            'zipcodeName': 'address[2]',
+                                            'zipcodeIntoDistrict': true,
+                                            'countySel'   : '({$member.address[0]})',
+                                            'districtSel' : '({$member.address[1]})',
+                                            'zipcodeSel' : '({$member.address[2]})'
+                                        });
+                                        $('#twzipcode').find('select').attr('required', true);
+                                        $('#twzipcode').find('select[name="address[0]"]').attr('data-text', "聯絡地址-縣市");
+                                        $('#twzipcode').find('select[name="address[1]"]').attr('data-text', "聯絡地址-鄉鎮市區");
+                                    </script>
+                                    <input type="text" name="address[3]" placeholder="聯絡地址" data-text="聯絡地址" class="input-main-style03" value="({$member.address[3]})" required>
+                                </div>
+                            </div>
+                            ({include "module/memberField_style01.html"})
+                            <div class="cart-btn"><a href="javascript:;" onclick="formSubmit(0); return false;" class="btn-send">確認修改</a></div>
+                            ({$console->getToken()})
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- 右欄 END -->
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 end -->
+</div>
+<!-- 內容 end -->
+({include "foor.html"})

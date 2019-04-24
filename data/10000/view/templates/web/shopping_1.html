@@ -1,0 +1,246 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner">
+    <div class="banner-title">購物車</div>
+</div>
+<!-- InstanceEndEditable -->
+<!-- 內容 -->
+<div class="warpper">
+    <!-- 編輯區 -->
+    <div class="main">
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        ({if !$data.orderList})
+        <div class="content-body row">
+            <div class="col-sm">
+            <div class="cart-btn">
+                
+                <a href="({$web.main_url})/product/all" class="btn-send">您的購物車是空的 前往購物</a>
+            </div>
+            </div>
+        </div>
+        ({else})
+        <div class="content-body row">
+            <div class="col-sm">
+                <div class="steps clearfix">
+                    <div class="step active"><span class="badge"><span class="text">1</span></span> <span>購物車</span></div>
+                    <div class="step"><span class="badge"><span class="text">2</span></span> <span>填寫資料</span></div>
+                    <div class="step"><span class="badge"><span class="text">3</span></span> <span>訂單確認</span></div>
+                </div>
+                <h3 class="shopping-process page-title">購物車</h3>
+                <!-- 購物清單 -->
+                <div class="shopping-car">
+                    <ul>
+                        <li class="row">
+                            <div class="shopping-car-content o-col-sm-5"><b>商品資料</b></div>
+                            <div class="shopping-car-content o-col-sm-2"><b>價 格</b></div>
+                            <div class="shopping-car-content o-col-sm-2"><b>數 量</b></div>
+                            <div class="shopping-car-content o-col-sm-2"><b>小 計</b></div>
+                            <div class="shopping-car-content o-col-sm-1"><b>刪 除</b></div>
+                        </li>
+
+                                ({section name=i loop=$data.orderList})
+                                <li class="row align-items-center">
+                                    <div class="shopping-car-content shop-car-info o-col-sm-5">
+                                        <a href="({$web.main_url})/product/detail/({$data.orderList[i].productId})" target="_blank" class="pro-photo"><img src="({$data.orderList[i].picture})" alt=""/></a>
+                                        <div class="description">
+                                            <div class="shop-car-info-title">({$data.orderList[i].name})({if "default" != $data.orderList[i].specificationsName})(({$data.orderList[i].specificationsName}))({/if})</div>
+                                        </div>
+                                    </div>
+                                    <div class="shopping-car-content shop-car-price o-col-sm-2">NT$({$data.orderList[i].price})<span class="original-price">NT$({$data.orderList[i].onlineProduct.originalPrice})</span></div>
+                                    <div class="shopping-car-content shop-car-quantity o-col-sm-2">
+                                        <div class="qtyInputBox b({$smarty.section.i.index})">
+                                            <!-- 購買數量增減模組 Begin -->
+                                            <span class="input-group-btn"><button><i class="fa fa-minus"></i></button></span>
+                                            <input type="text" value="({$data.orderList[i].count})" id="count({$smarty.section.i.index})" maxlength="5" data-productid="({$data.orderList[i].productId})" data-specifications="({$data.orderList[i].specifications})" onchange="shoppingEditCount($(this));">
+                                            <span class="input-group-btn"><button><i class="fa fa-plus"></i></button></span>
+                                            <!-- 購買數量增減模組 End -->
+                                        </div>
+                                        <script>
+                                            $('.qtyInputBox.b({$smarty.section.i.index}) button i.fa-plus').click(function() {
+                                                var qty = $('.qtyInputBox.b({$smarty.section.i.index}) input').val();
+                                                qty = parseInt(qty) + 1;
+                                                $('.qtyInputBox.b({$smarty.section.i.index}) input').val(qty);
+                                                shoppingEditCount($('.qtyInputBox.b({$smarty.section.i.index}) input'));
+                                            });
+
+                                            $('.qtyInputBox.b({$smarty.section.i.index}) button i.fa-minus').click(function() {
+                                                var qty = $('.qtyInputBox.b({$smarty.section.i.index}) input').val();
+                                                if (qty < 2) { qty = 1; } else { qty = qty - 1; }
+                                                $('.qtyInputBox.b({$smarty.section.i.index}) input').val(qty);
+                                                shoppingEditCount($('.qtyInputBox.b({$smarty.section.i.index}) input'));
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="shopping-car-content shop-car-subtotal o-col-sm-2">NT$({$data.orderList[i].price*$data.orderList[i].count})</div>
+                                    <div class="shopping-car-content shop-car-del o-col-sm-1"><a href="javascript:;" onclick="shoppingRmProduct($('#count({$smarty.section.i.index})'));"><i class="fa fa-trash-o" aria-hidden="true"></i></a></div>
+                                </li>
+                                    ({if $data.orderList[i].onlineProduct.addProduct})
+                                        ({section name=j loop=$data.orderList[i].onlineProduct.addProduct.id})
+
+({section name=addI loop=$data.orderList[i].addProductList})
+    ({if $data.orderList[i].addProductList[addI].productId==$data.orderList[i].onlineProduct.addProduct.id[j] && $data.orderList[i].addProductList[addI].specifications==$data.orderList[i].onlineProduct.addProduct.specifications[j]})
+        ({assign var="tempCount" value=$data.orderList[i].addProductList[addI].count})
+    ({/if})
+({/section})
+                                            <input type="hidden" 
+                                                value="({if $tempCount})({$tempCount})({else})1({/if})" 
+                                                id="count({$smarty.section.i.index})_({$smarty.section.j.index})" 
+                                                data-productid="({$data.orderList[i].productId})" 
+                                                data-addproductid="({$data.orderList[i].onlineProduct.addProduct.id[j]})" 
+                                                data-specifications="({$data.orderList[i].onlineProduct.addProduct.specifications[j]})"
+                                            >
+
+<li class="addcontainer row align-items-center">
+    <h1 class=" o-col-sm-auto">加價購</h1>
+    <div class="shopping-car-content shop-car-info col">
+        <a href="" target="_blank" class="pro-photo"><img src="({$data.orderList[i].onlineProduct.addProduct.online[j].pictureList})" alt="" /></a>
+        <div class="description">
+            <div class="shop-car-info-title">好康◆加購價$({$data.orderList[i].onlineProduct.addProduct.addProductMoney[j]})(原價$({$data.orderList[i].onlineProduct.addProduct.online[j].originalPrice}))◆</div>
+            <div class="spec"></div>
+            <label><input type="checkbox" ({if $tempCount>0})checked({/if}) onclick="if($(this).prop('checked')) {shoppingAddAddProduct($('#count({$smarty.section.i.index})_({$smarty.section.j.index})'));}else {shoppingRmAddProduct($('#count({$smarty.section.i.index})_({$smarty.section.j.index})'),false);}"> <b>我要加<span class="addc-price">$({$data.orderList[i].onlineProduct.addProduct.addProductMoney[j]})</span>買 ({$data.orderList[i].onlineProduct.addProduct.online[j].name})</b></label>
+        </div>
+    </div>
+    <div class="shopping-car-content shop-car-quantity o-col-sm-2">
+        <select class="Qty" onchange="$('#count({$smarty.section.i.index})_({$smarty.section.j.index})').val(this.value);shoppingAddEditCount($('#count({$smarty.section.i.index})_({$smarty.section.j.index})'));">
+            ({for $c=1 to $data.orderList[i].onlineProduct.addProduct.maxCount[j]})
+                <option class="Qty" value="({$c})" ({if $c==$tempCount})selected({/if})>({$c})</option>
+            ({/for})
+        </select>
+    </div>
+    <div class="shopping-car-content shop-car-subtotal o-col-sm-2">NT$({$data.orderList[i].onlineProduct.addProduct.addProductMoney[j]*$tempCount})</div>
+</li>
+                                           
+                                        ({/section})
+                                    ({/if})
+                                ({/section})
+
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <!-- 左欄 -->
+                        <h3 class="page-title">選擇送貨及付款方式</h3>
+                        <!-- 購物清單 -->
+                        <div class="checkout-box clearfix">
+                            <!-- 表單 -->
+                            <div class="opinion clearfix"> <span class="opinion-left01">付款方式</span>
+                                <select id="paymentMethod" class="input-main-style01" onchange="getShipment();">
+                                    <option value="">請選擇</option>
+                                    ({section name=i loop=$data.paymentMethod})
+                                    <option value="({$data.paymentMethod[i].key})" ({if $data.paymentMethod[i].key==$data.order.paymentMethod})selected({/if})>({$data.paymentMethod[i].name})</option>
+                                    ({/section})
+                                </select>
+                            </div>
+                            <div class="opinion clearfix"> <span class="opinion-left01">配送方式</span>
+                                <select id="shipmentMethod" class="input-main-style01" onchange="setShipmentMethod();">
+                                    <option value="">請選擇</option>
+                                    ({section name=i loop=$data.shipmentMethod})
+                                    <option value="({$data.shipmentMethod[i].key})" ({if $data.shipmentMethod[i].key==$data.order.shipmentMethod})selected({/if})>({$data.shipmentMethod[i].name})</option>
+                                    ({/section})
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                        function getShipment() {
+                            val = $("#paymentMethod").val();
+                            $('#shipmentMethod').html('<option value="">loading...</option>');
+                            $('#shipmentMethod').attr('disabled', true);
+                            $.ajax({
+                                type: "GET",
+                                data: { ajax: "getShipment", value: val },
+                                dataType: 'text',
+                                success: function(msg) {
+                                    try {
+                                        $('#shipmentMethod').html('<option value="">請選擇</option>');
+                                        $('#shipmentMethod').attr('disabled', false);
+                                        temp = JSON.parse(msg);
+                                        if (temp.data.length > 0) {
+                                            $(temp.data).each(function(index, obj) {
+                                                $('#shipmentMethod').append('<option value="' + obj["key"] + '">' + obj["name"] + '</option>');
+                                            });
+                                        }
+                                    } catch (e) {
+                                    }
+                                }
+                            });
+                            setPaymentMethod();
+                            setShipmentMethod();
+
+                        }
+
+                        function setShipmentMethod() {
+                            val = $("#shipmentMethod").val();
+                            $.ajax({
+                                type: "GET",
+                                data: { ajax: "setShipmentMethod", value: val },
+                                dataType: 'text',
+                                success: function(msg) {}
+                            });
+                        }
+
+                        function setPaymentMethod() {
+                            val = $("#paymentMethod").val();
+                            $.ajax({
+                                type: "GET",
+                                data: { ajax: "setPaymentMethod", value: val },
+                                dataType: 'text',
+                                success: function(msg) {}
+                            });
+                        }
+                        </script>
+                    </div>
+                    <div class="col-sm-5">
+                        <h3 class="page-title">訂單資訊</h3>
+                        <div class="checkout-cart-summary">
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">小計：</div>
+                                <div class="subtotal-content col">NT$({$data.order.total+$data.order.pointDownMoney})</div>
+                            </div>
+                            
+                            ({if $web.pointCheck})
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">持有紅利點數：</div>
+                                <div class="subtotal-content col">({(int)$member.point})點</div>
+                            </div>
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">使用紅利點數：</div>
+                                <div class="subtotal-content col"><input type="text" class="" value="({$data.order.usePoint})" onblur="if(this.value>0){usePoint(this.value);}"> 點</div>
+                            </div>
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">折抵金額：</div>
+                                <div class="subtotal-content col">NT$-({$data.order.pointDownMoney})</div>
+                            </div>
+                            ({/if})
+                            
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">運費：</div>
+                                <div class="subtotal-content col">NT$({$data.order.freight})</div>
+                            </div>
+                            <div class="total row">
+                                <div class="subtotal-name col">合計<span class="subtotal-quantity"> (({count($data.orderList)})件)</span>：</div>
+                                <div class="subtotal-content toc  col">NT$({$data.order.total+$data.order.freight})</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cart-btn"><a href="({$web.main_url})/product" class="btn btn-primary btn-reset">繼續購物</a> <a href="javascript:;" onclick="return next();" class="btn-send">填寫資料</a></div>
+                <script>
+                    function next(){
+                        if($("#paymentMethod").val() && $("#shipmentMethod").val()){
+                            location.href = '({$web.main_url})/({$console->path[0]})/2';
+                        }else{
+                            alert("請選擇付款方式及送貨方式");
+                        }
+                        return false;
+                    }
+                </script>
+            </div>
+        </div>
+        <!-- InstanceEndEditable -->
+        ({/if})
+    </div>
+    <!-- 編輯區 end -->
+</div>
+<!-- 內容 end -->
+({include "foor.html"})
