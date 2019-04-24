@@ -9,9 +9,11 @@
 </head>
 
 <body>
-<!--麵包屑-->
-<ol class="breadcrumb"> 
-    ({section name=i loop=$breadcru})
-        <a href="({$breadcru[i].url})">({$breadcru[i].name})</a> /
-    ({/section})
-</ol>
+({if $console->path[0]!="index"})
+    <!--麵包屑-->
+    <ol class="breadcrumb"> 
+        ({section name=i loop=$breadcru})
+            <a href="({$breadcru[i].url})">({$breadcru[i].name})</a> /
+        ({/section})
+    </ol>
+({/if})
