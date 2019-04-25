@@ -2,6 +2,10 @@
 	include_once('header.php');
 
 	$web_set["titlePrefix"] = $console->getLabel("SHOPPING_CART");
+	$breadcru[$breadcruI++] = array(
+		"name" => $console->getLabel("SHOPPING_CART"),
+		"url" => "/shopping"
+	);
 
 	define("SHOPPING_PATH",WEB_PATH.$lang_url."/".$console->path[0]."/");
 
