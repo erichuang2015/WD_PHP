@@ -1316,7 +1316,7 @@ namespace MTsung{
 			if($order){
 				$order["formData"] = json_decode($order["formData"],true);
 				$email[] = $order["formData"]["BuyEmail"];
-				$email[] = $order["formData"]["ReceiverEmail"];
+				// $email[] = $order["formData"]["ReceiverEmail"];
 				$email = implode(",",$email);
 
 				switch ($mailType) {
