@@ -174,7 +174,7 @@
                                 type: "GET",
                                 data: { ajax: "setShipmentMethod", value: val },
                                 dataType: 'text',
-                                success: function(msg) {location.reload();}
+                                success: function(msg) {if(val) location.reload();}
                             });
                         }
 
