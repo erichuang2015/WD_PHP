@@ -1482,7 +1482,12 @@ namespace MTsung{
 				}
 			}
 			foreach ($isAdd as $key => $value) {
-				$temp[$value["parentId"]."_".$value["specifications"]]["addList"][] = $value;
+				foreach ($temp as $keyTemp => $valueTemp) {
+					if(explode("_", $keyTemp)[0]==$value["parentId"]){
+						$temp[$keyTemp]["addList"][] = $value;
+					}
+					continue;
+				}
 			}
 			if($temp = array_values($temp)){
 				foreach ($temp as $key => $value) {
