@@ -236,18 +236,20 @@
 
 				switch ($data["order"]["shipmentMethod"]) {
 
+					case MTsung\shipmentMethodType::TCAT_BLACK_CAT:							//宅配(綠界) 黑貓
+					case MTsung\shipmentMethodType::ECAN_HOME_DELIVERY:						//宅配(綠界) 宅配通
 					case MTsung\shipmentMethodType::FAMI:									//超商取貨(綠界) 全家
 					case MTsung\shipmentMethodType::UNIMART:								//超商取貨(綠界) 統一超商
-					case MTsung\shipmentMethodType::HILIFE:								//超商取貨(綠界) 萊爾富
+					case MTsung\shipmentMethodType::HILIFE:									//超商取貨(綠界) 萊爾富
 					case MTsung\shipmentMethodType::FAMIC2C:								//超商取貨(綠界) 全家店到店
-					case MTsung\shipmentMethodType::UNIMARTC2C:							//超商取貨(綠界) 統一超商店到店
+					case MTsung\shipmentMethodType::UNIMARTC2C:								//超商取貨(綠界) 統一超商店到店
 					case MTsung\shipmentMethodType::HILIFEC2C:								//超商取貨(綠界) 萊爾富店到店
 					case MTsung\shipmentMethodType::FAMI_COLLECTION_Y:						//超商取貨付款(綠界) 全家
 					case MTsung\shipmentMethodType::UNIMART_COLLECTION_Y:					//超商取貨付款(綠界) 統一超商
 					case MTsung\shipmentMethodType::HILIFE_COLLECTION_Y:					//超商取貨付款(綠界) 萊爾富
 					case MTsung\shipmentMethodType::FAMIC2C_COLLECTION_Y:					//超商取貨付款(綠界) 全家店到店
 					case MTsung\shipmentMethodType::UNIMARTC2C_COLLECTION_Y:				//超商取貨付款(綠界) 統一超商店到店
-					case MTsung\shipmentMethodType::HILIFEC2C_COLLECTION_Y:				//超商取貨付款(綠界) 萊爾富店到店
+					case MTsung\shipmentMethodType::HILIFEC2C_COLLECTION_Y:					//超商取貨付款(綠界) 萊爾富店到店
 						if(($data["order"]["total"]+$data["order"]["freight"])>20000){
 							$console->alert($console->getMessage('MONEY_MAX_20000'),-1);
 							exit;
