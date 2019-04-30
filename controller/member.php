@@ -384,6 +384,7 @@
 			}else if($data["order"]["paymentMethod"] == MTsung\paymentMethodType::PHYSICAL_ATM_TRANSFER){
 				$console->alert($console->getMessage("PHYSICAL_ATM_TRANSFER_MAIL_TEXT"),-1);
 			}
+			$console->alert($console->getMessage("PAYMENT_IS_NOT_PAY"),-1);
 			break;
 
 		case 'shipment'://

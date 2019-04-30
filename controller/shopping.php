@@ -24,7 +24,10 @@
 	
 	//設定運費
 	$order->setFreight($console->webSetting->getValue("freight"));
-	if($order->getShoppingCart("total") >= $console->webSetting->getValue("freeFreightMoney")){
+	if($order->getShoppingCart("total") >= $console->webSetting->getValue("freeFreightMoney")){//滿額免運
+		$order->setFreight(0);
+	}
+	if($order->getShoppingCart("shipmentMethod")==MTsung\shipmentMethodType::FACE_TO_FACE){//面交不用算運費
 		$order->setFreight(0);
 	}
 

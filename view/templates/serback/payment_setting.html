@@ -44,6 +44,11 @@
                             <a class="nav-link" data-toggle="list" href="#list-setting8">({$console->getLabel("BARCODE_ECPAY")})</a>
                         </li>
                     ({/if})
+                    ({if $data.system.faceToFaceCheck1})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting9">({$console->getLabel("FACE_TO_FACE")})</a>
+                        </li>
+                    ({/if})
 
 
 
@@ -251,6 +256,31 @@
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="barcodeECPayDetail">({$data.one.barcodeECPayDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                ({/if})
+                ({if $data.system.faceToFaceCheck1})
+                <!-- 面交 -->
+                <div class="card-body tab-pane fade" id="list-setting9">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("FACE_TO_FACE")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="faceToFaceCheck" value="0">
+                                <input type="checkbox" name="faceToFaceCheck" class="onoffswitch-checkbox" id="faceToFaceCheck" value="1" ({if $data.one.faceToFaceCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="faceToFaceCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="faceToFaceDetail">({$data.one.faceToFaceDetail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">

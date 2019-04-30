@@ -54,6 +54,7 @@ namespace MTsung{
 		const CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY = 6;//超商取貨付款(綠界)
 		const CVS_ECPAY = 7;//超商代碼(綠界)
 		const BARCODE_ECPAY = 8;//超商條碼(綠界)
+		const FACE_TO_FACE = 9;//面交
 	}
 
 	/**
@@ -85,6 +86,12 @@ namespace MTsung{
 		const FAMIC2C_COLLECTION_Y = 13;//超商取貨付款(綠界) 全家店到店
 		const UNIMARTC2C_COLLECTION_Y = 14;//超商取貨付款(綠界) 統一超商店到店
 		const HILIFEC2C_COLLECTION_Y = 15;//超商取貨付款(綠界) 萊爾富店到店
+		const FACE_TO_FACE = 16;//面交
+		const CUSTOM_SHIPMENT1 = 17;//物流自訂1
+		const CUSTOM_SHIPMENT2 = 18;//物流自訂2
+		const CUSTOM_SHIPMENT3 = 19;//物流自訂3
+		const CUSTOM_SHIPMENT4 = 20;//物流自訂4
+		const CUSTOM_SHIPMENT5 = 21;//物流自訂5
 	}
 
 	/**

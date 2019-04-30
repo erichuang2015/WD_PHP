@@ -722,6 +722,7 @@ namespace MTsung{
 			}
 
 			switch ($order["paymentMethod"]) {
+				case paymentMethodType::FACE_TO_FACE:										//面交
 				case paymentMethodType::CASH_ON_DELIVERY:									//貨到付款
 					break;
 
@@ -771,6 +772,12 @@ namespace MTsung{
 			// }
 
 			switch ($order["shipmentMethod"]) {
+				case shipmentMethodType::CUSTOM_SHIPMENT1:						//物流自訂1
+				case shipmentMethodType::CUSTOM_SHIPMENT2:						//物流自訂2
+				case shipmentMethodType::CUSTOM_SHIPMENT3:						//物流自訂3
+				case shipmentMethodType::CUSTOM_SHIPMENT4:						//物流自訂4
+				case shipmentMethodType::CUSTOM_SHIPMENT5:						//物流自訂5
+				case shipmentMethodType::FACE_TO_FACE:							//面交
 				case shipmentMethodType::MAILING:								//郵寄
 					break;
 
@@ -932,7 +939,8 @@ namespace MTsung{
 				paymentMethodType::ONLINE_CARD_ECPAY => $this->console->getLabel("ONLINE_CARD_ECPAY"),
 				paymentMethodType::CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY => $this->console->getLabel("CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY"),
 				paymentMethodType::CVS_ECPAY => $this->console->getLabel("CVS_ECPAY"),
-				paymentMethodType::BARCODE_ECPAY => $this->console->getLabel("BARCODE_ECPAY")
+				paymentMethodType::BARCODE_ECPAY => $this->console->getLabel("BARCODE_ECPAY"),
+				paymentMethodType::FACE_TO_FACE => $this->console->getLabel("FACE_TO_FACE")
 			);
 			if($paymentMethod){
 				return $array[$paymentMethod];
@@ -957,7 +965,8 @@ namespace MTsung{
 				paymentMethodType::ONLINE_CARD_ECPAY => $paymentSetting->getValue("onlineCardECPayDetail"),
 				paymentMethodType::CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY => $paymentSetting->getValue("convenienceStorePickUpPaymentECPayDetail"),
 				paymentMethodType::CVS_ECPAY => $paymentSetting->getValue("cvsECPayDetail"),
-				paymentMethodType::BARCODE_ECPAY => $paymentSetting->getValue("barcodeECPayDetail")
+				paymentMethodType::BARCODE_ECPAY => $paymentSetting->getValue("barcodeECPayDetail"),
+				paymentMethodType::FACE_TO_FACE => $paymentSetting->getValue("faceToFaceDetail")
 			);
 			return $array[$paymentMethod];
 		}
@@ -975,7 +984,8 @@ namespace MTsung{
 				paymentMethodType::ONLINE_CARD_ECPAY => $paymentSetting->getValue("onlineCardECPayCheck"),
 				paymentMethodType::CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY => $paymentSetting->getValue("convenienceStorePickUpPaymentECPayCheck"),
 				paymentMethodType::CVS_ECPAY => $paymentSetting->getValue("cvsECPayCheck"),
-				paymentMethodType::BARCODE_ECPAY => $paymentSetting->getValue("barcodeECPayCheck")
+				paymentMethodType::BARCODE_ECPAY => $paymentSetting->getValue("barcodeECPayCheck"),
+				paymentMethodType::FACE_TO_FACE => $paymentSetting->getValue("faceToFaceCheck")
 			);
 			return $array;
 		}
@@ -1030,7 +1040,13 @@ namespace MTsung{
 				shipmentMethodType::HILIFE_COLLECTION_Y =>  $this->console->getLabel("HILIFE_COLLECTION_Y"),
 				shipmentMethodType::FAMIC2C_COLLECTION_Y =>  $this->console->getLabel("FAMIC2C_COLLECTION_Y"),
 				shipmentMethodType::UNIMARTC2C_COLLECTION_Y =>  $this->console->getLabel("UNIMARTC2C_COLLECTION_Y"),
-				shipmentMethodType::HILIFEC2C_COLLECTION_Y =>  $this->console->getLabel("HILIFEC2C_COLLECTION_Y")
+				shipmentMethodType::HILIFEC2C_COLLECTION_Y =>  $this->console->getLabel("HILIFEC2C_COLLECTION_Y"),
+				shipmentMethodType::FACE_TO_FACE =>  $this->console->getLabel("FACE_TO_FACE"),
+				shipmentMethodType::CUSTOM_SHIPMENT1 =>  $this->console->getLabel("CUSTOM_SHIPMENT1"),
+				shipmentMethodType::CUSTOM_SHIPMENT2 =>  $this->console->getLabel("CUSTOM_SHIPMENT2"),
+				shipmentMethodType::CUSTOM_SHIPMENT3 =>  $this->console->getLabel("CUSTOM_SHIPMENT3"),
+				shipmentMethodType::CUSTOM_SHIPMENT4 =>  $this->console->getLabel("CUSTOM_SHIPMENT4"),
+				shipmentMethodType::CUSTOM_SHIPMENT5 =>  $this->console->getLabel("CUSTOM_SHIPMENT5")
 			);
 			if($shipmentMethod){
 				return $array[$shipmentMethod];
@@ -1062,7 +1078,13 @@ namespace MTsung{
 				shipmentMethodType::HILIFE_COLLECTION_Y => $shipmentSetting->getValue("hilifeDetail"),
 				shipmentMethodType::FAMIC2C_COLLECTION_Y => $shipmentSetting->getValue("famiC2CDetail"),
 				shipmentMethodType::UNIMARTC2C_COLLECTION_Y => $shipmentSetting->getValue("unimartC2CDetail"),
-				shipmentMethodType::HILIFEC2C_COLLECTION_Y => $shipmentSetting->getValue("hilifeC2CDetail")
+				shipmentMethodType::HILIFEC2C_COLLECTION_Y => $shipmentSetting->getValue("hilifeC2CDetail"),
+				shipmentMethodType::FACE_TO_FACE => $shipmentSetting->getValue("faceToFaceDetail"),
+				shipmentMethodType::CUSTOM_SHIPMENT1 => $shipmentSetting->getValue("customShipment1Detail"),
+				shipmentMethodType::CUSTOM_SHIPMENT2 => $shipmentSetting->getValue("customShipment2Detail"),
+				shipmentMethodType::CUSTOM_SHIPMENT3 => $shipmentSetting->getValue("customShipment3Detail"),
+				shipmentMethodType::CUSTOM_SHIPMENT4 => $shipmentSetting->getValue("customShipment4Detail"),
+				shipmentMethodType::CUSTOM_SHIPMENT5 => $shipmentSetting->getValue("customShipment5Detail")
 			);
 			return $array[$shipmentMethod];
 		}
@@ -1102,12 +1124,38 @@ namespace MTsung{
 				//超商取貨付款(綠界) 統一超商店到店
 				shipmentMethodType::UNIMARTC2C_COLLECTION_Y => $shipmentSetting->getValue("unimartC2CPickUpPaymentCheck") && $shipmentSetting->getValue("unimartC2CCheck"),
 				//超商取貨付款(綠界) 萊爾富店到店
-				shipmentMethodType::HILIFEC2C_COLLECTION_Y => $shipmentSetting->getValue("hilifeC2CPickUpPaymentCheck") && $shipmentSetting->getValue("hilifeC2CCheck")
+				shipmentMethodType::HILIFEC2C_COLLECTION_Y => $shipmentSetting->getValue("hilifeC2CPickUpPaymentCheck") && $shipmentSetting->getValue("hilifeC2CCheck"),
+				//面交
+				shipmentMethodType::FACE_TO_FACE => $shipmentSetting->getValue("faceToFaceCheck"),
+				shipmentMethodType::CUSTOM_SHIPMENT1 => $shipmentSetting->getValue("customShipment1Check"),
+				shipmentMethodType::CUSTOM_SHIPMENT2 => $shipmentSetting->getValue("customShipment2Check"),
+				shipmentMethodType::CUSTOM_SHIPMENT3 => $shipmentSetting->getValue("customShipment3Check"),
+				shipmentMethodType::CUSTOM_SHIPMENT4 => $shipmentSetting->getValue("customShipment4Check"),
+				shipmentMethodType::CUSTOM_SHIPMENT5 => $shipmentSetting->getValue("customShipment5Check")
 			);
 			if($paymentMethod){
 				switch ($paymentMethod) {
+					case paymentMethodType::FACE_TO_FACE:										//面交
+						$array = array(shipmentMethodType::FACE_TO_FACE => $shipmentSetting->getValue("faceToFaceCheck"));
+						break;
 					case paymentMethodType::CASH_ON_DELIVERY:									//貨到付款
-						$array = array(shipmentMethodType::MAILING => $shipmentSetting->getValue("mailingCheck"));
+						unset(
+							$array[shipmentMethodType::TCAT_BLACK_CAT],
+							$array[shipmentMethodType::ECAN_HOME_DELIVERY],
+							$array[shipmentMethodType::FAMI],
+							$array[shipmentMethodType::UNIMART],
+							$array[shipmentMethodType::HILIFE],
+							$array[shipmentMethodType::FAMIC2C],
+							$array[shipmentMethodType::UNIMARTC2C],
+							$array[shipmentMethodType::HILIFEC2C],
+							$array[shipmentMethodType::FACE_TO_FACE],
+							$array[shipmentMethodType::FAMI_COLLECTION_Y],
+							$array[shipmentMethodType::UNIMART_COLLECTION_Y],
+							$array[shipmentMethodType::HILIFE_COLLECTION_Y],
+							$array[shipmentMethodType::FAMIC2C_COLLECTION_Y],
+							$array[shipmentMethodType::UNIMARTC2C_COLLECTION_Y],
+							$array[shipmentMethodType::HILIFEC2C_COLLECTION_Y]
+						);
 						break;
 
 					case paymentMethodType::PHYSICAL_ATM_TRANSFER:								//實體ATM轉帳
@@ -1136,7 +1184,13 @@ namespace MTsung{
 							$array[shipmentMethodType::HILIFE],
 							$array[shipmentMethodType::FAMIC2C],
 							$array[shipmentMethodType::UNIMARTC2C],
-							$array[shipmentMethodType::HILIFEC2C]
+							$array[shipmentMethodType::HILIFEC2C],
+							$array[shipmentMethodType::FACE_TO_FACE],
+							$array[shipmentMethodType::CUSTOM_SHIPMENT1],
+							$array[shipmentMethodType::CUSTOM_SHIPMENT2],
+							$array[shipmentMethodType::CUSTOM_SHIPMENT3],
+							$array[shipmentMethodType::CUSTOM_SHIPMENT4],
+							$array[shipmentMethodType::CUSTOM_SHIPMENT5]
 						);
 						break;
 				}

@@ -49,6 +49,36 @@
                             <a class="nav-link" data-toggle="list" href="#list-setting9">({$console->getLabel("HILIFEC2C")})</a>
                         </li>
                     ({/if})
+                    ({if $data.system.faceToFaceCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting10">({$console->getLabel("FACE_TO_FACE")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.customShipment1Check})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting11">({$console->getLabel("CUSTOM_SHIPMENT1")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.customShipment2Check})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting12">({$console->getLabel("CUSTOM_SHIPMENT2")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.customShipment3Check})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting13">({$console->getLabel("CUSTOM_SHIPMENT3")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.customShipment4Check})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting14">({$console->getLabel("CUSTOM_SHIPMENT4")})</a>
+                        </li>
+                    ({/if})
+                    ({if $data.system.customShipment5Check})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting15">({$console->getLabel("CUSTOM_SHIPMENT5")})</a>
+                        </li>
+                    ({/if})
 
                 </ul>
             </div>
@@ -398,6 +428,156 @@
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel("DESCRIPTION")})</label>
                             <textarea class="form-control" rows="8" name="hilifeC2CDetail">({$data.one.hilifeC2CDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                ({/if})
+                ({if $data.system.faceToFaceCheck})
+                <!-- 面交 -->
+                <div class="card-body tab-pane fade " id="list-setting10">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("FACE_TO_FACE")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="faceToFaceCheck" value="0">
+                                <input type="checkbox" name="faceToFaceCheck" class="onoffswitch-checkbox" id="faceToFaceCheck" value="1" ({if $data.one.faceToFaceCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="faceToFaceCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="faceToFaceDetail">({$data.one.faceToFaceDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                ({/if})
+                ({if $data.system.customShipment1Check})
+                <!-- 自訂物流1 -->
+                <div class="card-body tab-pane fade " id="list-setting11">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("CUSTOM_SHIPMENT1")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="customShipment1Check" value="0">
+                                <input type="checkbox" name="customShipment1Check" class="onoffswitch-checkbox" id="customShipment1Check" value="1" ({if $data.one.customShipment1Check==1})checked({/if})>
+                                <label class="onoffswitch-label" for="customShipment1Check"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="customShipment1Detail">({$data.one.customShipment1Detail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                ({/if})
+                ({if $data.system.customShipment2Check})
+                <!-- 自訂物流2 -->
+                <div class="card-body tab-pane fade " id="list-setting12">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("CUSTOM_SHIPMENT2")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="customShipment2Check" value="0">
+                                <input type="checkbox" name="customShipment2Check" class="onoffswitch-checkbox" id="customShipment2Check" value="1" ({if $data.one.customShipment2Check==1})checked({/if})>
+                                <label class="onoffswitch-label" for="customShipment2Check"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="customShipment2Detail">({$data.one.customShipment2Detail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                ({/if})
+                ({if $data.system.customShipment3Check})
+                <!-- 自訂物流3 -->
+                <div class="card-body tab-pane fade " id="list-setting13">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("CUSTOM_SHIPMENT3")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="customShipment3Check" value="0">
+                                <input type="checkbox" name="customShipment3Check" class="onoffswitch-checkbox" id="customShipment3Check" value="1" ({if $data.one.customShipment3Check==1})checked({/if})>
+                                <label class="onoffswitch-label" for="customShipment3Check"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="customShipment3Detail">({$data.one.customShipment3Detail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                ({/if})
+                ({if $data.system.customShipment4Check})
+                <!-- 自訂物流4 -->
+                <div class="card-body tab-pane fade " id="list-setting14">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("CUSTOM_SHIPMENT4")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="customShipment4Check" value="0">
+                                <input type="checkbox" name="customShipment4Check" class="onoffswitch-checkbox" id="customShipment4Check" value="1" ({if $data.one.customShipment4Check==1})checked({/if})>
+                                <label class="onoffswitch-label" for="customShipment4Check"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="customShipment4Detail">({$data.one.customShipment4Detail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$console->getLabel('UPDATE_DATE')})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                ({/if})
+                ({if $data.system.customShipment5Check})
+                <!-- 自訂物流5 -->
+                <div class="card-body tab-pane fade " id="list-setting15">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("CUSTOM_SHIPMENT5")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="customShipment5Check" value="0">
+                                <input type="checkbox" name="customShipment5Check" class="onoffswitch-checkbox" id="customShipment5Check" value="1" ({if $data.one.customShipment5Check==1})checked({/if})>
+                                <label class="onoffswitch-label" for="customShipment5Check"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$console->getLabel("DESCRIPTION")})</label>
+                            <textarea class="form-control" rows="8" name="customShipment5Detail">({$data.one.customShipment5Detail})</textarea>
                         </div>
                     </div>
                     <small class="text-muted">
