@@ -123,6 +123,10 @@
 		}
 		if(isset($_GET["isTinyMCE"]) && $_GET["isTinyMCE"]==='1'){
 			if($upload->getDestination()[0]){
+				if(isset($_GET["isFile"]) && $_GET["isFile"]==='1'){
+					echo json_encode(array('location' => str_replace(DATA_PATH,"",$upload->getDestination()[0])));
+					exit;
+				}
 				echo json_encode(array('location' => $upload->getDestination()[0]));
 			}else{
 				header("HTTP/1.1 400 Invalid file type.");

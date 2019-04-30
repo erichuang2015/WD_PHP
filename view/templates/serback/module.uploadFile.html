@@ -52,7 +52,7 @@
             var objForm = new FormData();
             var xhr = new XMLHttpRequest();
             var up_progress = document.getElementById('up_progressFile({$_I_})');
-            xhr.open('POST', _jsPath+'/upload.php?isTinyMCE=1');
+            xhr.open('POST', _jsPath+'/upload.php?isTinyMCE=1&isFile=1');
             
             xhr.onload = function() {
                 //上傳完成
