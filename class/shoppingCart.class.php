@@ -556,7 +556,7 @@ namespace MTsung{
 				foreach ($temp as $key => $value) {
 					$productTemp = $this->product->getProduct($value["productId"]);
 					if($value["count"] > $productTemp["stock"][array_search($value["specifications"], $productTemp["specificationsID"])]){
-						$this->message .= $this->console->getMessage('PRODUCT_STOCK_IS_INSUFFICIENT',array($productTemp["name"]))."\n";
+						$this->message .= $this->console->getMessage('PRODUCT_STOCK_IS_INSUFFICIENT',array($productTemp["name"])).'\n';
 					}
 				}
 			}
@@ -585,14 +585,14 @@ namespace MTsung{
 					$productTemp = $this->product->getProduct($value["productId"]);
 					$maxCount = $productTemp["maxCount"][array_search($value["specifications"], $productTemp["specificationsID"])];
 					if(($value["count"] > $maxCount) && $maxCount){
-						$this->message .= $this->console->getMessage("PRODUCT_MAX_COUNT",array($value["name"]))."\n";
+						$this->message .= $this->console->getMessage("PRODUCT_MAX_COUNT",array($value["name"])).'\n';
 					}
 					if($value["addProductList"]){
 						foreach ($value["addProductList"] as $keyAdd => $valueAdd) {
 							$tempParent = $this->product->getProduct($valueAdd["parentId"]);
 							$addMaxCount = $tempParent["addProductMaxCount"][array_search($valueAdd["specifications"], $tempParent["addProductSpecifications"])];
 							if(($valueAdd["count"] > $addMaxCount) && $addMaxCount){
-								$this->message .= $this->console->getMessage("ADD_PRODUCT_MAX_COUNT",array($valueAdd["name"]))."\n";
+								$this->message .= $this->console->getMessage("ADD_PRODUCT_MAX_COUNT",array($valueAdd["name"])).'\n';
 							}
 						}
 					}
