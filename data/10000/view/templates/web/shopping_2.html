@@ -38,7 +38,7 @@
                                             <div class="shop-car-info-title">({$data.orderList[i].name})({if "default" != $data.orderList[i].specificationsName})(({$data.orderList[i].specificationsName}))({/if})</div>
                                         </div>
                                     </div>
-                                    <div class="shopping-car-content shop-car-price o-col-sm-2">NT$({$data.orderList[i].price})<span class="original-price">NT$({$data.orderList[i].onlineProduct.originalPrice})</span></div>
+                                    <div class="shopping-car-content shop-car-price o-col-sm-2">NT$({$data.orderList[i].price})({if $data.orderList[i].price<$data.orderList[i].onlineProduct.originalPrice})<span class="original-price">NT$({$data.orderList[i].onlineProduct.originalPrice})</span>({/if})</div>
                                     <div class="shopping-car-content shop-car-quantity o-col-sm-2">
                                         <div class="qtyInputBox b1"> 
                                           <!-- 購買數量增減模組 Begin --> 
