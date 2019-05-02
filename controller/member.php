@@ -59,7 +59,7 @@
 	//白名單欄位
 	$checkArray = array_merge(array("name","email","account","password","checkPassword","address","cellPhone","phone"),$data["otherField"]["dataKey"]?$data["otherField"]["dataKey"]:array());
 	//必填欄位
-	$requiredArray = array_merge(array("name","email"),$data["otherField"]["dataRequiredKey"]?$data["otherField"]["dataRequiredKey"]:array());
+	$requiredArray = array_merge(array("name"),$data["otherField"]["dataRequiredKey"]?$data["otherField"]["dataRequiredKey"]:array());
 
 
 
@@ -75,6 +75,9 @@
 				$data["socialData"] = $_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN'];
 
 				if($_POST){
+					if(!$data["socialData"]["email"]){
+						$console->alert($console->getMessage("EMAIL_IS_NULL"),-1);
+					}
 					$socialName = strtolower($_GET['socialLogin']);
 					$_POST[$socialName."ID"] = $data["socialData"]["id"];
 					$_POST[$socialName."Name"] = $data["socialData"]["name"];
