@@ -42,6 +42,7 @@
                                             </div>
                                         </th>
                                         <th scope="col">({$console->getLabel("ORDER_NUMBER")})</th>
+                                        <th scope="col">({$console->getLabel("BUY_NAME")})</th>
                                         <th scope="col">({$console->getLabel("PAYMENT_METHOD")})</th>
                                         <th scope="col">({$console->getLabel("SHIPMENT_METHOD")})</th>
                                         <th scope="col">({$console->getLabel("PAYMENT_STATUS")})</th>
@@ -63,6 +64,9 @@
                                             </td>
                                             <td >
                                                 <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].orderNumber})</a>
+                                            </td>
+                                            <td >
+                                                ({$data.list[i].formData.BuyName})
                                             </td>
                                             <td >
                                                 ({$data["paymentTitle"][$data.list[i].paymentMethod]})
