@@ -75,9 +75,6 @@
 				$data["socialData"] = $_SESSION[FRAME_NAME][strtoupper($_GET['socialLogin']).'_LOGIN'];
 
 				if($_POST){
-					if(!$data["socialData"]["email"]){
-						$console->alert($console->getMessage("EMAIL_IS_NULL"),-1);
-					}
 					$socialName = strtolower($_GET['socialLogin']);
 					$_POST[$socialName."ID"] = $data["socialData"]["id"];
 					$_POST[$socialName."Name"] = $data["socialData"]["name"];
@@ -169,6 +166,9 @@
 					unset($_SESSION[FRAME_NAME][$socialPrefix.'_LOGIN']);
 
 					//直接自動註冊
+					if(!$tempSocialInfo["email"]){
+						$console->alert($console->getMessage("EMAIL_IS_NULL"),-1);
+					}
 					$socialName = strtolower($_GET['socialLogin']);
 					$info[$socialName."ID"] = $tempSocialInfo["id"];
 					$info["name"] = $info[$socialName."Name"] = $tempSocialInfo["name"];
