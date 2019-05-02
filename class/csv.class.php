@@ -21,7 +21,7 @@ namespace MTsung{
 			foreach ($data as $key => $value) {
 				$csv .= "\"";
 				$value = array_map(function($v){
-					return str_replace('"','""',$v);
+					return str_replace(array("\r", "\n", "\r\n", "\n\r"), '', str_replace('"','""',$v));
 				}, $value);
 				$csv .= implode('","',$value);
 				$csv .= "\"\r\n";
