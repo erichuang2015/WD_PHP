@@ -5,6 +5,7 @@
 
 /**模組**/
 $module["uploadImg"][0]["name"] = "icon";
+$module["uploadImg"][0]["suggestText"] = "100x100";//建議尺寸
 $module["uploadImg"][0]["max"] = 1;
 $module["uploadImg"][1]["name"] = "watermark";
 $module["uploadImg"][1]["max"] = 1;
