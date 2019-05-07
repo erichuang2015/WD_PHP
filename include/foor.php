@@ -91,7 +91,7 @@
 	//
 	if(!isset($web_set['title'])){
 		$web_set['title'] = $console->webSetting->getValue('webTitle');
-		if($web_set["titlePrefix"]){
+		if(isset($web_set["titlePrefix"])){
 			$web_set['title'] = $web_set["titlePrefix"]."-".$web_set['title'];
 		}
 	}

@@ -351,6 +351,7 @@ namespace MTsung{
 		 * @return [type]               [description]
 		 */
 		function getData($whereSql='',$sqlArray=array(),$explodeArray=array(),$module=array()){
+			$tempSql = "";
 			//分類排序
 			if(strpos($whereSql,"limit") && isset(explode(",",explode("limit ",$whereSql)[1])[1])){
 				$tempSql = "limit".explode("limit",$whereSql)[1];

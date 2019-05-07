@@ -21,7 +21,7 @@ $designName = $console->path[1];
 $checkArray = $requiredArray = $explodeArray = $searchKey = array();
 
 /**推播**/
-if($_GET["push"] && $_GET["group"] && $_GET["title"] && $_GET["body"]){
+if(isset($_GET["push"]) && isset($_GET["group"]) && isset($_GET["title"]) && isset($_GET["body"])){
 	$fcm = new MTsung\fcm($console);
 	$fcm->send($_GET["group"],$_GET["title"],$_GET["body"],$_GET["icon"],$_GET["url"]);
 	$console->outputJson(true,"");

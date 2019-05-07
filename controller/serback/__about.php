@@ -28,7 +28,9 @@ if($temp){
 					"dataTextareaOtherText",
 					"dataSearchCount",
 				) as $key => $value) {
+		if(isset($temp[$value])){
 			$temp[$value] = explode("|__|", $temp[$value]);
+		}
 	}
 	
 	if(is_array($temp["dataOption"])){
