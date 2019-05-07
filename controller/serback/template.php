@@ -116,6 +116,16 @@ if(isset($console->path[2])){
 
 	$data["list"] = $fileTemplate->getListData($console->path[1]);
 
+    if($data["list"]){
+		$data["pageNumber"] = $pageNumber = new MTsung\pageNumber($console,$data["list"],40);
+	    $temp = array();
+	    $end = $pageNumber->getDataStart()+$pageNumber->getPer();
+	    $end = ($end>$pageNumber->getDataCount())?$pageNumber->getDataCount():$end;
+	    for ($i = $pageNumber->getDataStart(); $i < $end ; $i++) { 
+	    	$temp[] = $data["list"][$i];
+	    }
+	    $data["list"] = $temp;
+    }
 
 	$switch["saveButton"] = 1;
 	$switch["deleteButton"] = 1;
