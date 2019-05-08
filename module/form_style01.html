@@ -63,7 +63,7 @@
         ({/if})
     ({/foreach})
     ({if $web.recaptchaValidation})
-        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src='https://www.google.com/recaptcha/api.js?hl=({$lang})'></script>
         <div class="g-recaptcha" data-sitekey="({$web.reCAPTCHASiteKey})" data-callback="formSubmit" data-size="invisible" data-badge="inline"></div>
     ({else})
         <div class="opinion"> <span class="opinion-left01">({$console->getLabel("VERIFYCODE_")}) * </span>

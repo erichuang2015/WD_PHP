@@ -13,7 +13,7 @@
             })
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <input type="({$data.one.dataType[$k]})" name="key({$k})" placeholder="({$v})" ({if $data.one.dataRequired[$k]})required({/if}) class="input-main-style01" data-text="({$v})" ({if $data.one.dataType[$k] == "email"})data-check="Email"({/if})>
-                ({if $data.one.dataFa[$k]})<label><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
+                ({if $data.one.dataFa[$k]})<label class="form-icon"><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
             </div>
             ({else if $data.one.dataType[$k] == "radio"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
@@ -23,7 +23,7 @@
                         <input type="radio" name="key({$k})" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})
                     ({/section})
                 </div>
-                ({if $data.one.dataFa[$k]})<label><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
+                ({if $data.one.dataFa[$k]})<label class="form-icon"><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
             </div>
             ({else if $data.one.dataType[$k] == "checkbox"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
@@ -33,7 +33,7 @@
                         <input type="checkbox" name="key({$k})[]" value="({$data.one.dataOption[$k][i]})" data-text="({$v})" ({if $data.one.dataRequired[$k] && $smarty.section.i.index==0})data-check_min="1"({/if})> ({$data.one.dataOption[$k][i]})
                     ({/section})
                 </div>
-                ({if $data.one.dataFa[$k]})<label><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
+                ({if $data.one.dataFa[$k]})<label class="form-icon"><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
             </div>
             ({else if $data.one.dataType[$k] == "select"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
@@ -45,7 +45,7 @@
                         ({/section})
                     </select>
                 </div>
-                ({if $data.one.dataFa[$k]})<label><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
+                ({if $data.one.dataFa[$k]})<label class="form-icon"><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
             </div>
             ({else if $data.one.dataType[$k] == "address"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
@@ -64,12 +64,12 @@
                         $('#twzipcode({$k})').find('select[name="key({$k})[1]"]').attr('data-text', "({$v})-({$console->getLabel("TOWNSHIP_URBAN_AREA")})");
                     </script>
                 </div>
-                ({if $data.one.dataFa[$k]})<label><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
+                ({if $data.one.dataFa[$k]})<label class="form-icon"><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
             </div>
             ({else if $data.one.dataType[$k] == "textarea"})
             <div class="opinion clearfix">　<!-- <span class="opinion-left01">({$v})({if $data.one.dataRequired[$k]}) * ({/if})：</span> -->
                 <textarea rows="5" class="input-main-style02" name="key({$k})" placeholder="({$v})" data-text="({$v})" ({if $data.one.dataRequired[$k]})required({/if})></textarea>
-                ({if $data.one.dataFa[$k]})<label><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
+                ({if $data.one.dataFa[$k]})<label class="form-icon"><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
             </div>
             ({/if})
             ({if $k==1 || $k==3})
@@ -77,12 +77,12 @@
         ({/if})
         ({/foreach})
         ({if $web.recaptchaValidation})
-            <script src='https://www.google.com/recaptcha/api.js'></script>
+            <script src='https://www.google.com/recaptcha/api.js?hl=({$lang})'></script>
             <div class="g-recaptcha" data-sitekey="({$web.reCAPTCHASiteKey})" data-callback="formSubmit" data-size="invisible" data-badge="inline"></div>
         ({else})
             <div class="opinion clearfix"> <!-- <span class="opinion-left01">({$console->getLabel("VERIFYCODE_")}) * ：</span> -->
                 <input type="text" placeholder="({$console->getLabel("VERIFYCODE")})" name="verifycode" data-text="({$console->getLabel("VERIFYCODE_")})" class="input-main-style03" required>
-                ({if $data.one.dataFa[$k]})<label><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
+                ({if $data.one.dataFa[$k]})<label class="form-icon"><i class="fa ({$data.one.dataFa[$k]})" aria-hidden="true"></i></label>({/if})
                 <img src="({$web.main_path})/verifycode.php" width="auto" height="31" class="code" name="verifycode" onclick="$(this).attr('src',$(this).attr('src'));"/>
             </div>
         ({/if})
