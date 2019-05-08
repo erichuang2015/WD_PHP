@@ -206,7 +206,7 @@ if(isset($console->path[1])){
 
 
 	$searchKey = array("orderNumber","formData");
-	if($data["list"] = $order->getListData($sql." and step>1 order by orderNumber desc",$searchKey)){
+	if($data["list"] = $order->getListData($sql." and step>1 order by create_date desc",$searchKey)){
 		foreach ($data["list"] as $key => $value) {
 			$data["list"][$key]["formData"] = json_decode(htmlspecialchars_decode($value["formData"]),true);
 		}
