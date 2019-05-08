@@ -214,7 +214,7 @@ if(isset($console->path[1])){
 
 	$data["pageNumber"] = $order->pageNumber;
 
-	$switch["deleteButton"] = 1;
+	// $switch["deleteButton"] = 1;
 
 	$switch["saveButton"] = 1;
 	$switch["listList"] = 1;

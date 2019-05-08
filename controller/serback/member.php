@@ -134,7 +134,7 @@ if(isset($console->path[1])){
 
 	$data["pageNumber"] = $memberList->pageNumber;
 
-	$switch["deleteButton"] = 1;
+	// $switch["deleteButton"] = 1;
 
 	$switch["addButton"] = 1;
 	$data["addOnClick"] = "window.location.href='".$web_set['serback_url'].'/'.$console->path[0]."/add';";
