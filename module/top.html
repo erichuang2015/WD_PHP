@@ -58,7 +58,8 @@
 	$(function(){
 		//判斷是否是LINE內建瀏覽器 是的話就強制跳轉
 		if (/Line/.test(navigator.userAgent)) {
-			location.href = location.href + '?openExternalBrowser=1';
+			var temp = (location.search !== "")?'&openExternalBrowser=1':'?openExternalBrowser=1';
+			location.href = location.origin+location.pathname+location.search+temp+location.hash;
 		}
 	});
 </script>
