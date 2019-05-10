@@ -205,7 +205,7 @@ namespace MTsung{
 
 			// 上一頁
 			if($class=='bootstrap'){
-				echo '
+				echo '<small class="text-muted">顯示第 '.($this->dataStart+1).' - '.min(($this->dataStart+$this->per),$this->dataCount).' 筆，共 '.$this->dataCount.' 筆</small>
 					<nav >
 						<ul class="pagination">
 							<li class="page-item">
