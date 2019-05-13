@@ -5,6 +5,7 @@ $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0].'/'.$console->p
 $data["basic"]["listUrl"] = $web_set['serback_url'].'/basic/'.$console->path[1];
 
 $dataClass = new MTsung\dataClass($console,PREFIX.$console->path[1]."_class",$settingLang);
+$basic = new MTsung\dataList($console,PREFIX.$console->path[1],$settingLang);
 //目前最大層數
 $data["maxFloor"] = $dataClass->getMaxFloor();
 
@@ -113,6 +114,9 @@ if(isset($console->path[2])){
 			break;
 		case 'delete':
 			//刪除
+			if($basic->getData("where 1 ".$basic->findArrayString('class',$_POST["checkElement"])."")){
+				$console->alert($console->getMessage("CLASS_IS_USING"),$data["listUrl"]);
+			}
 			if($_POST && isset($_POST["checkElement"])){
 				$dataClass->rmData($_POST["checkElement"]);
 				$console->alert($dataClass->message,$data["listUrl"]."?".$_SERVER["QUERY_STRING"]);

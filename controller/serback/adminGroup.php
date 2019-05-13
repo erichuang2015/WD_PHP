@@ -3,6 +3,7 @@
 $switch["buttonBox"] = 1;
 $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
+$memberList = new MTsung\member($console,PREFIX.'admin',$memberSessionName);
 $memberGroupList = new MTsung\memberGroup($console,PREFIX.'admin_group');
 
 
@@ -101,6 +102,10 @@ if(isset($console->path[1])){
 				$tmep1 = array();
 				foreach ($temp as $key => $value) {
 					$temp1[] = $value["id"];
+				}
+
+				if($memberList->getData("where groupID in ('".implode("','", $_POST["checkElement"])."')")){
+					$console->alert($console->getMessage("GROUP_IS_USING"),$data["listUrl"]);
 				}
 
 				foreach ($_POST["checkElement"] as $key => $value) {
