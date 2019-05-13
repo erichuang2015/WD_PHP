@@ -451,7 +451,7 @@ namespace MTsung{
 				}
 				$str = $temp;
 			}else{
-				$str = $_SESSION[FRAME_NAME]['language'.$this->langSessionName].".ini 語言檔不存在或是未設定".$value."訊息!";
+				$str = $value;
 			}
 
 			return $str;
