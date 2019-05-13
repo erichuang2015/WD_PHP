@@ -51,6 +51,7 @@
                                         <th scope="col">({$console->getLabel("STATUS")})</th>
                                         <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
                                         <!-- <th scope="col">({$console->getLabel("UPDATE_DATE")})</th> -->
+                                        <th scope="col"></th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,7 +83,7 @@
                                             </td>
                                             <td >
                                                 $ ({$data.list[i].total+$data.list[i].freight})
-                                            </td>   
+                                            </td>
                                             <td>
                                                 <div class="onoffswitch">
                                                     <input type="hidden" name="status_({$data.list[i].id})" value="0">
@@ -96,6 +97,9 @@
                                             <!-- <td >
                                                 ({$data.list[i].update_date})(({$data.list[i].update_user}))
                                             </td> -->
+                                            <td >
+                                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#exampleModalCenter({$smarty.section.i.index})"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                            </td>
                                         </tr>
 
                                     ({/section})
@@ -674,3 +678,67 @@
     </nav>
 ({/if})
 ({include file='foor.html'})
+
+({if $data.list})
+
+({section name=j loop=$data.list})
+    <div class="modal fade" id="exampleModalCenter({$smarty.section.j.index})" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">({$data.list[j].orderNumber})</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">({$console->getLabel("PICTURE")})</th>
+                                <th scope="col">({$console->getLabel("NAME")})</th>
+                                <th scope="col">({$console->getLabel("SPECIFICATIONS")})</th>
+                                <th scope="col">({$console->getLabel("ONE_PRICE")})</th>
+                                <th scope="col">({$console->getLabel("COUNT")})</th>
+                                <th scope="col">({$console->getLabel("MINOR_TOTAL")})</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ({section name=i loop=$data.list[j].orderList})
+
+                                <tr bgcolor="#eee">
+                                    <th scope="row">({$data.list[j].orderList[i].productId})</th>
+                                    <td><img style="max-height: 45px; max-width: 45px;" src="({$data.list[j].orderList[i].picture})"></td>
+                                    <td>({$data.list[j].orderList[i].name})</td>
+                                    <td>({$data.list[j].orderList[i].specifications})</td>
+                                    <td>({$data.list[j].orderList[i].price})</td>
+                                    <td>({$data.list[j].orderList[i].count})</td>
+                                    <td>({$data.list[j].orderList[i].price*$data.list[j].orderList[i].count})</td>
+                                </tr>
+                                ({if isset($data.list[j].orderList[i].addList)})
+                                    ({section name=k loop=$data.list[j].orderList[i].addList})
+                                        <tr>
+                                            <th scope="row">({$data.list[j].orderList[i].addList[k].productId})(+)</th>
+                                            <td><img style="max-height: 45px; max-width: 45px;" src="({$data.list[j].orderList[i].addList[k].picture})"></td>
+                                            <td>({$data.list[j].orderList[i].addList[k].name})</td>
+                                            <td>({$data.list[j].orderList[i].addList[k].specifications})</td>
+                                            <td>({$data.list[j].orderList[i].addList[k].price})</td>
+                                            <td>({$data.list[j].orderList[i].addList[k].count})</td>
+                                            <td>({$data.list[j].orderList[i].addList[k].price*$data.list[j].orderList[i].addList[k].count})</td>
+                                        </tr>
+                                    ({/section})
+                                ({/if})
+                            ({/section})
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">({$console->getLabel('CLOSE')})</button>
+                </div>
+            </div>
+        </div>
+    </div>
+({/section})
+({/if})
