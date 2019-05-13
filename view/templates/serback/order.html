@@ -35,12 +35,12 @@
                             <table class="table table-striped">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col" width="2%">
+                                        <!-- <th scope="col" width="2%">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input border" id="checkAll">
                                                 <label class="custom-control-label" for="checkAll"></label>
                                             </div>
-                                        </th>
+                                        </th> -->
                                         <th scope="col">({$console->getLabel("ORDER_NUMBER")})</th>
                                         <th scope="col">({$console->getLabel("BUY_NAME")})</th>
                                         <th scope="col">({$console->getLabel("PAYMENT_METHOD")})</th>
@@ -57,12 +57,12 @@
                                 <tbody>
                                     ({section name=i loop=$data.list})
                                         <tr>
-                                            <td scope="row">
+                                            <!-- <td scope="row">
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck({$data.list[i].id})" name="checkElement[]" value="({$data.list[i].id})">
                                                     <label class="custom-control-label" for="customCheck({$data.list[i].id})"></label>
                                                 </div>
-                                            </td>
+                                            </td> -->
                                             <td >
                                                 <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].orderNumber})</a>
                                             </td>
