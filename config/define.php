@@ -18,6 +18,9 @@
 	//訂單編號長度
 	define('ORDER_SIZE',10);
 
+	//訂單編號前墜
+	define('ORDER_PREFIX','WD');
+
 	//現在時間
 	define('DATE',date("Y-m-d H:i:s"));
 	define('DATE_Y',date("Y"));

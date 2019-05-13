@@ -610,7 +610,7 @@ namespace MTsung{
 		 * @param integer $length 訂單編號長度
 		 * @param integer $start  訂單編號起始值
 		 */
-		function payBill($prefix='WD',$length=ORDER_SIZE,$start=1){
+		function payBill($prefix=ORDER_PREFIX,$length=ORDER_SIZE,$start=1){
 			$this->reloadCart();
 
 			$this->conn->Execute("BEGIN;");

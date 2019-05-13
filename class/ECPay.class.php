@@ -379,6 +379,29 @@ namespace MTsung{
 	        echo $AL->PrintFamilyC2CBill('','');
 		}
 
+		/**
+		 * 查詢訂單
+		 * @param  [type] $orderNumber [description]
+		 * @return [type]              [description]
+		 */
+		function queryTradeInfo($orderNumber){
+
+	    	$obj = new \ECPay_AllInOne();
+	   
+	        //服務參數
+	        $obj->ServiceURL  = 'https://payment.ecpay.com.tw/Cashier/QueryTradeInfo/V5';   	//服務位置
+	        $obj->HashKey     = $this->hashKey;                                           		//測試用Hashkey，請自行帶入ECPay提供的HashKey
+	        $obj->HashIV      = $this->hashIV;                                           		//測試用HashIV，請自行帶入ECPay提供的HashIV
+	        $obj->MerchantID  = $this->merchantID;                                              //測試用MerchantID，請自行帶入ECPay提供的MerchantID
+	        $obj->EncryptType = '1';                                                            //CheckMacValue加密類型，請固定填入1，使用SHA256加密
+
+
+	        //基本參數(請依系統規劃自行調整)
+	        $obj->Query['ReturnURL']        = $orderNumber;    									//付款完成通知回傳的網址
+	        $obj->Query['TimeStamp'] 		= time();                       					//時間
+
+	        return $obj->QueryTradeInfo();
+		}
 
 
 
