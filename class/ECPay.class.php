@@ -397,7 +397,7 @@ namespace MTsung{
 
 
 	        //基本參數(請依系統規劃自行調整)
-	        $obj->Query['ReturnURL']        = $orderNumber;    									//付款完成通知回傳的網址
+	        $obj->Query['ReturnURL']        = $orderNumber;    									//訂單編號
 	        $obj->Query['TimeStamp'] 		= time();                       					//時間
 
 	        return $obj->QueryTradeInfo();
