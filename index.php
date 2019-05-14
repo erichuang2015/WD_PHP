@@ -11,6 +11,7 @@
 
 	spl_autoload_register('secondAutoload');//自動載入calss
 	include_once(APP_PATH.'include/main.php');//核心
+	include_once(APP_PATH.'class/uploadFile.class.php');// 上傳模組
 
 
 

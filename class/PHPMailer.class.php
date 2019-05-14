@@ -3,7 +3,7 @@
 
 /**
  * 郵件模組
- * MTsung by 20180522
+ * MTsung by 20180522 
  */	
 namespace MTsung{
 	
