@@ -89,6 +89,19 @@ if(isset($console->path[2])){
 	$searchKey = array("keyData");
 	$data["list"] = $form->getListData(" order by create_date desc",$searchKey);
 
+	if($_GET["export"] == "1"){
+		$csv = new MTsung\csv();
+		if($data["list"]){
+			$output[] = explode("|__|", $data["list"][0]["keyName"]);
+			foreach ($data["list"] as $key => $value) {
+				$output[] = explode("|__|", $value["keyData"]);
+			}
+		}
+
+		$csv->export($output);
+		exit;
+	}
+
 	if($data["list"]){
 		foreach ($data["list"] as $key => $value) {
 			$data["list"][$key]["keyName"] = explode("|__|", $value["keyName"]);
@@ -105,6 +118,7 @@ if(isset($console->path[2])){
 	$data["pageNumber"] = $form->pageNumber;
 
 	$switch["deleteButton"] = 1;
+	$switch["exportButton"] = 1;
 
 	// $switch["saveButton"] = 1;
 	$switch["listList"] = 1;
