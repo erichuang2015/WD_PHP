@@ -356,7 +356,7 @@
 						$form->sendForm(array(
 							"keyName" => $data["one"]["dataName"],
 							"keyData" => explode("|__|", $input["keyData"])
-						),WEB_PATH."/".$console->controller);
+						),$_SERVER['HTTP_REFERER']);
 					}else{
 						$console->alert($form->message,-1);
 					}
