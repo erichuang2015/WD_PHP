@@ -13,7 +13,7 @@ header("Cache-Control: no-cache");
 header("Content-type:image/png");
 header("Content-Disposition:filename=math_code.png");
 
-define(COUNT_FILE_NAME, APP_PATH.DATA_PATH."count.txt");
+define("COUNT_FILE_NAME", APP_PATH.DATA_PATH."count.txt");
 
 $mydata = 0;
 if (is_file(COUNT_FILE_NAME)){
