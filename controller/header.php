@@ -1,9 +1,9 @@
 <?php 
 	//建構中 需要有登入後台才能看內頁
-	if($console->path[0]!="demo" && $console->setting->getValue("indexPATH")=="demo" && !(isset($_SESSION[FRAME_NAME]["member"]["serback"]) && $_SESSION[FRAME_NAME]["member"]["serback"])){
-		$console->linkTo(HTTP_PATH);
-		exit;
-	}
+	// if($console->path[0]!="demo" && $console->setting->getValue("indexPATH")=="demo" && !(isset($_SESSION[FRAME_NAME]["member"]["serback"]) && $_SESSION[FRAME_NAME]["member"]["serback"])){
+	// 	$console->linkTo(HTTP_PATH);
+	// 	exit;
+	// }
 	
 	
 	$dirArray = array("css","js","images","fonts","svg","data","upload","class","config","controller","include","language","module","sessionTemp","view");
