@@ -141,10 +141,10 @@
                                 <td align="right" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">收件人地址</td>
                                 <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$order.formData.ReceiverAddress[0]})({$order.formData.ReceiverAddress[1]})({$order.formData.ReceiverAddress[2]})({$order.formData.ReceiverAddress[3]})</td>
                             </tr>
-                            ({section name=i loop=$data.orderOtherField.dataName})
+                            ({section name=i loop=$data.otherField.dataName})
                                 <tr>
-                                    <td align="right" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$console->getLabel($data.orderOtherField.dataName[i])})</td>
-                                    <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$data.order.formData[$data.orderOtherField.dataKey[i]]|replace:'|__|':','})</td>
+                                    <td align="right" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$console->getLabel($data.otherField.dataName[i])})</td>
+                                    <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$order.formData[$data.otherField.dataKey[i]]|replace:'|__|':','})</td>
                                 </tr>
                             ({/section})
                         </tbody>
