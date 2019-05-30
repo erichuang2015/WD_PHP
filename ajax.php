@@ -378,7 +378,7 @@
 	if(isset($_GET["testSMTP"])){
 
 		include_once(APP_PATH.'class/design.class.php');				//樣板模組
-		include_once(APP_PATH.'class/PHPMailer.class.php');				//郵件模組
+		include_once(APP_PATH.'class/phpMailer.class.php');				//郵件模組
 		include_once(APP_PATH.'class/validation.class.php');			//表單驗證
 		include_once(APP_PATH.'class/webSetting.class.php');			//網站設定
 		include_once(APP_PATH.'include/main.php');						//核心
