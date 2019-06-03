@@ -57,7 +57,7 @@
                                     ({section name=i loop=$data.list})
                                         <tr>
                                             <td scope="row">
-                                                ({if $data.list[i].name!="../"})
+                                                ({if $data.list[i].name!="../" && $data.list[i].name!="language/" && $data.list[i].name!="view/"})
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="customCheck_({$data.list[i].name})" name="checkElement[]" value="({$data.list[i].name})">
                                                         <label class="custom-control-label" for="customCheck_({$data.list[i].name})"></label>
