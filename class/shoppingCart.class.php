@@ -1436,7 +1436,10 @@ namespace MTsung{
 				$data["paymentTitle"] = $this->getPaymentTitle();
 		        $ECPayLog = new ECPayLog($this->console);
 		        $data["orderECPayLog"] = $ECPayLog->getData("where RtnCode='300' and type='shipment' and MerchantTradeNo like '".$data["order"]["orderNumber"]."%' order by create_date desc limit 1")[0];
-				$member = $this->memberInfo;
+		        $member = array();
+		        if($this->console->langSessionName!="Serback"){
+					$member = $this->memberInfo;
+		        }
 
 				$mail = new phpMailer($this->console);
 				$mail->setMailTitle($title);
