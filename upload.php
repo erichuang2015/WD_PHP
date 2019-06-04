@@ -3,6 +3,7 @@
 	ini_set('upload_max_filesize ', '800M');
 	ini_set('post_max_size', '800M');
 	ini_set('memory_limit', '-1');
+	header('Content-Type: application/json; charset=utf-8');
 
 	/**
 	 * 上傳檔案
