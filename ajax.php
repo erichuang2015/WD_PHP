@@ -1,6 +1,5 @@
 <?php
 	include_once("include/header.php");
-	header('Content-Type: application/json; charset=utf-8');
 
 	$serbackIsLogin = isset($_SESSION[FRAME_NAME]["member"]["serback"])&&$_SESSION[FRAME_NAME]["member"]["serback"];
 
