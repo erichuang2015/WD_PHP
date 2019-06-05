@@ -306,13 +306,13 @@ namespace MTsung{
 					$sql .= " 1=1 ";
 				}
 				
-				if($_GET["startDate"] && in_array("update_date", $this->getField())){
-					$sql .= " and update_date>? ";
+				if($_GET["startDate"] && in_array("create_date", $this->getField())){
+					$sql .= " and create_date>? ";
 					$sqlArray[] = $_GET["startDate"];
 				}
 
-				if($_GET["endDate"] && in_array("update_date", $this->getField())){
-					$sql .= " and update_date<? ";
+				if($_GET["endDate"] && in_array("create_date", $this->getField())){
+					$sql .= " and create_date<? ";
 					$sqlArray[] = date("Y-m-d",strtotime("+1 day",strtotime($_GET["endDate"])));
 				}
 
