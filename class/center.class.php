@@ -313,7 +313,7 @@ namespace MTsung{
 
 				if($_GET["endDate"] && in_array("update_date", $this->getField())){
 					$sql .= " and update_date<? ";
-					$sqlArray[] = $_GET["endDate"];
+					$sqlArray[] = date("Y-m-d",strtotime("+1 day",strtotime($_GET["endDate"])));
 				}
 
 				if($_GET["status"] != '' && in_array("status", $this->getField())){
