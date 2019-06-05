@@ -219,6 +219,12 @@
                             <input type="text" class="form-control" size="50" name="searchKeyWord" value="({if isset($smarty.get.searchKeyWord)})({$smarty.get.searchKeyWord})({/if})" placeholder="({$console->getLabel("SEARCH_KEYWORD")})">
                         </div>
                         <div class="input-group-append">
+                            <select name="dateType"　 class="form-control">
+                                <option value="create_date" ({if isset($smarty.get.dateType) && $smarty.get.dateType=='create_date'})selected({/if})>({$console->getLabel("CREATE_DATE")})</option>
+                                <option value="update_date" ({if isset($smarty.get.dateType) && $smarty.get.dateType=='update_date'})selected({/if})>({$console->getLabel("UPDATE_DATE")})</option>
+                            </select>
+                        </div>
+                        <div class="input-group-append">
                             <span class="input-group-text">({$console->getLabel("FROM")})</span>
                         </div>
                         <div class="input-group-append">
