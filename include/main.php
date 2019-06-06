@@ -1013,6 +1013,7 @@ namespace MTsung{
 		 */
 		function outputJson($response,$message="",$data=""){
 			header('Content-Type: application/json; charset=utf-8');
+			ob_clean();
 			echo json_encode(array(
 				"response" => $response,
 				"message" => $message,
