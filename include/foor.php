@@ -63,7 +63,7 @@
 	//css js用
 	$web_set['main_path'] = WEB_PATH;
 	$web_set['serback_path'] = SERBACK_PATH;
-	$web_set['data_path'] = WEB_PATH.DATA_PATH;
+	$web_set['data_path'] = WEB_PATH."/".DATA_PATH;
 	if($web_set['data_path'][0]!="/") $web_set['data_path'] = "/".$web_set['data_path'];
 	if($web_set['data_path'][strlen($web_set['data_path'])-1]=="/") $web_set['data_path'] = substr($web_set['data_path'],0,-1);
 
