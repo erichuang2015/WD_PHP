@@ -55,6 +55,7 @@ namespace MTsung{
 		const CVS_ECPAY = 7;//超商代碼(綠界)
 		const BARCODE_ECPAY = 8;//超商條碼(綠界)
 		const FACE_TO_FACE = 9;//面交
+		const FISC_PAY = 10;//信用卡刷卡(財金公司國際)
 	}
 
 	/**

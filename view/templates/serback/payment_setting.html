@@ -50,14 +50,40 @@
                         </li>
                     ({/if})
 
-
-
-
+                    ({if $data.system.payFiscPayCheck})
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="list" href="#list-setting10">({$console->getLabel("FISC_PAY")})</a>
+                        </li>
+                    ({/if})
 
                 </ul>
             </div>
             <div class="tab-content">
-                
+                ({if $data.system.payFiscPayCheck})
+                <!-- 財金公司國際 -->
+                <div class="card-body tab-pane fade" id="list-setting10">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label>({$console->getLabel("FISC_PAY")})</label>
+                            <div class="onoffswitch">
+                                <input type="hidden" name="payFiscPayCheck" value="0">
+                                <input type="checkbox" name="payFiscPayCheck" class="onoffswitch-checkbox" id="payFiscPayCheck" value="1" ({if $data.one.payFiscPayCheck==1})checked({/if})>
+                                <label class="onoffswitch-label" for="payFiscPayCheck"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>({$label_back["DESCRIPTION"]})</label>
+                            <textarea class="form-control" rows="8" name="payFiscPayDetail">({$data.one.payFiscPayDetail})</textarea>
+                        </div>
+                    </div>
+                    <small class="text-muted">
+                        ({$label_back['UPDATE_DATE']})
+                        ({$data.one.update_date})(({$data.one.update_user}))
+                    </small>
+                </div>
+                ({/if})
                 ({if $data.system.cashOnDeliveryCheck})
                 <!-- 貨到付款 -->
                 <div class="card-body tab-pane fade show active" id="list-setting1">

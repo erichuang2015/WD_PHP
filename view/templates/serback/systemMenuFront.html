@@ -375,6 +375,14 @@
                                     <label class="onoffswitch-label" for="faceToFaceCheck1"></label>
                                 </div>
                             </div>
+                            <div class="col-md-3 mb-3">
+                                <label>({$console->getLabel("FISC_PAY")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="payFiscPayCheck" value="0">
+                                    <input type="checkbox" name="payFiscPayCheck" class="onoffswitch-checkbox" id="payFiscPayCheck" value="1" ({if $data.one.payFiscPayCheck|| $switch.addList!=0})checked({/if})>
+                                    <label class="onoffswitch-label" for="payFiscPayCheck"></label>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="form-row">

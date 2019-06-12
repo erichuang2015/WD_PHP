@@ -744,6 +744,15 @@ namespace MTsung{
 					$this->shipment($orderNumber);
 					break;
 
+				case paymentMethodType::FISC_PAY:											//信用卡刷卡(財金公司國際)
+					$fisc = new payFiscPay(
+						$this->console->setting->getValue("fiscMerID"),
+						$this->console->setting->getValue("fiscMerchantID"),
+						$this->console->setting->getValue("fiscTerminalID")
+					);
+					$fisc->createOrder($order,$orderList);
+					break;
+
 				default:
 					$this->message = $this->console->getMessage("PAYMENT_METHOD_ERROR");
 					return false;
@@ -940,7 +949,8 @@ namespace MTsung{
 				paymentMethodType::CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY => $this->console->getLabel("CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY"),
 				paymentMethodType::CVS_ECPAY => $this->console->getLabel("CVS_ECPAY"),
 				paymentMethodType::BARCODE_ECPAY => $this->console->getLabel("BARCODE_ECPAY"),
-				paymentMethodType::FACE_TO_FACE => $this->console->getLabel("FACE_TO_FACE")
+				paymentMethodType::FACE_TO_FACE => $this->console->getLabel("FACE_TO_FACE"),
+				paymentMethodType::FISC_PAY => $this->console->getLabel("FISC_PAY")
 			);
 			if($paymentMethod){
 				return $array[$paymentMethod];
@@ -966,7 +976,8 @@ namespace MTsung{
 				paymentMethodType::CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY => $paymentSetting->getValue("convenienceStorePickUpPaymentECPayDetail"),
 				paymentMethodType::CVS_ECPAY => $paymentSetting->getValue("cvsECPayDetail"),
 				paymentMethodType::BARCODE_ECPAY => $paymentSetting->getValue("barcodeECPayDetail"),
-				paymentMethodType::FACE_TO_FACE => $paymentSetting->getValue("faceToFaceDetail")
+				paymentMethodType::FACE_TO_FACE => $paymentSetting->getValue("faceToFaceDetail"),
+				paymentMethodType::FISC_PAY => $paymentSetting->getValue("payFiscPayDetail")
 			);
 			return $array[$paymentMethod];
 		}
@@ -985,7 +996,8 @@ namespace MTsung{
 				paymentMethodType::CONVENIENCE_STORE_PICK_UP_PAYMENT_ECPAY => $paymentSetting->getValue("convenienceStorePickUpPaymentECPayCheck"),
 				paymentMethodType::CVS_ECPAY => $paymentSetting->getValue("cvsECPayCheck"),
 				paymentMethodType::BARCODE_ECPAY => $paymentSetting->getValue("barcodeECPayCheck"),
-				paymentMethodType::FACE_TO_FACE => $paymentSetting->getValue("faceToFaceCheck")
+				paymentMethodType::FACE_TO_FACE => $paymentSetting->getValue("faceToFaceCheck"),
+				paymentMethodType::FISC_PAY => $paymentSetting->getValue("payFiscPayCheck")
 			);
 			return $array;
 		}
@@ -1158,6 +1170,7 @@ namespace MTsung{
 						);
 						break;
 
+					case paymentMethodType::FISC_PAY:											//信用卡刷卡(財金公司國際)
 					case paymentMethodType::PHYSICAL_ATM_TRANSFER:								//實體ATM轉帳
 					case paymentMethodType::PHYSICAL_ATM_TRANSFER_ECPAY:						//實體ATM轉帳(綠界)
 					case paymentMethodType::INTERNET_ATM_TRANSFER_ECPAY:						//網路ATM轉帳(綠界)
