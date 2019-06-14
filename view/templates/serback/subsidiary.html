@@ -54,8 +54,8 @@
                                     <th scope="col">({$console->getLabel("MONTH_BANDWIDTH")})</th>
                                     <!-- <th scope="col">({$console->getLabel("SORT")})</th> -->
                                     <th scope="col">({$console->getLabel("STATUS")})</th>
-                                    <!-- <th scope="col">({$console->getLabel("CREATE_DATE")})</th> -->
-                                    <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
+                                    <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                    <!-- <th scope="col">({$console->getLabel("UPDATE_DATE")})</th> -->
                                     <!-- <th scope="col">({$console->getLabel("TOW_SORT")})</th> -->
                                 </tr>
                             </thead>
@@ -104,12 +104,13 @@
                                                 <label class="onoffswitch-label" for="myonoffswitch_({$data.list[i].id})"></label>
                                             </div>
                                         </td>
-                                        <!-- <td >
-                                            ({$data.list[i].create_date})(({$data.list[i].create_user}))
-                                        </td> -->
                                         <td >
+                                            ({$data.list[i].create_date})(({$data.list[i].create_user}))
+                                        </td>
+                                        <!-- <td >
                                             ({$data.list[i].update_date})(({$data.list[i].update_user}))
-                                        </td><!-- 
+                                        </td> -->
+                                        <!-- 
                                         <th >
                                             <span class="glyphicon-move" style="font-size: 20px;"></span>
                                         </th> -->
