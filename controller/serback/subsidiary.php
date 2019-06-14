@@ -17,6 +17,29 @@ $searchKey = array("name","subDomain","addonDomain");
 global $dbHost,$dbUser,$dbPass;
 $cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
 
+//ajax
+if(isset($_GET["ajax"]) && $_GET["ajax"]){
+	switch ($_GET["ajax"]) {
+		case 'loadData'://取得最新 資料庫大小	資料使用空間	本月使用頻寬		
+			if($data["list"] = $basic->getData()){
+				foreach ($data["list"] as $key => $value) {
+					$data["list"][$key]["bandwidth"] = 0;
+					if($temp = $cPanel->getBandwidth("year_month",$value["subDomain"].".".MAIN_SERVER_NAME,strtotime(date('Y-m-01', strtotime(DATE))))){
+						$data["list"][$key]["bandwidth"] = $console->formatSize(array_shift($temp));
+					}
+					$data["list"][$key]["dataSize"] = $console->formatSize($console->getDirSize("data/".($value["id"]+10000)."/"));
+					$data["list"][$key]["dbSize"] = $console->formatSize($console->getDatabaseSize(DB_PREFIX.$value["subDomain"]));
+					$basic->setData($data["list"][$key]);
+				}
+			}
+			break;
+	}
+	$console->outputJson(true,"");
+
+	exit;
+}
+//ajax
+
 if(isset($console->path[1])){
 //動作
 	switch ($console->path[1]) {
@@ -33,13 +56,6 @@ if(isset($console->path[1])){
 				}else{					
 					if($temp = $basic->getData("where id=?",array($console->path[2]),$explodeArray,$module)){
 						$data["one"] = $temp[0];
-						$data["one"]["bandwidth"] = 0;
-						if($temp = $cPanel->getBandwidth("year_month",$data["one"]["subDomain"].".".MAIN_SERVER_NAME,strtotime(date('Y-m-01', strtotime(DATE))))){
-							$data["one"]["bandwidth"] = $console->formatSize(array_shift($temp));
-						}
-						$data["one"]["dataSize"] = $console->formatSize($console->getDirSize("data/".($data["one"]["id"]+10000)."/"));
-			            $data["one"]["dbSize"] = $console->formatSize($console->getDatabaseSize(DB_PREFIX.$data["one"]["subDomain"]));
-
 					}else{
 						$console->alert($basic->message,$data["listUrl"]);
 					}
@@ -187,17 +203,7 @@ if(isset($console->path[1])){
 		}
 	}
 
-	if($data["list"] = $basic->getListData("order by sort ",$searchKey)){
-		foreach ($data["list"] as $key => $value) {
-			$data["list"][$key]["bandwidth"] = 0;
-			if($temp = $cPanel->getBandwidth("year_month",$value["subDomain"].".".MAIN_SERVER_NAME,strtotime(date('Y-m-01', strtotime(DATE))))){
-				$data["list"][$key]["bandwidth"] = $console->formatSize(array_shift($temp));
-			}
-			$data["list"][$key]["dataSize"] = $console->formatSize($console->getDirSize("data/".($value["id"]+10000)."/"));
-			$data["list"][$key]["dbSize"] = $console->formatSize($console->getDatabaseSize(DB_PREFIX.$value["subDomain"]));
-		}
-	}
-
+	$data["list"] = $basic->getListData("order by sort ",$searchKey);
 	$data["pageNumber"] = $basic->pageNumber;
 
 	$switch["deleteButton"] = 1;
