@@ -12,7 +12,7 @@ $designName = $console->path[0];
 
 //欄位白名單 = 需要必填的欄位 = 需要轉陣列的欄位 = 搜尋key
 $checkArray = $requiredArray = $explodeArray = $searchKey = array();
-$searchKey = array("name","subDomain","addonDomain");
+$searchKey = array("name","subDomain","addonDomain","aliasDomain1","aliasDomain2","aliasDomain3");
 
 global $dbHost,$dbUser,$dbPass;
 $cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
@@ -30,6 +30,21 @@ if(isset($_GET["ajax"]) && $_GET["ajax"]){
 					$data["list"][$key]["dataSize"] = $console->formatSize($console->getDirSize("data/".($value["id"]+10000)."/"));
 					$data["list"][$key]["dbSize"] = $console->formatSize($console->getDatabaseSize(DB_PREFIX.$value["subDomain"]));
 					$basic->setData($data["list"][$key]);
+				}
+			}
+			break;
+		case 'addAliasDomain'://新增別名
+			if(isset($console->path[2]) && is_numeric($console->path[2]) && is_numeric($_GET["number"]) && isset($_GET["domain"])){
+				
+				$tempData["id"] = $console->path[2];
+				$tempData["aliasDomain".$_GET["number"]] = $_GET["domain"];
+				if(!$cPanel->addAliasDomain($_GET["domain"])){
+					$console->alert($cPanel->message,-1);
+				}
+				if($basic->setData($tempData,false,$checkArray,$requiredArray)){
+					$console->alert($basic->message,$_SERVER["REQUEST_URI"]);
+				}else{
+					$console->alert($basic->message,-1);
 				}
 			}
 			break;
@@ -66,7 +81,7 @@ if(isset($console->path[1])){
 				$console->alert($console->getMessage("NOT_AUTHORITY"),$data["listUrl"]);
 			}
 
-			$switch["saveButton"] = 1;
+			$switch["saveButton"] = 0;
 			$switch["backButton"] = 1;
 			$switch["editList"] = 1;
 			break;

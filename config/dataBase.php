@@ -120,7 +120,13 @@
 
 	$dataPath = "";
 	if(MAIN_SERVER_NAME && $_SERVER["SERVER_NAME"]!=MAIN_SERVER_NAME){
-		if(!$temp = $conn->GetRow("select * from ".PREFIX."subsidiary where addonDomain like '%".str_replace('www.','',$_SERVER['SERVER_NAME'])."%' or subDomain like '".str_replace('.'.MAIN_SERVER_NAME,'',$_SERVER['SERVER_NAME'])."' and status=1")){
+		if(!$temp = $conn->GetRow("select * from ".PREFIX."subsidiary 
+									where (addonDomain like '%".str_replace('www.','',$_SERVER['SERVER_NAME'])."%' 
+									or subDomain like '".str_replace('.'.MAIN_SERVER_NAME,'',$_SERVER['SERVER_NAME'])."' 
+									or aliasDomain1 like '%".str_replace('www.','',$_SERVER['SERVER_NAME'])."%' 
+									or aliasDomain2 like '%".str_replace('www.','',$_SERVER['SERVER_NAME'])."%' 
+									or aliasDomain3 like '%".str_replace('www.','',$_SERVER['SERVER_NAME'])."%') 
+									and status=1")){
 			echo "subsidiary null.";
 			exit;
 		}

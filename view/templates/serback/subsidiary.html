@@ -129,7 +129,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel('NAME')})</label>
-                                <input type="text" name="name" class="form-control" autocomplete="name" value="({$data.one.name})" data-text="({$console->getLabel("NAME")})" required>
+                                <input type="text" name="name" class="form-control" autocomplete="name" value="({$data.one.name})" data-text="({$console->getLabel("NAME")})" required ({if $data.one})readonly({/if})>
                             </div>
                         </div>
 
@@ -148,6 +148,79 @@
                         </div>
                         
                         ({if $data.one})
+                            <script>
+                                function addAliasDomain(domain,number){
+                                    var domain = domain.trim();
+                                    if(domain!=''){
+                                        loadingStart();
+                                        $.ajax({
+                                            async: true,
+                                            data: {
+                                                ajax : "addAliasDomain",
+                                                number : number,
+                                                domain : domain
+                                            },
+                                            success: function(msg){
+                                                try {
+                                                    loadingStop();
+                                                    temp = JSON.parse(msg);
+                                                    if (!temp.response) {
+                                                        alert(temp.message);
+                                                        return false;
+                                                    }
+                                                    window.location.reload();
+                                                } catch (e) {
+                                                    alert("error : " + e);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            </script>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('別名網域1')})</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="aliasDomain1" value="({$data.one.aliasDomain1})" ({if $data.one.aliasDomain1})readonly({/if})>
+                                        ({if !$data.one.aliasDomain1})
+                                        <div class="input-group-append">
+                                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="addAliasDomain($('#aliasDomain1').val(),1);"><span class="glyphicon glyphicon-plus"></span></a>
+                                        </div>
+                                        ({/if})
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('別名網域2')})</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="aliasDomain2" value="({$data.one.aliasDomain2})" ({if $data.one.aliasDomain2})readonly({/if})>
+                                        ({if !$data.one.aliasDomain2})
+                                        <div class="input-group-append">
+                                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="addAliasDomain($('#aliasDomain2').val(),2);"><span class="glyphicon glyphicon-plus"></span></a>
+                                        </div>
+                                        ({/if})
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel('別名網域3')})</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="aliasDomain3" value="({$data.one.aliasDomain3})" ({if $data.one.aliasDomain3})readonly({/if})>
+                                        ({if !$data.one.aliasDomain3})
+                                        <div class="input-group-append">
+                                            <a class="btn btn-outline-secondary" href="javascript:;" onclick="addAliasDomain($('#aliasDomain3').val(),3);"><span class="glyphicon glyphicon-plus"></span></a>
+                                        </div>
+                                        ({/if})
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
                                     <label>({$console->getLabel('DATABASE_SIZE')})</label>
@@ -168,7 +241,10 @@
                                     <input type="text" class="form-control" value="({$data.one.bandwidth})" readonly>
                                 </div>
                             </div>
-                            
+                        ({else})
+                            <input type="hidden" name="aliasDomain1" value="">
+                            <input type="hidden" name="aliasDomain2" value="">
+                            <input type="hidden" name="aliasDomain3" value="">
                         ({/if})
 
                         <small class="text-muted">

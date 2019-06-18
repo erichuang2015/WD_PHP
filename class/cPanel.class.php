@@ -159,6 +159,30 @@ namespace MTsung{
 		}
 
 		/**
+		 * 新增別名
+		 * @param [type] $domain [description]
+		 */
+		function addAliasDomain($domain){
+			$url = "/json-api/cpanel";
+			$data = array(
+				"cpanel_jsonapi_user" => "user",
+				"cpanel_jsonapi_apiversion" => "2",
+				"cpanel_jsonapi_module" => "Park",
+				"cpanel_jsonapi_func" => "park",
+				// "topdomain" => "subdomain",//子網
+				"domain" => $domain
+			);
+			if(!$temp = $this->cCurl($url,"GET",$data)){
+				return false;
+			}
+			if($err = $temp["cpanelresult"]["error"]){
+				$this->message = $err;
+				return false;
+			}
+			return true;
+		}
+
+		/**
 		 * curl
 		 * @param  string $type    [description]
 		 * @param  [type] $data    [description]
