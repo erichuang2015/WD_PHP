@@ -16,7 +16,7 @@ namespace MTsung{
 		var $merchantName;
 		var $rand;
 		var $isTest = true;
-		var $token = "1qaz2wsx3edc4rfv";/** 需到 [特店管理區>安全性作業管理>參數驗證管理] 設定後並請銀行端IT人工放行 **/
+		var $token = "1qaz2wsx3edc4rfv";/** 需到 特店管理區 > 安全性作業管理 > 參數驗證管理 > 新增token "1qaz2wsx3edc4rfv" > 請銀行端IT人工放行 **/
 
 		/**
 		 * @param [type] $merID        網站特店自訂代碼(請注意 merID 與 MerchantID 不同)
