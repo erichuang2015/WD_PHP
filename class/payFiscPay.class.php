@@ -125,20 +125,5 @@ namespace MTsung{
 			}
 			return true;
 		}
-
-		/**
-		 * 將上限後的字&陣列內的字過濾
-		 * @param  [type] $value [description]
-		 * @param  [type] $size  [description] 中文
-		 * @param  [type] $array [description]
-		 * @return [type]        [description]
-		 */
-		function stringFilter($value,$size,$array=array("^","'","`","!","@","#","%","&","*","+","\\","\"","<",">","｜","_","[","]")){
-			$value =  str_replace($array,"",$value);
-			return mb_strwidth($value,"utf-8")>$size ? mb_substr($value,0,$size, "utf-8") : $value;
-		}
-
-
-
 	}
 }
