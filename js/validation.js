@@ -140,7 +140,10 @@ function formSubmit(index) {
 	            data : f.serialize(),
 	            success: function(data){
 	                toastr.options = {"positionClass": "toast-bottom-right","progressBar": true};
-	                var temp = JSON.parse(data);
+	                var temp = data;
+	                if(typeof(data)!="object"){
+	                	temp = JSON.parse(data);
+	                }
 	                if(temp.response){
 	                    toastr.success(temp.message);
 	                }else{

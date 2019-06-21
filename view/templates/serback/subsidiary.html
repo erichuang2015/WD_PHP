@@ -163,7 +163,10 @@
                                             success: function(msg){
                                                 try {
                                                     loadingStop();
-                                                    temp = JSON.parse(msg);
+                                                    var temp = msg;
+                                                    if(typeof(data)!="object"){
+                                                        temp = JSON.parse(msg);
+                                                    }
                                                     if (!temp.response) {
                                                         alert(temp.message);
                                                         return false;

@@ -49,11 +49,13 @@ $.ajax({
         getLanguageMsg: 1,
         language: _lang
     },
-    dataType:'text',
     async: true,
     success: function(msg){
         if(msg){
-            _jsMsg = JSON.parse(msg);
+            _jsMsg = msg;
+            if(typeof(msg)!="object"){
+                _jsMsg = JSON.parse(msg);
+            }
         }
     }
 });

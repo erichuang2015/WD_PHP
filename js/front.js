@@ -9,10 +9,13 @@ function shoppingListReload(shoppingList) {
             data: {
                 ajax: "shoppingList"
             },
-            dataType: 'text',
+            
             success: function(msg) {
                 try {
-                    temp = JSON.parse(msg);
+                    var temp = msg;
+                    if(typeof(data)!="object"){
+                        temp = JSON.parse(msg);
+                    }
                     shoppingList = temp.data;
                     shoppingListReload(shoppingList);
                 } catch (e) {
@@ -70,10 +73,13 @@ function shoppingAddProduct($obj) {
             specifications: $obj.data("specifications"),
             count: $obj.val(),
         },
-        dataType: 'text',
+        
         success: function(msg) {
             try {
-                temp = JSON.parse(msg);
+                var temp = msg;
+                if(typeof(data)!="object"){
+                    temp = JSON.parse(msg);
+                }
                 if (!temp.response) {
                     alert(temp.message);
                     if(temp.data["toUrl"]){
@@ -105,10 +111,13 @@ function shoppingRmProduct($obj,flag) {
             productid: $obj.data("productid"),
             specifications: $obj.data("specifications")
         },
-        dataType: 'text',
+        
         success: function(msg) {
             try {
-                temp = JSON.parse(msg);
+                var temp = msg;
+                if(typeof(data)!="object"){
+                    temp = JSON.parse(msg);
+                }
                 if(typeof(flag) == "undefined"){
                     alert(temp.message);
                     if (!temp.response) {
@@ -139,7 +148,7 @@ function shoppingEditCount($obj) {
             specifications: $obj.data("specifications"),
             count: $obj.val(),
         },
-        dataType: 'text',
+        
         success: function(msg) {
             // try {
             //     loadingStop();
@@ -154,7 +163,10 @@ function shoppingEditCount($obj) {
             // }
             try {
                 // loadingStop();
-                temp = JSON.parse(msg);
+                var temp = msg;
+                if(typeof(data)!="object"){
+                    temp = JSON.parse(msg);
+                }
                 if (!temp.response) {
                     alert(temp.message);
                     return false;
@@ -186,10 +198,13 @@ function shoppingAddAddProduct($obj) {
             specifications: $obj.data("specifications"),
             count: $obj.val(),
         },
-        dataType: 'text',
+        
         success: function(msg) {
             try {
-                temp = JSON.parse(msg);
+                var temp = msg;
+                if(typeof(data)!="object"){
+                    temp = JSON.parse(msg);
+                }
                 alert(temp.message);
                 if (!temp.response) {
                     if(temp.data["toUrl"]){
@@ -222,10 +237,13 @@ function shoppingRmAddProduct($obj,flag) {
             addProductid: $obj.data("addproductid"),
             specifications: $obj.data("specifications")
         },
-        dataType: 'text',
+        
         success: function(msg) {
             try {
-                temp = JSON.parse(msg);
+                var temp = msg;
+                if(typeof(data)!="object"){
+                    temp = JSON.parse(msg);
+                }
                 if(typeof(flag) == "undefined"){
                     alert(temp.message);
                     if (!temp.response) {
@@ -259,11 +277,14 @@ function shoppingAddEditCount($obj) {
             specifications: $obj.data("specifications"),
             count: $obj.val(),
         },
-        dataType: 'text',
+        
         success: function(msg) {
             try {
                 loadingStop();
-                temp = JSON.parse(msg);
+                var temp = msg;
+                if(typeof(data)!="object"){
+                    temp = JSON.parse(msg);
+                }
                 if (!temp.response) {
                     return false;
                 }
@@ -288,11 +309,14 @@ function usePoint(point) {
             ajax: "usePoint",
             point: point,
         },
-        dataType: 'text',
+        
         success: function(msg) {
             try {
                 loadingStop();
-                temp = JSON.parse(msg);
+                var temp = msg;
+                if(typeof(data)!="object"){
+                    temp = JSON.parse(msg);
+                }
                 if (!temp.response) {
                     alert(temp.message);
                     return false;
