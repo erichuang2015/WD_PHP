@@ -2,7 +2,8 @@
 
 
 /**
- * 財金公司國際串接
+ * 第一銀行 財金公司國際串接
+ * 通行碼 : fisc
  * MTsung by 20190221
  */
 namespace MTsung{
@@ -96,6 +97,11 @@ namespace MTsung{
 		 * @return [type]       [description]
 		 */
 		function checkRespToken($data){
+			//測試環境時不檢查
+			if($isTest){
+				return true;
+			}
+
 			if($data["status"]=="0"){//成功
 				$temp = array(
 					$data["status"],							//授權結果狀態
