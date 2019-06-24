@@ -1,0 +1,51 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner">
+    <div class="banner-title">
+        會員專區
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<!-- 內容 -->
+<div class="warpper">
+    <!-- 編輯區 -->
+    <div class="main">
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body row">
+            <div class="col-sm">
+                <div class="jump-window-box">
+                    <h3 class="page-title">忘記密碼</h3>
+                    <div class="form-box">
+                        <form action="" method="POST" target="_parent">
+                            ({if !isset($smarty.get.uID)})
+                                <!-- 表單 -->
+                                <div class="contact-note02">請輸入註冊E-mail，收取設定新密碼連結</div>
+                                <div class="opinion clearfix"> <span class="opinion-left01">* E-mail</span>
+                                    <input type="email" name="email" placeholder="註冊會員的E-mail" class="input-main-style01" data-text="Email" data-check="Eamil" required>
+                                </div>
+                                <div class="cart-btn"><a href="javascript:;" onclick="formSubmit(0); return false;" class="btn-send">確認送出</a></div>
+                            ({else})
+                                <div class="opinion clearfix"> <span class="opinion-left01">新密碼</span>
+                                    <input type="password" name="newPassword" data-text="新密碼" data-check="Password" placeholder="新密碼" class="input-main-style01" required>
+                                </div>
+                                <div class="opinion clearfix"> <span class="opinion-left01">確認密碼</span>
+                                    <input type="password" name="checkNewPassword" data-text="確認密碼" data-check="Password" placeholder="確認密碼" class="input-main-style01" required>
+                                </div>
+                                <div class="cart-btn">
+                                    <a class="btn-send" href="javascript:;" onclick="formSubmit(0); return false;">確認送出</a>
+                                </div>
+                            ({/if})
+                            ({$console->getToken()})
+                        </form>
+                    </div>
+                    <!-- 右欄 END -->
+                </div>
+                <!-- 右欄 END -->
+            </div>
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 end -->
+</div>
+<!-- 內容 end -->
+({include "foor.html"})

@@ -48,24 +48,32 @@
                                     ({/section})
                                 ({/if})
                             ({/section})
+                            ({if $data.order.deshprice<1})
+                            <tr>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                <td bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">折扣</td>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">({100-$data.order.deshprice*100})%</td>
+                            </tr>
+                            ({/if})
                             <tr>
                                 <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                 <td bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                 <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">小計</td>
-                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">({$order.total+$data.order.pointDownMoney})</td>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">({$order.total+$order.pointDownMoney})</td>
                             </tr>
-                            ({if $data.order.usePoint>0})
+                            ({if $order.usePoint>0})
                                 <tr>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                     <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">使用紅利點數</td>
-                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$data.order.usePoint})點</td>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$order.usePoint})點</td>
                                 </tr>
                                 <tr>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                     <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">折抵金額</td>
-                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">-({$data.order.pointDownMoney})</td>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">-({$order.pointDownMoney})</td>
                                 </tr>
                             ({/if})
                             <tr>

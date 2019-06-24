@@ -9,4 +9,55 @@
 </head>
 
 <body>
-    ({include "module/fbMsg.html"})
+({include "module/fbMsg.html"})
+<div id="sidr-left">
+    <!--  購物車狀況 Begin -->
+    <div class="cart-header">購物車
+        <div class="cross"><a id="left-menu2" href="javascript:;" class="pull-right"><i class="fa fa-times" aria-hidden="true"></i></a></div>
+    </div>
+    <!-- cart items start-->
+    <div class="cart-items clearfix">
+        <div id="cartItemtDiv" style="display:none;">
+            <div class="cart-items clearfix">
+                <!-- cart-item -->
+                <div class="cart-item clearfix">
+                    <a href="produc-detailes.html" target="_blank" class="product-link"><img src=""></a>
+                    <div class="cart-item-content">
+                        <div class="title">產品名稱</div>
+                        <div class="ng-scope">數量：1</div>
+                        <div class="price-details">NT$250</div>
+                    </div>
+                    <a href="javascript:;" class="remove">刪除</a>
+                </div>
+                <!-- cart-item -->
+            </div>
+        </div>
+    </div>
+    <div id="shoppingListDiv">
+    </div>
+</div>
+
+<header id="header">
+    <div class="head-main">
+        <div class="home"><a href="({$web.main_url})/index"></a></div>
+        <div class="logo"><a href="({$web.main_url})/index">COMPANY NAME</a></div>
+        <div class="head-tool">
+            <li><a href="({$web.main_url})/index">HOME</a></li>
+            <li><a href="javascript:;" id="left-menu">購物車 ( <span id="shoppingCountSpan">({$data.orderCount})</span> )</a></li>
+            ({if $member})
+            <li><a href="({$web.main_url})/member/detail">會員中心</a></li>
+            ({else})
+            <li><a href="({$web.main_url})/member/login">會員登入</a></li>
+            ({/if})
+        </div>
+    </div>
+</header>
+
+({if $console->path[0]!="index"})
+    <!--麵包屑-->
+    <ol class="breadcrumb"> 
+        ({section name=i loop=$breadcru})
+            <a href="({$breadcru[i].url})">({$breadcru[i].name})</a> /
+        ({/section})
+    </ol>
+({/if})
