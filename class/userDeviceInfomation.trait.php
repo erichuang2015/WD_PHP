@@ -143,7 +143,7 @@ namespace MTsung{
 		    }else if($temp == ""){
 		        $referer = "";
 		    }else{
-		    	error_log("來源網域:".$temp."\n");
+		    	// error_log("來源網域:".$temp."\n");
 		        $referer = "other";
 		    }
 		    return $referer;
