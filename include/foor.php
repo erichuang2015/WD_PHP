@@ -134,6 +134,11 @@
 	//沒設定$designName則使用controller當樣板名稱
 	if($_GET) $_GET = $console->XXSDataVerifty($_GET);//最後再htmlspecialchars
 	if($_POST) $_POST = $console->XXSDataVerifty($_POST);//最後再htmlspecialchars
+
+	if($_GET["showData"] == 1){
+		$console->outputJson(true,'',$data);
+	}
+	
 	if(isset($designName) && $designName){
 		$console->design->loadDisplay($designName.'.html');
 	}else{

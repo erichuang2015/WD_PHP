@@ -165,13 +165,7 @@ if(isset($console->path[1])){
 				if($tempId = $basic->setData($_POST,false,$checkArray,$requiredArray)){
 					$dataPath = "data/".($tempId+10000)."/";
 					recurse_copy(APP_PATH."data/10000/",APP_PATH.$dataPath);
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."css' WHERE url='file/css'");
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."fonts' WHERE url='file/fonts'");
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."images' WHERE url='file/images'");
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."js' WHERE url='file/js'");
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."output' WHERE url='file/output'");
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."' WHERE url='file/svg'");
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."upload' WHERE url='file/upload'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."' WHERE url='file/data/10000'");
 
 					$tempConn->Execute("UPDATE database_setting SET detail='ssl' WHERE name='smtpSMTPSecure'");
 					$tempConn->Execute("UPDATE database_setting SET detail='mail.".MAIN_SERVER_NAME."' WHERE name='smtpHost'");

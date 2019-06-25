@@ -12,7 +12,7 @@ if(isset($_GET["ajax"]) && $_GET["ajax"]){
 	$mail->setMailTitle($_GET["mailTitle"]);
 	$mail->setMailFrom($console->setting->getValue("senderEmail"),$console->setting->getValue("senderName"));
 	$mail->setMailAddress($_GET["mailRecipient"]);
-	$mail->Body = $_GET["mailDetail"];
+	$mail->Body = nl2br($_GET["mailDetail"]);
 	if(!$mail->sendMail('','')){
 		$console->outputJson(false,$console->getMessage("MAIL_SEND_ERROR"));
 
