@@ -31,6 +31,11 @@
 		$order->setFreight(0);
 	}
 
+	//檢查折扣卷是否有效
+	if(!$_POST && $order->getShoppingCart("coupon")){
+		$order->useCoupon($order->getShoppingCart("coupon"));
+	}
+
 	//購物車資訊
 	$data["order"] = $order->getShoppingCart();
 	$data["order"]["paymentTitle"] = $order->getPaymentTitle($data["order"]["paymentMethod"]);

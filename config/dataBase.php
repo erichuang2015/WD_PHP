@@ -118,7 +118,7 @@
 	// 	$conn->Execute("ALTER TABLE `".$value[0]."` CONVERT TO CHARACTER SET utf8mb4;");
 	// }
 
-	$dataPath = "";
+	$dataPath = "data/10000/";
 	if(MAIN_SERVER_NAME && $_SERVER["SERVER_NAME"]!=MAIN_SERVER_NAME){
 		if(!$temp = $conn->GetRow("select * from ".PREFIX."subsidiary 
 									where (addonDomain like '%".str_replace('www.','',$_SERVER['SERVER_NAME'])."%' 

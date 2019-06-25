@@ -74,7 +74,11 @@ switch ($console->path[1]) {
 }
 /**模組**/
 
-include_once(CONTROLLER_PATH.'serback/__about.php');
+//載入功能
+if(!in_array($console->path[1],array("coupon"))){
+	include_once(CONTROLLER_PATH.'serback/__about.php');
+}
+
 
 
 if(isset($module["uploadImg"])){
@@ -195,4 +199,12 @@ if(isset($console->path[2])){
 	$switch["searchBox"] = 1;
 }
 
-?>
+/**設定**/
+switch ($console->path[1]) {
+	case 'coupon'://優惠卷
+		if(!$data["one"]["detail"]){
+			$data["one"]["detail"] = strtoupper(base_convert(rand().".".rand(),10,36));
+		}
+	break;
+}
+/**設定**/

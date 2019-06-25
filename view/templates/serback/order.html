@@ -238,28 +238,63 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("商品總額")})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.total+$data.order.deshpriceMoney+$data.order.pointDownMoney+$data.order.couponMoney})">
+                            </div>
+                        </div>
+
                         ({if $data.order.deshprice<1})
                             <div class="form-group row">
                                 <label class="col-sm-1 col-form-label">({$console->getLabel("DESHPRICE")})</label>
                                 <div class="col-sm-5">
-                                    <input type="text" readonly class="form-control" value="({$data.order.deshprice})">
+                                    <input type="text" readonly class="form-control" value="({100-$data.order.deshprice*100})%">
+                                </div>
+                            </div>
+                        ({/if})
+
+                        ({if $data.order.coupon})
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("折扣卷/金額")})</label>
+                                <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control" value="({$data.order.coupon}) (({$data.order.couponMoney})元)">
+                                </div>
+                            </div>
+                        ({/if})
+
+                        ({if $data.order.pointDownMoney})
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("紅利折抵金額")})</label>
+                                <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control" value="({$data.order.pointDownMoney})">
                                 </div>
                             </div>
                         ({/if})
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$console->getLabel("TOTAL")})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("小計")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.total})">
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label">({$console->getLabel("FREIGHT")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.freight})">
                             </div>
                         </div>
+                        
+                        <hr>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("應付總額")})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.total+$data.order.freight})">
+                            </div>
+                        </div>
+
+                        <hr>
 
                         ({if $web.pointCheck})
                             <div class="form-group row">

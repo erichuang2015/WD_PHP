@@ -50,11 +50,14 @@ namespace MTsung{
 					  `total` int(11) DEFAULT '0' COMMENT '總額',
 					  `freight` int(11) DEFAULT '0' COMMENT '運費',
 					  `deshprice` float DEFAULT 1 COMMENT '折扣',
+					  `deshpriceMoney` int(11) DEFAULT '0' COMMENT '折扣減少的錢',
 					  `getPoint` int(11) DEFAULT '0' COMMENT '取得的紅利',
 					  `getPointStatus` tinyint(1) DEFAULT '0' COMMENT '取得的紅利狀態',
 					  `usePoint` int(11) DEFAULT '0' COMMENT '使用的紅利',
 					  `usePointStatus` tinyint(1) DEFAULT '0' COMMENT '使用的紅利狀態',
 					  `pointDownMoney` int(11) DEFAULT '0' COMMENT '使用紅利減少的錢',
+					  `coupon` varchar(50) COMMENT '折扣卷序號',
+					  `couponMoney` int(11) DEFAULT '0' COMMENT '使用的折扣卷扣的錢',
 					  `paymentMethod` int(11) DEFAULT '0' COMMENT '付款方式',
 					  `paymentStatus` int(11) DEFAULT '0' COMMENT '付款狀態',
 					  `shipmentMethod` int(11) DEFAULT '0' COMMENT '出貨方式',
@@ -214,10 +217,12 @@ namespace MTsung{
 			}
 
 			//折扣
+			$tempTotal = $total;
 			if(is_numeric($this->order["deshprice"]) && $this->order["deshprice"]<=1 && $this->order["deshprice"]>0){
 				$total *= $this->order["deshprice"];
 				$total = round($total);
 			}
+			$this->updateOrder(array("deshpriceMoney"=>$tempTotal-$total));
 
 			//確認使用紅利沒超過會員身上的點數
 			$memberPoint = $this->member->getInfo("point")?$this->member->getInfo("point"):0;
@@ -231,11 +236,70 @@ namespace MTsung{
 				$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * $this->order['usePoint']);
 			}
 			if($pointDownMoney>$total){
+				$pointDownMoney = 0;
 				$this->updateOrder(array("usePoint"=>0));
 			}
+
+			$total -= $pointDownMoney;
+
+			//折扣卷
+			if(is_numeric($this->order["couponMoney"])){
+				$total -= $this->order["couponMoney"];
+			}
+
 			$this->updateOrder(array("pointDownMoney"=>$pointDownMoney));
-			$this->updateOrder(array("total"=>$total-$pointDownMoney));
+			$this->updateOrder(array("total"=>$total));
 		}
+
+		/**
+		 * 使用折價卷
+		 * @param  [type] $detail [description]
+		 * @return [type]         [description]
+		 */
+		function useCoupon($detail){
+			if(!$detail){
+				$this->message = $this->console->getMessage("INPUT_ERROR");
+				return false;
+			}
+			$cartTotal = ($this->order["total"]+$this->order["couponMoney"]);
+			$coupon = new dataList($this->console,PREFIX."coupon",$this->lang);
+
+			//是否使用過
+			if($temp = $this->getData("where memberId=? and coupon=? and status=1 and step>1",array($this->member->getInfo("id"),$detail))){
+				$this->message = $this->console->getMessage("COUPON_IS_USED");
+				$this->updateOrder(array("coupon" => "","couponMoney" => ""));
+				return false;
+			}
+
+			//是否存在
+			if(!$temp = $coupon->getData("where status=1 
+												and (effectiveDate<='".DATE."' or effectiveDate is null or effectiveDate='') 
+												and (invalidDate>='".DATE."' or invalidDate is null or invalidDate='') 
+												and detail=?
+										",array($detail))){
+				$this->message = $this->console->getMessage("INPUT_ERROR");
+				$this->updateOrder(array("coupon" => "","couponMoney" => ""));
+				return false;
+			}
+			$value = $temp[0];
+
+			//是否大於最小訂單金額
+			if($value["minOrderMoney"]>$cartTotal){
+				$this->message = $this->console->getMessage("MIN_ORDER_MONEY",array($value["minOrderMoney"]));
+				$this->updateOrder(array("coupon" => "","couponMoney" => ""));
+				return false;
+			}
+
+			//大於訂單金額全額折扣
+			if($value["money"]>$cartTotal){
+				$this->updateOrder(array("coupon" => $detail,"couponMoney" => $cartTotal));
+				return true;
+			}
+
+			$this->updateOrder(array("coupon" => $detail,"couponMoney" => $value["money"]));
+			return true;
+		}
+
 
 		/**
 		 * 計算紅利
@@ -266,7 +330,10 @@ namespace MTsung{
 						return false;
 					}
 					
-					$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * ($usePoint-$this->order['usePoint']));
+					$pointDownMoney = 0;
+					if($this->pointSetting[2]){
+						$pointDownMoney = floor(($this->pointSetting[3] / $this->pointSetting[2]) * ($usePoint-$this->order['usePoint']));
+					}
 					if($pointDownMoney > $this->order["total"]){
 						$this->message = $this->console->getMessage("POINT_GT_TOTAL");
 						return false;
@@ -1323,6 +1390,7 @@ namespace MTsung{
 		 * @return [type]       [description]
 		 */
 		function updateOrder($data){
+			$this->autoAddKey($data);
 			$this->conn->AutoExecute($this->table,$data,"UPDATE","id='".$this->order["id"]."'");
 			$this->order = $this->conn->GetRow("select * from ".$this->table." where step='1' and id='".$this->order["id"]."'");
 		}

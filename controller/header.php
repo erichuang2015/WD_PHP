@@ -31,6 +31,13 @@
 	}
 	$order->reloadCart();
 	$order->setDeshprice(1);//設定折數 0~1
+	
+	//會員等級 折扣
+	if($groupID = $member->getInfo("groupID")){
+		if($temp = $memberGroup->getData("where id=? and status='1'",array($groupID))){
+			$order->setDeshprice((100-$temp[0]["deshprice"])/100);
+		}
+	}
 
 	$web_set['lang'] = count($console->getLanguageArray("array"))==1?'':$console->getLanguage();
 	$lang_url = ($web_set['lang']?'/'.$web_set['lang']:'');

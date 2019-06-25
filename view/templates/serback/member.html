@@ -132,6 +132,32 @@
                                 </div> 
                             </div>
 
+                            ({if $data.group.0})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel("MEMBER_LEVEL")})</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="groupID" data-type="chosen" data-text="({$console->getLabel("MEMBER_LEVEL")})" data-placeholder="({$label_back["PLEASE_CHOOSE"]})" required>
+                                            <option value="0" ({if 1==$data.one.groupID})selected({/if})>無</option>
+                                            ({section name=i loop=$data.group})
+                                                <option value="({$data.group[i].id})" ({if $data.group[i].id==$data.one.groupID})selected({/if})>({$data.group[i].name})</option>
+                                            ({/section})
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            ({/if})
+
+
+                            ({if $web.pointCheck})
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label>({$console->getLabel("BONUS_POINT")})</label>
+                                <input type="text" name="point" class="form-control" value="({$data.one.point})" data-text="({$console->getLabel("BONUS_POINT")})" data-check="Number">
+                                </div>
+                            </div>
+                            ({/if})
+
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
                                     <label>({$console->getLabel('NEW_PASSWORD')})</label>

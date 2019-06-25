@@ -330,6 +330,34 @@ function usePoint(point) {
 }
 
 /**
+ * 使用折扣卷
+ */
+function useCoupon(coupon) {
+    loadingStart();
+    $.ajax({
+        url: _jsPath+"/shopping",
+        type: "GET",
+        data: {
+            ajax: "useCoupon",
+            coupon: coupon,
+        },
+        dataType: 'text',
+        success: function(msg) {
+            try {
+                loadingStop();
+                temp = JSON.parse(msg);
+                if (!temp.response) {
+                    alert(temp.message);
+                }
+                window.location.reload();
+            } catch (e) {
+                alert("error : " + e);
+            }
+        }
+    });
+}
+
+/**
  * loading
  */
 function loadingStart(selector,theme){

@@ -2,7 +2,9 @@
 $switch["buttonBox"] = 1;
 $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
-$memberList = new MTsung\member($console,PREFIX.'member');
+$memberList = new MTsung\member($console,PREFIX.'member',NULL);
+$memberGroupList = new MTsung\memberGroup($console,PREFIX.'member_group');
+$data["group"] = $memberGroupList->getData("order by id");
 
 $csvKeyArray = array("account","name","email","address","phone");
 

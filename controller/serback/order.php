@@ -2,7 +2,7 @@
 $switch["buttonBox"] = 1;
 $data["listUrl"] = $web_set['serback_url'].'/'.$console->path[0];
 
-$order_member = new MTsung\member($console,PREFIX.'member');
+$order_member = new MTsung\member($console,PREFIX.'member',NULL);
 $order_product = new MTsung\product($console,PREFIX."product",$settingLang);
 $order = new MTsung\shoppingCart($console,$order_member,$order_product,PREFIX."shopping_cart",$settingLang);
 
