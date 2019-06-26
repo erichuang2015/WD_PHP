@@ -2,7 +2,7 @@
 <!-- InstanceBeginEditable name="banner" -->
 <div class="inside-banner">
     <div class="banner-title">
-        會員專區
+        會員專區 / Member center
     </div>
 </div>
 <!-- InstanceEndEditable -->
@@ -33,22 +33,24 @@
                         ({$console->getToken()})
                     </form>
                 </div>
-                <div class="col-sm-5">
-                    <h3 class="page-title">社群登入</h3>
-                    <div class="login-tool">
-                        <ul>
-                            ({if $web.googleAuthAppID})
-                                <li><a href="javascript:;" id="GoogleBtn"><img src="images/google_icon&48.png"></a></li>
-                            ({/if})
-                            ({if $web.fbAuthAppID})
-                            ({/if})
-                                <li><a href="javascript:;" onclick="fbLogin();"><img src="images/facebook_icon&48.png"></a></li>
-                            ({if $web.lineAuthClientID})
-                                <li><a href="javascript:;" onclick="lineLogin();"><img src="/images/LINE_LOGO_min.png"></a></li>
-                            ({/if})
-                        </ul>
+                ({if $web.googleAuthAppID || $web.fbAuthAppID || $web.lineAuthClientID})
+                    <div class="col-sm-5">
+                        <h3 class="page-title">社群登入</h3>
+                        <div class="login-tool">
+                            <ul>
+                                ({if $web.googleAuthAppID})
+                                    <li><a href="javascript:;" id="GoogleBtn"><img src="images/google_icon&48.png"></a></li>
+                                ({/if})
+                                ({if $web.fbAuthAppID})
+                                    <li><a href="javascript:;" onclick="fbLogin();"><img src="images/facebook_icon&48.png"></a></li>
+                                ({/if})
+                                ({if $web.lineAuthClientID})
+                                    <li><a href="javascript:;" onclick="lineLogin();"><img src="/images/LINE_LOGO_min.png"></a></li>
+                                ({/if})
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                ({/if})
             </div>
         </div>
         <!-- InstanceEndEditable -->

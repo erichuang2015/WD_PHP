@@ -1,7 +1,7 @@
 ({include "top.html"})
 <!-- InstanceBeginEditable name="banner" -->
 <div class="inside-banner">
-    <div class="banner-title">購物車</div>
+    <div class="banner-title">購物車 / Shopping car</div>
 </div>
 <!-- InstanceEndEditable -->
 <!-- 內容 -->
@@ -12,10 +12,9 @@
         ({if !$data.orderList})
         <div class="content-body row">
             <div class="col-sm">
-            <div class="cart-btn">
-                
-                <a href="({$web.main_url})/product/all" class="btn-send">您的購物車是空的 前往購物</a>
-            </div>
+                <div class="cart-btn">
+                    <a href="({$web.main_url})/product/all" class="btn-send">您的購物車是空的 前往購物</a>
+                </div>
             </div>
         </div>
         ({else})
@@ -93,7 +92,7 @@
 <li class="addcontainer row align-items-center">
     <h1 class=" o-col-sm-auto">加價購</h1>
     <div class="shopping-car-content shop-car-info col">
-        <a href="" target="_blank" class="pro-photo"><img src="({$data.orderList[i].onlineProduct.addProduct.online[j].pictureList})" alt="" /></a>
+        <a target="_blank" class="pro-photo"><img src="({$data.orderList[i].onlineProduct.addProduct.online[j].pictureList})" alt="" /></a>
         <div class="description">
             <div class="shop-car-info-title">好康◆加購價$({$data.orderList[i].onlineProduct.addProduct.addProductMoney[j]})(原價$({$data.orderList[i].onlineProduct.addProduct.online[j].originalPrice}))◆</div>
             <div class="spec"></div>
@@ -127,7 +126,7 @@
                                 <select id="paymentMethod" class="input-main-style01" onchange="getShipment();">
                                     <option value="">請選擇</option>
                                     ({section name=i loop=$data.paymentMethod})
-                                    <option value="({$data.paymentMethod[i].key})" ({if $data.paymentMethod[i].key==$data.order.paymentMethod})selected({/if})>({$data.paymentMethod[i].name})</option>
+                                        <option value="({$data.paymentMethod[i].key})" ({if $data.paymentMethod[i].key==$data.order.paymentMethod})selected({/if})>({$data.paymentMethod[i].name})</option>
                                     ({/section})
                                 </select>
                             </div>
@@ -135,7 +134,7 @@
                                 <select id="shipmentMethod" class="input-main-style01" onchange="setShipmentMethod();">
                                     <option value="">請選擇</option>
                                     ({section name=i loop=$data.shipmentMethod})
-                                    <option value="({$data.shipmentMethod[i].key})" ({if $data.shipmentMethod[i].key==$data.order.shipmentMethod})selected({/if})>({$data.shipmentMethod[i].name})</option>
+                                        <option value="({$data.shipmentMethod[i].key})" ({if $data.shipmentMethod[i].key==$data.order.shipmentMethod})selected({/if})>({$data.shipmentMethod[i].name})</option>
                                     ({/section})
                                 </select>
                             </div>
@@ -192,39 +191,62 @@
                     <div class="col-sm-5">
                         <h3 class="page-title">訂單資訊</h3>
                         <div class="checkout-cart-summary">
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">商品總額：</div>
+                                <div class="subtotal-content col">NT $({$data.order.total+$data.order.pointDownMoney+$data.order.couponMoney+$data.order.deshpriceMoney})</div>
+                            </div>
+                            <hr>
+
                             ({if $data.order.deshprice<1})
-                            <div class="subtotal row">
-                                <div class="subtotal-name col">折扣：</div>
-                                <div class="subtotal-content col">({100-$data.order.deshprice*100})%</div>
-                            </div>
+                                <div class="subtotal row">
+                                    <div class="subtotal-name col">會員折扣：</div>
+                                    <div class="subtotal-content col">({100-$data.order.deshprice*100})%</div>
+                                </div>
+                                <div class="subtotal row">
+                                    <div class="subtotal-name col">會員折扣金額：</div>
+                                    <div class="subtotal-content col">NT $-({$data.order.deshpriceMoney})</div>
+                                </div>
+                                <hr>
                             ({/if})
-                            <div class="subtotal row">
-                                <div class="subtotal-name col">小計：</div>
-                                <div class="subtotal-content col">NT$({$data.order.total+$data.order.pointDownMoney})</div>
-                            </div>
                             
                             ({if $web.pointCheck})
-                            <div class="subtotal row">
-                                <div class="subtotal-name col">持有紅利點數：</div>
-                                <div class="subtotal-content col">({(int)$member.point})點</div>
-                            </div>
-                            <div class="subtotal row">
-                                <div class="subtotal-name col">使用紅利點數：</div>
-                                <div class="subtotal-content col"><input type="text" class="" value="({$data.order.usePoint})" onblur="if(this.value>0){usePoint(this.value);}"> 點</div>
-                            </div>
-                            <div class="subtotal row">
-                                <div class="subtotal-name col">折抵金額：</div>
-                                <div class="subtotal-content col">NT$-({$data.order.pointDownMoney})</div>
-                            </div>
+                                <div class="subtotal row">
+                                    <div class="subtotal-name col">持有紅利點數：</div>
+                                    <div class="subtotal-content col">({(int)$member.point})點</div>
+                                </div>
+                                <div class="subtotal row">
+                                    <div class="subtotal-name col">使用紅利點數：</div>
+                                    <div class="subtotal-content col"><input type="text" class="" value="({$data.order.usePoint})" onblur="if(this.value>=0){usePoint(this.value);}"> 點</div>
+                                </div>
+                                <div class="subtotal row">
+                                    <div class="subtotal-name col">紅利折抵金額：</div>
+                                    <div class="subtotal-content col">NT $-({$data.order.pointDownMoney})</div>
+                                </div>
+                                <hr>
                             ({/if})
+
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">折扣卷：</div>
+                                <div class="discountCoupon subtotal-content col"><input type="text" value="({$data.order.coupon})" onblur="if(this.value!=''){useCoupon(this.value);}"><span class="cancelDiscountCoupon" onclick="useCoupon('');">✕</span> </div>
+                            </div>
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">折扣金額：</div>
+                                <div class="subtotal-content col">NT $-({$data.order.couponMoney})</div>
+                            </div>
+                            <hr>
+
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">小計：</div>
+                                <div class="subtotal-content col">NT $({$data.order.total})</div>
+                            </div>
                             
                             <div class="subtotal row">
                                 <div class="subtotal-name col">運費：</div>
-                                <div class="subtotal-content col">NT$({$data.order.freight})</div>
+                                <div class="subtotal-content col">NT $({$data.order.freight})</div>
                             </div>
                             <div class="total row">
                                 <div class="subtotal-name col">合計<span class="subtotal-quantity"> (({count($data.orderList)})件)</span>：</div>
-                                <div class="subtotal-content toc  col">NT$({$data.order.total+$data.order.freight})</div>
+                                <div class="subtotal-content toc col">NT $({$data.order.total+$data.order.freight})</div>
                             </div>
                         </div>
                     </div>

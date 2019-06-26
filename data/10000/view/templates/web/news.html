@@ -1,0 +1,57 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner">
+    <div class="banner-title">
+        最新消息 / News
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<!-- 內容 -->
+<div class="warpper">
+    <!-- 編輯區 -->
+    <div class="main">
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body row">
+            <div class="col-sm-3">
+                <div class="in-left-menu classBox">
+                    <ul class="classLink">
+                        ({$data.class_li_html})
+                    </ul>
+                </div>
+            </div>
+            ({if !$console->path[2]})
+                <div class="col-sm">
+                    <!-- 左欄 -->
+                    <h3 class="page-title">({$data.oneClass.name})</h3>
+                    <div class="news">
+                        <ul>
+                            ({section name=i loop=$data.list})
+                                <li>
+                                    <a href="({$data.list[i].__href})">
+                                        <div class="news-date">({$data.list[i].date})</div>
+                                        <div class="news-content">({$data.list[i].name})</div>
+                                    </a>
+                                </li>
+                            ({/section})
+                            <!-- 消息 end-->
+                        </ul>
+                    </div>
+                    <!-- 頁次模組 -->
+                    <div class="page">({$data.page})
+                    </div>
+                </div><!-- 左欄 EDN -->
+            ({else})
+                <div class="col-sm">
+                    <h3 class="page-title">({$data.one.name})</h3>
+                    <div class="news-detail-date">({$data.one.date})</div>
+                    <div class="page-main">({$data.one.detail}) </div>
+                    <!-- 頁次模組 -->
+                    <div class="page"><a href="javascript:history.back();">回上一頁</a></div>
+                </div> <!-- 右欄 END -->
+            ({/if})
+        </div>
+    </div>
+    <!-- InstanceEndEditable -->
+</div>
+
+({include "foor.html"})

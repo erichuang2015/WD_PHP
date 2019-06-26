@@ -247,9 +247,9 @@
 
                         ({if $data.order.deshprice<1})
                             <div class="form-group row">
-                                <label class="col-sm-1 col-form-label">({$console->getLabel("DESHPRICE")})</label>
+                                <label class="col-sm-1 col-form-label">會員({$console->getLabel("DESHPRICE")})</label>
                                 <div class="col-sm-5">
-                                    <input type="text" readonly class="form-control" value="({100-$data.order.deshprice*100})%">
+                                    <input type="text" readonly class="form-control" value="({100-$data.order.deshprice*100})% (({$data.order.deshpriceMoney})元)">
                                 </div>
                             </div>
                         ({/if})
@@ -267,7 +267,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-1 col-form-label">({$console->getLabel("紅利折抵金額")})</label>
                                 <div class="col-sm-5">
-                                    <input type="text" readonly class="form-control" value="({$data.order.pointDownMoney})">
+                                    <input type="text" readonly class="form-control" value="({$data.order.pointDownMoney})元">
                                 </div>
                             </div>
                         ({/if})

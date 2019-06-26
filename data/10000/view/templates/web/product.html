@@ -11,20 +11,21 @@
         <!-- InstanceBeginEditable name="EditRegion1" -->
         <div class="content-body row">
             <div class="col-sm-3">
+                <div class="search">
+                    <div class="search-input">
+                        <input type="text" class="form-control" id="searchKeyWord" placeholder="請輸入產品關鍵字" 
+                            value="({$smarty.get.searchKeyWord})" 
+                            onkeydown="
+                                if (event.keyCode == 13) {
+                                    location.href='({$web.main_url})/product/all?searchKeyWord='+this.value;
+                                }
+                            ">
+                        <a href="javascript:;" onclick="location.href='({$web.main_url})/product/all?searchKeyWord='+$('#searchKeyWord').val();"><img src="images/btn-search.png"></a>
+                    </div>
+                </div>
                 <div class="in-left-menu classBox">
                     <ul class="classLink">
-                        ({section name=i loop=$data.class})
-                            <li>
-                                <a href="({$web.main_url})/({$console->path[0]})/({$data.class[i].urlKey})" ({if $data.class[i].id==$data.oneClass.id})class="current"({/if})>({$data.class[i].name})</a>
-                                ({if $data.class[i].next})
-                                    <ul>
-                                        ({section name=j loop=$data.class[i].next})
-                                            <li><a href="({$web.main_url})/({$console->path[0]})/({$data.class[i].next[j].urlKey})" ({if $data.class[i].next[j].id==$data.oneClass.id})class="current"({/if})>({$data.class[i].next[j].name})</a></li>
-                                        ({/section})
-                                    </ul>
-                                ({/if})
-                            </li>
-                        ({/section})
+                        ({$data.class_li_html})
                     </ul>
                 </div>
             </div>
@@ -51,26 +52,142 @@
                 <div class="pro-list">
                     <ul class="clearfix">
                         ({section name=i loop=$data.list})
+                            ({assign var="specificationsID" value="|__|"|explode:$data.list[i].specificationsID})
+                            ({assign var="specifications" value="|__|"|explode:$data.list[i].specifications})
+                            ({assign var="stock" value="|__|"|explode:$data.list[i].stock})
+
                         <li>
                             <!-- 產品 -->
                             <h4>({$data.list[i].name})</h4>
-                            <div class="pro-photo"><a href="({$web.main_url})/({$console->path[0]})/({$data.oneClass.urlKey})/({$data.list[i].urlKey})"><img src="({$data.list[i].pictureList})" class="index-pro-img" alt=""></a></div>
-                            <span class="pro-store">NT. $({$data.list[i].originalPrice})</span>
+                            <div class="pro-photo">
+                                <a href="({$data.list[i].__href})"><img src="({$data.list[i].pictureList})" class="index-pro-img" alt=""></a>
+                            </div>
+
+                            ({if ($data.list[i].memberPrice || $data.list[i].specialPrice) && $data.list[i].originalPrice})
+                                <span class="pro-store">NT. $({$data.list[i].originalPrice})</span>
+                            ({/if})
                             ({if $member && $data.list[i].memberPrice})
                                 <span class="pro-price">NT. $({$data.list[i].memberPrice}) </span>
-                            ({else})
+                            ({else if $data.list[i].specialPrice})
                                 <span class="pro-price">NT. $({$data.list[i].specialPrice}) </span>
+                            ({else})
+                                <span class="pro-price">NT. $({$data.list[i].originalPrice})</span>
                             ({/if})
-                            <div class="cart">
-                                ({assign var="specificationsID" value="|__|"|explode:$data.list[i].specificationsID})
-                                <input type="hidden" value="({$data.list[i].id})" id="count({$data.list[i].id})" data-productid="({$data.list[i].id})" data-specifications="({$specificationsID[0]})">
-                                ({if $data.list[i].stock>0})
-                                    <a href="javascript:;" onclick="$('#sidr-left').show();shoppingAddProduct($('#count({$data.list[i].id})'));"> + 購物車</a>
-                                ({else})
-                                    <a href="javascript:;" disable> 補貨中</a>
-                                ({/if})
-                            </div>
+
+({if count($specificationsID)>1})
+<!-- 多規格 -->
+
+<div class="cart">
+    ({if ($stock|array_sum)>0})
+        <a href="javascript:;"
+            data-toggle="modal" 
+            data-target="#addcartModal({$data.list[i].id})" 
+            onclick="
+                        $('#sidr-left').hide();
+                        $('#count({$data.list[i].id})').data('specifications','').val('1');
+                        $('.specs li').removeClass('current');
+                    "> 
+             + 購物車
+        </a>
+    ({else})
+        <a href="javascript:;" disable> 補貨中</a>
+    ({/if})
+</div>
+
+<!-- Modal -->
+<div class="addcart-box modal fade" id="addcartModal({$data.list[i].id})" tabindex="-1" role="dialog" aria-labelledby="addcartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">({$data.list[i].name})</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+            </div>
+            <div class="modal-body container">
+                <div class="row align-items-center">
+                    <div class="col-3"><img src="({$data.list[i].pictureList})" class="addcart-img" alt=""></div>
+                    <div class="col-9">
+                        <div class="price text-left">
+                            ({if $data.list[i].originalPrice})
+                                <div class="h6">售 價：NT$({$data.list[i].originalPrice})</div>
+                            ({/if})
+                            ({if $data.list[i].specialPrice})
+                                <div class="h5">優惠價：NT$({$data.list[i].specialPrice})</div>
+                            ({/if})
+                            ({if $data.list[i].memberPrice})
+                                <div class="h4 text-danger">會員價：NT$({$data.list[i].memberPrice})</div>
+                            ({/if})
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="spec-title text-left">規格 <span class="contact-note"> ( ※ 請選擇 <i class="fa fa-magic" aria-hidden="true"></i> )</span></div>
+                        <ul class="specs">
+                            ({assign var="specificationsID" value="|__|"|explode:$data.list[i].specificationsID})
+                            ({assign var="specifications" value="|__|"|explode:$data.list[i].specifications})
+                            ({assign var="stock" value="|__|"|explode:$data.list[i].stock})
+                            
+                            ({section name=j loop=$specificationsID})
+                                <li ({if !$stock[j]})disable({else})onclick="$('#count({$data.list[i].id})').data('specifications','({$specificationsID[j]})');"({/if})>({$specifications[j]})</li>
+                            ({/section})
+                        </ul>
+                    </div>
+                </div>
+                <div class="addcart-qty row">
+                    <div class="quantity-title col-12 col-md-5">
+                       
+                        <!-- 購買數量增減模組 Begin -->
+                         <div class="input-group mb-3"> 
+                            <div class="input-group-prepend"> <span class="input-group-text" id="minus({$data.list[i].id})"><i class="fa fa-minus"></i></span> </div>
+                            <input type="text" class="form-control text-center" value="1" maxlength="4" id="count({$data.list[i].id})" data-productid="({$data.list[i].id})" data-specifications="">
+                            <div class="input-group-append"> <span class="input-group-text" id="plus({$data.list[i].id})"><i class="fa fa-plus"></i></span> </div>
+                        </div>
+                        <script>
+                            $('#plus({$data.list[i].id})').click(function(){
+                                var count = parseInt($('#count({$data.list[i].id})').val()) + 1;
+                                if(count>9999) count = 9999;
+                                $('#count({$data.list[i].id})').val(count);
+                            });
+                            
+                            $('#minus({$data.list[i].id})').click(function(){
+                                var count = parseInt($('#count({$data.list[i].id})').val()) - 1;
+                                if(count<1) count = 1;
+                                $('#count({$data.list[i].id})').val(count);
+                            });
+                        </script>
+
+                    </div>
+                    <!-- 購買數量增減模組 end -->
+                    <div class="col-6 col-md-3"></div>
+                    <div class="col-6 col-md-4">
+                        <a href="javascript:;" onclick="
+                                if(shoppingAddProduct( $('#count({$data.list[i].id})') )){
+                                    $('#sidr-left').show();
+                                    $('#addcartModal({$data.list[i].id})').modal('hide');
+                                }
+                                " class="btn btn-danger">加入購物車</a>
+                    </div>
+                    <!--<div class="col-6 col-md-3"><a href="javascript:;" class="btn btn-danger" data-dismiss="modal">立即結帳</a></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+({else})
+<!-- 規格只有1個 -->
+<div class="cart">
+    <input type="hidden" value="1" id="count({$data.list[i].id})" data-productid="({$data.list[i].id})" data-specifications="({$specificationsID[0]})">
+    ({if $data.list[i].stock>0})
+        <a href="javascript:;" onclick="$('#sidr-left').show();shoppingAddProduct($('#count({$data.list[i].id})'));"> + 購物車</a>
+    ({else})
+        <a href="javascript:;" disable> 補貨中</a>
+    ({/if})
+</div>
+
+({/if})
                         </li><!-- 產品 end -->
+
                         ({/section})
                     </ul>
                 </div>
@@ -127,63 +244,112 @@
                                 <!-- 售價與購物車按鈕 -->
                                 <div class="price">
                                     <div class="price special">
-                                        <div class="price origin">原價 NT$({$data.one.originalPrice})</div>
-                                        優惠價 NT$({$data.one.specialPrice})
+                                        ({if $data.one.originalPrice})
+                                            <div class="price origin">原價 NT$({$data.one.originalPrice})</div>
+                                        ({/if})
+                                        ({if $data.one.specialPrice})
+                                            優惠價 NT$({$data.one.specialPrice})
+                                        ({/if})
                                     </div>
-                                    會員價 NT$({$data.one.memberPrice})
+                                    ({if $data.one.memberPrice})
+                                        會員價 NT$({$data.one.memberPrice})
+                                    ({/if})
                                 </div>
-                                <div class="qtynspec">
-                                    <div class="quantity">
-                                        <div class="quantity-title">數量</div>
-                                        <!-- 購買數量增減模組 Begin -->
-                                        <div class="qtyInputBox">
-                                            <!-- 購買數量增減模組 Begin -->
-                                            <span class="input-group-btn">
-                                                <button><i class="fa fa-minus"></i></button>
-                                            </span>
-                                            <input type="text" value="1" maxlength="5" id="count" data-productid="({$data.one.id})" data-specifications="({$data.one.specificationsID.0})">
-                                            <span class="input-group-btn">
-                                                <button><i class="fa fa-plus"></i></button>
-                                            </span>
-                                            <!-- 購買數量增減模組 End -->
-                                        </div>
-                                        <script>
-                                        $('.qtyInputBox button i.fa-plus').click(function() {
-                                            var qty = $('.qtyInputBox input').val();
-                                            qty = parseInt(qty) + 1;
-                                            $('.qtyInputBox input').val(qty);
-                                        });
-
-                                        $('.qtyInputBox button i.fa-minus').click(function() {
-                                            var qty = $('.qtyInputBox input').val();
-                                            if (qty < 1) {
-                                                $('.qtyInputBox input').val(0);
-                                            } else {
-                                                qty = qty - 1;
-                                                $('.qtyInputBox input').val(qty);
-                                            }
-                                        });
-                                        </script>
-                                    </div>
-                                    <div class="specification">
-                                        <div class="specification-title">規格</div>
-                                        <select onchange="$('#count').data('specifications',this.value)" class="level-select-s">
-                                            ({section name=i loop=$data.one.specificationsID})
-                                                <option value="({$data.one.specificationsID[i]})" ({if !$data.one.stock[i]})disabled({/if})>({$data.one.specifications[i]})(庫存 ({$data.one.stock[i]}))</option> 
-                                            ({/section}) 
-                                        </select> 
-                                    </div> 
-                                </div> 
-                                <div class="add-to-cart">
-                                    <!--  ({assign var="specificationsID" value="|__|"|explode:$data.list[i].specificationsID})-->
-                                    <!--<input type="hidden" value="({$data.list[i].id})" id="count({$data.list[i].id})" data-productid="({$data.list[i].id})" data-specifications="({$specificationsID[0]})">-->
-                                    <!--({if $data.list[i].stock>0})-->
-                                    <!--    <a href="javascript:;" onclick="$('#sidr-left').show();shoppingAddProduct($('#count({$data.list[i].id})'));"> + 購物車</a>-->
-                                    <!--({else})-->
-                                    <!--    <a href="javascript:;" disable> 補貨中</a>-->
-                                    <!--({/if})-->
-                                    <a href="javascript:;" onclick="$('#sidr-left').show();shoppingAddProduct($('#count'));"> + 購物車</a>
-                                </div>
+({if count($data.one.specificationsID)>1})
+    <div class="addcart-box ">
+        <div class="col">
+            <div class="spec-title text-left">規格 <span class="contact-note"> ( ※ 請選擇 <i class="fa fa-magic" aria-hidden="true"></i> )</span></div>
+            <ul class="specs">                            
+                ({section name=j loop=$data.one.specificationsID})
+                    <li ({if !$data.one.stock[j]})disable({else})onclick="$('#count').data('specifications','({$data.one.specificationsID[j]})');"({/if})>({$data.one.specifications[j]})</li>
+                ({/section})
+            </ul>
+        </div>
+    </div>
+    <div class="qtynspec">
+        <div class="quantity">
+            <div class="quantity-title">數量</div>
+            <!-- 購買數量增減模組 Begin -->
+            <div class="qtyInputBox">
+                <!-- 購買數量增減模組 Begin -->
+                <span class="input-group-btn">
+                    <button id="minus"><i class="fa fa-minus"></i></button>
+                </span>
+                <input type="text" value="1" maxlength="5" id="count" data-productid="({$data.one.id})" data-specifications="">
+                <span class="input-group-btn">
+                    <button id="plus"><i class="fa fa-plus"></i></button>
+                </span>
+                <!-- 購買數量增減模組 End -->
+            </div>
+            <script>
+                $('#plus').click(function(){
+                    var count = parseInt($('#count').val()) + 1;
+                    if(count>9999) count = 9999;
+                    $('#count').val(count);
+                });
+                
+                $('#minus').click(function(){
+                    var count = parseInt($('#count').val()) - 1;
+                    if(count<1) count = 1;
+                    $('#count').val(count);
+                });
+            </script>
+        </div>
+    </div> 
+    <div class="add-to-cart">
+        ({if ($data.one.stock|array_sum)>0})
+            <a href="javascript:;" onclick="
+                if(shoppingAddProduct( $('#count') )){
+                    $('#sidr-left').show();
+                }
+                "> + 購物車</a>
+        ({else})
+            <a href="javascript:;" disable> 補貨中</a>
+        ({/if})
+    </div>
+({else})
+    <div class="qtynspec">
+        <div class="quantity">
+            <div class="quantity-title">數量</div>
+            <!-- 購買數量增減模組 Begin -->
+            <div class="qtyInputBox">
+                <!-- 購買數量增減模組 Begin -->
+                <span class="input-group-btn">
+                    <button id="minus"><i class="fa fa-minus"></i></button>
+                </span>
+                <input type="text" value="1" maxlength="5" id="count" data-productid="({$data.one.id})" data-specifications="({$data.one.specificationsID.0})">
+                <span class="input-group-btn">
+                    <button id="plus"><i class="fa fa-plus"></i></button>
+                </span>
+                <!-- 購買數量增減模組 End -->
+            </div>
+            <script>
+                $('#plus').click(function(){
+                    var count = parseInt($('#count').val()) + 1;
+                    if(count>9999) count = 9999;
+                    $('#count').val(count);
+                });
+                
+                $('#minus').click(function(){
+                    var count = parseInt($('#count').val()) - 1;
+                    if(count<1) count = 1;
+                    $('#count').val(count);
+                });
+            </script>
+        </div>
+    </div> 
+    <div class="add-to-cart">
+        ({if $data.one.stock>0})
+            <a href="javascript:;" onclick="
+                if(shoppingAddProduct( $('#count') )){
+                    $('#sidr-left').show();
+                }
+                "> + 購物車</a>
+        ({else})
+            <a href="javascript:;" disable> 補貨中</a>
+        ({/if})
+    </div>
+({/if})
                             </div>
                         </div>
                             <!-- 明細區塊右邊 END  -->

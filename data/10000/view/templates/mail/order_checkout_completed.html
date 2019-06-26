@@ -23,7 +23,7 @@
                                 <td align="center" bgcolor="#010101">
                                     <font color="#ffffff">商品名稱</font>
                                 </td>
-                                <td width="40" align="center" bgcolor="#010101">
+                                <td width="100" align="center" bgcolor="#010101">
                                     <font color="#ffffff">數量</font>
                                 </td>
                                 <td width="60" align="center" bgcolor="#010101">
@@ -40,7 +40,7 @@
                                 ({if isset($orderList[i].addList)})
                                     ({section name=j loop=$orderList[i].addList})
                                         <tr>
-                                            <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">+  ({$orderList[i].addList[j].productId})</td>
+                                            <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">加購 ({$orderList[i].addList[j].productId})</td>
                                             <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;"><!-- <img style="max-height: 45px; max-width: 45px;" src="({$data.webUrl})({$orderList[i].addList[j].picture})"> -->({$orderList[i].addList[j].name})(({$orderList[i].addList[j].specificationsName}))</td>
                                             <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$orderList[i].addList[j].count})</td>
                                             <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$orderList[i].addList[j].price})</td>
@@ -48,20 +48,20 @@
                                     ({/section})
                                 ({/if})
                             ({/section})
-                            ({if $data.order.deshprice<1})
+                            <tr>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                <td bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">商品總額</td>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">({$order.total+$order.deshpriceMoney+$order.pointDownMoney+$order.couponMoney})</td>
+                            </tr>
+                            ({if $order.deshprice<1})
                             <tr>
                                 <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                 <td bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                 <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">折扣</td>
-                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">({100-$data.order.deshprice*100})%</td>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">({100-$order.deshprice*100})%</td>
                             </tr>
                             ({/if})
-                            <tr>
-                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
-                                <td bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
-                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">小計</td>
-                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">({$order.total+$order.pointDownMoney})</td>
-                            </tr>
                             ({if $order.usePoint>0})
                                 <tr>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
@@ -72,10 +72,30 @@
                                 <tr>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                     <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
-                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">折抵金額</td>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">紅利折抵金額</td>
                                     <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">-({$order.pointDownMoney})</td>
                                 </tr>
                             ({/if})
+                            ({if $order.coupon})
+                                <tr>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                    <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">折扣卷</td>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">({$order.coupon})</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                    <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">折扣金額</td>
+                                    <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">-({$order.couponMoney})</td>
+                                </tr>
+                            ({/if})
+                            <tr>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                <td bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">小計</td>
+                                <td align="center" bgcolor="#F3F3F3" style=" border-bottom: 1px #E7E7E7 solid;">({$order.total})</td>
+                            </tr>
                             <tr>
                                 <td align="center" bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>
                                 <td bgcolor="#FFFFFF" style=" border-bottom: 1px #E7E7E7 solid;">&nbsp;</td>

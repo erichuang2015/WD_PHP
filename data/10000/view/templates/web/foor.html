@@ -1,3 +1,44 @@
-
+<!-- 網站導覽 -->
+<div class="bottom-info">
+    <div class="bottom-info-main row">
+        <div class="col-sm">
+            <h3>網站導覽</h3>
+            <ul>
+                <li><a href="({$web.main_url})/about">關於我們</a></li>
+                <li><a href="({$web.main_url})/news">最新消息</a></li>
+                <li><a href="({$web.main_url})/product/all">產品總覽</a></li>
+                <li><a href="({$web.main_url})/faq">FAQ</a></li>
+                <li><a href="({$web.main_url})/contact">聯絡我們</a></li>
+                ({if $member})
+                <li><a href="({$web.main_url})/member/detail">會員中心</a></li>
+                ({else})
+                <li><a href="({$web.main_url})/member/loging">會員登入</a></li>
+                ({/if})
+                <li><a href="({$web.main_url})/about">版權說明</a></li>
+                <li><a href="({$web.main_url})/about">隱私權說明 </a></li>
+            </ul>
+        </div>
+        <div class="col-sm">
+            <h3>公司資訊</h3>
+            <p class="bottom-info-content">({$data.foor.0.detail})</p>
+        </div>
+    </div>
+</div>
+<!-- 網站導覽 end -->
+<!-- 下版 -->
+<footer id="footer">
+    <!-- 底部 -->
+    <div class="footer">
+        <div class="footer-logo">COMPANY NAME</div>
+        <div class="copytight">©2018 All Right Reserved. </div>
+    </div>
+</footer>
+<!-- 下版 end -->
+<script type="text/javascript" src="js/jquery.slicknav.js"></script><!-- 手機主選單 -->
+<script type="text/javascript" src="js/jsManage.js"></script><!-- 手機分類 -->
+<script type="text/javascript" src="js/jquery.sidr.min.js"></script><!-- 購物車 -->
+<script type="text/javascript" src="js/main.js"></script><!-- 其他js -->
 </body>
+<!-- InstanceEnd -->
+
 </html>

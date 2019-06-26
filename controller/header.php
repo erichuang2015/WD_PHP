@@ -17,6 +17,7 @@
 
 	$lang = $console->getLanguage();
 	$member = new MTsung\member($console,PREFIX.'member');
+	$memberGroup = new MTsung\memberGroup($console,PREFIX.'member_group');
 	$product = new MTsung\product($console,PREFIX."product",$lang);
 	$order = new MTsung\shoppingCart($console,$member,$product,PREFIX."shopping_cart",$lang);
 	if($console->setting->getValue("pointCheck")){//設定點數

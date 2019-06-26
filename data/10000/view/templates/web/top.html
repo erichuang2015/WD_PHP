@@ -5,58 +5,88 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     ({include "module/top.html"})({*內含jq 3.3.1 不要重複引入*})
-    
+    <link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
+    <script type="text/javascript" src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/bootstrap-4.2.1.js"></script>
+
 </head>
 
 <body>
-<div id="sidr-left">
-    <!--  購物車狀況 Begin -->
-    <div class="cart-header">購物車
-        <div class="cross"><a id="left-menu2" href="javascript:;" class="pull-right"><i class="fa fa-times" aria-hidden="true"></i></a></div>
-    </div>
-    <!-- cart items start-->
-    <div class="cart-items clearfix">
-        <div id="cartItemtDiv" style="display:none;">
-            <div class="cart-items clearfix">
-                <!-- cart-item -->
-                <div class="cart-item clearfix">
-                    <a href="produc-detailes.html" target="_blank" class="product-link"><img src=""></a>
-                    <div class="cart-item-content">
-                        <div class="title">產品名稱</div>
-                        <div class="ng-scope">數量：1</div>
-                        <div class="price-details">NT$250</div>
+    <div id="sidr-left">
+        <!--  購物車狀況 Begin -->
+        <div class="cart-header">購物車
+            <div class="cross"><a id="left-menu2" href="javascript:;" class="pull-right"><i class="fa fa-times" aria-hidden="true"></i></a></div>
+        </div>
+        <!-- cart items start-->
+        <div class="cart-items clearfix">
+            <div id="cartItemtDiv" style="display:none;">
+                <div class="cart-items clearfix">
+                    <!-- cart-item -->
+                    <div class="cart-item clearfix">
+                        <a href="produc-detailes.html" target="_blank" class="product-link"><img src=""></a>
+                        <div class="cart-item-content">
+                            <div class="title">產品名稱</div>
+                            <div class="ng-scope">數量：1</div>
+                            <div class="price-details">NT$250</div>
+                        </div>
+                        <a href="javascript:;" class="remove">刪除</a>
                     </div>
-                    <a href="javascript:;" class="remove">刪除</a>
+                    <!-- cart-item -->
                 </div>
-                <!-- cart-item -->
             </div>
         </div>
-    </div>
-    <div id="shoppingListDiv">
-    </div>
-</div>
-
-<header id="header">
-    <div class="head-main">
-        <div class="home"><a href="({$web.main_url})/index"></a></div>
-        <div class="logo"><a href="({$web.main_url})/index">COMPANY NAME</a></div>
-        <div class="head-tool">
-            <li><a href="({$web.main_url})/index">HOME</a></li>
-            <li><a href="javascript:;" id="left-menu">購物車 ( <span id="shoppingCountSpan">({$data.orderCount})</span> )</a></li>
-            ({if $member})
-            <li><a href="({$web.main_url})/member/detail">會員中心</a></li>
-            ({else})
-            <li><a href="({$web.main_url})/member/login">會員登入</a></li>
-            ({/if})
+        <div id="shoppingListDiv">
         </div>
     </div>
-</header>
-
-({if $console->path[0]!="index"})
-    <!--麵包屑-->
-    <ol class="breadcrumb"> 
-        ({section name=i loop=$breadcru})
-            <a href="({$breadcru[i].url})">({$breadcru[i].name})</a> /
-        ({/section})
-    </ol>
-({/if})
+    <!-- 上版 -->
+    <header id="header">
+        <div class="head-main">
+            <div class="home"><a href="({$web.main_url})/index"></a></div>
+            <div class="logo"><a href="({$web.main_url})/index">COMPANY NAME</a></div>
+            <div class="head-tool">
+                <li><a href="({$web.main_url})/index">HOME</a></li>
+                <li><a href="javascript:;" id="left-menu">購物車 ( <span id="shoppingCountSpan">({$data.orderCount})</span> )</a></li>
+                ({if $member})
+                <li><a href="({$web.main_url})/member/detail">會員中心</a></li>
+                ({else})
+                <li><a href="({$web.main_url})/member/login">會員登入</a></li>
+                ({/if})
+            </div>
+        </div>
+    </header>
+    <!-- 上版 end -->
+    <!-- 主選單 -->
+    <nav id="nav" class="b-color">
+        <ul id="menu" class="menu">
+            <li><a href="({$web.main_url})/about">關於我們</a></li>
+            <li class="sub"><a href="({$web.main_url})/news">最新消息</a>
+                <ul class="sub-menu fade-in">
+                    ({section name=i loop=$data.news_class})
+                    <li><a href="({$web.main_url})/news/({$data.news_class[i].urlKey})">({$data.news_class[i].name})</a></li>
+                    ({/section})
+                </ul>
+            </li>
+            <li class="sub"><a href="({$web.main_url})/product/all">產品總覽</a>
+                <ul class="sub-menu fade-in">
+                    ({section name=i loop=$data.product_class})
+                        ({if $data.product_class[i].floor==0})
+                            <li><a href="({$web.main_url})/product/({$data.product_class[i].urlKey})">({$data.product_class[i].name})</a></li>
+                        ({/if})
+                    ({/section})
+                </ul>
+            </li>
+            <li><a href="({$web.main_url})/album">相片集</a></li>
+            <li><a href="({$web.main_url})/faq">FAQ</a></li>
+            <li><a href="({$web.main_url})/contact">聯絡我們</a></li>
+        </ul>
+    </nav>
+    ({if $console->path[0]!="index"})
+        <!--麵包屑-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="({$web.main_url})/index"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+            ({section name=i loop=$breadcru})
+            <li class="breadcrumb-item"><a href="({$web.main_url})({$breadcru[i].url})">({$breadcru[i].name})</a></li>
+            ({/section})
+        </ol>
+    ({/if})
+    <!-- 主選單 end -->

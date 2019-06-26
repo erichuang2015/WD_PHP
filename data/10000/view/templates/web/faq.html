@@ -1,0 +1,50 @@
+({include "top.html"})
+<!-- InstanceBeginEditable name="banner" -->
+<div class="inside-banner">
+    <div class="banner-title">
+        問與答 / FAQ
+    </div>
+</div>
+<!-- InstanceEndEditable -->
+<!-- 內容 -->
+<div class="warpper">
+    <!-- 編輯區 -->
+    <div class="main">
+        <!-- InstanceBeginEditable name="EditRegion1" -->
+        <div class="content-body row">
+            <div class="col-sm-3">
+                <div class="in-left-menu classBox">
+                    <ul class="classLink">
+                        ({$data.class_li_html})
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm">
+                <!-- 左欄 -->
+                <h3 class="page-title">({$data.oneClass.name})</h3>
+                <div class="faq" id="qaContent">
+                    <div class="opacl"><a href="#" class="qa_showall">全部展開</a> | <a href="#" class="qa_hideall">全部收合</a></div>
+                    <ul class="accordionPart">
+                        ({section name=i loop=$data.list})
+                            <li>
+                                <!-- 單筆消息 -->
+                                <div class="qa_title"><a href="javascript:;">({$data.list[i].name})</a></div>
+                                <div class="qa_content">({$data.list[i].detail})
+                                    <div class="close_qa"><a href="#">[ 關閉 ]</a>
+                                    </div>
+                                </div>
+                            </li><!-- 單筆消息 END -->
+                        ({/section})
+                    </ul>
+                </div>
+                <!-- 頁次模組 -->
+                <div class="page">({$data.page})
+                </div>
+            </div><!-- 左欄 EDN -->
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <!-- 編輯區 end -->
+</div>
+<!-- 內容 end -->
+({include "foor.html"})

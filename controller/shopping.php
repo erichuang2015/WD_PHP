@@ -99,6 +99,10 @@
 		}
 
 		switch ($_GET["ajax"]) {
+			case 'useCoupon'://使用折扣卷
+				$temp = $order->useCoupon($_GET["coupon"]);
+				$console->outputJson($temp,$order->message);
+			break;
 			case 'usePoint'://使用點數
 				$temp = $order->usePoint($_GET["point"]);
 				$console->outputJson($temp,$order->message);
@@ -220,7 +224,7 @@
 	}
 
 	//必填欄位
-	$requiredArray = array_merge(array("ReceiverName","BuyName","ReceiverEmail","BuyEmail","ReceiverAddress","BuyAddress","ReceiverCellPhone","BuyPhone"),$data["otherField"]["dataRequiredKey"]?$data["otherField"]["dataRequiredKey"]:array());
+	$requiredArray = array_merge(array("ReceiverName","BuyName","ReceiverEmail","BuyEmail","ReceiverAddress","BuyAddress","ReceiverCellPhone"),$data["otherField"]["dataRequiredKey"]?$data["otherField"]["dataRequiredKey"]:array());
 
 
 	switch ($step) {

@@ -258,8 +258,8 @@ namespace MTsung{
 		 */
 		function useCoupon($detail){
 			if(!$detail){
-				$this->message = $this->console->getMessage("INPUT_ERROR");
-				return false;
+				$this->updateOrder(array("coupon" => "","couponMoney" => ""));
+				return true;
 			}
 			$cartTotal = ($this->order["total"]+$this->order["couponMoney"]);
 			$coupon = new dataList($this->console,PREFIX."coupon",$this->lang);
