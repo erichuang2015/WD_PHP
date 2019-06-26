@@ -13,7 +13,7 @@ function shoppingListReload(shoppingList) {
             success: function(msg) {
                 try {
                     var temp = msg;
-                    if(typeof(data)!="object"){
+                    if(typeof(msg)!="object"){
                         temp = JSON.parse(msg);
                     }
                     shoppingList = temp.data;
@@ -77,7 +77,7 @@ function shoppingAddProduct($obj) {
         success: function(msg) {
             try {
                 var temp = msg;
-                if(typeof(data)!="object"){
+                if(typeof(msg)!="object"){
                     temp = JSON.parse(msg);
                 }
                 if (!temp.response) {
@@ -115,7 +115,7 @@ function shoppingRmProduct($obj,flag) {
         success: function(msg) {
             try {
                 var temp = msg;
-                if(typeof(data)!="object"){
+                if(typeof(msg)!="object"){
                     temp = JSON.parse(msg);
                 }
                 if(typeof(flag) == "undefined"){
@@ -164,7 +164,7 @@ function shoppingEditCount($obj) {
             try {
                 // loadingStop();
                 var temp = msg;
-                if(typeof(data)!="object"){
+                if(typeof(msg)!="object"){
                     temp = JSON.parse(msg);
                 }
                 if (!temp.response) {
@@ -202,7 +202,7 @@ function shoppingAddAddProduct($obj) {
         success: function(msg) {
             try {
                 var temp = msg;
-                if(typeof(data)!="object"){
+                if(typeof(msg)!="object"){
                     temp = JSON.parse(msg);
                 }
                 alert(temp.message);
@@ -241,7 +241,7 @@ function shoppingRmAddProduct($obj,flag) {
         success: function(msg) {
             try {
                 var temp = msg;
-                if(typeof(data)!="object"){
+                if(typeof(msg)!="object"){
                     temp = JSON.parse(msg);
                 }
                 if(typeof(flag) == "undefined"){
@@ -282,7 +282,7 @@ function shoppingAddEditCount($obj) {
             try {
                 loadingStop();
                 var temp = msg;
-                if(typeof(data)!="object"){
+                if(typeof(msg)!="object"){
                     temp = JSON.parse(msg);
                 }
                 if (!temp.response) {
@@ -314,7 +314,7 @@ function usePoint(point) {
             try {
                 loadingStop();
                 var temp = msg;
-                if(typeof(data)!="object"){
+                if(typeof(msg)!="object"){
                     temp = JSON.parse(msg);
                 }
                 if (!temp.response) {
