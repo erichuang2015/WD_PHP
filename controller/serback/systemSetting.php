@@ -30,6 +30,9 @@ $dir->close();
 $switch["buttonBox"] = 1;
 $switch["saveButton"] = 1;
 if($_POST){
+	if($_POST["recipientEmail"] && substr_count($_POST["recipientEmail"], ",")>1){
+		$console->alert("請勿輸入兩組以上的收件者Email",-1);
+	}
 	if($memberInfo["groupID"]!=1){
 		//允許客戶修改的值
 		$a = array("icon","watermark","recipientEmail","senderEmail","senderName","csrfWhitelist","indexPATH","smtpSMTPSecure","smtpHost","smtpPort","smtpUsername","smtpPassword","otherCode");
