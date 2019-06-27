@@ -165,7 +165,7 @@ if(isset($console->path[1])){
 				if($tempId = $basic->setData($_POST,false,$checkArray,$requiredArray)){
 					$dataPath = "data/".($tempId+10000)."/";
 					recurse_copy(APP_PATH."data/10000/",APP_PATH.$dataPath);
-					$tempConn->Execute("UPDATE database_menu SET url='file/".$dataPath."' WHERE url='file/data/10000'");
+					$tempConn->Execute("UPDATE database_menu SET url='file/".substr($dataPath,0,-1)."' WHERE url='file/data/10000'");
 
 					$tempConn->Execute("UPDATE database_setting SET detail='ssl' WHERE name='smtpSMTPSecure'");
 					$tempConn->Execute("UPDATE database_setting SET detail='mail.".MAIN_SERVER_NAME."' WHERE name='smtpHost'");

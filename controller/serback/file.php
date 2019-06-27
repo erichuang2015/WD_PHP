@@ -18,11 +18,6 @@ if(($_POST||$_FILES) && $console->path[1]=="module" &&!in_array($member->getInfo
 $switch["buttonBox"] = 1;
 
 $module["aceEditor"]["name"] = '_aceEditor';//POST欄位名稱，不可使用"aceEditor"
-if($console->path[1]=="css"){
-	$module["aceEditor"]["type"] = "css";
-}else if($console->path[1]=="js"){
-	$module["aceEditor"]["type"] = "javascript";
-}
 
 $dir = $console->path[1];
 foreach ($console->path as $key => $value) {
@@ -120,6 +115,10 @@ if(!is_dir($dirPath)){//編輯
 
 	if($extension == "php"){
 		$MIME = $module["aceEditor"]["type"] = "php";
+	}else if($extension == "css"){
+		$module["aceEditor"]["type"] = "css";
+	}else if($extension == "js"){
+		$module["aceEditor"]["type"] = "js";
 	}
 
     switch ($MIME) {
