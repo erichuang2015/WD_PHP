@@ -29,6 +29,9 @@ if(isset($_GET["push"]) && isset($_GET["group"]) && isset($_GET["title"]) && iss
 
 /**設定**/
 switch ($console->path[1]) {
+	case 'redirect':
+		$basic = new MTsung\dataList($console,PREFIX.$console->path[1],"");
+		break;
 	case 'product':
 
 	    if($_POST && isset($_POST["addProduct"]) && is_array($_POST["addProduct"])){//加價購 刪除同商品同規格

@@ -5,12 +5,24 @@
 	// 	exit;
 	// }
 	
+	//強制www
 	if($console->setting->getValue("forceWww") && (0!==strpos($_SERVER["SERVER_NAME"],"www."))){
 		if(!MAIN_SERVER_NAME || (MAIN_SERVER_NAME && (strpos($_SERVER["SERVER_NAME"],MAIN_SERVER_NAME)===false))){
 			$console->HTTPStatusCode(301,HTTP."www.".$_SERVER["SERVER_NAME"].$_SERVER['REQUEST_URI']);
 		}
 	}
+
+	//網址重定向
+	$redirect = new MTsung\dataList($console,PREFIX."redirect","");
+	if($temp = $redirect->getData("where status=1")){
+		foreach ($temp as $key => $value) {
+			if($value["url"] == substr($_SERVER['REQUEST_URI'],1)){
+				$console->HTTPStatusCode(301,$value["newUrl"]);
+			}
+		}
+	}
 	
+
 	$dirArray = array("css","js","images","fonts","svg","data","upload","class","config","controller","include","language","module","sessionTemp","view");
 	if(!in_array($console->path[0], $dirArray)){
 		if($console->setting->getValue("analyticsCheck")){
