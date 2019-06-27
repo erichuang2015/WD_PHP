@@ -214,6 +214,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("強制轉跳www")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="forceWww" value="0">
+                                    <input type="checkbox" name="forceWww" class="onoffswitch-checkbox" id="forceWww" value="1" ({if $data.forceWww})checked({/if})>
+                                    <label class="onoffswitch-label" for="forceWww"></label>
+                                </div>
+                            </div>
+                        </div>
                         <small class="text-muted">
                             ({$console->getLabel('UPDATE_DATE')})
                             ({$data.update_date})(({$data.update_user}))

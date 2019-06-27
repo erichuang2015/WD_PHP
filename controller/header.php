@@ -5,6 +5,11 @@
 	// 	exit;
 	// }
 	
+	if($console->setting->getValue("forceWww") && (0!==strpos($_SERVER["SERVER_NAME"],"www."))){
+		if(!MAIN_SERVER_NAME || (MAIN_SERVER_NAME && (strpos($_SERVER["SERVER_NAME"],MAIN_SERVER_NAME)!==false))){
+			$console->HTTPStatusCode(301,HTTP."www.".$_SERVER["SERVER_NAME"].$_SERVER['REQUEST_URI']);
+		}
+	}
 	
 	$dirArray = array("css","js","images","fonts","svg","data","upload","class","config","controller","include","language","module","sessionTemp","view");
 	if(!in_array($console->path[0], $dirArray)){
