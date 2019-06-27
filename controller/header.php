@@ -6,7 +6,7 @@
 	// }
 	
 	if($console->setting->getValue("forceWww") && (0!==strpos($_SERVER["SERVER_NAME"],"www."))){
-		if(!MAIN_SERVER_NAME || (MAIN_SERVER_NAME && (strpos($_SERVER["SERVER_NAME"],MAIN_SERVER_NAME)!==false))){
+		if(!MAIN_SERVER_NAME || (MAIN_SERVER_NAME && (strpos($_SERVER["SERVER_NAME"],MAIN_SERVER_NAME)===false))){
 			$console->HTTPStatusCode(301,HTTP."www.".$_SERVER["SERVER_NAME"].$_SERVER['REQUEST_URI']);
 		}
 	}
