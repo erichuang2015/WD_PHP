@@ -257,6 +257,10 @@ namespace MTsung{
 		 * @return [type]         [description]
 		 */
 		function useCoupon($detail){
+			if(!$this->member->isLogin()){
+				$this->message = $this->console->getMessage("MEMBER_LIMITED_FEATURES");
+				return false;
+			}
 			if(!$detail){
 				$this->updateOrder(array("coupon" => "","couponMoney" => ""));
 				return true;
@@ -322,6 +326,10 @@ namespace MTsung{
 		 * @return [type]            [description]
 		 */
 		function usePoint($usePoint=0){
+			if(!$this->member->isLogin()){
+				$this->message = $this->console->getMessage("MEMBER_LIMITED_FEATURES");
+				return false;
+			}
 			if($this->pointSetting){
 				if(is_numeric($usePoint) && $usePoint >= 0){
 					$memberPoint = $this->member->getInfo("point")?$this->member->getInfo("point"):0;

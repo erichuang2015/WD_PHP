@@ -216,7 +216,7 @@
                                 </div>
                                 <div class="subtotal row">
                                     <div class="subtotal-name col">使用紅利點數：</div>
-                                    <div class="subtotal-content col"><input type="text" class="" value="({$data.order.usePoint})" onblur="if(this.value>=0){usePoint(this.value);}"> 點</div>
+                                    <div class="discountCoupon subtotal-content col"><input type="text" value="({$data.order.usePoint})" onblur="if(this.value>=0){usePoint(this.value);}"><span class="cancelDiscountCoupon" onclick="usePoint(0);">✕</span> </div>
                                 </div>
                                 <div class="subtotal row">
                                     <div class="subtotal-name col">紅利折抵金額：</div>

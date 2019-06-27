@@ -226,17 +226,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$console->getLabel("BUY_MEMBER")})</label>
-                            <div class="col-sm-5">
-                                <div class="input-group">
-                                    <input type="text" readonly class="form-control" value="({$data.order.member.name})(({$data.order.member.account}))">
-                                    <div class="input-group-append">
-                                        <a class="btn btn-outline-secondary" href="({$data.listUrl})/../member/edit/({$data.order.member.id})"><span class="glyphicon glyphicon-link"></span></a>
+                        ({if $data.order.member.account})
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("BUY_MEMBER")})</label>
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <input type="text" readonly class="form-control" value="({$data.order.member.name})(({$data.order.member.account}))">
+                                        <div class="input-group-append">
+                                            <a class="btn btn-outline-secondary" href="({$data.listUrl})/../member/edit/({$data.order.member.id})"><span class="glyphicon glyphicon-link"></span></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        ({/if})
 
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label">({$console->getLabel("商品總額")})</label>
@@ -296,7 +298,7 @@
 
                         <hr>
 
-                        ({if $web.pointCheck})
+                        ({if $web.pointCheck && $data.order.member.account})
                             <div class="form-group row">
                                 <label class="col-sm-1 col-form-label">({$console->getLabel("GET_POINT")})</label>
                                 <div class="col-sm-5">
@@ -322,6 +324,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr>
                         ({/if})
 
                         <script>
@@ -411,7 +414,6 @@
                             }
                         </script>
 
-                        <hr>
 
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label">({$console->getLabel("PAYMENT_METHOD")})</label>
