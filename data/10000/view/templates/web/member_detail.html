@@ -27,6 +27,7 @@
                 <h3 class="page-title">修改會員資料</h3>
                 <form action="" method="POST">
                     <div class="form-box">
+                        ({if $web.googleAuthAppID || $web.fbAuthAppID || $web.lineAuthClientID})
                         <div class="opinion clearfix"> <span class="opinion-left01">帳號綁定</span>
                             ({if $web.googleAuthAppID})
                                 ({if $member.googleID})
@@ -52,6 +53,7 @@
                                 ({/if})
                             ({/if})
                         </div>
+                        ({/if})
                         <div class="form-box">
                             <div class="opinion clearfix"> <span class="opinion-left01">帳號</span>
                                 <input type="text" value="({$member.account})" class="input-main-style01" disabled>
