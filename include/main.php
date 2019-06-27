@@ -974,7 +974,7 @@ namespace MTsung{
 		 * @return [type] [description]
 		 */
 		function to404($data=""){
-			http_response_code(404);
+			// http_response_code(404);
 			global $console;
 			if($data){
 				$designName = "404";
