@@ -360,7 +360,7 @@
 
 		default:
 
-			$console->to404();
+			$console->to404($data);
 
 			break;
 	}

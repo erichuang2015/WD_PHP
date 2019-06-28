@@ -1,2 +1,3 @@
 <?php 
-	$console->to404();
+	include_once('header.php');
+	$console->to404($data);

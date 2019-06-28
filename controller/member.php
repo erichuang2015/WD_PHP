@@ -331,7 +331,7 @@
 			if(isset($console->path[2])){
 				$data["order"] = $order->getOne(" and memberId='".$member->getInfo("id")."' and step>1 and id=? and status='1'",array($console->path[2]));
 				if(!$data["order"]){
-					$console->to404();
+					$console->to404($data);
 				}
 				$data["order"]["formData"] = json_decode($data["order"]["formData"],true);
 				$data["orderList"] = $order->orderListReload($order->getOrderList($data["order"]["orderNumber"]));
@@ -394,7 +394,7 @@
 			break;
 
 		default:
-			$console->to404();
+			$console->to404($data);
 			break;
 	}
 
