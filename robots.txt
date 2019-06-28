@@ -7,3 +7,4 @@ Disallow: /css/
 Disallow: /js/
 Disallow: /fonts/
 Disallow: /web/
+Disallow: /data/
