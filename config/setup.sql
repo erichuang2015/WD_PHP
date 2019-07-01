@@ -80,7 +80,9 @@ CREATE TABLE `database_admin` (
 INSERT INTO `database_admin` (`id`,`account`,`password`,`groupID`,`name`,`email`,`sex`,`picture`,`country`,`county`,`city`,`zipcode`,`address`,`company`,`landline`,`landline2`,`phone`,`phone2`,`fax`,`fax2`,`emailCheck`,`status`,`create_date`,`update_date`,`create_user`,`update_user`,`fbID`,`fbName`,`fbEmail`,`fbPicture`,`googleID`,`googleName`,`googleEmail`,`googlePicture`,`lineID`,`lineName`,`lineEmail`,`linePicture`,`memo`,`point`,`doingTime`) VALUES
 ('1','vipadmin','$2y$10$vdcAEXgjaN2oCoElBmIOru6J9WB.hIkwGRg1G6lkEB9RhhpGXhxye','1','vipadmin','toby@vipcase.net','','','','','','0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'0'),
 ('2','service','$2y$10$0e14rlQE82WLN62PaOBgX.K3Q96hbmioOkO5ksWbkscVbBGoamJYy','2','客戶管理者','','','','','','','0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'3600'),
-('4','wdadmin','$2y$10$5LUQOkppr.KvWTrSA/pqwO2N/aWCvWwbNWjgAH08E86RRM/LEZvTK','1','網動','','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600');
+('4','wdadmin','$2y$10$5LUQOkppr.KvWTrSA/pqwO2N/aWCvWwbNWjgAH08E86RRM/LEZvTK','1','網動','andy@vipcase.net','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600'),
+('5','wdadmin2','$2y$10$6KMWFlROxJzKL361FFJJyuaDV733IdAwe8FW6pdNUH.O0mZv57wL6','1','設計師','art@vipcase.net','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600');
+
 
 DROP TABLE IF EXISTS `database_admin_group`;
 
