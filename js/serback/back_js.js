@@ -235,14 +235,26 @@ jQuery.expr[':'].Contains = function(a, i, m) {
 function searchMenu(value){
 	$('#sidebar>ul>li>ul>li').each(function(idx,obj){
 	    $(this).parent().removeClass("show");
+	    $(this).show().parent().parent().show().parent().show();
 	    $(this).parent().parent().find("a:eq(0)").attr("aria-expanded","false");
 	});
-	// if(value){
+	if(value){
+		$('#sidebar>ul:not(:Contains("'+value+'"))').each(function(idx,obj){
+			if((idx != 0) && (idx != ($('#sidebar>ul:not(:Contains("'+value+'"))').length-1))){
+		    	$(obj).hide();
+			}
+		});
+		$('#sidebar>ul>li:not(:Contains("'+value+'"))').each(function(idx,obj){
+		    $(obj).hide();
+		});
 		$('#sidebar>ul>li>ul>li:Contains("'+value+'")').each(function(idx,obj){
 		    $(this).parent().addClass("show");
 	    	$(this).parent().parent().find("a:eq(0)").attr("aria-expanded","true");
+	    	$(this).parent().find('li:not(:Contains("'+value+'"))').each(function(idx1,obj1){
+	    		$(obj1).hide();
+	    	});
 		});
-	// }
+	}
 	$('#sidebar .active').unhighlight().highlight(value);
 }
 /**
