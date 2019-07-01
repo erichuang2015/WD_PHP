@@ -83,7 +83,7 @@ if($_POST && $console->path[count($console->path)-1]=="delete" && isset($_POST["
 		if(is_dir($dirPath.$value)){
 			delTree($dirPath.$value);
 		}else{
-			if($value!=".htaccess"){
+			if($value!=".htaccess" || in_array($member->getInfo("account"),$allowUser)){
 				unlink($dirPath.$value);
 			}
 		}
