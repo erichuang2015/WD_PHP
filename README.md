@@ -90,13 +90,165 @@ $this->conn->GetArray($this->conn->Prepare("select * from ".$this->table." where
 * 使用 $console->getLabel()、$console->getMessage()取得label
 
 #### 新增金物流步驟
-1. 
+1. systemMenuFront.html 新增開關欄位
+2. systemSetting.html 新增api key欄位
+3. payment_setting.html 金流新增開關欄位
+4. shipment_setting.html 物流新增開關欄位
+5. shoppingCart.class.php func修改  
+getShipmentMethodArray()  
+getShipmentTitle()  
+getShipmentText()  
+getPaymentTitle()  
+getPaymentText()  
+getPaymentMethodArray()  
+payment()  
+shipment()  
+
 
 #### 其他功能使用
 * QRcode.php。query設定，d為data
 * barcode.php。query設定，barcode為條碼號碼
 * mathcode.php。query設定，bgcolor為背景顏色、noSql設定1為只使用cookie做計算
 * verifycode.php。無須query設定，直接顯示驗證碼
+
+#### 使用gmail SMTP發信設定
+1. gmail帳密到 `後台相關 > 系統管理 > 系統設定 > SMTP郵件設定` 設定  
+2. 將「安全性較低的應用程式存取權限」設為「啟用」  
+[https://myaccount.google.com/lesssecureapps](https://myaccount.google.com/lesssecureapps)
+3. 解除人機驗證鎖定  
+[https://accounts.google.com/b/0/DisplayUnlockCaptcha](https://accounts.google.com/b/0/DisplayUnlockCaptcha)
+
+---
+
+### 常用函式介紹
+
+#### $console
+
+##### getLanguageArray()
+輸出語言列表
+
+##### getLanguage()
+取得目前的語言
+````php
+echo $console->getLanguage(); // zh-tw
+````
+
+##### getHreflang()
+多國語標籤 hreflang 給Search Console看的    
+[https://support.google.com/webmasters/answer/189077?hl=zh-Hant](https://support.google.com/webmasters/answer/189077?hl=zh-Hant)
+
+##### getMessage(string $value,array $data)
+
+| 參數名稱 | 說明 |
+| ------ | ------ |
+| value | 訊息代碼 |
+| data | 訊息參數 |
+
+*Example:*
+
+zh-tw.ini
+
+````
+ERROR_PRODUCT_STOCK = "失敗，{1} 庫存不足 {2}"
+````
+
+index.php
+
+````php
+echo $console->getMessage("ERROR_PRODUCT_STOCK",["商品",1]); // 失敗，商品 庫存不足 1
+````
+
+##### getLabel(string $vlaue)
+取得label，找不到會直接輸出value
+
+zh-tw.ini
+
+````
+INDEX = "首頁"
+````
+
+index.php
+````php
+echo $console->getLabel("INDEX"); // 首頁
+echo $console->getLabel("首頁"); // 首頁 (zt-tw.ini內無設定此key，所以直接輸出)
+````
+
+##### alert(string $message,string $url)
+
+| 參數名稱 | 說明 |
+| ------ | ------ |
+| message | 訊息 |
+| url | 轉跳網址 -1:上一頁  NULL,"":reload  NO:不轉跳 CLOSE:關閉|
+
+顯示alert。若為ajax，則回傳json格式
+
+##### getToken(string $return)
+取得CSRF token  
+設定text的話只回傳token碼，不設定回傳input
+
+##### getTokenName()
+取得token使用的鍵值
+
+##### getQRCodeInGoogle(string $data,int $widthHeight ='150',char $EC_level='L',int $margin='2',string $choe='UTF-8')
+使用google的API產生QRCode，回傳img tag
+
+| 參數名稱 | 說明 |
+| ------ | ------ |
+| data | 訊息 |
+| widthHeight | 預設 150<br>寬高 |
+| EC_level | L - Allows recovery of up to 7% data loss (預設)<br>M - Allows recovery of up to 15% data loss<br>Q - Allows recovery of up to 25% data loss<br>H - Allows recovery of up to 30% data loss|
+| margin | 預設 2 |
+| choe | 編碼 |
+
+*Example:*
+
+````php
+echo $console->getQRCodeInGoogle("zxc"); 
+// <a href="http://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L|2&chl=zxc&choe=UTF-8"  target="_blank"><img src="http://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L|2&chl=zxc&choe=UTF-8" alt="QR code" width="150" height="150" /></a>
+````
+##### checkreCAPTCHA()
+##### checkVerifyCode()
+驗證碼驗證
+
+##### getDatabaseSize(string $database)
+取得指定資料庫大小
+
+##### getSqlSize(string $table)
+計算資料庫/資料表大小
+
+##### getDirSize(string $path)
+計算資料夾/檔案大小
+
+##### formatSize(float $size,int $depth=0)
+自動單位轉換，最多轉換到TB
+
+##### linkTo(string $url)
+使用javascript轉跳
+
+##### HTTPStatusCode(int $num,string $url)
+HTTP狀態碼+跳到指定頁面
+
+##### addQuery()
+新增Query參數至url
+
+##### to404()
+404
+
+##### urlKey(array $data)
+urlKey轉換  
+若urlKey為空值用id代替
+
+##### isTables(string $tabel)
+是否有資料表
+
+##### youtubeLink($url)
+輸入yt連結/編號取得iframe可用的url
+
+##### youtubeImg($url)
+輸入yt連結/編號取得縮圖
+
+##### isAjax
+是否為ajax
 
 ---
 
@@ -348,8 +500,8 @@ $this->conn->GetArray($this->conn->Prepare("select * from ".$this->table." where
 | 檔案 | 簡介 |
 | ------ | ------ |
 | 404.php | 404頁面 |
-| __backup__.php | 備份 |
-| __otherData__.php | 其他使用資料讀取 |
+| \_\_backup\_\_.php | 備份 |
+| \_\_otherData\_\_.php | 其他使用資料讀取 |
 | __session.php | session顯示(json) |
 | ECPayResponse.php | 綠界回傳路徑 |
 | fcm.php | fcm |
