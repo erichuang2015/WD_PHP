@@ -240,9 +240,7 @@ function searchMenu(value){
 	});
 	if(value){
 		$('ul[data-type="menu"]:not(:Contains("'+value+'"))').each(function(idx,obj){
-			if((idx != 0) && (idx != ($('#sidebar>ul:not(:Contains("'+value+'"))').length-1))){
-		    	$(obj).hide();
-			}
+		    $(obj).hide();
 		});
 		$('#sidebar>ul>li:not(:Contains("'+value+'"))').each(function(idx,obj){
 		    $(obj).hide();
