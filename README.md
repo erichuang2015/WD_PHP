@@ -124,8 +124,14 @@ shipment()
 
 #### $console
 
-> ##### getLanguageArray()
+
+---
+
+##### getLanguageArray()
 輸出語言列表
+
+
+---
 
 ##### getLanguage()
 取得目前的語言
@@ -133,9 +139,15 @@ shipment()
 echo $console->getLanguage(); // zh-tw
 ````
 
+
+---
+
 ##### getHreflang()
 多國語標籤 hreflang 給Search Console看的    
 [https://support.google.com/webmasters/answer/189077?hl=zh-Hant](https://support.google.com/webmasters/answer/189077?hl=zh-Hant)
+
+
+---
 
 ##### getMessage(string $value,array $data)
 
@@ -158,6 +170,9 @@ index.php
 echo $console->getMessage("ERROR_PRODUCT_STOCK",["商品",1]); // 失敗，商品 庫存不足 1
 ````
 
+
+---
+
 ##### getLabel(string $vlaue)
 取得label，找不到會直接輸出value
 
@@ -173,6 +188,9 @@ echo $console->getLabel("INDEX"); // 首頁
 echo $console->getLabel("首頁"); // 首頁 (zt-tw.ini內無設定此key，所以直接輸出)
 ````
 
+
+---
+
 ##### alert(string $message,string $url)
 
 | 參數名稱 | 說明 |
@@ -182,12 +200,21 @@ echo $console->getLabel("首頁"); // 首頁 (zt-tw.ini內無設定此key，所�
 
 顯示alert。若為ajax，則回傳json格式
 
+
+---
+
 ##### getToken(string $return)
 取得CSRF token  
 設定text的話只回傳token碼，不設定回傳input
 
+
+---
+
 ##### getTokenName()
 取得token使用的鍵值
+
+
+---
 
 ##### getQRCodeInGoogle(string $data,int $widthHeight ='150',char $EC_level='L',int $margin='2',string $choe='UTF-8')
 使用google的API產生QRCode，回傳img tag
@@ -206,46 +233,91 @@ echo $console->getLabel("首頁"); // 首頁 (zt-tw.ini內無設定此key，所�
 echo $console->getQRCodeInGoogle("zxc"); 
 // <a href="http://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L|2&chl=zxc&choe=UTF-8"  target="_blank"><img src="http://chart.apis.google.com/chart?cht=qr&chs=150x150&chld=L|2&chl=zxc&choe=UTF-8" alt="QR code" width="150" height="150" /></a>
 ````
+
+---
+
 ##### checkreCAPTCHA()
+
+---
+
 ##### checkVerifyCode()
 驗證碼驗證
+
+
+---
 
 ##### getDatabaseSize(string $database)
 取得指定資料庫大小
 
+
+---
+
 ##### getSqlSize(string $table)
 計算資料庫/資料表大小
+
+
+---
 
 ##### getDirSize(string $path)
 計算資料夾/檔案大小
 
+
+---
+
 ##### formatSize(float $size,int $depth=0)
 自動單位轉換，最多轉換到TB
+
+
+---
 
 ##### linkTo(string $url)
 使用javascript轉跳
 
+
+---
+
 ##### HTTPStatusCode(int $num,string $url)
 HTTP狀態碼+跳到指定頁面
+
+
+---
 
 ##### addQuery()
 新增Query參數至url
 
+
+---
+
 ##### to404()
 404
+
+
+---
 
 ##### urlKey(array $data)
 urlKey轉換  
 若urlKey為空值用id代替
 
+
+---
+
 ##### isTables(string $tabel)
 是否有資料表
+
+
+---
 
 ##### youtubeLink($url)
 輸入yt連結/編號取得iframe可用的url
 
+
+---
+
 ##### youtubeImg($url)
 輸入yt連結/編號取得縮圖
+
+
+---
 
 ##### isAjax
 是否為ajax
