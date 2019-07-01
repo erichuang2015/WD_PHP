@@ -120,7 +120,7 @@
                 </div>
             </ul>
             ({section name=i loop=$menu[0]})
-                <ul class="list-unstyled components">
+                <ul class="list-unstyled components" data-type='menu'>
                     <p>({$console->getLabel($menu[0][i].name)})</p>
 
                     ({section name=j loop=$menu[1]})

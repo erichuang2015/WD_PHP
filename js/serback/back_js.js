@@ -239,7 +239,7 @@ function searchMenu(value){
 	    $(this).parent().parent().find("a:eq(0)").attr("aria-expanded","false");
 	});
 	if(value){
-		$('#sidebar>ul:not(:Contains("'+value+'"))').each(function(idx,obj){
+		$('ul[data-type="menu"]:not(:Contains("'+value+'"))').each(function(idx,obj){
 			if((idx != 0) && (idx != ($('#sidebar>ul:not(:Contains("'+value+'"))').length-1))){
 		    	$(obj).hide();
 			}
