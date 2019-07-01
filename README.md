@@ -124,7 +124,7 @@ shipment()
 
 #### $console
 
-##### getLanguageArray()
+> ##### getLanguageArray()
 輸出語言列表
 
 ##### getLanguage()
