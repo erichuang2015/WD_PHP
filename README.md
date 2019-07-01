@@ -124,12 +124,8 @@ shipment()
 
 #### $console
 
-
----
-
 ##### getLanguageArray()
 輸出語言列表
-
 
 ---
 
@@ -139,13 +135,11 @@ shipment()
 echo $console->getLanguage(); // zh-tw
 ````
 
-
 ---
 
 ##### getHreflang()
 多國語標籤 hreflang 給Search Console看的    
 [https://support.google.com/webmasters/answer/189077?hl=zh-Hant](https://support.google.com/webmasters/answer/189077?hl=zh-Hant)
-
 
 ---
 
@@ -170,7 +164,6 @@ index.php
 echo $console->getMessage("ERROR_PRODUCT_STOCK",["商品",1]); // 失敗，商品 庫存不足 1
 ````
 
-
 ---
 
 ##### getLabel(string $vlaue)
@@ -187,7 +180,6 @@ index.php
 echo $console->getLabel("INDEX"); // 首頁
 echo $console->getLabel("首頁"); // 首頁 (zt-tw.ini內無設定此key，所以直接輸出)
 ````
-
 
 ---
 
@@ -237,9 +229,6 @@ echo $console->getQRCodeInGoogle("zxc");
 ---
 
 ##### checkreCAPTCHA()
-
----
-
 ##### checkVerifyCode()
 驗證碼驗證
 
