@@ -9,25 +9,26 @@ namespace MTsung{
 
 	class theme{
 		var $conn;
+		var $dirPath = APP_PATH."theme/";//資料夾
 		
 		function __construct($conn){
 			$this->conn = $conn;
-			if(!is_dir(APP_PATH.'theme/')){
-				mkdir(APP_PATH.'theme/');
+			if(!is_dir($this->dirPath)){
+				mkdir($this->dirPath);
 			}
 		}
 
 		/**
 		 * 使用主題包
-		 * @param  [type] $fileName [description]
+		 * @param  [type] $id 		使用的id
 		 * @return [type]           [description]
 		 */
-		function install($fileName){
+		function install($id){
 			ignore_user_abort(true);
 			set_time_limit(0);
 			ini_set("memory_limit",-1);
 			$this->conn->Execute("set global max_allowed_packet=200*1024*1024; ");
-			$fileName = APP_PATH.'theme/'.$fileName;
+			$fileName = $this->dirPath.$id."/theme.sql";
 			if(is_file($fileName)){
 				$file = file($fileName);
 				$sql = "";
@@ -42,6 +43,10 @@ namespace MTsung{
 						$sql = "";
 					}
 				}
+
+				//切版複製
+				$this->recurse_copy($this->dirPath.$id,DATA_PATH);
+
 				return true;
 			}else{
 				return false;
@@ -50,9 +55,13 @@ namespace MTsung{
 
 		/**
 		 * 建立主題包
+		 * @param  [type] $themeName 主題包名稱
 		 * @return [type]            [description]
 		 */
-		function export(){
+		function export($themeName){
+			$id = $this->getMaxId()+1;
+			$exportPath = $this->dirPath.$id."/";
+			mkdir($exportPath);
 
 			//menu匯出
 			ignore_user_abort(true);
@@ -63,7 +72,7 @@ namespace MTsung{
 			$temp = $this->conn->GetArray("show tables");
 			foreach ($temp as $key => $value) {
 				$tableName = array_shift($value);
-				if($tableName != PREFIX."menu"){
+				if(!in_array($tableName, array(PREFIX."menu",PREFIX."template"))){
 					continue;
 				}
 				$sql .= "DROP TABLE IF EXISTS `".$tableName."`;\r\n\r\n";
@@ -104,13 +113,13 @@ namespace MTsung{
 			}
 			$sql = str_replace("'|MTsung|NULL|MTsung|'","NULL",$sql);
 
-
-			$fileName = APP_PATH.'theme/10002/menu.sql';
-			$fp = fopen($fileName,'w');
+			$fp = fopen($exportPath."theme.sql",'w');
 			fwrite($fp,$sql);
 			fclose($fp);
 
 			$this->conn->SetFetchMode(ADODB_FETCH_DEFAULT);
+
+			file_put_contents($exportPath."setting.ini","name=".$themeName);
 
 			//切版複製
 			$filePath = opendir(DATA_PATH);
@@ -121,9 +130,8 @@ namespace MTsung{
 			    	$file[] = $fileName;
 			    }
 			}
-			mkdir(APP_PATH."theme/10002/");
 			foreach ($file as $value) {
-				$this->recurse_copy(DATA_PATH.$value,APP_PATH."theme/10002/".$value);
+				$this->recurse_copy(DATA_PATH.$value,$exportPath.$value);
 			}
 
 		}
@@ -140,7 +148,7 @@ namespace MTsung{
 			while(false !== ( $file = readdir($dir)) ) {
 			    if (( $file != '.' ) && ( $file != '..' )) {
 			        if ( is_dir($src . '/' . $file) ) {
-			            recurse_copy($src . '/' . $file,$dst . '/' . $file);
+			            $this->recurse_copy($src . '/' . $file,$dst . '/' . $file);
 			        }
 			        else {
 			            copy($src . '/' . $file,$dst . '/' . $file);
@@ -148,6 +156,44 @@ namespace MTsung{
 			    }
 			}
 			closedir($dir);
+		}
+
+		/**
+		 * 取得列表
+		 * @return [type] [description]
+		 */
+		function getListData(){
+			$temp = array();
+			if ($listFile = scandir($this->dirPath)){
+				foreach ($listFile as $key => $value){
+					if (is_dir($this->dirPath.$value) && is_numeric($value)){
+						$setting = @parse_ini_file($this->dirPath.$value."/setting.ini");
+						$temp[] = array(
+							'id' => $value,
+							'name' => $setting["name"]
+						);
+					}
+				}
+			}
+			return $temp;
+		}
+
+		/**
+		 * 取得最大id
+		 * @return [type] [description]
+		 */
+		function getMaxId(){
+			$max = 10000;
+			if ($listFile = scandir($this->dirPath)){
+				foreach ($listFile as $key => $value){
+					if (is_dir($this->dirPath.$value) && is_numeric($value)){
+						if($value > $max){
+							$max = $value;
+						}
+					}
+				}
+			}
+			return $max;
 		}
 
 	}
