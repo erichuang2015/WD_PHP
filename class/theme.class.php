@@ -56,9 +56,10 @@ namespace MTsung{
 		/**
 		 * 建立主題包
 		 * @param  [type] $themeName 主題包名稱
+		 * @param  [type] $picture   主題包縮圖
 		 * @return [type]            [description]
 		 */
-		function export($themeName){
+		function export($themeName,$picture='',$memo=''){
 			$id = $this->getMaxId()+1;
 			$exportPath = $this->dirPath.$id."/";
 			mkdir($exportPath);
@@ -119,7 +120,7 @@ namespace MTsung{
 
 			$this->conn->SetFetchMode(ADODB_FETCH_DEFAULT);
 
-			file_put_contents($exportPath."setting.ini","name=".$themeName);
+			file_put_contents($exportPath."setting.ini","name=\"".$themeName."\"\npicture=\"".$picture."\"\nmemo=\"".$memo."\"");
 
 			//切版複製
 			$filePath = opendir(DATA_PATH);
@@ -162,7 +163,7 @@ namespace MTsung{
 		 * 取得列表
 		 * @return [type] [description]
 		 */
-		function getListData(){
+		function getListTheme(){
 			$temp = array();
 			if ($listFile = scandir($this->dirPath)){
 				foreach ($listFile as $key => $value){
@@ -170,7 +171,9 @@ namespace MTsung{
 						$setting = @parse_ini_file($this->dirPath.$value."/setting.ini");
 						$temp[] = array(
 							'id' => $value,
-							'name' => $setting["name"]
+							'name' => $setting["name"],
+							'picture' => $setting["picture"],
+							'memo' => $setting["memo"]
 						);
 					}
 				}
@@ -194,6 +197,17 @@ namespace MTsung{
 				}
 			}
 			return $max;
+		}
+
+		/**
+		 * 修改主題設定檔
+		 * @param  [type] $id        [description]
+		 * @param  [type] $themeName [description]
+		 * @param  string $picture   [description]
+		 * @return [type]            [description]
+		 */
+		function editTheme($id,$themeName,$picture='',$memo=''){
+			file_put_contents($dirPath.$id."/setting.ini","name=\"".$themeName."\"\npicture=\"".$picture."\"\nmemo=\"".$memo."\"");
 		}
 
 	}

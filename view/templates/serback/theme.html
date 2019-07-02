@@ -1,0 +1,137 @@
+({include file='top.html'})
+<form action="" method="POST">
+    <div class="card-deck ">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="list" href="#list-list">({$console->getLabel("LIST")})</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+
+                <div class="card-body tab-pane fade show active" id="list-list">
+                    <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#add">({$console->getLabel("將目前設定製作為新主題")})</button>
+                    <hr>
+                    <div class="row">
+                        ({section name=i loop=$data.list})
+                            <div class="col-lg-6 col-xl-3  mb-4">
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        ({$data.list[i].name})(({$data.list[i].id}))
+                                    </div>
+                                    <div class="card-body">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#demo({$smarty.section.i.index})">
+                                            <img src="({if $data.list[i].picture})({$data.list[i].picture})({else})images/nodata.jpg({/if})" class="card-img-top">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        ({/section})
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    ({$console->getToken()})
+</form>
+<nav class="navbar">
+    　({$data.pageNumber->getHTML('bootstrap')})
+</nav>
+({include file='foor.html'})
+
+({section name=j loop=$data.list})
+    <div class="modal fade" id="demo({$smarty.section.j.index})" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">({$data.list[j].name})</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ({$data.list[j].name})
+                    <hr>
+                    ({$data.list[j].memo|nl2br})
+                    <hr>
+                    <div class="col-md-12 mb-3">
+                        <img src="({if $data.list[j].picture})({$data.list[j].picture})({else})images/nodata.jpg({/if})" class="img-fluid">
+                    </div>
+                </div>
+                <form action="({$data.listUrl})/install" method="POST" >
+                    <div class="modal-footer">
+                        <div class="input-group">
+                            <input type="hidden" name="id" value="({$data.list[j].id})">
+                            <input type="text" name="verifycode" id="verifycode" class="form-control" placeholder="({$console->getLabel('VERIFYCODE')})" autocomplete="on"required>
+                            <div class="input-group-prepend">
+                                <img src="verifycode.php" onclick="$(this).attr('src',$(this).attr('src'));">
+                            </div>
+                            &nbsp;
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('確定要安裝此主題?');">({$console->getLabel('安裝')})</button>
+                            &nbsp;
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">({$console->getLabel('CLOSE')})</button>
+                        </div>
+                        ({$console->getToken()})
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+({/section})
+<form action="({$data.listUrl})/add" method="POST" >
+    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">({$console->getLabel("製作新主題")})</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label>({$console->getLabel("主題名稱")})</label>
+                                <input type="text" name="name" class="form-control" value="" data-text="({$console->getLabel("主題名稱")})" required>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label>({$console->getLabel("主題描述")})</label>
+                                <textarea class="form-control" rows="8" name="memo"></textarea>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-md-12 mb-3">
+                            <img id="pic"  class="img-fluid">
+                        </div>
+                        <hr>
+                        <input type="file" id="ff" onchange="readURL(this);">
+                        <input type="hidden" name="picture" value="">
+                        <script>
+                        function readURL(input){
+                            if(input.files && input.files[0]){
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $("#pic").attr('src', e.target.result);
+                                    $("[name='picture']").val(e.target.result);
+                                }
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                        </script>
+                        ({$console->getToken()})
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">({$console->getLabel('製作')})</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">({$console->getLabel('CLOSE')})</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
