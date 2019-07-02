@@ -126,6 +126,7 @@ if(!is_dir($dirPath)){//編輯
     		if(!in_array($member->getInfo("account"),$allowUser)){
 				$console->alert($console->getMessage("MIME_ERROR"),-1);
     		}
+    	case 'ini':
     	case 'sql':
     	case 'text':
     	case 'txt':
