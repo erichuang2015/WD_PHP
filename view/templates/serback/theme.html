@@ -64,13 +64,13 @@
                 <form action="({$data.listUrl})/install" method="POST" >
                     <div class="modal-footer">
                         <div class="input-group">
-                            <input type="hidden" name="id" value="({$data.list[j].id})">
-                            <input type="text" name="verifycode" id="verifycode" class="form-control" placeholder="({$console->getLabel('VERIFYCODE')})" autocomplete="on"required>
+                            <input type="hidden" name="id" value="" id="id({$data.list[j].id})">
+                            <input type="text" name="verifycode" id="verifycode({$data.list[j].id})" class="form-control" placeholder="({$console->getLabel('VERIFYCODE')})" data-text="({$console->getLabel('VERIFYCODE_')})" autocomplete="on" required>
                             <div class="input-group-prepend">
                                 <img src="verifycode.php" onclick="$(this).attr('src',$(this).attr('src'));">
                             </div>
                             &nbsp;
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('確定要安裝此主題?');">({$console->getLabel('安裝')})</button>
+                            <button type="submit" class="btn btn-danger" onclick="if(confirm('確定要安裝此主題?')){$('#id({$data.list[j].id})').val('({$data.list[j].id})');return true;}return false;">({$console->getLabel('安裝')})</button>
                             &nbsp;
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">({$console->getLabel('CLOSE')})</button>
                         </div>
