@@ -58,6 +58,11 @@
                             <div class="opinion clearfix"> <span class="opinion-left01">帳號</span>
                                 <input type="text" value="({$member.account})" class="input-main-style01" disabled>
                             </div>
+                            ({if $memberGroup})
+                                <div class="opinion clearfix"> <span class="opinion-left01">帳號等級</span>
+                                    <input type="text" value="({$memberGroup.name})" class="input-main-style01" disabled>
+                                </div>
+                            ({/if})
                             <div class="opinion clearfix"> <span class="opinion-left01">您的姓名 *</span>
                                 <input type="text" placeholder="姓名" name="name" class="input-main-style01" value="({$member.name})" data-text="性名" required>
                             </div>

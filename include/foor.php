@@ -125,6 +125,9 @@
 	}else if(isset($member) && isset($_SESSION[FRAME_NAME]["member"][$member->sessionName]['id'])){
 		$console->design->setData("member", $member->getUser($_SESSION[FRAME_NAME]["member"][$member->sessionName]['id']));
 	}
+	if(isset($member) && $groupID = $member->getInfo("groupID")){
+		$console->design->setData("memberGroup", $memberGroup->getData("where id=? and status='1'",array($groupID)));
+	}
 	$console->design->setData("web", @$web_set);
 	$console->design->setData("lang", @$console->getLanguage());//語言
 	$console->design->setData("langDefault", LANG);//預設語言
