@@ -45,8 +45,8 @@ namespace MTsung{
 				}
 
 				//切版複製
+				$this->delTree(DATA_PATH."view"); // 刪除原本的切版
 				$this->recurse_copy($this->dirPath.$id,DATA_PATH);
-				$this->delTree(DATA_PATH."view/templates_c");
 
 				return true;
 			}else{
