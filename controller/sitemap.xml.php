@@ -86,6 +86,8 @@
 
 	$pre = 5000;
 
+	$output = array_unique($output);
+
 	if(count($output)<$pre){
 		$urlset = $dom->appendChild($dom->createElement('urlset'));
 		$urlset->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
