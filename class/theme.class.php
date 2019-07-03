@@ -46,6 +46,7 @@ namespace MTsung{
 
 				//切版複製
 				$this->recurse_copy($this->dirPath.$id,DATA_PATH);
+				$this->delTree(DATA_PATH."view/templates_c");
 
 				return true;
 			}else{
@@ -157,6 +158,19 @@ namespace MTsung{
 			    }
 			}
 			closedir($dir);
+		}
+
+		/**
+		 * 資料夾刪除
+		 * @param  [type] $dir [description]
+		 * @return [type]      [description]
+		 */
+		function delTree($dir) {
+		    $files = array_diff(scandir($dir), array('.','..'));
+			foreach ($files as $file) {
+			    (is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : unlink("$dir/$file");
+			}
+			return rmdir($dir);
 		}
 
 		/**
