@@ -98,36 +98,11 @@
 	 * 驗證email
 	 */
 	if(isset($_GET['isEmail'])){
-		include_once(APP_PATH.'class/validation.class.php');			//表單驗證
 		$validation = new MTsung\validation();
 		if($validation->isEmail($_GET['isEmail'])){
 			echo "ok";
 		}
         exit;
-	}
-
-	/**
-	 * 驗證帳號
-	 */
-	if(isset($_GET['isAccount'])){
-		include_once(APP_PATH.'class/validation.class.php');			//表單驗證
-		$validation = new MTsung\validation();
-		if($validation->isAccount($_GET['isAccount'])){
-			echo "ok";
-		}
-		exit;
-	}
-
-	/**
-	 * 驗證身分證
-	 */
-	if(isset($_GET['isIDCard'])){
-		include_once(APP_PATH.'class/validation.class.php');			//表單驗證
-		$validation = new MTsung\validation();
-		if($validation->isIDCard($_GET['isIDCard'])){
-			echo "ok";
-		}
-		exit;
 	}
 
 	/**
@@ -299,8 +274,8 @@
 		}
 		if($setting->getValue("sizeSwitch")){
 			if(!(
-					($setting->getValue("webMaxSize")-getDirSize(APP_PATH)>0) && 
-					($setting->getValue("outputMaxSize")-getDirSize(APP_PATH.OUTPUT_PATH)>0)
+					($setting->getValue("webMaxSize")-$console->getDirSize(APP_PATH)>0) && 
+					($setting->getValue("outputMaxSize")-$console->getDirSize(APP_PATH.OUTPUT_PATH)>0)
 				)){
 				echo false;
 				exit;
@@ -308,7 +283,6 @@
 		}
 		ignore_user_abort(true);
 		set_time_limit(0);
-		include_once(APP_PATH.'class/backup.class.php');
 		$backup = new MTsung\backup($conn);
 		$backup->exportDatabase();
 		echo true;
@@ -325,7 +299,6 @@
 		}
 		ignore_user_abort(true);
 		set_time_limit(0);
-		include_once(APP_PATH.'class/backup.class.php');
 		$backup = new MTsung\backup($conn);
 		$backup->importDatabase($_GET["sqlImport"]);
 		echo true;
@@ -363,7 +336,6 @@
 	        	eval("image".$type."(\$output,\$_GET['src']);");
 	        }
 
-			include_once(APP_PATH.'class/imgCompress.class.php');
 			(new MTsung\imgCompress($_GET['src']))->thumbnail();//縮圖
 	        
         }
@@ -376,18 +348,6 @@
 	 * 測試SMTP
 	 */
 	if(isset($_GET["testSMTP"])){
-
-		include_once(APP_PATH.'class/design.class.php');				//樣板模組
-		include_once(APP_PATH.'class/phpMailer.class.php');				//郵件模組
-		include_once(APP_PATH.'class/validation.class.php');			//表單驗證
-		include_once(APP_PATH.'class/webSetting.class.php');			//網站設定
-		include_once(APP_PATH.'include/main.php');						//核心
-
-		$design = new MTsung\design();
-		$console = new MTsung\main($conn,$design,$setting);
-		$webSetting = new MTsung\webSetting($console,PREFIX."web_setting",$_SESSION[FRAME_NAME]['language'.$console->langSessionName]);//前端輸出用
-		$console->setWebSetting($webSetting);
-
 		$mail = new MTsung\phpMailer($console);
 		// $mail->SMTPDebug = 4;
 		$mail->setMailTitle('信件寄送測試');
@@ -399,41 +359,3 @@
 
 
 	exit;
-	/**
-	 * 計算資料夾/檔案大小
-	 * @param [type] $path [description]
-	 */
-	function getDirSize($path) {
-	 
-	    // I reccomend using a normalize_path function here
-	    // to make sure $path contains an ending slash
-	    // (-> http://www.jonasjohn.de/snippets/php/normalize-path.htm)
-	 
-	    // To display a good looking size you can use a readable_filesize
-	    // function.
-	    // (-> http://www.jonasjohn.de/snippets/php/readable-filesize.htm)
-	 
-	    $Size = 0;
-	 
-	    $Dir = opendir($path);
-	 
-	    if (!$Dir)
-	        return -1;
-	 
-	    while (($File = readdir($Dir)) !== false) {
-	 
-	        // Skip file pointers
-	        if ($File[0] == '.') continue;
-	 
-	        // Go recursive down, or add the file size
-	        if (is_dir($path.$File))
-	            $Size += getDirSize($path.$File.DIRECTORY_SEPARATOR);
-	        else
-	            $Size += filesize($path.$File);
-	    }
-	 
-	    closedir($Dir);
-	 
-	    return $Size;
-	}
-?>

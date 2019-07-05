@@ -1,20 +1,18 @@
 <?php
+	include_once("include/header.php");
+
+	/**
+	 * 上傳檔案
+	 */
+	error_reporting(0);
 	set_time_limit(0);
 	ini_set('upload_max_filesize ', '800M');
 	ini_set('post_max_size', '800M');
 	ini_set('memory_limit', '-1');
 
-	/**
-	 * 上傳檔案
-	 */
-	include_once("include/header.php");
-	include_once(APP_PATH.'class/uploadFile.class.php');// 上傳模組
-	include_once(APP_PATH.'class/watermark.class.php');// 浮水印
-	include_once(APP_PATH.'class/imgCompress.class.php');// 浮水印
-
 	//網站空間限制
-	$webSize[] = $setting->getValue("webMaxSize")-getDirSize(APP_PATH);
-	$webSize[] = $setting->getValue("uploadMaxSize")-getDirSize(APP_PATH.UPLOAD_PATH);
+	$webSize[] = $setting->getValue("webMaxSize")-$console->getDirSize(APP_PATH);
+	$webSize[] = $setting->getValue("uploadMaxSize")-$console->getDirSize(APP_PATH.UPLOAD_PATH);
 
 	if($setting->getValue("sizeSwitch")){
 		if($_FILES){
@@ -148,45 +146,3 @@
 		exit;
 	}
 	exit;
-
-	/**
-	 * 計算資料夾/檔案大小
-	 * @param [type] $path [description]
-	 */
-	function getDirSize($path) {
-	 
-	    // I reccomend using a normalize_path function here
-	    // to make sure $path contains an ending slash
-	    // (-> http://www.jonasjohn.de/snippets/php/normalize-path.htm)
-	 
-	    // To display a good looking size you can use a readable_filesize
-	    // function.
-	    // (-> http://www.jonasjohn.de/snippets/php/readable-filesize.htm)
-	 
-	    $Size = 0;
-	 
-	    $Dir = opendir($path);
-	 
-	    if (!$Dir)
-	        return -1;
-	 
-	    while (($File = readdir($Dir)) !== false) {
-	 
-	        // Skip file pointers
-	        if ($File[0] == '.') continue;
-	 
-	        // Go recursive down, or add the file size
-	        if (is_dir($path.$File))
-	            $Size += getDirSize($path.$File.DIRECTORY_SEPARATOR);
-	        else
-	            $Size += filesize($path.$File);
-	    }
-	 
-	    closedir($Dir);
-	 
-	    return $Size;
-	}
-
-
-
-

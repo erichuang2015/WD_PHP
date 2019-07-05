@@ -9,8 +9,8 @@
 	ini_set("session.cookie_httponly", 1);
 
 	//session過期時間
-	ini_set('session.cookie_lifetime', 86400);
-	ini_set('session.gc_maxlifetime', 86400);
+	ini_set('session.cookie_lifetime', 86400*3);
+	ini_set('session.gc_maxlifetime', 86400*3);
 
 	//只能在https傳遞
 	ini_set('session.cookie_secure', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']));
@@ -57,11 +57,27 @@
 		
 	}
 
+	function secondAutoload($file){
+		$file = str_replace("MTsung\\", "", $file);
+	    $filename = APP_PATH."/class/".$file.".class.php";
+	    if (is_readable($filename)){
+	        require $filename;
+	    }
+	}
+	spl_autoload_register('secondAutoload');//自動載入calss
+	
 	include_once(APP_PATH.'config/define.php');
 	include_once(APP_PATH.'config/dataBase.php');//資料庫
 	include_once(APP_PATH.'class/setting.class.php');//系統設定
 	include_once(APP_PATH.'class/userDeviceInfomation.trait.php');	//使用者裝置資訊
 	include_once(APP_PATH.'class/typeConst.const.php');				//const
-	
+	include_once(APP_PATH.'include/main.php');//核心
+	include_once(APP_PATH.'class/uploadFile.class.php');// 上傳模組
+
+
+
 	$setting = new MTsung\setting($conn);
-?>
+	$design = new MTsung\design();
+	$console = new MTsung\main($conn,$design,$setting);
+	$webSetting = new MTsung\webSetting($console,PREFIX."web_setting",$_SESSION[FRAME_NAME]['language'.$console->langSessionName]);//前端輸出用
+	$console->setWebSetting($webSetting);
