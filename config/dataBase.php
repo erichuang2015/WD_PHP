@@ -41,9 +41,8 @@
 	}
 
 
-	$conn = ADONewConnection("pdo");
-	// $connect_check = $isPConnect ? $conn->PConnect($dbHost,$dbUser,$dbPass,$dbData) : $conn->Connect($dbHost,$dbUser,$dbPass,$dbData);
-	$connect_check = $conn->connect('mysql:host='.$dbHost.';dbname='.$dbData.';charset=utf8mb4',$dbUser,$dbPass);
+	$conn = ADONewConnection("mysqli");
+	$connect_check = $isPConnect ? $conn->PConnect($dbHost,$dbUser,$dbPass,$dbData) : $conn->Connect($dbHost,$dbUser,$dbPass,$dbData);
 
 	if(!$connect_check){
 		if(isset($_GET["setup"])){//安裝
