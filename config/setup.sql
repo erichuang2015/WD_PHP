@@ -912,7 +912,7 @@ CREATE TABLE `database_template` (
 
 
 INSERT INTO `database_template` (`id`,`type`,`name`,`detail`,`sort`,`create_date`,`update_date`,`create_user`,`update_user`,`useTables`) VALUES
-('2','web','index.html','首頁','16','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL),
+('2','web','index.html','首頁','16','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin','edm'),
 ('5','mail','mail_forms-notice.html','聯絡我們','9','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL),
 ('6','mail','mail_member_notice.html','帳號開通確認信','11','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL),
 ('9','mail','mail_password_notice.html','忘記密碼','10','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL),
