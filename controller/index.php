@@ -373,22 +373,6 @@
 
 	//自動生成class list html
 	$html_path = WEB_PATH."/".$console->path[0]."/";
-	if($data["list"]){
-		$data["list"] = $console->urlKey($data["list"]);
-
-		if($data["oneClass"]){
-			$html_path .= $data["oneClass"]["urlKey"]."/";
-		}
-		
-		$data["list_li_html"] = "";
-		foreach ($data["list"] as $key => $value) {
-			if($data["one"]["id"] == $value["id"]){
-				$data["list_li_html"] .= '<li><a href="'.$html_path.$value["urlKey"].'" class="current">'.$value["name"].'</a></li>';
-			}else{
-				$data["list_li_html"] .= '<li><a href="'.$html_path.$value["urlKey"].'">'.$value["name"].'</a></li>';
-			}
-		}
-	}
 
 	if($data["class"]){
 		$data["class"] = $console->urlKey($data["class"]);
@@ -408,6 +392,23 @@
 			$classHtml .= '</li>';
 		}
 		return $classHtml;
+	}
+	
+	if($data["list"]){
+		$data["list"] = $console->urlKey($data["list"]);
+
+		if($data["oneClass"]){
+			$html_path .= $data["oneClass"]["urlKey"]."/";
+		}
+		
+		$data["list_li_html"] = "";
+		foreach ($data["list"] as $key => $value) {
+			if($data["one"]["id"] == $value["id"]){
+				$data["list_li_html"] .= '<li><a href="'.$html_path.$value["urlKey"].'" class="current">'.$value["name"].'</a></li>';
+			}else{
+				$data["list_li_html"] .= '<li><a href="'.$html_path.$value["urlKey"].'">'.$value["name"].'</a></li>';
+			}
+		}
 	}
 
 
