@@ -5,7 +5,7 @@
 <script src="include/grapesjs/grapesjs-plugin-ckeditor.min.js"></script>
 <script src="include/grapesjs/ckeditor/ckeditor.js"></script>
 <script src="include/grapesjs/grapesjs-blocks-basic.min.js"></script>
-<script src="include/grapesjs/grapesjs-tabs.min.js"></script>
+<!-- <script src="include/grapesjs/grapesjs-tabs.min.js"></script> -->
 <!--  -->
 <div id="divGjs({$_I_})" style="display: none;">
     <div id="gjs({$_I_})" style="min-height: 100vh;position: fixed;right: 0;top: 0;z-index: 2000;">
@@ -20,8 +20,8 @@
         storageManager: { autoload: 0 },
         container: '#gjs({$_I_})',
         fromElement: true,
-        showDevices: false,
-        plugins: ['gjs-plugin-ckeditor','gjs-blocks-basic','grapesjs-tabs'],
+        // showDevices: false,
+        plugins: ['gjs-plugin-ckeditor','gjs-blocks-basic'],
         pluginsOpts: {
             'gjs-plugin-ckeditor': {
                 position: 'center',
@@ -41,17 +41,17 @@
                 }
             },
             'gjs-blocks-basic': {},
-            'grapesjs-tabs': {}
+            // 'grapesjs-tabs': {}
         },
         canvas: {
             styles: [
                 'css/main.css',
-                'css/serback/back.css',
+                // 'css/serback/back.css',
             ],
             scripts: [
-                'js/serback/jquery.all.min.js',
-                'js/serback/bootstrap.min.js',
-                'js/serback/bootstrap.bundle.min.js',
+                // 'js/serback/jquery.all.min.js',
+                // 'js/serback/bootstrap.min.js',
+                // 'js/serback/bootstrap.bundle.min.js',
             ],
         }
     });
@@ -71,19 +71,19 @@
         },
     ]);
 
-    editor({$_I_}).BlockManager.add('table-block', {
-      id: 'table',
-      label: 'Table',
-      category: 'Basic',
-      attributes: { class: 'fa fa-table' },
-      content: `
-          <table class="table table-striped table-bordered table-resizable">
-              <tr><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td></tr>
-          </table>
-        `,
-    });
+    // editor({$_I_}).BlockManager.add('table-block', {
+    //   id: 'table',
+    //   label: 'Table',
+    //   category: 'Basic',
+    //   attributes: { class: 'fa fa-table' },
+    //   content: `
+    //       <table class="table table-striped table-bordered table-resizable">
+    //           <tr><td></td><td></td><td></td></tr>
+    //           <tr><td></td><td></td><td></td></tr>
+    //           <tr><td></td><td></td><td></td></tr>
+    //       </table>
+    //     `,
+    // });
 
     // editor({$_I_}).BlockManager.add('testBlock', {
     //     label: '4格',

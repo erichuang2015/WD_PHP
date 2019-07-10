@@ -101,7 +101,7 @@
             <div class="col-md-12 mb-3">
                 <label>({$console->getLabel($data.system.dataName[i])})</label>
                 <div>
-                    <a class="btn" href="javascript:;" onclick="$('#divGjs({$grapesjsI})').show();">點我編輯</a>
+                    <a class="btn btn-secondary" href="javascript:;" onclick="$('#divGjs({$grapesjsI})').show();">({$console->getLabel("點我編輯")})</a>
                 </div>
                 <textarea style="display: none;" name="({$data.system.dataKey[i]})">({$data.one[$data.system.dataKey[i]]})</textarea>
                 <small class="text-muted">({$console->getLabel($data.system.dataSuggestText[i])})</small>
