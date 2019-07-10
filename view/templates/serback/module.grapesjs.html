@@ -4,7 +4,8 @@
 <script src="include/grapesjs/grapesjs/grapes.min.js"></script>
 <script src="include/grapesjs/grapesjs-plugin-ckeditor.min.js"></script>
 <script src="include/grapesjs/ckeditor/ckeditor.js"></script>
-
+<script src="include/grapesjs/grapesjs-blocks-basic.min.js"></script>
+<script src="include/grapesjs/grapesjs-tabs.min.js"></script>
 <!--  -->
 <div id="divGjs({$_I_})" style="display: none;">
     <div id="gjs({$_I_})" style="min-height: 100vh;position: fixed;right: 0;top: 0;z-index: 2000;">
@@ -20,7 +21,7 @@
         container: '#gjs({$_I_})',
         fromElement: true,
         showDevices: false,
-        plugins: ['gjs-plugin-ckeditor'],
+        plugins: ['gjs-plugin-ckeditor','gjs-blocks-basic','grapesjs-tabs'],
         pluginsOpts: {
             'gjs-plugin-ckeditor': {
                 position: 'center',
@@ -38,7 +39,9 @@
                         { name: 'colors', items: ['TextColor', 'BGColor'] },
                     ],
                 }
-            }
+            },
+            'gjs-blocks-basic': {},
+            'grapesjs-tabs': {}
         },
         canvas: {
             styles: [
@@ -68,26 +71,40 @@
         },
     ]);
 
+    editor({$_I_}).BlockManager.add('table-block', {
+      id: 'table',
+      label: 'Table',
+      category: 'Basic',
+      attributes: { class: 'fa fa-table' },
+      content: `
+          <table class="table table-striped table-bordered table-resizable">
+              <tr><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td></tr>
+              <tr><td></td><td></td><td></td></tr>
+          </table>
+        `,
+    });
 
-    
-    editor({$_I_}).BlockManager.add('testBlock', {
-        label: '4格',
-        attributes: { class:'gjs-fonts gjs-f-b1' },
-        content: `<div class="form-row">
-            <div class="col" style="padding:20px 20px 20px 20px;">
-            </div>
-            <div class="col">
-            </div>
-            <div class="col">
-            </div>
-            <div class="col">
-            </div>
-        </div>`
-    });
-    editor({$_I_}).BlockManager.add('img', {
-        label: '圖片',
-        attributes: { class:'gjs-fonts gjs-f-image' },
-        content: `<img src="http://localhost/_MTsung/images/ProfilePicture.jpg"></img>`
-    });
+    // editor({$_I_}).BlockManager.add('testBlock', {
+    //     label: '4格',
+    //     attributes: { class:'gjs-fonts gjs-f-b1' },
+    //     content: `
+    //         <div class="form-row">
+    //             <div class="col" style="padding:20px 20px 20px 20px;">
+    //             </div>
+    //             <div class="col">
+    //             </div>
+    //             <div class="col">
+    //             </div>
+    //             <div class="col">
+    //             </div>
+    //         </div>
+    //     `
+    // });
+    // editor({$_I_}).BlockManager.add('img', {
+    //     label: '圖片',
+    //     attributes: { class:'gjs-fonts gjs-f-image' },
+    //     content: `<img src="http://localhost/_MTsung/images/ProfilePicture.jpg" class="img-fluid"></img>`
+    // });
 </script>
 ({/if})

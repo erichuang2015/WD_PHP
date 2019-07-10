@@ -56,6 +56,7 @@
 			$imageModule = getSystemKey($value,'imageModule');
 			$aceEditor = getSystemKey($value,'aceEditor');
 			$googleMap = getSystemKey($value,'googleMap');
+			$grapesjs = getSystemKey($value,'grapesjs');
 			$textarea = getSystemKey($value,'textarea');
 
 			$explodeArray = getExplode($value);
@@ -234,7 +235,7 @@
     						}
     
     						//非html編輯器跟googlemap htmlspecialchars
-    						if(!isset($aceEditor[$keyOne]) && !isset($googleMap[$keyOne]) && $data[$value__][$keyOne] && !is_array($data[$value__][$keyOne])){
+    						if(!isset($aceEditor[$keyOne]) && !isset($googleMap[$keyOne])&& !isset($grapesjs[$keyOne]) && $data[$value__][$keyOne] && !is_array($data[$value__][$keyOne])){
     							$data[$value__][$keyOne] = htmlspecialchars($data[$value__][$keyOne]);
     						}
 
@@ -281,7 +282,7 @@
 						}
 
 						//非html編輯器跟googlemap htmlspecialchars
-						if(!isset($aceEditor[$key2]) && !isset($googleMap[$key2]) && $data["list"][$key1][$key2] && !is_array($data["list"][$key1][$key2])){
+						if(!isset($aceEditor[$key2]) && !isset($googleMap[$key2]) && !isset($grapesjs[$key2]) && $data["list"][$key1][$key2] && !is_array($data["list"][$key1][$key2])){
 							$data["list"][$key1][$key2] = htmlspecialchars($data["list"][$key1][$key2]);
 						}
 
