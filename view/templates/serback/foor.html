@@ -7,5 +7,13 @@
         <span>© 2019 POWER BY WEB POWER ADVERTISING TECHNOLOGY CO.,LTD.</span>
     </nav> -->
 </body>
+({assign var="grapesjsI" value=0})
+({section name=i loop=$data.system.dataType})
+    ({if $data.system.dataType[i] == "grapesjs"})
+        ({assign var=_I_ value=$grapesjsI})
+        ({include file='module.grapesjs.html'})
+        ({assign var="grapesjsI" value=$grapesjsI+1})
+    ({/if})
+({/section})
 
 </html>

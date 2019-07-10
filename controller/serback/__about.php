@@ -40,9 +40,13 @@ if($temp){
 		}
 	}
 
-	$imgI = $fileI = $aceI = 0;
+	$imgI = $fileI = $aceI = $grapesjsI = 0;
 	foreach ($temp["dataType"] as $key => $value) {
 		switch ($value) {
+			case 'grapesjs':
+				$module["grapesjs"][$grapesjsI]["name"] = $temp["dataKey"][$key];
+				$grapesjsI++;
+				break;
 			case 'aceEditor':
 				$module["tinemceEditor"][$aceI]["name"] = $temp["dataKey"][$key];
 				$aceI++;

@@ -83,6 +83,7 @@ $data["typeOption"] = array(
 	"color" => "顏色選擇欄位",
 	"date" => "日期選擇欄位",
 	"aceEditor" => "HTML編輯器",//<<打錯 其實是tinyMceEditor
+	"grapesjs" => "拖曳式編輯器",
 	"imageModule" => "上傳圖片模組",
 	"fileModule" => "上傳檔案模組",
 	"googleMap" => "google地圖",

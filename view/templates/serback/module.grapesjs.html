@@ -1,0 +1,93 @@
+({if $module.grapesjs})
+
+<link rel="stylesheet" href="include/grapesjs/grapesjs/css/grapes.min.css">
+<script src="include/grapesjs/grapesjs/grapes.min.js"></script>
+<script src="include/grapesjs/grapesjs-plugin-ckeditor.min.js"></script>
+<script src="include/grapesjs/ckeditor/ckeditor.js"></script>
+
+<!--  -->
+<div id="divGjs({$_I_})" style="display: none;">
+    <div id="gjs({$_I_})" style="min-height: 100vh;position: fixed;right: 0;top: 0;z-index: 2000;">
+        ({$data["one"][$module.grapesjs[$_I_].name]|htmlspecialchars_decode})
+    </div>
+</div>
+
+<script type="text/javascript">
+    var editor({$_I_}) = grapesjs.init({
+        showOffsets: 1,
+        noticeOnUnload: 0,
+        storageManager: { autoload: 0 },
+        container: '#gjs({$_I_})',
+        fromElement: true,
+        showDevices: false,
+        plugins: ['gjs-plugin-ckeditor'],
+        pluginsOpts: {
+            'gjs-plugin-ckeditor': {
+                position: 'center',
+                options: {
+                    startupFocus: true,
+                    extraAllowedContent: '*(*);*{*}', // Allows any class and any inline style
+                    allowedContent: true, // Disable auto-formatting, class removing, etc.
+                    enterMode: CKEDITOR.ENTER_BR,
+                    extraPlugins: 'sharedspace,justify,colorbutton,panelbutton,font',
+                    toolbar: [
+                        { name: 'styles', items: ['Font', 'FontSize'] },
+                        ['Bold', 'Italic', 'Underline', 'Strike'],
+                        { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+                        { name: 'links', items: ['Link', 'Unlink'] },
+                        { name: 'colors', items: ['TextColor', 'BGColor'] },
+                    ],
+                }
+            }
+        },
+        canvas: {
+            styles: [
+                'css/main.css',
+                'css/serback/back.css',
+            ],
+            scripts: [
+                'js/serback/jquery.all.min.js',
+                'js/serback/bootstrap.min.js',
+                'js/serback/bootstrap.bundle.min.js',
+            ],
+        }
+    });
+    window.editor({$_I_}) = editor({$_I_});
+    editor({$_I_}).Panels.addButton('options',
+    [
+        {
+            id: 'close',
+            className: 'fa fa-save icon-close',
+            command: function(editor1, sender) {
+                $("#divGjs({$_I_})").hide();
+                $("[name='({$module.grapesjs[$_I_].name})']").val("<style>"+editor({$_I_}).getCss()+"</style>"+editor({$_I_}).getHtml());
+            },
+            attributes: {
+                title: '返回'
+            }
+        },
+    ]);
+
+
+    
+    editor({$_I_}).BlockManager.add('testBlock', {
+        label: '4格',
+        attributes: { class:'gjs-fonts gjs-f-b1' },
+        content: `<div class="form-row">
+            <div class="col" style="padding:20px 20px 20px 20px;">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+        </div>`
+    });
+    editor({$_I_}).BlockManager.add('img', {
+        label: '圖片',
+        attributes: { class:'gjs-fonts gjs-f-image' },
+        content: `<img src="http://localhost/_MTsung/images/ProfilePicture.jpg"></img>`
+    });
+</script>
+({/if})
