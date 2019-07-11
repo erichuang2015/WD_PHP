@@ -17,6 +17,55 @@
     var editor({$_I_}) = grapesjs.init({
         showOffsets: 1,
         noticeOnUnload: 0,
+        assetManager: {
+            storageType : '',
+            storeOnChange : true,
+            storeAfterUpload : true,
+            upload: '({$web.data_path})/', //for temporary storage
+            assets : [ ],
+            uploadFile: function(e) {
+                var files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+
+                var objForm = new FormData();
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', _jsPath+'/upload.php?isTinyMCE=1');
+                xhr.onload = function() {
+                    //上傳完成
+                    try{
+                        var fileName=JSON.parse(this.responseText);
+                        for(var key in fileName){
+                            editor({$_I_}).AssetManager.add(_jsPath+'/'+fileName[key]); //adding images to asset manager of GrapesJS
+                        }
+                    }catch(e){
+                        alert('({$label_back.UPLOAD_IMG_ERROR})' + this.responseText);
+                    }
+                };
+
+                for(var i in files){
+                    objForm.append('images[]', files[i]);
+                }
+                objForm.append('({$console->getTokenName()})', '({$console->getToken("text")})');
+                xhr.send(objForm); //開始上傳
+                // $.ajax({
+                //     url:  _jsPath+'/upload.php',
+                //     type: 'POST',
+                //     data: formData,
+                //     contentType:false,
+                //     crossDomain: true,
+                //     dataType: 'json',
+                //     mimeType: "multipart/form-data",
+                //     processData:false,
+                //     success: function(result){
+                //         var myJSON = [];
+                //         $.each( result['data'], function( key, value ) {
+                //             myJSON[key] = value;
+                //         });
+                //         var images = myJSON;
+                //         editor({$_I_}).AssetManager.add(images); //adding images to asset manager of GrapesJS
+                //     }
+                // });
+            },
+        },
         storageManager: { autoload: 0 },
         container: '#gjs({$_I_})',
         fromElement: true,
@@ -106,5 +155,6 @@
     //     attributes: { class:'gjs-fonts gjs-f-image' },
     //     content: `<img src="http://localhost/_MTsung/images/ProfilePicture.jpg" class="img-fluid"></img>`
     // });
+
 </script>
 ({/if})
