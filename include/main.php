@@ -105,7 +105,6 @@ namespace MTsung{
 			/*switch*/
 
 			//在哪邊不開
-			$XSSArray = array('serback');
 			$CSRFArray = array('payResponse');
 
 			$csrfWhitelist = explode("\n",$this->setting->getValue("csrfWhitelist"));//網域 IP 白名單
@@ -113,7 +112,6 @@ namespace MTsung{
 				return str_replace("\r","",$v);
 			}, $csrfWhitelist);
 
-			$this->switch["XSSVerifty"] = false && !in_array($this->controller, $XSSArray);//輸出會過濾就不需要了
 			$this->switch["CSRFVerifty"] = (
 				!in_array($this->controller, $CSRFArray) && 
 				!in_array($this->getIP(),$csrfWhitelist) && 
@@ -129,11 +127,6 @@ namespace MTsung{
 			$this->config["CSRFKey"] = 'MTsung';		//token金鑰
 			$this->config["CSRFType"] = 'md5';			//token加密方式
 
-			//改為一組20190203
-			// $this->config["CSRFTime"] = 604800;			//token存活時間(秒)
-			// $this->config["CSRFTokenMax"] = 50;			//token最大組數(個)
-			//改為一組20190203
-
 			$this->config["POSTTime"] = 0.5;			//連續POST最小時間
 
 			/*config*/
@@ -143,23 +136,9 @@ namespace MTsung{
 			if($_POST) $_POST = $this->trimData($_POST);
 
 			$this->POSTVerifty();						//POSTtime
-			$this->XSSVerifty();						//XSS處理
-			$this->rmBadToken();						//刪除不合法的token
 			$this->CSRFVerifty();						//CSRF處理
 
 			$this->loadLanguageini();					//載入語言ini
-
-			/**
-			 * debug
-			 */
-			// print_r("<script>console.log(".json_encode($_SESSION[FRAME_NAME]).");");
-			// print_r("console.log(".json_encode($_COOKIE).");</script>");
-			
-			// echo '<!--';
-			// print_r($_SESSION);
-			// print_r($_COOKIE);
-			// print_r($_SERVER);
-			// echo '-->';
 
 		}
 
@@ -340,7 +319,7 @@ namespace MTsung{
 					$temp .= ($_SERVER['QUERY_STRING']) ? '?'.$_SERVER['QUERY_STRING'] : '';
 					$temp = '<select id="langSelect" onchange="location.href=\''.HTTP_PATH.'\'+this.value+\''.$path.$temp.'\'" class="'.$class.'">';
 					foreach ($this->languageArray as $key => $value) {
-						if($_SESSION[FRAME_NAME]['language'.$this->langSessionName] == $key){
+						if($this->getLanguage() == $key){
 							$temp .= '<option value="'.$key.'" selected>'.$value.'</option>';
 						}else{
 							$temp .= '<option value="'.$key.'">'.$value.'</option>';
@@ -353,7 +332,7 @@ namespace MTsung{
 				case 'form'://表單用
 					$temp = '<select name="lang"  class="'.$class.'">';
 					foreach ($this->languageArray as $key => $value) {
-						if($_SESSION[FRAME_NAME]['language'.$this->langSessionName] == $key){
+						if($this->getLanguage() == $key){
 							$temp .= '<option value="'.$key.'" selected>'.$value.'</option>';
 						}else{
 							$temp .= '<option value="'.$key.'">'.$value.'</option>';
@@ -512,14 +491,11 @@ namespace MTsung{
 			global $console;
 			if (is_file(CONTROLLER_PATH.$this->controller.'.php')){
 				include_once(CONTROLLER_PATH.$this->controller.'.php'); 
-				include_once(INCLUDE_PATH.'foor.php');
 			}else{
 				include_once(CONTROLLER_PATH.'index.php'); 
-				include_once(INCLUDE_PATH.'foor.php');
-				// $this->to404();
-				// echo $this->getMessage('CONTROLLER_NULL',array($this->controller));
-				exit;
 			}
+			include_once(INCLUDE_PATH.'foor.php');
+			exit;
 		}
 
 		/**
@@ -535,16 +511,6 @@ namespace MTsung{
 				}else{
 					$_SESSION[FRAME_NAME]["POST_TIME"] = $nowTime;
 				}
-			}
-		}
-
-		/**
-		 * 防止XSS攻擊
-		 */
-		function XSSVerifty(){
-			if($this->switch["XSSVerifty"]){
-				if($_GET) $_GET = $this->XXSDataVerifty($_GET);
-				if($_POST) $_POST = $this->XXSDataVerifty($_POST);
 			}
 		}
 
@@ -605,17 +571,6 @@ namespace MTsung{
 						$this->alert($this->getMessage('CSRF_TOKEN_NOT_TRUE'),-1);
 						exit;
 					}
-					
-					//改為一組20190203
-					// if(isset($_POST[TOKEN_NAME]) && isset($_SESSION[FRAME_NAME]['CSRF_TOKEN']) && $token_key = array_search($_POST[TOKEN_NAME],$_SESSION[FRAME_NAME]['CSRF_TOKEN'])){
-					// 	unset($_POST[TOKEN_NAME]);
-					// 	// unset($_SESSION[FRAME_NAME]["CSRF_TOKEN"][$token_key]);
-					// }else{
-					// 	if(isset($_POST[TOKEN_NAME])) unset($_POST[TOKEN_NAME]);
-					// 	$temp = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '//'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-					// 	$this->alert($this->getMessage('CSRF_TOKEN_NOT_TRUE'),$temp);
-					// 	exit;
-					// }
 				}
 				if(!$_POST){
 					$this->linkTo("//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);	
@@ -641,19 +596,6 @@ namespace MTsung{
 				return '<input type="hidden" name="'.TOKEN_NAME.'" value="'.$_SESSION[FRAME_NAME]['CSRF_TOKEN'].'">';
 			}
 
-
-			//改為一組20190203
-			// $nowTime = strtotime(DATE);
-			// while(isset($_SESSION[FRAME_NAME]['CSRF_TOKEN'][$nowTime])){
-			// 	$nowTime++;
-			// }
-			// $_SESSION[FRAME_NAME]['CSRF_TOKEN'][$nowiTme] = hash_hmac($this->config["CSRFType"] ,rand(),$this->config["CSRFKey"]);
-
-			// if($return=='text'){
-			// 	return $_SESSION[FRAME_NAME]['CSRF_TOKEN'][$nowTime];
-			// }else{
-			// 	return '<input type="hidden" name="'.TOKEN_NAME.'" value="'.$_SESSION[FRAME_NAME]['CSRF_TOKEN'][$nowTime].'">';
-			// }
 		}
 
 		/**
@@ -662,23 +604,6 @@ namespace MTsung{
 		 */
 		function getTokenName(){
 			return TOKEN_NAME;
-		}
-
-		/**
-		 * 將不合法的token移除
-		 */
-		function rmBadToken(){
-			return false;
-
-			//改為一組20190203
-			// $nowTime = strtotime(DATE);
-			// if(isset($_SESSION[FRAME_NAME]['CSRF_TOKEN'])){
-			// 	foreach ($_SESSION[FRAME_NAME]['CSRF_TOKEN'] as $key => $value) {
-			// 		if(count($_SESSION[FRAME_NAME]['CSRF_TOKEN'])>$this->config["CSRFTokenMax"] || ($nowTime-$key)>$this->config["CSRFTime"]){
-			// 			unset($_SESSION[FRAME_NAME]['CSRF_TOKEN'][$key]);
-			// 		}
-			// 	}
-			// }
 		}
 
 		/**
@@ -1066,18 +991,6 @@ namespace MTsung{
 			return $value;
 		}
 
-
-		/**
-		 * 換行轉<br>
-		 * @param  [type] $text [description]
-		 * @return [type]       [description]
-		 *
-		 * 可棄用 使用 nl2br
-		 */
-		function newline($text){
-			return str_replace("\n","<br>",str_replace("\r\n","<br>",$text));
-		}
-
 		/**
 		 * 判斷是否為ajax
 		 * @return boolean [description]
@@ -1088,5 +1001,3 @@ namespace MTsung{
 	}
 }
 
-
-?>
