@@ -79,5 +79,5 @@
 	$setting = new MTsung\setting($conn);
 	$design = new MTsung\design();
 	$console = new MTsung\main($conn,$design,$setting);
-	$webSetting = new MTsung\webSetting($console,PREFIX."web_setting",$_SESSION[FRAME_NAME]['language'.$console->langSessionName]);//前端輸出用
+	$webSetting = new MTsung\webSetting($console,PREFIX."web_setting",$console->getLanguage());//前端輸出用
 	$console->setWebSetting($webSetting);
