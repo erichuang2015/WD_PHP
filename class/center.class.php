@@ -20,6 +20,7 @@ namespace MTsung{
 		var $isTree = false;//是否為分類樹
 		var $systemLog;//操作記錄
 		var $pictureName = array("picture","icon","image","images","img","watermark");//圖片name
+		var $isUseClass = false;//是否使用分類排序
 
 
 		/**
@@ -40,7 +41,7 @@ namespace MTsung{
 			$this->tableSort = $this->table."_sort";
 			$this->systemLog = new systemLog($this->console,PREFIX."system_log",$this->lang);
 
-			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
+			if($this->isUseClass = (isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"])){
 				$this->checkSortTable();
 			}
 		}
@@ -174,7 +175,7 @@ namespace MTsung{
 				if($this->conn->AutoExecute($this->table,$data,"INSERT")){
 
 					$data["id"] = $this->conn->GetRow("SELECT LAST_INSERT_ID()")[0];
-					if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
+					if($this->isUseClass){
 						$dataSort = array(
 							"classID" => $_GET["class"],
 							"dataID" => $data["id"],
@@ -216,7 +217,7 @@ namespace MTsung{
 			foreach ($newData as $key => $value) {
 
 				//分類排序
-				if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && isset($value["sort"])){
+				if($this->isUseClass && isset($value["sort"])){
 					$dataSort = array(
 						"classID" => $_GET["class"],
 						"dataID" => $value["id"],
@@ -323,7 +324,7 @@ namespace MTsung{
 			}else{
 				$sql = "where 1=1 ";
 			}
-			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && $classFlag && in_array("class", $this->getField())){
+			if($this->isUseClass && $classFlag && in_array("class", $this->getField())){
 				$sql .= $this->findArrayString("class",$_GET["class"],$sqlArray);
 			}
 			if(isset($_GET["stockBelow"]) && is_numeric($_GET["stockBelow"]) && $_GET["stockBelow"] && $_GET["stockBelow"]<1000){
@@ -376,7 +377,7 @@ namespace MTsung{
 			// if($this->conn->errorMsg()) echo "error :["."select * from ".$this->table." ".$whereSql."]<br>".$this->conn->errorMsg();
 
 			//分類排序
-			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"] && $temp){
+			if($this->isUseClass && $temp){
 				foreach ($temp as $key => $value) {
 					if($sort = $this->conn->getRow("select sort from ".$this->tableSort." where classID='".$_GET["class"]."' and dataID='".$value["id"]."'")){
 						$temp[$key]["sort"] = $sort[0];
@@ -594,7 +595,7 @@ namespace MTsung{
 			if(!in_array("sort", $this->getField()) || $this->isTree){
 				return false;
 			}
-			if(isset($_GET["class"]) && is_numeric($_GET["class"]) && $_GET["class"]){
+			if($this->isUseClass){
 				$this->conn->Execute("set @j:=0;");
 				$this->conn->Execute("update ".$this->tableSort." set sort=@j:=@j+1 where classID='".$_GET["class"]."' order by sort");
 			}
