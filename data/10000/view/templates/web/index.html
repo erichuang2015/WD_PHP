@@ -14,7 +14,7 @@
             ({section name=i loop=$data.edm})
             	<div data-p="225.00" style="display:none;">
             		<a ({if $data.edm[i].url})href="({$data.edm[i].url})" ({/if})> 
-            			<img data-u="image" src="({$data.edm[i].picture})" />
+            			<img data-u="image" src="({$data.edm[i].picture.0})" />
             		</a>
             	</div>
             ({/section})
