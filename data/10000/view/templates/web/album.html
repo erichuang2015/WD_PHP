@@ -1,8 +1,8 @@
 ({include "top.html"})
-<link rel="stylesheet" href="css/photoswipe.css">
-<link rel="stylesheet" href="css/default-skin/default-skin.css">
-<script src="js/photoswipe.min.js"></script>
-<script src="js/photoswipe-ui-default.min.js"></script>
+<link rel="stylesheet" href="dist/photoswipe.css">
+<link rel="stylesheet" href="dist/default-skin/default-skin.css">
+<script src="dist/photoswipe.min.js"></script>
+<script src="dist/photoswipe-ui-default.min.js"></script>
 <!-- InstanceBeginEditable name="banner" -->
 <div class="inside-banner">
     <div class="banner-title">相片集 / Alaum</div>
@@ -33,7 +33,7 @@
                                 <a class="pro-photo" href="({$data.list[i].picture})" itemprop="contentUrl" data-size="5000x5000"> 
                                     <img class="index-pro-img" src="({$data.list[i].picture})" itemprop="thumbnail" alt="Image description" />
                                 </a>
-                                <figcaption itemprop="caption description">({$data.list[i].memo})</figcaption>
+                                <figcaption itemprop="caption description">({$data.list[i].detail})</figcaption>
                             </figure>
                         ({/section})
                     </div>
