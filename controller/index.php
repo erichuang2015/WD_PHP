@@ -409,6 +409,7 @@
 			}else{
 				$data["list_li_html"] .= '<li><a href="'.$html_path.$value["urlKey"].'">'.$value["name"].'</a></li>';
 			}
+			$data["list"][$key]["__href"] = $html_path.$value["urlKey"];
 		}
 	}
 
