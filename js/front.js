@@ -28,7 +28,7 @@ function shoppingListReload(shoppingList) {
         if(typeof(shoppingList.length) == "undefined"){
             shoppingList.length = 0;
         }
-        $("#shoppingCountSpan").html(""+(shoppingList.length*1)+"");
+        $("#shoppingCountSpan").html(""+(shoppingList[0].listCount*1)+"");
         if(shoppingList.length>0){
             $(shoppingList).each(function(k,v){
                 $('#shoppingListDiv').append($('#cartItemtDiv').html());

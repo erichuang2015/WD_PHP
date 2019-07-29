@@ -1388,8 +1388,18 @@ namespace MTsung{
 					$temp[$key]["addProductList"] = $this->conn->GetArray("select * from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and parentId='".$value["productId"]."'");
 					$temp[$key]["onlineProduct"] = $this->product->getProduct($value["productId"],true);
 				}
+				$temp[0]["listCount"] = $this->getShoppingCartListCount();
 			}
 			return $temp;
+		}
+
+		/**
+		 * 取得購物車商品數量(不含加價購)
+		 * @return [type] [description]
+		 */
+		function getShoppingCartListCount(){
+			$temp = $this->conn->GetRow("select sum(count) as count from ".$this->tableList." where shoppingCartId='".$this->order["id"]."' and parentId IS NULL");
+			return $temp["count"] ?: 0;
 		}
 
 		/**

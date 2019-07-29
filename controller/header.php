@@ -61,7 +61,7 @@
 	$lang_url = ($web_set['lang']?'/'.$web_set['lang']:'');
 
 	//購物內容數量
-	$data["orderCount"] = count($order->getShoppingCartList());
+	$data["orderCount"] = $order->getShoppingCartListCount();
 
 	//狀態sql
 	$statusSql = " and status='1' and (release_date<='".DATE."' or release_date is null or release_date='') and (expire_date>='".DATE."' or expire_date is null or expire_date='') ";
