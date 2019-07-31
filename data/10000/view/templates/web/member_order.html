@@ -132,15 +132,17 @@
                             </div>
                         ({/if})
 
-                        <div class="subtotal row">
-                            <div class="subtotal-name col">折扣卷：</div>
-                            <div class="discountCoupon subtotal-content col">({$data.order.coupon})</div>
-                        </div>
-                        <div class="subtotal row">
-                            <div class="subtotal-name col">折扣金額：</div>
-                            <div class="subtotal-content col">NT $-({$data.order.couponMoney})</div>
-                        </div>
-                        <hr>
+                        ({if $data.order.coupon})
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">折扣卷：</div>
+                                <div class="discountCoupon subtotal-content col">({$data.order.coupon})</div>
+                            </div>
+                            <div class="subtotal row">
+                                <div class="subtotal-name col">折扣金額：</div>
+                                <div class="subtotal-content col">NT $-({$data.order.couponMoney})</div>
+                            </div>
+                            <hr>
+                        ({/if})
 
                         <div class="subtotal row">
                             <div class="subtotal-name col">小計：</div>

@@ -25,10 +25,11 @@ function shoppingListReload(shoppingList) {
             }
         });
     }else{
-        if(typeof(shoppingList.length) == "undefined"){
-            shoppingList.length = 0;
+        listCount = 0;
+        if(typeof(shoppingList[0]) != "undefined"){
+            listCount = shoppingList[0].listCount;
         }
-        $("#shoppingCountSpan").html(""+(shoppingList[0].listCount*1)+"");
+        $("#shoppingCountSpan").html(""+(listCount*1)+"");
         if(shoppingList.length>0){
             $(shoppingList).each(function(k,v){
                 $('#shoppingListDiv').append($('#cartItemtDiv').html());
