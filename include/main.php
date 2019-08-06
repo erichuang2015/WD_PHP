@@ -138,7 +138,7 @@ namespace MTsung{
 			$this->POSTVerifty();						//POSTtime
 			$this->CSRFVerifty();						//CSRF處理
 
-			$this->loadLanguageini();					//載入語言ini
+			// $this->loadLanguageini();					//載入語言ini
 
 		}
 
@@ -261,7 +261,15 @@ namespace MTsung{
 				$this->alert($this->getMessage('LANGUAGE_NULL'),-1);
 				exit;
 			}else{
-				$tmpe = @parse_ini_file($file,true);
+				if(!$tmpe = @parse_ini_file($file,true)){
+					$msg = "語言檔讀取錯誤。".error_get_last()["message"];
+					if($this->langSessionName != 'Serback'){
+						echo $msg;
+						// $this->alert($msg,"NO");
+						error_log($msg);
+						exit;
+					}
+				}
 
 				$this->message = @$tmpe['message'];
 				$this->serbackLabel = @$tmpe['label'];

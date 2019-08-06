@@ -373,7 +373,7 @@
 	}
 
 	//自動生成class list html
-	$html_path = WEB_PATH."/".$console->path[0]."/";
+	$html_path = WEB_PATH.$lang_url."/".$console->path[0]."/";
 
 	if($data["class"]){
 		$data["class"] = $console->urlKey($data["class"]);
