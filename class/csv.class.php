@@ -9,7 +9,7 @@ namespace MTsung{
     include_once(APP_PATH.'include/PhpSpreadsheet/autoload.php');
 	use PhpOffice\PhpSpreadsheet\Spreadsheet;
 	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-	use \PhpOffice\PhpSpreadsheet\IOFactory;
+	use PhpOffice\PhpSpreadsheet\IOFactory;
 
 
 	class csv{
