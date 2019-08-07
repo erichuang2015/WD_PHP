@@ -6,6 +6,10 @@
  * MTsung by 20180912
  */
 namespace MTsung{
+    include_once(APP_PATH.'include/PhpSpreadsheet/autoload.php');
+	use PhpOffice\PhpSpreadsheet\Spreadsheet;
+	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 
 	class csv{
 
@@ -37,26 +41,43 @@ namespace MTsung{
 			exit;
 		}
 
+
 		/**
-		 * 過濾數字key
-		 * @param  [type] $data [description]
-		 * @return [type]       [description]
+		 * 匯出xls
+		 * @param  array  $data     [ 0 => [資料array] , 1 => [資料1array]]
+		 * @param  [type] $filename 檔案名稱
+		 * @return [type]           [description]
 		 */
-		public function filterNumberKey($data){
-			foreach ($data as $key => $value) {
-				if(!version_compare(PHP_VERSION,'5.6','ge')){
-					foreach ($value as $key1 => $value1) {
-						if(is_numeric($key1)){
-							unset($data[$key][$key1]);
-						}
-					}
-				}else{
-					$data[$key] = array_filter($value, function($k) {
-					    return !is_numeric($k);
-					},ARRAY_FILTER_USE_KEY);
+		public function export_xls($data=array(),$filename=DATE){
+			$spreadsheet = new Spreadsheet();
+			$sheet = $spreadsheet->getActiveSheet();
+
+			//資料寫入
+			$maxRow = "A";//最大row
+			$col = 1;
+			foreach ($data as $one) {
+				$row = "A";
+				foreach ($one as $value) {
+					$sheet->setCellValue($row.$col, $value);
+					$row++;//$row="Z" ，$row++ 會是 "AA"
 				}
+				$maxRow = $row;
+				$col++;
 			}
-			return $data;
+
+			//設定寬度
+			for ($i = "A"; $i != $maxRow; $i++) { 
+				$sheet->getColumnDimension($i)->setAutoSize(true);
+			}
+
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
+			header('Cache-Control: max-age=0');
+
+			$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+			$writer->save('php://output');
+			exit;
 		}
+		
 	}
 }

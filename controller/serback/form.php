@@ -98,7 +98,7 @@ if(isset($console->path[2])){
 			}
 		}
 
-		$csv->export($output);
+		$csv->export_xls($output);
 		exit;
 	}
 
