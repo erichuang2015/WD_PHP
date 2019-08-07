@@ -9,6 +9,7 @@ namespace MTsung{
     include_once(APP_PATH.'include/PhpSpreadsheet/autoload.php');
 	use PhpOffice\PhpSpreadsheet\Spreadsheet;
 	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+	use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 
 	class csv{
@@ -74,10 +75,10 @@ namespace MTsung{
 			header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
 			header('Cache-Control: max-age=0');
 
-			$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+			$writer = IOFactory::createWriter($spreadsheet, 'Xls');
 			$writer->save('php://output');
 			exit;
 		}
-		
+
 	}
 }
