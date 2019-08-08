@@ -109,18 +109,34 @@ $(function(){
 });
 
 /**
- * 分類子項全選
+ * 分類子項全選 
+ * 母選項補選 190808
  */
-function treeChange(id){
+function treeChange(id,runParent){
 	$(':checkbox[data-parent="'+id+'"]').prop("checked",$(':checkbox[value="'+id+'"]:not(.onoffswitch-checkbox)').is(':checked'));
 	$(':checkbox[data-parent="'+id+'"]').each(function(index, el) {
 		next = $(this).val();
 		if(typeof(next) != "undefined"){
-			treeChange(next);
+			treeChange(next,1);
 		}
 	});
+	if(typeof(runParent) == "undefined"){//懶得改html 所以用這方式
+		parentChange(id);
+	}
 }
 
+/**
+ * 母選項補選
+ */
+function parentChange(id){
+
+	var parent = $(':checkbox[value="'+id+'"]').data("parent");
+	if(typeof(parent) != "undefined" && parent != 0){
+		$(':checkbox[value="'+parent+'"]').prop("checked",true);
+		parentChange(parent);
+	}
+	console.log(parent);
+}
 
 /**
  * 分類開合
