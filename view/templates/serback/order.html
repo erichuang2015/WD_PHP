@@ -505,21 +505,23 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$console->getLabel("PRINT_BILL")})</label>
-                            <div class="col-sm-5">
-                                <a target="_blank" class="btn btn-outline-secondary" href="({$smarty.server.REQUEST_URI})?ajax=printBill"><span class="glyphicon glyphicon-print"></span> ({$console->getLabel('PRINT')})</a>
-                                <small class="text-muted">({$console->getLabel('ECPAY_USE')})</small>
+                        ({if isset($data.order.formData.CVSStoreID)})
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("PRINT_BILL")})</label>
+                                <div class="col-sm-5">
+                                    <a target="_blank" class="btn btn-outline-secondary" href="({$smarty.server.REQUEST_URI})?ajax=printBill"><span class="glyphicon glyphicon-print"></span> ({$console->getLabel('PRINT')})</a>
+                                    <small class="text-muted">({$console->getLabel('ECPAY_USE')})</small>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$console->getLabel("RE_CREATE_ORDER")})</label>
-                            <div class="col-sm-5">
-                                <a class="btn btn-outline-secondary" href="javascript:;" onclick="reCreateOrder();"><span class="glyphicon glyphicon-refresh"></span> ({$console->getLabel('CREATE')})</a>
-                                <small class="text-muted">({$console->getLabel('RE_CREATE_ORDER_SMALL')})</small>
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">({$console->getLabel("RE_CREATE_ORDER")})</label>
+                                <div class="col-sm-5">
+                                    <a class="btn btn-outline-secondary" href="javascript:;" onclick="reCreateOrder();"><span class="glyphicon glyphicon-refresh"></span> ({$console->getLabel('CREATE')})</a>
+                                    <small class="text-muted">({$console->getLabel('RE_CREATE_ORDER_SMALL')})</small>
+                                </div>
                             </div>
-                        </div>
+                        ({/if})
 
                         <hr>
                         ({if isset($data.order.formData.CVSStoreID)})
