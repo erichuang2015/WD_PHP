@@ -49,7 +49,7 @@
 									foreach ($data["class"] as $keyClass => $valueClass) {
 										$classArray = array();
 										$classArray[] = $valueClass["id"];
-										if($tempC = $class->findChildren($valueClass["id"])){
+										if($tempC = $class->findChildren1($valueClass["id"])){
 											foreach ($tempC as $valueC) {
 												$classArray[] = $valueC;
 											}

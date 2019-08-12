@@ -115,6 +115,24 @@ namespace MTsung{
 		}
 
 		/**
+		 * 取得所有子節點 (開啟狀態)
+		 * @param  [type] $parent   id
+		 * @param  array  $children 遞迴用
+		 * @return [type]           [description]
+		 */
+		function findChildren1($parent,$children=array()){
+			$temp = $this->getData("where parent='".$parent."' and status='1' order by sort asc");
+			if($temp){
+				foreach ($temp as $key => $value) {
+					$children = $this->findChildren($value["id"],$children);
+					array_push($children,$value["id"]);
+					$children = array_unique($children);
+				}
+			}
+			return $children;
+		}
+
+		/**
 		 * 重新排序分類樹
 		 * @param  integer $parent [description]
 		 * @param  integer $i      [description]
@@ -192,7 +210,7 @@ namespace MTsung{
 			}
 			if($data){
 				foreach ($data as $key => $value) {
-					$data[$key]["next"] = $this->getTree($this->getData("where parent='".$value["id"]."'"));
+					$data[$key]["next"] = $this->getTree($this->getData("where parent='".$value["id"]."' and status='1'"));
 				}
 			}
 			return $this->console->urlKey($data);

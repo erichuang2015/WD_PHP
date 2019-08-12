@@ -187,7 +187,7 @@
 
 					//所有子節點一並搜尋
 					$classArray[] = $data["oneClass"]["id"];
-					if($tempC = $class->findChildren($data["oneClass"]["id"])){
+					if($tempC = $class->findChildren1($data["oneClass"]["id"])){
 						foreach ($tempC as $valueC) {
 							$classArray[] = $valueC;
 						}

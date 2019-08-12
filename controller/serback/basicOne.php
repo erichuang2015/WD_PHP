@@ -9,7 +9,7 @@ $basicOne = new MTsung\dataList($console,PREFIX.$console->path[1],$settingLang);
 if($console->conn->GetArray("desc ".PREFIX.$console->path[1]."_class__".str_replace("-","_",$settingLang))){
 	$dataClass = new MTsung\dataClass($console,PREFIX.$console->path[1]."_class",$settingLang);
 	$data["class"]["maxFloor"] = $dataClass->getMaxFloor();
-	$data["class"]["list"] = $dataClass->getData("where status=1 order by step asc");
+	$data["class"]["list"] = $dataClass->getData(" order by step asc");
 }
 
 $designName = $console->path[1]."_one";
