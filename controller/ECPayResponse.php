@@ -1,5 +1,7 @@
 <?php 
 	include_once('header.php'); 
+	include_once(APP_PATH.'class/ECPay.class.php');					//綠界
+	include_once(APP_PATH.'class/ECPayLog.class.php');				//綠界
 
 	/**
 	 * 綠界回傳資訊
