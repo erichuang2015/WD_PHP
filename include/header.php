@@ -38,10 +38,10 @@
 	ini_set("error_log", APP_PATH."error.log");
 	
 	//開啟session
-	if(!is_dir(APP_PATH.'sessionTemp')){
-		mkdir(APP_PATH.'sessionTemp');
-	}
-	session_save_path(APP_PATH."sessionTemp");
+	//if(!is_dir(APP_PATH.'sessionTemp')){
+	//	mkdir(APP_PATH.'sessionTemp');
+	//}
+	//session_save_path(APP_PATH."sessionTemp");
 	session_start();
 
 	if(php_sapi_name() != "cli"){
