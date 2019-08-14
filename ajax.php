@@ -358,4 +358,21 @@
 	}
 
 
+	if(isset($_GET["updateSubsidiary"])){
+		$basic = new MTsung\dataList($console,PREFIX."subsidiary","");
+		$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX,MAIN_SERVER_NAME);
+
+		if($data["list"] = $basic->getData()){
+			foreach ($data["list"] as $key => $value) {
+				$data["list"][$key]["bandwidth"] = 0;
+				if($temp = $cPanel->getBandwidth("year_month",$value["subDomain"].".".MAIN_SERVER_NAME,strtotime(date('Y-m-01', strtotime(DATE))))){
+					$data["list"][$key]["bandwidth"] = $console->formatSize(array_shift($temp));
+				}
+				$data["list"][$key]["dataSize"] = $console->formatSize($console->getDirSize("data/".($value["id"]+10000)."/"));
+				$data["list"][$key]["dbSize"] = $console->formatSize($console->getDatabaseSize(DB_PREFIX.$value["subDomain"]));
+				$basic->setData($data["list"][$key]);
+			}
+		}
+	}
+
 	exit;
