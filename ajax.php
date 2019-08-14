@@ -360,7 +360,7 @@
 
 	if(isset($_GET["updateSubsidiary"])){
 		$basic = new MTsung\dataList($console,PREFIX."subsidiary","");
-		$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX,MAIN_SERVER_NAME);
+		$cPanel = new MTsung\cPanel($console,$dbUser,$dbPass,DB_PREFIX);
 
 		if($data["list"] = $basic->getData()){
 			foreach ($data["list"] as $key => $value) {
