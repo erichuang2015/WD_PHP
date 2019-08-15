@@ -5,7 +5,17 @@
 
 列表
 ({section name=i loop=$data.list})
-    <li><a href="({$web.main_url})/({$console->path[0]})/({$data.list[i].urlKey})" ({if $data.list[i].id==$data.one.id})class="current">({$data.list[i].name})</a></li>
+	有發現資料輸出會變成  xxx|__|aaa|__|ccc 的狀況 
+	就用
+	({assign var="自己設定的變數名稱" value="|__|"|explode:要處理的變數})
+	({section name=j loop=$自己設定的變數名稱})
+		({$自己設定的變數名稱[j]})
+	({/section})
+	做輸出
+
+
+
+    <li><a href="({$web.main_url})/({$console->path[0]})/({$data.list[i].urlKey})" ({if $data.list[i].id==$data.one.id})class="current"({/if})>({$data.list[i].name})</a></li>
     ({$data.list[i].name})
     ({$web.main_url})/({$console->path[0]})/({$data.list[i].urlKey})
 ({/section})

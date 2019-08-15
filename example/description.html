@@ -8,6 +8,15 @@ path[0] 不含語系代碼
 
 列表資料取得(列表需要圖片的話用限制1張)
 ({section name=i loop=$data.list})
+  有發現資料輸出會變成  xxx|__|aaa|__|ccc 的狀況 
+  就用
+  ({assign var="自己設定的變數名稱" value="|__|"|explode:要處理的變數})
+  ({section name=j loop=$自己設定的變數名稱})
+    ({$自己設定的變數名稱[j]})
+  ({/section})
+  做輸出
+
+  
 	有分類的網址 = ({$web.main_url})/({$console->path[0]})/({$data.list[i].class.0.urlKey})/({$data.list[i].urlKey})
 			或  = ({$web.main_url})/({$console->path[0]})/detail/({$data.list[i].urlKey})
 
