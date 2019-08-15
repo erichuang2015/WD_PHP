@@ -50,7 +50,7 @@ switch ($console->path[1]) {
         	}
         }
 
-		$requiredArray = array("name","class","specificationsID","specifications","stock","maxCount");
+		$requiredArray = array("name","specificationsID","specifications","stock","maxCount");
 }
 /**設定**/
 

@@ -68,7 +68,7 @@ CREATE TABLE `database_admin` (
   `linePicture` mediumtext COMMENT 'line大頭貼',
   `memo` mediumtext NOT NULL COMMENT '備註',
   `point` mediumtext COMMENT 'ATOU',
-  `doingTime` int(11) DEFAULT '3600' COMMENT 'ATOU',
+  `doingTime` int(11) DEFAULT '1200' COMMENT 'ATOU',
   PRIMARY KEY (`id`),
   UNIQUE KEY `account` (`account`),
   UNIQUE KEY `fbID` (`fbID`),
@@ -79,9 +79,9 @@ CREATE TABLE `database_admin` (
 
 INSERT INTO `database_admin` (`id`,`account`,`password`,`groupID`,`name`,`email`,`sex`,`picture`,`country`,`county`,`city`,`zipcode`,`address`,`company`,`landline`,`landline2`,`phone`,`phone2`,`fax`,`fax2`,`emailCheck`,`status`,`create_date`,`update_date`,`create_user`,`update_user`,`fbID`,`fbName`,`fbEmail`,`fbPicture`,`googleID`,`googleName`,`googleEmail`,`googlePicture`,`lineID`,`lineName`,`lineEmail`,`linePicture`,`memo`,`point`,`doingTime`) VALUES
 ('1','vipadmin','$2y$10$vdcAEXgjaN2oCoElBmIOru6J9WB.hIkwGRg1G6lkEB9RhhpGXhxye','1','vipadmin','toby@vipcase.net','','','','','','0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'0'),
-('2','service','$2y$10$0e14rlQE82WLN62PaOBgX.K3Q96hbmioOkO5ksWbkscVbBGoamJYy','2','客戶管理者','','','','','','','0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'3600'),
-('4','wdadmin','$2y$10$5LUQOkppr.KvWTrSA/pqwO2N/aWCvWwbNWjgAH08E86RRM/LEZvTK','1','網動','andy@vipcase.net','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600'),
-('5','wdadmin2','$2y$10$6KMWFlROxJzKL361FFJJyuaDV733IdAwe8FW6pdNUH.O0mZv57wL6','1','設計師','art@vipcase.net','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'3600');
+('2','service','$2y$10$0e14rlQE82WLN62PaOBgX.K3Q96hbmioOkO5ksWbkscVbBGoamJYy','2','客戶管理者','','','','','','','0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,'','','',NULL,'','','',NULL,'','','','',NULL,'1200'),
+('4','wdadmin','$2y$10$5LUQOkppr.KvWTrSA/pqwO2N/aWCvWwbNWjgAH08E86RRM/LEZvTK','1','網動','andy@vipcase.net','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'1200'),
+('5','wdadmin2','$2y$10$6KMWFlROxJzKL361FFJJyuaDV733IdAwe8FW6pdNUH.O0mZv57wL6','1','設計師','art@vipcase.net','','',NULL,NULL,NULL,'0','','','','','','','','','-1','1','2019-01-01 00:00:00','2019-01-01 00:00:00','vipadmin','vipadmin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'',NULL,'1200');
 
 
 DROP TABLE IF EXISTS `database_admin_group`;
@@ -361,7 +361,7 @@ CREATE TABLE `database_member` (
   `groupID` int(11) DEFAULT NULL COMMENT '群組',
   `name` varchar(191) DEFAULT NULL COMMENT '姓名',
   `email` varchar(191) DEFAULT NULL COMMENT '電子郵件',
-  `doingTime` int(11) DEFAULT '3600' COMMENT '閒置登出時間',
+  `doingTime` int(11) DEFAULT '1200' COMMENT '閒置登出時間',
   `sex` varchar(20) DEFAULT NULL COMMENT '1=男 2=女 3=不提供',
   `point` int(11) DEFAULT '0' COMMENT '紅利點數',
   `picture` text COMMENT '照片',
@@ -982,4 +982,3 @@ INSERT INTO `database_web_setting__zh_tw` (`id`,`name`,`detail`) VALUES
 ('23','companyPhone',''),
 ('24','companyEmail',''),
 ('25','companyAddress','');
-
