@@ -133,7 +133,7 @@ namespace MTsung{
 
 
 			if($_GET) $_GET = $this->trimData($_GET);
-			if($_POST) $_POST = $this->trimData($_POST);
+			// if($_POST) $_POST = $this->trimData($_POST);
 
 			$this->POSTVerifty();						//POSTtime
 			$this->CSRFVerifty();						//CSRF處理
