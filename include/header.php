@@ -9,8 +9,10 @@
 	ini_set("session.cookie_httponly", 1);
 
 	//session過期時間
-	ini_set('session.cookie_lifetime', 86400*3);
-	ini_set('session.gc_maxlifetime', 86400*3);
+	ini_set('session.cookie_lifetime', 86400);
+	ini_set('session.gc_maxlifetime', 86400);
+	ini_set('session.gc_probability', 1);
+	ini_set('session.gc_divisor', 1);
 
 	//只能在https傳遞
 	ini_set('session.cookie_secure', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']));
@@ -36,26 +38,6 @@
 
 	//errorlog路徑
 	ini_set("error_log", APP_PATH."error.log");
-	
-	//開啟session
-	//if(!is_dir(APP_PATH.'sessionTemp')){
-	//	mkdir(APP_PATH.'sessionTemp');
-	//}
-	//session_save_path(APP_PATH."sessionTemp");
-	session_start();
-
-	if(php_sapi_name() != "cli"){
-		//避免被偽造PHPSESSID攻擊 前一個IP與瀏覽器不同時將SESSION清除
-		if(isset($_SESSION['LAST_USER_AGENT']) && isset($_SESSION['LAST_REMOTE_ADDR'])){
-			if(($_SERVER['REMOTE_ADDR'] !== $_SESSION['LAST_REMOTE_ADDR']) && ($_SERVER['HTTP_USER_AGENT'] !== $_SESSION['LAST_USER_AGENT'])){
-				session_destroy();
-				header('Refresh:0;');
-			}
-		}
-		$_SESSION['LAST_REMOTE_ADDR'] = @$_SERVER['REMOTE_ADDR'];
-		$_SESSION['LAST_USER_AGENT'] = @$_SERVER['HTTP_USER_AGENT'];
-		
-	}
 
 	function secondAutoload($file){
 		$file = str_replace("MTsung\\", "", $file);
@@ -68,12 +50,16 @@
 	
 	include_once(APP_PATH.'config/define.php');
 	include_once(APP_PATH.'config/dataBase.php');//資料庫
+	if(0){
+		include_once(APP_PATH.'include/sysSession.php');//session存入資料庫
+	}else{
+		session_start();//使用預設
+	}
 	include_once(APP_PATH.'class/setting.class.php');//系統設定
 	include_once(APP_PATH.'class/userDeviceInfomation.trait.php');	//使用者裝置資訊
 	include_once(APP_PATH.'class/typeConst.const.php');				//const
 	include_once(APP_PATH.'include/main.php');//核心
 	include_once(APP_PATH.'class/uploadFile.class.php');// 上傳模組
-
 
 
 	$setting = new MTsung\setting($conn);
