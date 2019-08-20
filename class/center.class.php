@@ -150,7 +150,7 @@ namespace MTsung{
 					return false;
 				}
 
-				$data["update_date"] = DATE;
+				$data["update_date"] = date("Y-m-d H:i:s");
 				$oldData = $this->getData("where id='".$data["id"]."'")[0];
 				if($this->conn->AutoExecute($this->table,$data,"UPDATE","id='".$data["id"]."'")){
 					if(!$this->isTree && !$isSetAll) $this->sortTable();
@@ -170,7 +170,7 @@ namespace MTsung{
 				if(in_array("step", $this->getField())){
 					$data["step"] = 0;
 				}
-				$data["create_date"] = $data["update_date"] = DATE;
+				$data["create_date"] = $data["update_date"] = date("Y-m-d H:i:s");
 				$data["create_user"] = $data["update_user"];
 				if($this->conn->AutoExecute($this->table,$data,"INSERT")){
 

@@ -217,7 +217,7 @@ namespace MTsung{
 				}
 				unset($data["newPassword"],$data["checkNewPassword"]);
 
-				$data["update_date"] = DATE;
+				$data["update_date"] = date("Y-m-d H:i:s");
 				$data["id"] = $id;
 				if($this->setData($data)){
 					$this->message = $this->console->getMessage('USER_UPDATE_OK');

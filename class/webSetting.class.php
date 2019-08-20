@@ -96,7 +96,7 @@ namespace MTsung{
 				}
 			}
 			
-			$data["update_date"] = DATE;
+			$data["update_date"] = date("Y-m-d H:i:s");
 			$data["update_user"] = '__AUTO__';
 			if (isset($_SESSION[FRAME_NAME]["member"])) {
 				if($this->console->langSessionName=="Serback" && isset($_SESSION[FRAME_NAME]["member"]["serback"]["account"])){

@@ -199,7 +199,7 @@ namespace MTsung{
 					}
 				}
 			}
-			$data["update_date"] = DATE;
+			$data["update_date"] = date("Y-m-d H:i:s");
 			if(isset($data["name"])){
 				$temp = $this->conn->getRow("select * from ".$this->table." where id='".$id."'");
 				$oldFileName = $this->dirPath."/".$temp["type"]."/".$temp["name"];
