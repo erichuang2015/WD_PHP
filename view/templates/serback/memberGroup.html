@@ -36,6 +36,9 @@
                                     </th>
                                     <th scope="col">({$console->getLabel("NAME")})</th>
                                     <th scope="col">({$console->getLabel("DESHPRICE")})</th>
+                                    ({if $web.autoUpMoney})
+                                        <th scope="col">({$console->getLabel("自動升級門檻")})</th>
+                                    ({/if})
                                     <th scope="col">({$console->getLabel("STATUS")})</th>
                                     <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
                                     <th scope="col">({$console->getLabel("UPDATE_DATE")})</th>
@@ -58,6 +61,11 @@
                                         <td >
                                             <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">({$data.list[i].deshprice})%</a>
                                         </td>
+                                        ({if $web.autoUpMoney})
+                                            <td >
+                                                <a href="({$data.listUrl})/edit/({$data.list[i].id})({if $smarty.server.QUERY_STRING})?({$smarty.server.QUERY_STRING})({/if})">$({$data.list[i].upMoney})</a>
+                                            </td>
+                                        ({/if})
                                         <td>
                                             <div class="onoffswitch">
                                                 <input type="hidden" name="status_({$data.list[i].id})" value="0">
@@ -99,6 +107,16 @@
                                 <small class="text-muted">({$console->getLabel('DESHPRICE_SMALL')})</small>
                             </div>
                         </div>
+                        
+                        ({if $web.autoUpMoney})
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel('自動升級門檻')})</label>
+                                <input type="text" name="upMoney" class="form-control" value="({$data.one.upMoney})" data-text="({$console->getLabel('自動升級門檻')})" data-check="Number">
+                                <small class="text-muted">({$console->getLabel('以已付款的訂單作為計算數據')})</small>
+                            </div>
+                        </div>
+                        ({/if})
                         
                         <div class="form-row">
                             <div class="col-md-4 mb-3">

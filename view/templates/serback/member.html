@@ -137,7 +137,7 @@
                                 <div class="col-md-4 mb-3">
                                     <label>({$console->getLabel("MEMBER_LEVEL")})</label>
                                     <div class="form-group">
-                                        <select class="form-control" name="groupID" data-type="chosen" data-text="({$console->getLabel("MEMBER_LEVEL")})" data-placeholder="({$label_back["PLEASE_CHOOSE"]})" required>
+                                        <select class="form-control" name="groupID" data-type="chosen" data-text="({$console->getLabel("MEMBER_LEVEL")})" data-placeholder="({$label_back["PLEASE_CHOOSE"]})" required ({if $web.autoUpMoney})disabled({/if})>
                                             <option value="0" ({if 1==$data.one.groupID})selected({/if})>無</option>
                                             ({section name=i loop=$data.group})
                                                 <option value="({$data.group[i].id})" ({if $data.group[i].id==$data.one.groupID})selected({/if})>({$data.group[i].name})</option>

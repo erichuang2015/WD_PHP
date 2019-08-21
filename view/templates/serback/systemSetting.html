@@ -292,6 +292,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("會員自動升級")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="autoUpMoney" value="0">
+                                    <input type="checkbox" name="autoUpMoney" class="onoffswitch-checkbox" id="autoUpMoney" value="1" ({if $data.autoUpMoney})checked({/if})>
+                                    <label class="onoffswitch-label" for="autoUpMoney"></label>
+                                </div>
+                            </div>
+                        </div>
                         <small class="text-muted">
                             ({$console->getLabel('UPDATE_DATE')})
                             ({$data.update_date})(({$data.update_user}))

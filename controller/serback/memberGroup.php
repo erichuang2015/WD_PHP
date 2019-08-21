@@ -119,7 +119,7 @@ if(isset($console->path[1])){
 	}
 
 
-	if($data["list"] = $basic->getListData("order by id ",$searchKey)){
+	if($data["list"] = $basic->getListData("order by upMoney,id ",$searchKey)){
 		foreach ($data["list"] as $key => $value) {
 		}
 	}

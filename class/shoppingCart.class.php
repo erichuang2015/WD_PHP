@@ -1597,12 +1597,40 @@ namespace MTsung{
 		}
 
 	    /**
+	     * 自動判斷訂單會員升級
+	     * @param  [type] $orderNumber [description]
+	     * @return [type]              [description]
+	     */
+		function autoMemberGroup($orderNumber){
+			if(!$this->console->webSetting->getValue("autoUpMoney")){
+				return false;
+			}
+			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->table." where step>1 and orderNumber=?"),array($orderNumber));
+			if($temp["memberId"]){
+				$total = $this->conn->GetRow($this->conn->Prepare("select sum(total) as total from ".$this->table." where memberId=? and paymentStatus=? and status=1"),array($temp["memberId"],paymentStatusType::OK));
+				$total = $total["total"];
+
+				$member = new member($this->console,PREFIX.'member',"");
+				$memberGroup = new memberGroup($this->console,PREFIX.'member_group');
+
+				$groupID = "";
+				if($tempGroup = $memberGroup->getData("where upMoney<=? and status=1 order by upMoney desc",[$total])){
+					$groupID = $tempGroup[0]["id"];
+				}
+				$member->setUser($temp["memberId"],[
+					"groupID" => $groupID
+				]);
+			}
+		}
+
+	    /**
 	     * 付款成功
 	     * @param  [type] $orderNumber [description]
 	     * @return [type]              [description]
 	     */
 		function paymentIsOk($orderNumber){
 			$this->conn->Execute($this->conn->Prepare("UPDATE ".$this->table." SET step='3',update_user=?,update_date=?,paymentStatus=?,payment_date=? where orderNumber=?"),array($this->getUpdateUser(),DATE,paymentStatusType::OK,DATE,$orderNumber));
+			$this->autoMemberGroup($orderNumber);
 			$this->sendMail($orderNumber,orderSendMailType::PAYMENT_COMPLETED);
 		}
 
@@ -1628,6 +1656,7 @@ namespace MTsung{
 				return true;
 			}
 			$this->conn->Execute($this->conn->Prepare("UPDATE ".$this->table." SET step='3',update_user=?,update_date=?,paymentStatus=?,payment_date=? where orderNumber=?"),array($this->getUpdateUser(),DATE,$status,$date,$orderNumber));
+			$this->autoMemberGroup($orderNumber);
 		}
 
 	    /**

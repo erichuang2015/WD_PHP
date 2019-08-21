@@ -29,6 +29,7 @@ namespace MTsung{
 					  `name` varchar(191) NOT NULL COMMENT '名稱',
 					  `control` int(11) NOT NULL COMMENT '權值',
 					  `auth` text NOT NULL COMMENT '權限',
+					  `upMoney` int(11) NOT NULL COMMENT '自動升級門檻',
 					  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=開啟,0=關閉',
 					  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
 					  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最後修改時間',
