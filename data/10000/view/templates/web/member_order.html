@@ -162,7 +162,8 @@
                     <h3>購買人資料</h3>
                     <p>購買人姓名：({$data.order.formData.BuyName})</p>
                     <p>電子信箱：({$data.order.formData.BuyEmail})</p>
-                    <p>聯絡電話：({$data.order.formData.BuyPhone})</p>
+                    <p>電話號碼：({$data.order.formData.BuyCellPhone})</p>
+                    <p>手機號碼：({$data.order.formData.BuyPhone})</p>
                     <p>聯絡地址：({$data.order.formData.BuyAddress[0]})({$data.order.formData.BuyAddress[1]})({$data.order.formData.BuyAddress[2]})({$data.order.formData.BuyAddress[3]})</p>
                     <p>訂單備註：({$data.order.formData.memo})</p>
                     <!-- 顧客資料 -->
@@ -170,7 +171,8 @@
                     <h3>收件人資料</h3>
                     <p>收件人姓名：({$data.order.formData.ReceiverName})</p>
                     <p>電子信箱：({$data.order.formData.ReceiverEmail})</p>
-                    <p>聯絡電話：({$data.order.formData.ReceiverCellPhone})</p>
+                    <p>電話號碼：({$data.order.formData.ReceiverPhone})</p>
+                    <p>手機號碼：({$data.order.formData.ReceiverCellPhone})</p>
                     <p>聯絡地址：({$data.order.formData.ReceiverAddress[0]})({$data.order.formData.ReceiverAddress[1]})({$data.order.formData.ReceiverAddress[2]})({$data.order.formData.ReceiverAddress[3]})</p>
                     ({section name=i loop=$data.orderOtherField.dataName})
                         <p>({$console->getLabel($data.orderOtherField.dataName[i])})：({$data.order.formData[$data.orderOtherField.dataKey[i]]|replace:'|__|':','})</p>
