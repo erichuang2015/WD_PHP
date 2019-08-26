@@ -21,6 +21,9 @@ namespace MTsung{
 		 * @return [type]           [description]
 		 */
 		public function export($data=array(),$filename=DATE){
+			if(!$data){
+				exit("data is null.");
+			}
 
 			$csv = "";
 			foreach ($data as $key => $value) {
@@ -50,6 +53,9 @@ namespace MTsung{
 		 * @return [type]           [description]
 		 */
 		public function export_xls($data=array(),$filename=DATE){
+			if(!$data){
+				exit("data is null.");
+			}
 			$spreadsheet = new Spreadsheet();
 			$sheet = $spreadsheet->getActiveSheet();
 
