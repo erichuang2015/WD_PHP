@@ -70,7 +70,7 @@
 
 	//麵包屑
 	$breadcruI = 0;
-	$breadcru[$breadcruI++] = array(
-		"name" => $console->getLabel("INDEX"),
-		"url" => "/"
-	);
+	// $breadcru[$breadcruI++] = array(
+	// 	"name" => '<i class="fa fa-home" aria-hidden="true"></i>',//$console->getLabel("INDEX"),
+	// 	"url" => "/index"
+	// );

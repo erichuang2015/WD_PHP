@@ -39,7 +39,7 @@
                                     <option value="0" ({if !$data.one.dataRequired[i]})selected({/if})>({$console->getLabel("_NO")})</option>
                                     <option value="1" ({if $data.one.dataRequired[i]})selected({/if})>({$console->getLabel("_YES")})</option>
                                 </select>
-                                <span> fa：</span><input type="text" class="form-control" name="dataFa[]" value="({$data.one.dataFa[i]})">
+                                <!-- <span> fa：</span><input type="text" class="form-control" name="dataFa[]" value="({$data.one.dataFa[i]})"> -->
                                 <span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">
                             </div>
                         ({/section})
@@ -70,7 +70,7 @@
                                 '<option value="0">({$console->getLabel("_NO")})</option>'+
                                 '<option value="1">({$console->getLabel("_YES")})</option>'+
                             '</select>'+
-                            '<span> fa：</span><input type="text" class="form-control" name="dataFa[]" value="">'+
+                            // '<span> fa：</span><input type="text" class="form-control" name="dataFa[]" value="">'+
                             '<span> </span><input class="btn btn-outline-secondary" style="float:right;" type="button" value="({$console->getLabel('DELETE')})" onclick="$(this).parent().remove();">'+
                         '</div>');
                         checkboxI++;
