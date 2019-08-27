@@ -5,12 +5,12 @@
 $switch["buttonBox"] = 1;
 $switch["saveButton"] = 1;
 
-
+global $dbData;
 $tables = $this->conn->GetArray("SHOW TABLES");
 foreach ($tables as $key => $value) {
-	if(isset(explode("__",$value[0])[1]) && explode("__",$value[0])[1]==str_replace("-","_",$settingLang)){
-		$tables[$key]["key"] = explode("__",$value[0])[0];
-		$tables[$key]["name"] = $value[0];
+	if(isset(explode("__",$value["Tables_in_".$dbData])[1]) && explode("__",$value["Tables_in_".$dbData])[1]==str_replace("-","_",$settingLang)){
+		$tables[$key]["key"] = explode("__",$value["Tables_in_".$dbData])[0];
+		$tables[$key]["name"] = $value["Tables_in_".$dbData];
 	}else{
 		unset($tables[$key]);
 	}

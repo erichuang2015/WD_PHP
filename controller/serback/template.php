@@ -11,10 +11,11 @@ $fileTemplate = new MTsung\fileTemplate($console);
 $module["aceEditor"]["name"] = '_aceEditor';//POST欄位名稱，不可使用"aceEditor"
 
 
+global $dbData;
 $tables = $this->conn->GetArray("SHOW TABLES");
 foreach ($tables as $key => $value) {
-	if(isset(explode("__",$value[0])[1]) && explode("__",$value[0])[1]==str_replace("-","_",$settingLang)){
-		$tables[$key] = explode(PREFIX,explode("__",$value[0])[0])[1];
+	if(isset(explode("__",$value["Tables_in_".$dbData])[1]) && explode("__",$value["Tables_in_".$dbData])[1]==str_replace("-","_",$settingLang)){
+		$tables[$key] = explode(PREFIX,explode("__",$value["Tables_in_".$dbData])[0])[1];
 	}else{
 		unset($tables[$key]);
 	}
