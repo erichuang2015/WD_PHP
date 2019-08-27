@@ -139,7 +139,6 @@
 	if($_POST) $_POST = $console->XXSDataVerifty($_POST);//最後再htmlspecialchars
 
 	if($_GET["showData"] == 1){
-		$data = rmNumKey($data);
 		$console->outputJson(true,'',$data);
 	}
 	
@@ -147,17 +146,5 @@
 		$console->design->loadDisplay($designName.'.html');
 	}else{
 		$console->design->loadDisplay($console->controller.'.html');
-	}
-	function rmNumKey($data){
-		if(is_array($data)){
-			foreach ($data as $key => $value) {
-				if(is_array($value)){
-					$data[$key] = rmNumKey($value);
-				}else if(is_numeric($key)){
-					unset($data[$key]);
-				}
-			}
-		}
-		return $data;
 	}
 ?>
