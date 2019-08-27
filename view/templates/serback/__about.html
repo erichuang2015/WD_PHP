@@ -342,6 +342,15 @@
                 ({if $data.system.formData})
                     <!-- 表單資料 -->
                     <div class="card-body tab-pane fade" id="list-form-data">
+                        <!-- 自訂收件者 -->
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>({$console->getLabel('自訂')})({$console->getLabel('RECIPIENT_EMAIL')})</label>
+                                <input type="text" class="form-control" name="recipientEmail" value="({$data.one.recipientEmail})">
+                                <small class="text-muted">({$console->getLabel('複數個請使用逗號')})</small>
+                            </div>
+                        </div>
+
                         <input class="btn btn-outline-secondary mb-3" type="button" value="({$console->getLabel('ADD_DATA')})" onclick="addFormData();">
                         <div class="form-row form-inline" id="specifications_div" >
                             <input type="hidden" name="dataName">

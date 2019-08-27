@@ -357,7 +357,7 @@
 						$form->sendForm(array(
 							"keyName" => $data["one"]["dataName"],
 							"keyData" => explode("|__|", $input["keyData"])
-						),$_SERVER['HTTP_REFERER']);
+						),$_SERVER['HTTP_REFERER'],$data["one"]["recipientEmail"]);
 					}else{
 						$console->alert($form->message,-1);
 					}

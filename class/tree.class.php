@@ -210,7 +210,7 @@ namespace MTsung{
 			}
 			if($data){
 				foreach ($data as $key => $value) {
-					$data[$key]["next"] = $this->getTree($this->getData("where parent='".$value["id"]."' and status='1'"));
+					$data[$key]["next"] = $this->getTree($this->getData("where parent='".$value["id"]."' and status='1' order by step"));
 				}
 			}
 			return $this->console->urlKey($data);

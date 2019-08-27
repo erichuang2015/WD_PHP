@@ -42,7 +42,7 @@ namespace MTsung{
 		 * @param  [type] $data [description]
 		 * @return [type]       [description]
 		 */
-		function sendForm($data,$back){
+		function sendForm($data,$back,$recipientEmail=""){
 			$mail = new phpMailer($this->console);
 			$data["webUrl"] = HTTP_PATH;
 			$data["webName"] = $this->console->webSetting->getValue("webTitle");
@@ -51,7 +51,10 @@ namespace MTsung{
 				$mail->setMailFile($value["tmp_name"],$value["name"]);
 			}
 			$mail->setMailTitle($this->console->getMessage('CONTACT_FORM_MEIL'));
-			$mail->setMailAddress($this->console->setting->getValue("recipientEmail"));			
+			$mail->setMailAddress($this->console->setting->getValue("recipientEmail"));
+			if($recipientEmail){
+				$mail->setMailAddress($recipientEmail);
+			}
 			$mail->setMailBody("mail_forms-notice.html",array('data' => $data));
 			return $mail->sendMail($back,'MAIL_SEND_OK');
 		}
