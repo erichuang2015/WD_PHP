@@ -146,6 +146,17 @@
                             </div>
                         </div>
 
+                        <div class="form-row" id="div_findChildren">
+                            <div class="col-md-4 mb-3">
+                                <label>({$console->getLabel("當下一層有資料時自動進入下一層第一筆")})</label>
+                                <div class="onoffswitch">
+                                    <input type="hidden" name="findChildren" value="0">
+                                    <input type="checkbox" name="findChildren" class="onoffswitch-checkbox" id="findChildren" value="1" ({if $data.one.findChildren})checked({/if})>
+                                    <label class="onoffswitch-label" for="findChildren"></label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-row" id="div_page">
                             <div class="col-md-4 mb-3">
                                 <label>({$console->getLabel("PAGE_SETTING")})</label>
@@ -594,6 +605,11 @@
                                     $("input[name='alias']").val("product");
                                 }
 
+                                if($(obj).val()=="class/product" || $(obj).val()=="_other_class"){
+                                    $("#div_findChildren").show();
+                                }else{
+                                    $("#div_findChildren").hide();
+                                }
                             }
                         </script>
 

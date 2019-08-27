@@ -155,6 +155,19 @@
 					}else{
 						$data["oneClass"] = $class->getOne("and id=?",array($data["class"][0]["id"]),$explodeArray);
 					}
+
+					if($value["findChildren"] && !$console->path[2]){
+						$newUrl = "";
+						//下一層有資料時自動進入下一層第一筆
+						while($data["oneClass"]["id"] && $class->findChildren($data["oneClass"]["id"])){
+							$data["oneClass"] = $class->getOne("and parent=? order by sort limit 1",array($data["oneClass"]["id"]),$explodeArray);
+							$newUrl = $data["oneClass"]["urlKey"] ?: $data["oneClass"]["id"];
+						}
+						if($newUrl){
+							$console->HTTPStatusCode("301",HTTP_PATH.$console->path[0]."/".$newUrl);
+						}
+					}
+
 					$data["one"] = $data["oneClass"] = $console->urlKey($data["oneClass"]);
 					if($data["oneClass"]["id"]!=0){
 						$web_set["titlePrefix"] = $data["one"]["name"]."-".$web_set["titlePrefix"];
@@ -377,18 +390,17 @@
 
 	if($data["class"]){
 		$data["class"] = $console->urlKey($data["class"]);
-		$data["class_li_html"] = getClassHtml($data["class"],$html_path,$data["oneClass"]["id"]);
-		
+		$data["class_li_html"] = getClassHtml($data["class"],$html_path,$data["oneClass"]["id"],$class);
 	}
-	function getClassHtml($data,$html_path,$oneId){
+	function getClassHtml($data,$html_path,$oneId,$class){
 		foreach ($data as $key => $value) {
 			$aClass = '';
-			if($oneId == $value["id"]){
+			if($oneId == $value["id"] || in_array($oneId,$class->findChildren($value["id"]))){
 				$aClass = 'class="current"';
 			}
 			$classHtml .= '<li><a href="'.$html_path.$value["urlKey"].'" '.$aClass.'>'.$value["name"].'</a>';
 			if($value["next"]){
-				$classHtml .= '<ul>'.getClassHtml($value["next"],$html_path,$oneId).'</ul>';
+				$classHtml .= '<ul>'.getClassHtml($value["next"],$html_path,$oneId,$class).'</ul>';
 			}
 			$classHtml .= '</li>';
 		}
