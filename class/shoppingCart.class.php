@@ -367,7 +367,7 @@ namespace MTsung{
 				return false;
 			}
 			//加價購數量的也要算進去
-			$addCount = @$this->conn->GetRow($this->conn->Prepare("select count from ".$this->tableList." where parentId is NOT NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications))[0];
+			$addCount = @$this->conn->GetRow($this->conn->Prepare("select count from ".$this->tableList." where parentId is NOT NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications))["count"];
 			if(!$addCount) $addCount = 0;
 
 			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->tableList." where parentId is NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications));
@@ -426,7 +426,7 @@ namespace MTsung{
 				return false;
 			}
 			//加價購數量的也要算進去
-			$addCount = @$this->conn->GetRow($this->conn->Prepare("select count from ".$this->tableList." where parentId is NOT NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications))[0];
+			$addCount = @$this->conn->GetRow($this->conn->Prepare("select count from ".$this->tableList." where parentId is NOT NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications))["count"];
 			if(!$addCount) $addCount = 0;
 
 			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->tableList." where parentId is NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications));
@@ -491,7 +491,7 @@ namespace MTsung{
 				return false;
 			}
 			//原商品數量的也要算進去
-			$parentCount = @$this->conn->GetRow($this->conn->Prepare("select count from ".$this->tableList." where parentId is NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications))[0];
+			$parentCount = @$this->conn->GetRow($this->conn->Prepare("select count from ".$this->tableList." where parentId is NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications))["count"];
 			if(!$parentCount) $parentCount = 0;
 
 			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->tableList." where shoppingCartId=? and parentId=? and productId=? and specifications=?"),array($this->order["id"],$parentId,$id,$specifications));
@@ -563,7 +563,7 @@ namespace MTsung{
 				return false;
 			}
 			//原商品數量的也要算進去
-			$parentCount = @$this->conn->GetRow($this->conn->Prepare("select count from ".$this->tableList." where parentId is NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications))[0];
+			$parentCount = @$this->conn->GetRow($this->conn->Prepare("select count from ".$this->tableList." where parentId is NULL and shoppingCartId=? and productId=? and specifications=?"),array($this->order["id"],$id,$specifications))["count"];
 			if(!$parentCount) $parentCount = 0;
 
 			$temp = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->tableList." where shoppingCartId=? and parentId=? and productId=? and specifications=?"),array($this->order["id"],$parentId,$id,$specifications));
@@ -1562,7 +1562,7 @@ namespace MTsung{
 		 * @return [type]                 [description]
 		 */
 		function getOrderList($orderNumber){
-			$id = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->table." where step>1 and orderNumber=?"),array($orderNumber))[0];
+			$id = $this->conn->GetRow($this->conn->Prepare("select * from ".$this->table." where step>1 and orderNumber=?"),array($orderNumber))["id"];
 			return $this->conn->GetArray($this->conn->Prepare("select * from ".$this->tableList." where shoppingCartId=?"),array($id));
 		}
 

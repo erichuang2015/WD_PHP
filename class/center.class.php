@@ -174,7 +174,7 @@ namespace MTsung{
 				$data["create_user"] = $data["update_user"];
 				if($this->conn->AutoExecute($this->table,$data,"INSERT")){
 
-					$data["id"] = $this->conn->GetRow("SELECT LAST_INSERT_ID()")[0];
+					$data["id"] = $this->conn->GetRow("SELECT LAST_INSERT_ID() as id")["id"];
 					if($this->isUseClass){
 						$dataSort = array(
 							"classID" => $_GET["class"],
@@ -271,9 +271,9 @@ namespace MTsung{
 			$whereSql = $this->getSqlWhere($searchKey,strpos($whereSql,"class like")===false,$sqlArray).$whereSql;
 
 			$totalCount = 0;
-			$sql = preg_replace('/'.preg_quote('*', '/').'/', 'count(*)', 'select * from '.$this->table." ".$whereSql, 1);
+			$sql = preg_replace('/'.preg_quote('*', '/').'/', 'count(*) as total_count', 'select * from '.$this->table." ".$whereSql, 1);
 			if($temp = $this->conn->GetArray($this->conn->Prepare($sql),$sqlArray)){
-    			$totalCount = $temp[0][0];
+    			$totalCount = $temp[0]["total_count"];
 			}
 			$this->pageNumber = new pageNumber($this->console,$totalCount,$per,$pageViewMax,$queryName);
 			return $this->getData($whereSql." limit ".$this->pageNumber->getDataStart().",".$this->pageNumber->getPer(),$sqlArray);
@@ -380,7 +380,7 @@ namespace MTsung{
 			if($this->isUseClass && $temp){
 				foreach ($temp as $key => $value) {
 					if($sort = $this->conn->getRow("select sort from ".$this->tableSort." where classID='".$_GET["class"]."' and dataID='".$value["id"]."'")){
-						$temp[$key]["sort"] = $sort[0];
+						$temp[$key]["sort"] = $sort["sort"];
 					}
 				}
 				usort($temp, array($this, 'classSort'));

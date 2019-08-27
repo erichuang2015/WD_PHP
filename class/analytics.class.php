@@ -129,7 +129,7 @@ namespace MTsung{
 				}
 			}else{
 				$this->conn->AutoExecute($this->table,$data,"INSERT");
-				$id = $this->conn->GetRow("SELECT LAST_INSERT_ID()")[0];
+				$id = $this->conn->GetRow("SELECT LAST_INSERT_ID() as id")["id"];
 
 				$countPath = APP_PATH.DATA_PATH."count.txt";
 				$tempCount = 0;
@@ -197,9 +197,9 @@ namespace MTsung{
 			$startTime = strtotime($startTime)? $startTime : "1990-01-01";
 			$endTime = strtotime($endTime)? $endTime : "2999-01-01";
 			if($isRepeat){
-				return $this->conn->GetRow($this->conn->Prepare("select sum(count) from ".$this->table." where time>=? and time<=?"),array($startTime,$endTime))[0];
+				return $this->conn->GetRow($this->conn->Prepare("select sum(count) as c from ".$this->table." where time>=? and time<=?"),array($startTime,$endTime))["c"];
 			}else{
-				return $this->conn->GetRow($this->conn->Prepare("select count(count) from ".$this->table." where time>=? and time<=?"),array($startTime,$endTime))[0];
+				return $this->conn->GetRow($this->conn->Prepare("select count(count) as c from ".$this->table." where time>=? and time<=?"),array($startTime,$endTime))["c"];
 			}
 		}
 

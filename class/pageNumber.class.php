@@ -39,14 +39,14 @@ namespace MTsung{
 					// 取得筆數
 					if(!strpos($sql,'count(*)')){
 						// $sql = str_replace('*','count(*)',$sql);
-						$sql = preg_replace('/'.preg_quote('*', '/').'/', 'count(*)', $sql, 1);
+						$sql = preg_replace('/'.preg_quote('*', '/').'/', 'count(*) as total_count', $sql, 1);
 					}
 
 					if($temp = $this->conn->GetArray($sql)){
 		    			if(count($temp)>1){
 		    				$this->dataCount = count($temp);
 		    			}else{
-		    				$this->dataCount = $temp[0][0];
+		    				$this->dataCount = $temp[0]["total_count"];
 		    			}
 					}
 				}

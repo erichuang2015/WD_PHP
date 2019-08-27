@@ -177,7 +177,7 @@ namespace MTsung{
 		 * @return [type] [description]
 		 */
 		function getMaxFloor(){
-			return ($this->conn->GetRow("select max(floor) from ".$this->table."")[0]);
+			return ($this->conn->GetRow("select max(floor) as max_floor from ".$this->table."")["max_floor"]);
 		}
 
 		/**

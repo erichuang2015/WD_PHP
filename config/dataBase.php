@@ -150,6 +150,8 @@
 	//時區
 	$conn->Execute("SET GLOBAL time_zone = '+08:00';");
 	$conn->Execute("SET time_zone = '+08:00';");
+	
+	// $conn->SetFetchMode(ADODB_FETCH_ASSOC);
 
 	define('DATA_PATH',$dataPath);
 	if(!is_dir(APP_PATH.DATA_PATH)) mkdir(APP_PATH.DATA_PATH);

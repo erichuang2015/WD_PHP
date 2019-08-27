@@ -126,7 +126,7 @@ namespace MTsung{
 						}
 					}else{
 						$this->conn->AutoExecute($this->table,array("name" => $key , "detail" => $value),"INSERT");
-						$id = $this->conn->GetRow("SELECT LAST_INSERT_ID()")[0];
+						$id = $this->conn->GetRow("SELECT LAST_INSERT_ID() as id")["id"];
 						$this->systemLog->addLog("INSERT",$this->table,array(),array("id" => $id ,"name" => $key , "detail" => $value));
 					}
 				}
