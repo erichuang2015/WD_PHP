@@ -1,5 +1,7 @@
 <?php
-
+if(!$console->setting->getValue("analyticsCheck")){
+	$console->alert("功能未開啟",-1);
+}
 $analytics = new MTsung\analytics($console);
 
 //半年內流覽數
