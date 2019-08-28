@@ -56,7 +56,7 @@
                         <div class="col-md-6 mb-3">
                             <label>({$console->getLabel('RECIPIENT_EMAIL')})</label>
                             <input type="text" class="form-control" name="recipientEmail" value="({$data.recipientEmail})">
-                                <small class="text-muted">({$console->getLabel('PLURAL_COMMA_SEPARATION')})</small>
+                                <small class="text-muted">({$console->getLabel('PLURAL_COMMA_SEPARATION')})。({$console->getLabel('任何系統發送的信件都將會BCC至此信箱')})</small>
                         </div>
                     </div>
                     <div class="form-row">
@@ -606,14 +606,24 @@
             
                 <!-- embed code -->
                 <div class="card-body tab-pane fade" id="list-embed-code">
-                    <small class="text-muted">
-                        ({$console->getLabel('EMBED_CODE_TEXT')})
-                    </small>
-                    <hr>
+                    
                     <div class="form-row">
                         <div class="col-md-10 mb-3">
                             <label>({$console->getLabel('EMBED_CODE')})</label>
                             <textarea class="form-control" name="otherCode" rows="13">({$data.otherCode})</textarea>
+                            <small class="text-muted">
+                                ({$console->getLabel('EMBED_CODE_TEXT')})
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <label>({$console->getLabel('EMBED_CODE')})</label>
+                            <textarea class="form-control" name="otherCodeBody" rows="13">({$data.otherCodeBody})</textarea>
+                            <small class="text-muted">
+                                ({$console->getLabel('可在body開頭埋入代碼')})
+                            </small>
                         </div>
                     </div>
                     <small class="text-muted">
