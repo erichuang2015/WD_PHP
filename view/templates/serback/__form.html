@@ -32,6 +32,7 @@
                                             <label class="custom-control-label" for="checkAll"></label>
                                         </div>
                                     </th>
+                                    ({assign var="keyName" value=$data.list[0].keyName})
                                     ({section name=i loop=$data.list[0].keyName})
                                         <th scope="col">({$data.list[0].keyName[i]})</th>
                                     ({/section})
@@ -40,6 +41,23 @@
                             </thead>
                             <tbody>
                                 ({section name=i loop=$data.list})
+                                    ({if $keyName != $data.list[i].keyName})
+                                        ({assign var="keyName" value=$data.list[i].keyName})
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-striped">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col" width="2%">
+                                                    </th>
+                                                    ({section name=j loop=$data.list[i].keyName})
+                                                        <th scope="col">({$data.list[i].keyName[j]})</th>
+                                                    ({/section})
+                                                    <th scope="col">({$console->getLabel("CREATE_DATE")})</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    ({/if})
                                     <tr>
                                         <td scope="row">
                                             <div class="custom-control custom-checkbox">
@@ -56,11 +74,10 @@
                                             ({$data.list[i].create_date})
                                         </td>
                                     </tr>
-
                                 ({/section})
                                 
                             </tbody>
-                        </table>          
+                        </table>
                     </div>
 
                 ({/if})

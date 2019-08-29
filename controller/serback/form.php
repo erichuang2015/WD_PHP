@@ -92,8 +92,14 @@ if(isset($console->path[2])){
 	if($_GET["export"] == "1"){
 		$csv = new MTsung\csv();
 		if($data["list"]){
-			$output[] = explode("|__|", $data["list"][0]["keyName"]);
+			$keyName = $data["list"][0]["keyName"];
+			$output[] = explode("|__|", $keyName);
 			foreach ($data["list"] as $key => $value) {
+				if($keyName != $value["keyName"]){//keyname有變化時
+					$output[] = [];//空一行
+					$keyName = $value["keyName"];
+					$output[] = explode("|__|", $keyName);
+				}
 				$output[] = explode("|__|", $value["keyData"]);
 			}
 		}
