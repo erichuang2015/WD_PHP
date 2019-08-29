@@ -556,9 +556,16 @@
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverName})">
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$console->getLabel("RECEIVER_CELLPHONE")})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("收件人電話號碼")})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverPhone})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("收件人手機號碼")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.ReceiverCellPhone})">
                             </div>
@@ -588,7 +595,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">({$console->getLabel("BUY_CELLPHONE")})</label>
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("購買人電話號碼")})</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" value="({$data.order.formData.BuyCellPhone})">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">({$console->getLabel("購買人手機號碼")})</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" value="({$data.order.formData.BuyPhone})">
                             </div>

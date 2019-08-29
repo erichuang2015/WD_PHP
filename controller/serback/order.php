@@ -206,10 +206,123 @@ if(isset($console->path[1])){
 
 
 	$searchKey = array("orderNumber","formData");
-	if($data["list"] = $order->getListData($sql." and step>1 order by create_date desc",$searchKey)){
-		foreach ($data["list"] as $key => $value) {
-			$data["list"][$key]["formData"] = json_decode(htmlspecialchars_decode($value["formData"]),true);
-			$data["list"][$key]["orderList"] = $order->orderListReload($order->getOrderList($value["orderNumber"]));
+	if($_GET["export"] == "1"){
+	    unset($_GET["per"]);
+		$csv = new MTsung\csv();
+		if($data["list"] = $order->getListData($sql." and step>1 order by create_date desc",$searchKey,0)){
+			foreach ($data["list"] as $key => $value) {
+				$data["list"][$key]["formData"] = json_decode(htmlspecialchars_decode($value["formData"]),true);
+				$data["list"][$key]["orderList"] = $order->orderListReload($order->getOrderList($value["orderNumber"]));
+				$data["list"][$key]["memberId"] = $order_member->getUser($value["memberId"]);
+			}
+
+			$output = array(array(
+				$console->getLabel("訂單編號"),
+				$console->getLabel("會員帳號"),
+				$console->getLabel("會員名稱"),
+				$console->getLabel("商品總額"),
+				$console->getLabel("運費"),
+				$console->getLabel("訂單總額"),
+				$console->getLabel("付款方式"),
+				$console->getLabel("付款狀態"),
+				$console->getLabel("出貨方式"),
+				$console->getLabel("出貨狀態"),
+				$console->getLabel("購買人姓名"),
+				$console->getLabel("購買人電話號碼"),
+				$console->getLabel("購買人手機號碼"),
+				$console->getLabel("購買人性別"),
+				$console->getLabel("購買人電子郵件"),
+				$console->getLabel("購買人郵遞區號"),
+				$console->getLabel("購買人地址"),
+				$console->getLabel("備註"),
+				$console->getLabel("收件人姓名"),
+				$console->getLabel("收件人電話"),
+				$console->getLabel("收件人性別"),
+				$console->getLabel("收件人電子郵件"),
+				$console->getLabel("收件人郵遞區號"),
+				$console->getLabel("收件人地址"),
+				$console->getLabel("收件人電話號碼"),
+				$console->getLabel("收件人手機號碼"),
+				$console->getLabel("配送時間"),
+				$console->getLabel("發票郵遞區號"),
+				$console->getLabel("發票地址"),
+				$console->getLabel("索取發票"),
+				$console->getLabel("公司抬頭"),
+				$console->getLabel("公司統編"),
+				$console->getLabel("超商店號"),
+				$console->getLabel("超商名稱"),
+				$console->getLabel("超商地址"),
+				$console->getLabel("建立時間"),
+				$console->getLabel("是否為加價購商品"),
+				$console->getLabel("商品名稱"),
+				$console->getLabel("規格名稱"),
+				$console->getLabel("單件金額"),
+				$console->getLabel("數量"),
+				$console->getLabel("金額")
+			));
+			foreach ($data["system"]["dataName"] as $key => $value) {
+				$output[0][] = $console->getLabel($value);
+			}
+			foreach ($data["list"] as $key => $value) {
+				foreach ($value["orderList"] as $keyList => $valueList) {
+					$tempArray = array();
+					$tempArray[] = $value["orderNumber"];
+					$tempArray[] = $value["memberId"]["account"];
+					$tempArray[] = $value["memberId"]["name"];
+					$tempArray[] = $value["total"]+$value["deshpriceMoney"]+$value["pointDownMoney"]+$value["couponMoney"];
+					$tempArray[] = $value["freight"];
+					$tempArray[] = $value["total"]+$value["freight"];
+					$tempArray[] = $data["paymentTitle"][$value["paymentMethod"]];
+					$tempArray[] = strip_tags($data["paymentStatus"][$value["paymentStatus"]]);
+					$tempArray[] = $data["shipmentTitle"][$value["shipmentMethod"]];
+					$tempArray[] = strip_tags($data["shipmentStatus"][$value["shipmentStatus"]]);
+					$tempArray[] = $value["formData"]["BuyName"];
+					$tempArray[] = $value["formData"]["BuyCellPhone"];
+					$tempArray[] = $value["formData"]["BuyPhone"];
+					$tempArray[] = $value["formData"]["BuySex"];
+					$tempArray[] = $value["formData"]["BuyEmail"];
+					$tempArray[] = $value["formData"]["BuyZip"];
+					$tempArray[] = implode(",",$value["formData"]["BuyAddress"]);
+					$tempArray[] = $value["formData"]["memo"];
+					$tempArray[] = $value["formData"]["ReceiverName"];
+					$tempArray[] = $value["formData"]["ReceiverPhone"];
+					$tempArray[] = $value["formData"]["ReceiverCellPhone"];
+					$tempArray[] = $value["formData"]["ReceiverSex"];
+					$tempArray[] = $value["formData"]["ReceiverEmail"];
+					$tempArray[] = $value["formData"]["ReceiverZip"];
+					$tempArray[] = implode(",",$value["formData"]["ReceiverAddress"]);
+					$tempArray[] = $value["formData"]["ReceiverPhone"];
+					$tempArray[] = $value["formData"]["contact_time"];
+					$tempArray[] = $value["formData"]["vehicleZip"];
+					$tempArray[] = $value["formData"]["vehicleAddress"];
+					$tempArray[] = $value["formData"]["invoiceType"];
+					$tempArray[] = $value["formData"]["companyName"];
+					$tempArray[] = $value["formData"]["companyGUINumber"];
+					$tempArray[] = $value["formData"]["CVSStoreID"];
+					$tempArray[] = $value["formData"]["CVSStoreName"];
+					$tempArray[] = $value["formData"]["CVSAddress"];
+					$tempArray[] = $value["create_date"];
+					$tempArray[] = $valueList["parentId"]?"yes":"no";
+					$tempArray[] = $valueList["name"];
+					$tempArray[] = $valueList["specificationsName"];
+					$tempArray[] = $valueList["price"];
+					$tempArray[] = $valueList["count"];
+					$tempArray[] = $valueList["count"]*$valueList["price"];
+					foreach ($data["system"]["dataKey"] as $data_key => $data_value) {
+						$tempArray[] = $value["formData"][$data_value];
+					}
+
+					$output[] = $tempArray;
+				}
+			}
+			$csv->export_xls($output);
+		}
+	}else{
+		if($data["list"] = $order->getListData($sql." and step>1 order by create_date desc",$searchKey)){
+			foreach ($data["list"] as $key => $value) {
+				$data["list"][$key]["formData"] = json_decode(htmlspecialchars_decode($value["formData"]),true);
+				$data["list"][$key]["orderList"] = $order->orderListReload($order->getOrderList($value["orderNumber"]));
+			}
 		}
 	}
 
@@ -217,6 +330,7 @@ if(isset($console->path[1])){
 
 	// $switch["deleteButton"] = 1;
 
+	$switch["exportButton"] = 1;
 	$switch["saveButton"] = 1;
 	$switch["listList"] = 1;
 	$switch["searchBox"] = 1;

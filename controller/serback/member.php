@@ -6,22 +6,6 @@ $memberList = new MTsung\member($console,PREFIX.'member',NULL);
 $memberGroupList = new MTsung\memberGroup($console,PREFIX.'member_group');
 $data["group"] = $memberGroupList->getData("order by id");
 
-$csvKeyArray = array("account","name","email","address","phone");
-
-if($_GET["export"] == "1"){
-	$csv = new MTsung\csv();
-	$temp = $memberList->getData();
-
-	foreach ($temp as $key => $value) {
-		foreach ($value as $key1 => $value1) {
-			if(!in_array($key1, $csvKeyArray) || is_numeric($key1)){
-				unset($temp[$key][$key1]);
-			}
-		}
-	}
-	$csv->export($temp);
-}
-
 include_once(CONTROLLER_PATH.'serback/__about.php');
 
 if(isset($module["uploadImg"])){
@@ -123,14 +107,50 @@ if(isset($console->path[1])){
 		}
 	}
 
-
 	//搜尋key
 	$searchKey = array(	
 						"name",
 						"account",
 						"email"
 						);
-	$data["list"] = $memberList->getListData(" order by create_date desc",$searchKey);
+	if($_GET["export"] == "1"){
+	    unset($_GET["per"]);
+		$csv = new MTsung\csv();
+		if($data["list"] = $memberList->getListData(" order by create_date desc",$searchKey,0)){
+			foreach ($data["list"] as $key => $value) {
+				$data["list"][$key]["group"] = $memberGroupList->getData("where id=?",[$value["groupID"]])[0]["name"];
+			}
+
+			$output = array(array(
+				$console->getLabel("帳號"),
+				$console->getLabel("姓名"),
+				$console->getLabel("等級"),
+				$console->getLabel("電子郵件"),
+				$console->getLabel("地址"),
+				$console->getLabel("紅利點數"),
+			));
+			foreach ($data["system"]["dataName"] as $key => $value) {
+				$output[0][] = $console->getLabel($value);
+			}
+			foreach ($data["list"] as $key => $value) {
+				$tempArray = array();
+				$tempArray[] = $value["account"];
+				$tempArray[] = $value["name"];
+				$tempArray[] = $value["group"];
+				$tempArray[] = $value["email"];
+				$tempArray[] = str_replace("|__|",",",$value["address"]);
+				$tempArray[] = $value["point"];
+
+				foreach ($data["system"]["dataKey"] as $data_key => $data_value) {
+					$tempArray[] = $value[$data_value];
+				}
+				$output[] = $tempArray;
+			}
+			$csv->export_xls($output);
+		}
+	}else{
+		$data["list"] = $memberList->getListData(" order by create_date desc",$searchKey);
+	}
 
 
 
@@ -141,6 +161,7 @@ if(isset($console->path[1])){
 	$switch["addButton"] = 1;
 	$data["addOnClick"] = "window.location.href='".$web_set['serback_url'].'/'.$console->path[0]."/add';";
 
+	$switch["exportButton"] = 1;
 	$switch["saveButton"] = 1;
 	$switch["listList"] = 1;
 	$switch["searchBox"] = 1;
