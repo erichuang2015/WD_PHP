@@ -12,6 +12,7 @@
 	if($temp["useTables"]){
 		foreach ($temp["useTables"] as $key => $value) {
 			if(!$value) continue;
+			$isClass = substr($value,-6) == "_class"; //是否為分類
 
 			if($features = $menu->getData("where tablesName=?",array($value))){
 				$features = $features[0];
@@ -27,8 +28,15 @@
 
 			if($console->isTables($value)){
 				$$value = new MTsung\dataList($console,PREFIX.$value,$lang);
-				//limit 50 取全部會佔用太多記憶體
-				if($data[$value] = $$value->getData("where 1=1 ".$statusSql." order by sort limit 50",array(),$explodeArray)){
+				if($isClass){
+					//分類全取出
+					$data[$value] = $$value->getData("where 1=1 ".$statusSql." order by step desc",array(),$explodeArray);
+				}else{
+					//limit 50 取全部會佔用太多記憶體
+					$data[$value] = $$value->getData("where 1=1 ".$statusSql." order by sort limit 50",array(),$explodeArray);
+				}
+				 
+				if($data[$value]){
 					foreach ($data[$value] as $key1 => $value1) {
 						$data[$value][$key1] = array_map(function($v){
 							if(!is_array($v)){
@@ -80,6 +88,21 @@
 					}
 				}
 				$data[$value] = $console->urlKey($data[$value]);
+				if($isClass){//是分類時
+					$idToKey = [];//id對應的key
+					// print_r($data[$value]);exit;
+					foreach ($data[$value] as $keyClass => $valueClass) {
+						$data[$value][$keyClass]["next"] = [];
+						$idToKey[$valueClass["id"]] = $keyClass;
+					}
+					foreach ($data[$value] as $keyClass => $valueClass) {
+						if($valueClass["parent"]){
+							array_unshift($data[$value][$idToKey[$valueClass["parent"]]]["next"],$data[$value][$keyClass]);
+							unset($data[$value][$keyClass]);
+						}
+					}
+					$data[$value] = array_reverse($data[$value]);
+				}
 			}
 		}
 	}

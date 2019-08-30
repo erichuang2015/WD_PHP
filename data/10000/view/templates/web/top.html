@@ -71,9 +71,7 @@
             <li class="sub"><a href="({$web.main_url})/product/all">產品總覽</a>
                 <ul class="sub-menu fade-in">
                     ({section name=i loop=$data.product_class})
-                        ({if $data.product_class[i].floor==0})
-                            <li><a href="({$web.main_url})/product/({$data.product_class[i].urlKey})">({$data.product_class[i].name})</a></li>
-                        ({/if})
+                        <li><a href="({$web.main_url})/product/({$data.product_class[i].urlKey})">({$data.product_class[i].name})</a></li>
                     ({/section})
                 </ul>
             </li>

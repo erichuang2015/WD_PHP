@@ -136,7 +136,7 @@
                                                 <option value="({$data.tables[i]})" ({if $data.one.useTables && in_array($data.tables[i],$data.one.useTables)})selected({/if})>({$data.tables[i]})</option>
                                             ({/section})
                                         </select>
-                                        <small class="text-muted">({$console->getLabel('USE_DATA_SMALL')})</small>
+                                        <small class="text-muted">({$console->getLabel('top.html的為共用資料，其他作為include時無作用，此功能最多取得50筆資料，分類則不限制')})</small>
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
                                                 <option value="({$data.tables[i]})">({$data.tables[i]})</option>
                                             ({/section})
                                         </select>
-                                        <small class="text-muted">({$console->getLabel('USE_DATA_SMALL')})</small>
+                                        <small class="text-muted">({$console->getLabel('top.html的為共用資料，其他作為include時無作用，此功能最多取得50筆資料，分類則不限制')})</small>
                                     </div>
                                 </div>
                             </div>
